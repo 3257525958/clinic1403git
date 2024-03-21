@@ -114,14 +114,13 @@ WSGI_APPLICATION = 'clinic1403.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'clinic14jfr_db',
+        'NAME': 'clinic14ouw_db',
         'USER': 'root',
-        'PASSWORD': 'z8qUknZdEu9yO8NlPpEb',
-        'HOST': 'clinic1403data-god-service',
+        'PASSWORD': 'ia3BcuXZKnLh6Z4wSfnc',
+        'HOST': 'clinic1403-3data-bmz-service',
 
     }
 }
