@@ -114,6 +114,7 @@ WSGI_APPLICATION = 'clinic1403.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -160,11 +161,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/app/public/static/'
-MEDIA_URL = '/app/public/media/'
+STATIC_URL = '/public/static/'
+MEDIA_URL = '/public/media/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
-# STATIC_ROOT='/app/public/static/'
-# MEDIA_ROOT='/app/public/media/'
+STATIC_ROOT= os.path.join(BASE_DIR,"public","static")
+MEDIA_ROOT= os.path.join(BASE_DIR,"public","media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
