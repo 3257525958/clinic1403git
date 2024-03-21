@@ -9,7 +9,6 @@
 </head>
 <body dir="rtl">
 <form action="" method="POST">
-    {% csrf_token %}
     <div class="maine">
         <!-- <img class="imgmaine" src="css/img/massage.jpg" alt="addcantact"> -->
         <p class="textobject">
@@ -99,6 +98,7 @@
       </div>
 
     </div>
+    {% csrf_token %}
 
             <button id="face" name="facebutton" value="accept" hidden >
                 اینتر

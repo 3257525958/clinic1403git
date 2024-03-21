@@ -292,8 +292,6 @@ def reservdef(request):
                 day.append(dayarr)
             day.pop(0)
             day.pop(0)
-            print("oooooooo",selectprocedure)
-
             return render(request,'timereserv.html',context={'day':day,
                                                              'person':" رزرو وقت برای " + selectprocedure[0] +" "+ selectprocedure[1] + "(" + selectprocedure[2] + ")",
                                                              })
@@ -453,7 +451,6 @@ def reservdef(request):
                 image_show = image_show,
                 satisfact = satisfact,
                                            )
-            print("aaaaaaaaaaaaaaaaaaaaaaaaaaa",selectprocedure)
             return render(request,'reserv_end.html',context={"selectprocedure":selectprocedure,
                                                              "firstname":ferstname_user,
                                                              "lastname":lastname_user,})
