@@ -9,8 +9,11 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
 from pathlib import Path
+import os
+
+import locale
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +27,7 @@ SECRET_KEY = 'django-insecure-2g&%dn06my3m55@+8_9%po(ro$qavn=d!7px(#zkqk6xwkz&^*
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+# ALLOWED_HOSTS = ['http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir']
 ALLOWED_HOSTS = []
 
 
@@ -37,7 +40,38 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'home_app.apps.HomeAppConfig',
+    'cantact_app.apps.CantactAppConfig',
+    'jalali_date',
+    'jobs_app.apps.JobsAppConfig',
+    'store_app.apps.StoreAppConfig',
+    'reserv_app.apps.ReservAppConfig',
+    'azbankgateways',
+    'peyment_app.apps.PeymentAppConfig',
 ]
+JALALI_DATE_DEFAULTS = {
+   'Strftime': {
+        'date': '%y/%m/%d',
+        'datetime': '%H:%M:%S _ %y%m%d',
+    },
+    'Static':{
+        'js':[
+            # loading datepicker
+            'admin/js/django_jalali.min.js',
+            # OR
+            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.core.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/calender.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.datepicker-cc.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.datepicker-cc-fa.js',
+            # 'admin/js/main.js',
+        ],
+        'css': {
+            'all': [
+                'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css',
+            ]
+        }
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +88,8 @@ ROOT_URLCONF = 'clinic1403.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates']
+        ,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,6 +114,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'clinicbajff_db',
+#         'USER': 'root',
+#         'PASSWORD': 'jz41nnvhx9jwmeg',
+#         'HOST': 'clinicbank-iwd-service',
+#
+#     }
+# }
 
 
 # Password validation
@@ -103,7 +148,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa-ir'
 
 TIME_ZONE = 'UTC'
 
@@ -115,9 +160,69 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/app/public/static/'
+MEDIA_URL = '/app/public/media/'
+STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
+STATIC_ROOT='/app/public/static/'
+MEDIA_ROOT='/app/public/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AZ_IRANIAN_BANK_GATEWAYS = {
+   'GATEWAYS': {
+       # 'BMI': {
+       #     'MERCHANT_CODE': '<YOUR MERCHANT CODE>',
+       #     'TERMINAL_CODE': '<YOUR TERMINAL CODE>',
+       #     'SECRET_KEY': '<YOUR SECRET CODE>',
+       # },
+       # 'SEP': {
+       #     'MERCHANT_CODE': '<YOUR MERCHANT CODE>',
+       #     'TERMINAL_CODE': '<YOUR TERMINAL CODE>',
+       # },
+       # 'ZARINPAL': {
+       #     'MERCHANT_CODE': '<YOUR MERCHANT CODE>',
+       #     'SANDBOX': 0,  # 0 disable, 1 active
+       # },
+       'IDPAY': {
+           'MERCHANT_CODE': '021de8d3-3eb3-40ba-b0e3-01883a6575e1',
+           'METHOD': 'POST',  # GET or POST
+           'X_SANDBOX': 1,  # 0 disable, 1 active
+       },
+       # 'ZIBAL': {
+       #     'MERCHANT_CODE': '64c2047fcbbc270017f4c6b2',
+       # },
+       # 'BAHAMTA': {
+       #     'MERCHANT_CODE': '<YOUR MERCHANT CODE>',
+       # },
+       # 'MELLAT': {
+       #     'TERMINAL_CODE': '<YOUR TERMINAL CODE>',
+       #     'USERNAME': '<YOUR USERNAME>',
+       #     'PASSWORD': '<YOUR PASSWORD>',
+       # },
+       # 'PAYV1': {
+       #     'MERCHANT_CODE': '<YOUR MERCHANT CODE>',
+       #     'X_SANDBOX': 0,  # 0 disable, 1 active
+       # },
+   },
+   # 'IS_SAMPLE_FORM_ENABLE': True, # اختیاری و پیش فرض غیر فعال است
+   'DEFAULT': 'IDPAY',
+   'CURRENCY': 'IRR', # اختیاری
+   'TRACKING_CODE_QUERY_PARAM': 'tc', # اختیاری
+   'TRACKING_CODE_LENGTH': 16, # اختیاری
+   'SETTING_VALUE_READER_CLASS': 'azbankgateways.readers.DefaultReader', # اختیاری
+   'BANK_PRIORITIES': [
+       # 'BMI',
+       # 'SEP',
+       # and so on ...
+   ], # اختیاری
+    # 'IS_SAMPLE_FORM_ENABLE': True,
+   'IS_SAFE_GET_GATEWAY_PAYMENT': True, #اختیاری، بهتر است True بزارید.
+   # 'CUSTOM_APP': None, # اختیاری
+}
+
+MERCHANT = '021de8d3-3eb3-40ba-b0e3-01883a6575e1'
+SANDBOX = True
