@@ -27,8 +27,8 @@ SECRET_KEY = 'django-insecure-2g&%dn06my3m55@+8_9%po(ro$qavn=d!7px(#zkqk6xwkz&^*
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# ALLOWED_HOSTS = ['http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir']
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -108,22 +108,22 @@ WSGI_APPLICATION = 'clinic1403.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'clinic14ouw_db',
-#         'USER': 'root',
-#         'PASSWORD': 'ia3BcuXZKnLh6Z4wSfnc',
-#         'HOST': 'clinic1403-3data-bmz-service',
-#
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'clinic14ouw_db',
+        'USER': 'root',
+        'PASSWORD': 'ia3BcuXZKnLh6Z4wSfnc',
+        'HOST': 'clinic1403-3data-bmz-service',
+
+    }
+}
 
 
 # Password validation
