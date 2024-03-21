@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href= "{%  static "/css/add_userfilee.css" %}">
+    <title>Document</title>
+</head>
+<body dir="rtl" >
+    <div class="maine">
+        <img class="imgmaine" src="{% static "img/massage2.jpg" %}" alt="addcantact">
+        <p class="textobject">
+            تشکیل پرونده بوتاکس
+        </p>
+            <div class="regester">
+            <form action="" class="nametable" method="POST">
+                {% csrf_token %}
+                <div class="box">
+                    <p class=>
+                        آیا تا به حال تزریق بوتاکس داشتید؟
+                    </p>
+                    <input type="radio"  name="r1"value="yes">
+                    <label for="r1"class="inputclass">بله</label>
+                    <input type="radio"  name="r1" value="no">
+                    <label for="r1">خیر</label>
+                </div>
+                <div class="box">
+                    <p class=>
+                        آیا بیماری خاصی دارید؟ 
+                    </p>
+                    <input type="radio"  name="r2" value="yes">
+                    <label for="r2" class="inputclass">بله</label>
+                    <input type="radio"  name="r2" value="no">
+                    <label for="r2">خیر</label>
+                </div>
+                <div class="box">
+                    <p class=>
+                         اگر دارویی استفاده میکنید در کادر زیر بنویسید
+                    </p>
+                    <input type="text" class="inputclassput" name="drug">
+                </div>
+                <div class="box">
+                    <p class=>
+                        آیا به دارو یا ماده خاصی حساسیت دارید؟
+                    </p>
+                    <input type="radio"  name="r3" value="yes">
+                    <label for="r3" class="inputclass">بله</label>
+                    <input type="radio"  name="r3" value="no">
+                    <label for="r3">خیر</label>
+                </div>
+                <div class="box">
+                    <p class=>
+                        آیا باردار هستید؟
+                    </p>
+                    <input type="radio"  name="r4" value="yes">
+                    <label for="r4" class="inputclass">بله</label>
+                    <input type="radio"  name="r4" value="no">
+                    <label for="r4">خیر</label>
+                </div>
+                <div class="box">
+                    <p class=>
+                        اخرین مرتبه که بوتاکس انجام دادید کی بوده؟
+                    </p>
+                    <input type="text" class="inputclassput" name="date_finaly">
+                </div>
+                <div class="box1">
+                    <input type="radio"  name="c1" value="با انتشار تصویرم به صورت واضح در فضای مجازی مشکل ندارم">
+                    <label for="c1" class="inputclass">با انتشار تصویرم به صورت واضح در فضای مجازی مشکل ندارم</label>
+                </div>
+                <div class="box1">
+                    <input type="radio"  name="c1" value="با انتشار تصویرم به صورت غیرواضح در فضای مجازی مشکل ندارم">
+                    <label for="c2" class="inputclass">با انتشار تصویرم به صورت غیرواضح در فضای مجازی مشکل ندارم</label>
+                </div>
+                <div class="box1">
+                    <input type="radio"  name="c1" value="با انتشار تصویرم در فضای مجازی مشکل دارم">
+                    <label for="c3" class="inputclass">با انتشار تصویرم در فضای مجازی مشکل دارم</label>
+                </div>
+                <div class="box1">
+                    <input type="checkbox"  name="c4" value="yes">
+                    <label for="c3" class="inputclass"><a href="" id="r1"> از عوارض و خطرات احتمالی تزریق بوتاکس مطلع شده و رضایت به انجام بوتاکس دارم </a></label>
+                </div>
+            <button class="regesterbuttonsave" name="filesendbutton" value="accept">
+                ارسال
+            </button>
+            <button class="regesterbuttoncancel" onclick = example();>
+                بازگشت
+            </button>
+        </div>
+        </form>
+    </div>
+    <label id="error" hidden>{{ error }}</label>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static "/js/userfile_botax.js" %}"></script>
+</body>
+</html>

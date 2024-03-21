@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static "css/login_form.css" %}">
+    <title>Document</title>
+</head>
+<body dir="rtl" >
+    <div class="maine">
+        <img class="imgmaine" src="{% static "img/massage2.jpg" %}" alt="login">
+        <p class="textobject">
+            ورود به حساب کاربری
+        </p>
+        <div class="regester">
+            <form action="" class="nametable" method="POST">
+           {% csrf_token %}
+                <div class="box">
+                    <p class=>
+                        کاربری(کد ملی):
+                    </p>
+                    <input type="number" size="11" class="inputclass" name="username">
+                </div>
+                <div class="box">
+                    <p class=>
+                         رمز(معمولا شماره تلفنتان رمز شماست):
+                    </p>
+                        <input type="text" class="inputclass" name="password">
+                </div>
+            <button class="regesterbuttonsave" name="button_send" value="accept">
+                ارسال
+            </button>
+            <button class="regesterbuttoncancel" name="button_back" value="accept">
+                بازگشت
+            </button>
+            <a class="save" href="/cantact/addcontact/">ثبت نام کنید</a>
+            <a class="save1" href="/cantact/ignor/">فراموش کردن یا تغییر رمز</a>
+            <label id="login_etebar" hidden >{{ login_etebar }}</label>
+    </form>
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static "/js/login_cantact.js" %}"></script>
+
+</body>
+</html>

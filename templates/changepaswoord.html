@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static "css/changhepaswoord.css" %}">
+    <title>Document</title>
+</head>
+<body dir="rtl" >
+    <div class="maine">
+        <img class="imgmaine" src="{% static "img/massage2.jpg" %}" alt="addcantact">
+        <p class="textobject">
+            وارد کردن رمز جدید
+        </p>
+        <div class="regester">
+            <form action="" class="nametable" method="POST">
+                {% csrf_token %}
+                <div class="box">
+                    <p>
+                        رمز جدیدی برای حساب کاربری خود وارد کنید
+                    </p>
+                    <input type="text" size="11" class="inputclass" name="newpass">
+                </div>
+                <button class="regesterbuttonsave" name="changhbutton" value="accept">
+                     ارسال
+                </button>
+            </form>
+        </div>
+    </div>>
+    <label id="etebar"  hidden>{{ etebar }}</label>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src = "{% static "js/changhepaswoord.js" %}"></script>
+
+</body>
+</html>

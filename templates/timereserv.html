@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href= "{% static "/css/timereserve.css" %}">
+    <title>Document</title>
+</head>
+<body>
+<form method="POST">
+{% csrf_token %}
+    <div >
+        <p id="titr">
+            رزرو آنلاین
+        </p>
+    </div>
+
+    <div class="main">
+            <div class="textbox">
+                <p class="textobject">
+                    {{ person }}
+                </p>
+            </div>
+            <div class="effects">
+                {% for t in day %}
+                    {% if t.0 != "false" %}
+                    <div  class="effects__item ">
+                        <p class="textboxxx">{{ t.0 }}</p>
+                        <br>
+                        {% if t.1 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="1,{{ forloop.counter}}" disabled>10 تا 10.5</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="1,{{ forloop.counter}}" >10 تا 10.5</button>
+                        {% endif %}
+                        {% if t.2 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="2,{{ forloop.counter}}" disabled>10.5 تا 11</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="2,{{ forloop.counter}}" >10.5 تا 11</button>
+                        {% endif %}
+                        {% if t.3 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="3,{{ forloop.counter}}" disabled>11 تا 11.5</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="3,{{ forloop.counter}}" >11 تا 11.5</button>
+                        {% endif %}
+                        {% if t.4 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="4,{{ forloop.counter}}" disabled>11.5 تا 12</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="4,{{ forloop.counter}}" >11.5 تا 12</button>
+                        {% endif %}
+                        {% if t.5 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="5,{{ forloop.counter}}" disabled>12 تا 12.5</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="5,{{ forloop.counter}}" >12 تا 12.5</button>
+                        {% endif %}
+                        {% if t.6 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="6,{{ forloop.counter}}" disabled>12.5 تا 1 </button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="6,{{ forloop.counter}}" >12.5 تا 13</button>
+                        {% endif %}
+                        {% if t.7 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="7,{{ forloop.counter}}" disabled>13 تا 13.5</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="7,{{ forloop.counter}}" >13 تا 13.5</button>
+                        {% endif %}
+                        {% if t.8 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="8,{{ forloop.counter}}" disabled>13.5 تا 14</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="8,{{ forloop.counter}}" >13.5 تا 14</button>
+                        {% endif %}
+                        {% if t.9 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="9,{{ forloop.counter}}" disabled>14 تا 14.5</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="9,{{ forloop.counter}}" >14 تا 14.5</button>
+                        {% endif %}
+                        {% if t.10 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="10,{{ forloop.counter}}" disabled>14.5 تا 15</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="10,{{ forloop.counter}}" >14.5 تا15</button>
+                        {% endif %}
+                        {% if t.11 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="11,{{ forloop.counter}}" disabled>15 تا 15.5</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="11,{{ forloop.counter}}" >15 تا 15.5</button>
+                        {% endif %}
+                        {% if t.12 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="12,{{ forloop.counter}}" disabled>15.5 تا 16</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="12,{{ forloop.counter}}" >15.5 تا 16.</button>
+                        {% endif %}
+                        {% if t.13 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="13,{{ forloop.counter}}" disabled>16 تا 16.5</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="13,{{ forloop.counter}}" >16 تا16.5.</button>
+                        {% endif %}
+                        {% if t.14 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="14,{{ forloop.counter}}" disabled>16.5 تا 17</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="14,{{ forloop.counter}}" >16.5 تا 17</button>
+                        {% endif %}
+                        {% if t.15 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="15,{{ forloop.counter}}" disabled>17 تا 17.5</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="15,{{ forloop.counter}}" >17 تا 17.5</button>
+                        {% endif %}
+                        {% if t.16 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="16,{{ forloop.counter}}" disabled>17.5 تا 18</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="16,{{ forloop.counter}}">  18 تا 17.5</button>
+                        {% endif %}
+                        {% if t.17 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="17,{{ forloop.counter}}" disabled>18 تا 18.5</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="17,{{ forloop.counter}}" >18 تا 18.5</button>
+                        {% endif %}
+                        {% if t.18 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="18,{{ forloop.counter}}" disabled>18.5 تا 19</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="18,{{ forloop.counter}}" >18.5 تا 19</button>
+                        {% endif %}
+                        {% if t.19 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="19,{{ forloop.counter}}" disabled>19 تا 19.5</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="19,{{ forloop.counter}}" >19 تا 19.5</button>
+                        {% endif %}
+                        {% if t.20 == "false" %}
+                            <button class="boxxx"  name="timeselect" value="20,{{ forloop.counter}}" disabled>19.5 تا 20</button>
+                        {% else %}
+                            <button class="boxxx"  name="timeselect" value="20,{{ forloop.counter}}" >19.5 تا 20</button>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+{% csrf_token %}
+</form>
+<label id="reservetebar" >{{  reservetebar }}</label>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static "/js/reserv.js" %}">    </script>
+
+</body>
+</html>

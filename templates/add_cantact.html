@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href= "{% static "css/add-cantact.css" %}">
+    <title>Document</title>
+</head>
+<body dir="rtl" >
+<div class="maine">
+        <img class="imgmaine" src="{% static "img/massage2.jpg" %}" alt="addcantact">
+        <p class="textobject">
+            فرم ثبت نام
+        </p>
+        <div class="regester">
+            <form action="" class="nametable" method="POST">
+                <div class="box">
+                    <p class=>
+                        نام:
+                    </p>
+                    <input type="text" size="11" class="inputclass" name="firstname" value="{{ firstname }}">
+                </div>
+                <div class="box">
+                    <p class=>
+                         نام خانوادگی:
+                    </p>
+                        <input type="text" class="inputclass" name="lastname" value="{{ lastname }}">
+                </div>
+                <div class="box">
+                    <p class=>
+                         کدملی:
+                    </p>
+                        <input type="number" maxlength="10" class="inputclass" name="melicod" value="{{ melicod }}">
+                </div>
+                <div class="box" >
+                    <p class=>
+                         تلفن:
+                    </p>
+                        <input type="number" class="inputclass" name="phonnumber" value="{{ phonnumber }}">
+                </div>
+
+                <div class="box">
+                    <p class=>
+                        تاریخ تولد:
+                    </p>
+                    <input type="text" disabled class="inputclass" value="{{ berthday_shamsi }}">
+                    <button class="texbutton" name="button_calandar" value="accept">
+                        تقویم
+                    </button >
+                </div>
+                <button class="regesterbuttonsave" name="button_send" value="accept">
+                    ارسال
+                </button>
+                <button class="regesterbuttoncancel" name="button_back" value="accept">
+                    بازگشت
+                </button>
+                <label id="melicod_etebar" hidden >{{ melicod_etebar }}</label>
+                {% csrf_token %}
+            </form>
+
+        </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static "/js/add_cantact.js" %}"></script>
+
+</body>
+</html>

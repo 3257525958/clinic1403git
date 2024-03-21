@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static "css/jobs.css" %}">
+    <title>Document</title>
+</head>
+<body dir="rtl" >
+    <div class="navbar" >
+        <button id="navbarbtn1" onclick="addjob()">
+            تعریف فعالیت جدید 
+        </button>
+        <button id="navbarbtn2" onclick="deletjob()">
+             حذف فعالیت از لیست
+        </button>
+        <button id="navbarbtn3" onclick="addemployee()">
+            تعریف نیروی جدید برای فعالیتها
+        </button>
+        <button id="navbarbtn4" onclick="melicodesearch()">
+            حذف نیرو از لیست 
+        </button>
+        <button id="navbarbtn5" onclick="servic()">
+             تعریف خدمت
+        </button>
+        <button id="navbarbtn6" onclick="deletservic()">
+             حذف خدمت
+        </button>
+    </div>
+
+<form action="" method="POST">
+{% csrf_token %}
+
+    <div class="maine">
+        <img class="imgmaine" src="{% static "/img/massage2.jpg" %}" alt="addcantact">
+        <p id="textobject">
+        </p>
+        <div id="regester" hidden >
+            <div  class="nametable">
+                <div class="newjob" hidden >
+                    <p class=>
+                        نام فعالیت :
+                    </p>
+                    <input type="text" size="1" class="inputclass" name="newjob">
+                    <p class=>
+                        عنوان کارمند :
+                    </p>
+                    <input type="text" size="1" class="inputclass" name="newemployee">
+                </div>
+                <div class="newjob" hidden >
+                    <p class=>
+                        لیست فعالیتها :
+                    </p>
+                    {% for job in  jobs %}
+                        <input type="radio" name="deletjob" value="{{ forloop.counter0 }}">{{ job }}
+                        <br>
+                    {% endfor %}
+                    <br>
+                </div>
+                <div class="newjob" hidden >
+                    <p class=>
+                        فعالیتهای مورد نظر را انتخاب کنبد :
+                    </p>
+                    {% for employee in  jobemployee %}
+                        <input type="radio" name="employeeforjob" value="{{ forloop.counter0 }}">{{ employee }}
+                        <br>
+                    {% endfor %}
+                    <p for="melicode">
+                        کد ملی فرد مورد نظر را وارد کنید :
+                    </p>
+                    <input type="number" name="melicode" class="inputclass"> 
+                </div>
+                <div class="newjob" hidden >
+                    <p for="meli">
+                        کد ملی فرد مورد نظر را وارد کنید:
+                    </p>
+                    <input type="number" name="employmelicode" class="inputclass">
+                </div>
+                <div class="newjob" hidden >
+                    <p for="meli">
+                        حدف شغل برای {{ employename }}
+                    </p>
+                    <p id="te" hidden>
+                        فعالیتهای مورد نظر برای حذف را انتخاب کنبد:
+                    </p>
+                    {% for emp in  employerjoblist %}
+                        <input type="radio" name="empnumber" value="{{ forloop.counter0 }}">{{ emp }}
+                        <br>
+                    {% endfor %}
+                </div>
+                <div class="newjob" hidden >
+                    <p class=>
+                        خدمت مورد نظرتان انتخاب کنید :
+                    </p>
+                    <select id="selectcss" name="servicselector" onchange="citylist();">
+                        <option>{{ servicselect }}</option>
+                        {% for servic in allservic %}
+                            <option value= "{{ forloop.counter0 }}">{{ servic }}</option>
+                        {% endfor %}
+                    </select>
+                    <p>
+                        جزئیات خدمت
+                    </p>
+                    <input type="text" size="1" class="inputclass" name="detalejob">
+                    <p id=textemployname>
+                        نام کارمند برای انجام خدمت را انتخاب کنید :
+                    </p>
+                    <select id="sel" name="employselector" hidden>
+                        {% for empj in emplist %}
+                            <option value= "{{ forloop.counter0 }}">{{ empj }}</option>
+                        {% endfor %}
+                    </select>
+                    <p>
+                        مدت زمان لازم برای انجام خدمت را مشخص کنید :
+                    </p>
+                    <select id="time" name="timename" hidden>
+                        <option value="نیم ساعت">نیم ساعت</option>
+                        <option value="یک ساعت">یک ساعت</option>
+                        <option value="یک و نیم ساعت">یک و نیم ساعت</option>
+                        <option value="دو ساعت">دو ساعت</option>
+                        <option value="دو نیم ساعت">دو نیم ساعت</option>
+                    </select>
+
+                    <p>
+                        هزینه انجام خدمت را به ریال وارد کنید :
+                    </p>
+                    <input type="number" size="1" class="inputclass" name="cast">
+                </div>
+                <div class="newjob" hidden >
+                    <p class=>
+                        خدمت مورد نظرتان انتخاب کنید :
+                    </p>
+                    <select id="selectcss" name="deletservicselect" >
+                        {% for delet in deletservics %}
+                            <option value= "{{ delet.id }}">{{ delet.work }} {{ delet.detalework }}</option>
+                        {% endfor %}
+                    </select>
+                 </div>
+
+
+            <button class="regesterbuttonsave" name="savejob" value="accept" hidden>
+                ثبت فعالیت
+            </button>
+            <button class="regesterbuttonsave" name="buttondeletjob" value="accept" hidden>
+                حدف فعالیت
+            </button>
+            <button class="regesterbuttonsave" name="addbuttonemployee" value="accept" hidden >
+                ثبت فعالیت برای فرد
+            </button>
+            <button class="regesterbuttonsave" name="deletemploy" value="accept" hidden >
+                حذف فعالیت برای فرد
+            </button>
+            <button class="regesterbuttonsave" name="cearshmelicode" value="accept" hidden >
+                بررسی کد ملی
+            </button>
+            <button id="face" name="facebutton" value="accept" hidden >
+                اینتر
+            </button>
+            <button class="regesterbuttonsave" name="servicsave" value="accept" hidden >
+                ثبت خدمت
+            </button>
+            <button class="regesterbuttonsave" name="servicdelet" value="accept" hidden >
+               حذف خدمت
+            </button>
+            <button id="regesterbuttoncancel" onclick="redirectt();" >
+                بازگشت
+            </button>
+        </div>
+    </div>
+    </div>
+
+<label id="newjobetebar"  hidden >{{ newjob_etebar }}</label>
+<label id="newemployetebar"  hidden >{{ newemploy_etebar }}</label>
+<label id="deletjob"  hidden >{{ delet_etebar }}</label>
+<label id="lenjob"  hidden >{{ actcount }}</label>
+<label id="useretebar"  hidden >{{ useretebar }}</label>
+<label id="employeeetebar"  hidden >{{ employeeetebar }}</label>
+<label id="employeemessage"  hidden >{{ employeemessage }}</label>
+<label id="deletemployetebar"  hidden >{{ deletemployetebar }}</label>
+<label id="selectjob"  hidden >{{ selectjob }}</label>
+<label id="allservic" hidden>{{  allservicforjava }}</label>
+<label id="deletworkmessage"  hidden >{{ deletworkmessage }}</label>
+<label id="addetebar" hidden>{{  addetebar }}</label>
+<label id="succes" hidden>{{  succes }}</label>
+</form>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static "/js/jobe.js" %}">    </script>
+
+</body>
+</html>

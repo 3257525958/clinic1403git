@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{%  static "css/ignor_cantact.css" %}">
+    <title>Document</title>
+</head>
+<body dir="rtl" >
+    <div class="maine">
+        <img class="imgmaine" src={% static "img/massage2.jpg" %} alt="addcantact">
+        <p class="textobject">
+            ورود به حساب کاربری
+        </p>
+        <div class="regester">
+            <form action="" class="nametable" method="POST">
+                <div class="box">
+                    <p class=>
+                        کد ملی خود را وارد کنید
+                    </p>
+                    <input type="number" size="11" class="inputclass" name="melicode">
+                </div>
+            <button class="regesterbuttonsave" name="button_send" value="accept">
+                ارسال
+            </button>
+            <button class="regesterbuttoncancel" name="button_back" value="accept">
+                بازگشت
+            </button>
+            <label id="ignor_etebar" hidden >{{ ignor_etebar }}</label>
+
+          {% csrf_token %}
+    </form>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static "/js/ignor_cantact.js" %}"></script>
+
+</body>
+</html>

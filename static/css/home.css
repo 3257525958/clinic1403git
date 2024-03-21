@@ -1,0 +1,717 @@
+:root{
+  --vcolor: rgb(۲۱۵, ۲۰۲, ۲۰۲);
+  --navbarcolor : rgb(۱۷۳, ۱۱۵, ۱۹۷);
+  --wet : 30%;
+  --zel_moraba: 80px;
+  --fasele_moraba : 0px;
+}
+
+@media only screen and (max-width: 600px)
+{
+    .navbar {
+        width: 100%;
+        height: 45px;
+        background-color: var(--navbarcolor);
+        position: relative;
+        border-radius: 10px;
+        display: inline-block;
+        
+    }
+    .textnavbarprofile {
+        margin-left: 30px;
+        margin-top: 14px;
+        font-family: tahoma;
+        color: rgb(0, 0, 0);
+        font-size: 90%;
+        position: absolute;
+        
+    }
+    .imgnavbarprofile{
+        width: 40px;
+        margin-left: 95px;
+        margin-top: 2px;
+        position: absolute;
+    }
+    .imgnavbarmenuo {
+        width: 35px;
+        margin-left: 86vw;
+        margin-top: 7px;
+        position: absolute;
+    }
+    .textnavbarmenuo {
+        margin-left: 81vw;
+        margin-top: 10px;
+        font-family: tahoma;
+        color: rgb(0, 0, 0);
+        font-size: 90%;
+        position: absolute;
+        
+    }
+    .manislidermenuo {
+      direction: rtl;
+      width: 100%;
+      height: 230px;
+      position: relative;
+      top: 15px;
+  }
+  .imgslidsho {
+      position: absolute;
+      width: 100%;
+      height: 205px;
+      border-radius: 2%;
+      z-index: 0;
+      top: 0px;
+
+    }
+    #gap1 {
+      position: relative;
+      display: inline-block;
+      top:15px;
+      width: 100%;
+      height: 30px;
+      background: linear-gradient( var(--vcolor),rgb(255,255,255), var(--vcolor));
+      border-radius: 5px;      
+    }
+    .textgap1{
+      position: absolute;
+      color: black;
+      left: calc( 50% - 30px );
+      top: 290px;
+      font-family: tahoma;
+      font-size: 100%;
+      font-style: oblique;
+      
+      }
+      .part4{
+        position: relative;
+        width: 410px;
+        height: 300px;
+        top: 40px;
+        left: calc(50% - 205px);
+        
+      }
+      .doctor1 {
+        width: 120px;
+        height: 300px;
+        display: inline-block;
+        position: absolute;
+        left: 0px;
+        top: 0x;
+      }
+      .doctor2 {
+        width: 120px;
+        height: 300px;
+        display: inline-block;
+        position: absolute;
+        left: 145px;
+        top: 0x;
+      }
+      .doctor3 {
+        width: 120px;
+        height: 300px;
+        display: inline-block;
+        position: relative;
+        left: 290px;
+        top: 0px;
+      }
+      .imgeefect{
+        width: 100%;
+        height: 247px;
+        display: inline-block;
+        position: absolute;
+        background:linear-gradient(to top , var(--vcolor) 3%,rgb(255, 255, 255,0) 30%);
+        opacity: 1;
+        border-radius: 5px;
+        left: 0px;
+        top: 0x;
+
+      }
+  
+    .boxdoctormassagefisial {
+        width: 100%;
+        height: 15%;
+        position: absolute;
+        top: 82%;
+        border-radius: 10px;
+
+    }
+
+    .imgdoctorlaserficial{
+        position: absolute;
+        width: 100%;
+        height: 82% ;
+        border-radius: 10px;
+    }   
+    .textdoctorficialmassge{
+        position: relative;
+        text-align: center;
+        margin-top: 8%;
+        color: rgb(255, 255, 255);
+        /* color:rgba(calc(var(--maincolo) + 100),40,226,1); */
+        font-family: tahoma;
+        font-size: 90%;
+        
+    }
+    #gap3 {
+        position: relative;
+        display: inline-block;
+        top:0px;
+        width: 100%;
+        height: 50px;
+        background: white;
+        border-radius: 5px;
+        
+    }
+
+    #gap2 {
+        position: relative;
+        display:block;
+        top:5vw;
+        width: 100%;
+        height: 5vw;
+        /* border: 2px blue solid; */
+    }
+    .moraba1{
+      width: var(--zel_moraba);
+      height: var(--zel_moraba);
+      background-color: rgb(70, 70, 70);
+      position: relative;
+      top: 140px;
+      left: calc(50% - var(--zel_moraba) * 2 - var(--fasele_moraba));
+      display: inline-block;  
+      border-radius: 20%;      
+    }
+    .tomoraba1 {
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        border-radius: 20%;
+        top: 3%;
+        left: 3%;
+        border: 2px rgb(36, 36, 36) solid;
+
+    }
+    .moraba2{
+      width: var(--zel_moraba);
+      height: var(--zel_moraba);
+      background-color: rgb(70, 70, 70);
+      position: relative;
+      top: 140px;
+      /* left: calc(50% - var(--zel_moraba) - var(--fasele_moraba)/2); */
+      left: calc(50% - var(--zel_moraba)*2 - var(--fasele_moraba));
+      display: inline-block;        
+      border-radius: 20%;      
+    }
+    .tomoraba2 {
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        border-radius: 20%;
+        top: 3%;
+        left: 3%;
+        border: 2px rgb(36, 36, 36) solid;
+    }
+    .moraba3{
+      width: var(--zel_moraba);
+      height: var(--zel_moraba);
+      background-color: rgb(70, 70, 70);
+      position: relative;
+      top: 140px;
+      left: calc(50% - var(--zel_moraba) * 2 - var(--fasele_moraba));
+      display: inline-block;        
+      border-radius: 20%;      
+    }
+    .tomoraba3 {
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        border-radius: 20%;
+        top: 3%;
+        left: 3%;
+        border: 2px rgb(36, 36, 36) solid;
+    }
+    .moraba4{
+      width: var(--zel_moraba);
+      height: var(--zel_moraba);
+      background-color: rgb(70, 70, 70);
+      position: relative;
+      top: 140px;
+      left: calc(50% - var(--zel_moraba) * 2 - var(--fasele_moraba));
+      display: inline-block;        
+      border-radius: 20%;      
+    }
+    .tomoraba4 {
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        border-radius: 20%;
+        top: 3%;
+        left: 3%;
+        border: 2px rgb(36, 36, 36) solid;
+    }
+     .textmoraba {
+        position: relative;
+        text-align: center;
+        margin-top: 37%;
+        color: black;
+        /* color:rgba(calc(var(--maincolo) + 100),40,226,1); */
+        font-family: tahoma;
+        font-size: 90%;
+        font-style: italic;
+        font-weight: 900;
+     }
+}
+/* ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp */
+.imgtomoraba {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 20%;
+}    
+#gap3 {
+  position: relative;
+  display: inline-block;
+  top:90px;
+  width: 100%;
+  height: 5px;
+  background: white;
+  border-radius: 5px;
+  
+}
+
+body {
+    background-color:var(--vcolor)
+}
+.menuo {
+    direction: rtl;
+    margin-top: 8px;
+    visibility: hidden;
+    position: absolute;
+}   
+
+
+
+@media only screen and (min-width: 600px)
+{
+    .navbar {
+        width: 100%;
+        height: 45px;
+        background-color: var(--navbarcolor);
+        position: relative;
+        border-radius: 10px;
+        display: inline-block;
+        
+    }
+    .textnavbarprofile {
+        margin-left: 30px;
+        margin-top: 14px;
+        font-family: tahoma;
+        color: rgb(0, 0, 0);
+        font-size: 90%;
+        position: absolute;
+        
+    }
+    .imgnavbarprofile{
+        width: 40px;
+        margin-left: 95px;
+        margin-top: 2px;
+        position: absolute;
+    }
+    .imgnavbarmenuo {
+        width: 35px;
+        margin-left: 86vw;
+        margin-top: 7px;
+        position: absolute;
+    }
+    .textnavbarmenuo {
+        margin-left: 81vw;
+        margin-top: 10px;
+        font-family: tahoma;
+        color: rgb(0, 0, 0);
+        font-size: 90%;
+        position: absolute;
+        
+    }
+    .manislidermenuo {
+      direction: rtl;
+      width: 80%;
+      height: 330px;
+      position: relative;
+      top: 15px;
+      left: 10%;
+  }
+  .imgslidsho {
+      position: absolute;
+      width: 100%;
+      height: 305px;
+      border-radius: 2%;
+      z-index: 0;
+      top: 0px;
+
+    }
+    #gap1 {
+      position: relative;
+      display: inline-block;
+      top:15px;
+      width: 100%;
+      height: 30px;
+      background: linear-gradient( var(--vcolor),rgb(255,255,255), var(--vcolor));
+      border-radius: 5px;      
+    }
+    .textgap1{
+      position: absolute;
+      color: black;
+      left: calc( 50% - 30px );
+      top: 390px;
+      font-family: tahoma;
+      font-size: 100%;
+      font-style: oblique;
+      
+      }
+      .part4{
+        position: relative;
+        width: calc(50% - 6px);
+        height: 300px;
+        top: 40px;
+        left: 2px;
+        display: inline-block;
+      }
+      .doctor1 {
+        width: var(--wet);
+        height: 300px;
+        display: inline-block;
+        position: absolute;
+        left: 3%;
+        top: 0x;
+      }
+      .doctor2 {
+        width: var(--wet);
+        height: 300px;
+        display: inline-block;
+        position: absolute;
+        left: calc(var(--wet) + 7%);
+        top: 0x;
+      }
+      .doctor3 {
+        width: var(--wet);
+        height: 300px;
+        display: inline-block;
+        position: relative;
+        left: calc(var(--wet) + var(--wet) + 10%);
+        top: 0px;
+      }
+      .imgeefect{
+        width: 100%;
+        height: 247px;
+        display: inline-block;
+        position: absolute;
+        background:linear-gradient(to top , var(--vcolor) 3%,rgb(255, 255, 255,0) 30%);
+        opacity: 1;
+        border-radius: 5px;
+        left: 0px;
+        top: 0x;
+
+      }
+  
+    .boxdoctormassagefisial {
+        width: 100%;
+        height: 15%;
+        position: absolute;
+        top: 82%;
+        border-radius: 10px;
+
+    }
+
+    .imgdoctorlaserficial{
+        position: absolute;
+        width: 100%;
+        height: 82% ;
+        border-radius: 10px;
+    }   
+    .textdoctorficialmassge{
+        position: relative;
+        text-align: center;
+        margin-top: 8%;
+        color: rgb(255, 255, 255);
+        /* color:rgba(calc(var(--maincolo) + 100),40,226,1); */
+        font-family: tahoma;
+        font-size: 90%;
+        
+    }
+    #gap3 {
+        position: relative;
+        display: inline-block;
+        top:80px;
+        width: 100%;
+        height: 20px;
+        background: linear-gradient(black,white,black);
+        border-radius: 5px;
+        
+    }
+
+    #gap2 {
+        position: relative;
+        display:block;
+        top:5vw;
+        width: 100%;
+        height: 5vw;
+        /* border: 2px blue solid; */
+    }
+    .moraba1{
+        width: 20%;
+        height: 20vw;
+        background-color: rgb(70, 70, 70);
+        position: relative;
+        top: 20vw;
+        left: 5%;
+        display: inline-block;  
+        border-radius: 20%;      
+    }
+    .tomoraba1 {
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        border-radius: 20%;
+        top: 3%;
+        left: 3%;
+        border: 2px rgb(36, 36, 36) solid;
+
+    }
+    .moraba2{
+        width: 20%;
+        height: 20vw;
+        background-color: rgb(70, 70, 70);
+        position: relative;
+        top: 20vw;
+        left: 7%;
+        display: inline-block;        
+        border-radius: 20%;      
+    }
+    .tomoraba2 {
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        border-radius: 20%;
+        top: 3%;
+        left: 3%;
+        border: 2px rgb(36, 36, 36) solid;
+    }
+    .moraba3{
+        width: 20%;
+        height: 20vw;
+        background-color: rgb(70, 70, 70);
+        position: relative;
+        top: 20vw;
+        left: 9%;
+        display: inline-block;        
+        border-radius: 20%;      
+    }
+    .tomoraba3 {
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        border-radius: 20%;
+        top: 3%;
+        left: 3%;
+        border: 2px rgb(36, 36, 36) solid;
+    }
+    .moraba4{
+        width: 20%;
+        height: 20vw;
+        background-color: rgb(70, 70, 70);
+        position: relative;
+        top: 20vw;
+        left: 11%;
+        display: inline-block;        
+        border-radius: 20%;      
+    }
+    .tomoraba4 {
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        border-radius: 20%;
+        top: 3%;
+        left: 3%;
+        border: 2px rgb(36, 36, 36) solid;
+    }
+     .textmoraba {
+        position: relative;
+        text-align: center;
+        margin-top: 37%;
+        color: black;
+        /* color:rgba(calc(var(--maincolo) + 100),40,226,1); */
+        font-family: tahoma;
+        font-size: 90%;
+        font-style: italic;
+        font-weight: 900;
+     }
+}
+/* body{
+    direction:rtl;
+    background-color:#f2f2f2;
+    font-family:tahoma;
+   } */
+   
+   /* منو */
+   #cssmenu,#cssmenu ul,#cssmenu ul li,#cssmenu ul ul {
+     list-style: none;
+     margin: 0;
+     padding: 0;
+     border: 0;
+   }
+   #cssmenu ul {
+     position: relative;
+     z-index: 597;
+     float: right;
+   }
+   
+   #cssmenu ul li.hover,
+   #cssmenu ul li:hover {
+     position: relative;
+     z-index: 599;
+     cursor: default;
+   }
+   #cssmenu ul ul {
+     margin-top: 1px;
+     visibility: hidden;
+     position: absolute;
+     top: 1px;
+     right: 99%;
+     z-index: 598;
+     width: 100%;
+   }
+   
+   #cssmenu ul li:hover > ul {
+     visibility: visible;
+   }
+   
+   #cssmenu {
+     font-size: 18px;
+     width: 200px;
+     box-shadow: 2px 5px 30px rgba(0,0,0,.1);
+   }
+   #cssmenu ul a,
+   #cssmenu ul a:link,
+   #cssmenu ul a:visited {
+     display: block;
+     color: #848889;
+     text-decoration: none;
+     font-weight: 300;
+   }
+   #cssmenu > ul {
+     float: none;
+   }
+   #cssmenu ul {
+     background: #fff;
+   }
+   #cssmenu > ul > li {
+     border-right: 3px solid #d7d8da;
+   }
+   #cssmenu > ul > li > a {
+     padding: 10px 20px;
+   }
+   #cssmenu > ul > li:hover {
+     border-right: 3px solid #3dbd99;
+   }
+   #cssmenu ul li:hover > a {
+     color: #3dbd99;
+   }
+   #cssmenu > ul > li:hover {
+     background: #f6f6f6;
+   }
+   
+   /* زیرمنوها - زیر آیتم ها */
+   #cssmenu ul ul a:link,
+   #cssmenu ul ul a:visited {
+     font-weight: 400;
+     font-size: 14px;
+   }
+   #cssmenu ul ul {
+     width: 180px;
+   }
+   #cssmenu ul ul a {
+     padding: 8px 0;
+     border-bottom: 2px solid #eeeeee;
+   }
+   #cssmenu ul ul li {
+     padding: 0 20px;
+     background: #fff;
+   }
+   #cssmenu ul ul li:last-child {
+     padding-bottom: 10px;
+   }
+   #cssmenu ul ul li:first-child {
+     padding-top: 10px;
+   }
+   #cssmenu ul ul li:last-child > a {
+     border-bottom: none;
+   }
+   
+
+
+/* --------------------------------------------------- */
+
+/* * {box-sizing: border-box;} */
+/* body {font-family: Verdana, sans-serif;}
+.mySlides {display: none;}
+img {vertical-align: middle;} */
+
+/* Slideshow container */
+.slideshow-container {
+  width: 100%;
+  position: relative;
+  margin-top: 0px;
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+
+
+/* -------------------------------------------------------- */

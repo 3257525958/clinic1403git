@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href= "{% static "/css/reser.css" %}">
+    <title>Document</title>
+</head>
+<body>
+<form method="POST">
+{% csrf_token %}
+    <div >
+        <p id="titr">
+            رزرو آنلاین
+        </p>
+    </div>
+
+    {% for w in job %}
+        <div class="maine" >
+                        <div class="textbox" >
+                            <p class="textobject" >
+                                {{ w }}
+                            </p>
+                        </div>
+             <div class="effectse" >
+                {% for d in works %}
+                    {% if d.work == w %}
+                        <button type="submit" class="effects__iteme " name="inputwork" value="{{ forloop.counter0 }}">
+                            <p class="effects__name" >{{ d.work }} {{ d.detalework }}</p>
+                            <p class="effects__name" >{{ d.person }}</p>
+                            <p class="effects__name" >{{ d.cast }}</p>
+                            <p class="effects__name" >زمان: {{ d.time }}</p>
+                        </button>
+                    {% endif %}
+                {% endfor %}
+             </div>
+        </div>
+        <br>
+    {% endfor %}
+    <button type="submit" class="regesterbuttoncancel" name="backbuttonfianal" value="accept">بازگشت</button>
+</form>
+</body>
+</html>

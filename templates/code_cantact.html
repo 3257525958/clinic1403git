@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static "css/code_cantact.css" %}">
+    <title>Document</title>
+</head>
+<body dir="rtl" >
+    <div class="maine">
+        <img class="imgmaine" src="{% static "img/massage2.jpg" %}" alt="addcantact">
+        <p class="textobject">
+            ورود به حساب کاربری
+        </p>
+        <div class="regester">
+            <form action="" class="nametable" method="POST">
+                {% csrf_token %}
+                <div class="box">
+                    <p name>
+                        کد ارسال شده به تلفن همراهتان را وارد کنید
+                    </p>
+                    <input type="number" size="11" class="inputclass" name="inputcode_regester">
+                </div>
+                <button class="regesterbuttonsave" name="buttoncode_send" value="accept">
+                    ارسال
+                </button>
+                <button class="regesterbuttoncancel">
+                    بازگشت
+                </button>
+                <button id="regesterbuttonrepeat" name="buttoncode_repeat" value="accept" >
+                    ارسال مجدد کد
+                </button>
+
+            </form>
+    <span class="box2"> زمان باقیمانده تا ارسال مجدد کد ...</span>
+    <span id="seconds">00</span>
+    <span class="dot">:</span>
+    <span id="minutes">0</span>
+    </div>
+    </div>
+
+    <label id="etebar"  hidden>{{ etebar }}</label>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src = "{% static "js/codetimer_cantact.js" %}"></script>
+
+</body>
+</html>

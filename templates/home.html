@@ -1,0 +1,240 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static "css/code_cantact.css" %}">
+    <link rel="stylesheet" type="text/css" href= "{% static "css/add-cantact.css" %}">
+    <link rel="stylesheet" type="text/css" href="{%  static "css/ignor_cantact.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/login_form.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+
+    <title>مرکز زیبایی دکتر اسدپور</title>
+</head>
+<body>
+    <div class="navbar">
+        {% if request.user.is_authenticated %}
+        <a href="logout/logout/">
+            <p class="textnavbarprofile">
+                {{ profilestatus }}
+            </p>
+{#            <img class="imgnavbarprofile" src="{% static "img/user.png" %}" alt="user">#}
+        </a>
+        {% else %}
+        <a href="cantact/login/">
+            <p class="textnavbarprofile">
+                پروفایل من
+            </p>
+{#            <img class="imgnavbarprofile" src="{% static "img/user.png" %}" alt="user">#}
+        </a>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <a  onclick="menuooo()" >
+            <img class="imgnavbarmenuo" src="{% static "img/menuo.png" %}" alt="menuo">
+            <p class="textnavbarmenuo">
+                منو
+            </p>
+        </a>
+        {% endif %}
+    </div>
+    <div class="manislidermenuo">
+            <div class="slideshow-container">
+                <div class="mySlides fade">
+                    <img class="imgslidsho" src="{%  static "img/team1.jpg" %}" >
+                </div>
+                
+                <div class="mySlides fade">
+                    <img class="imgslidsho" src="{%  static "img/massage2.jpg" %}" >
+                </div>
+                
+                <div class="mySlides fade">
+                    <img class="imgslidsho" src="{%  static "img/massage1.jpg" %}" >
+                </div>
+    
+            </div>
+            <div class="menuo">
+            <div id="cssmenu">
+              <ul>
+               <li><a href="/"><span>خانه</span></a></li>
+                  {% if loglevel == "مدیر" %}
+               <li><a href="jobs/"><span>فعالیتها</span></a></li>
+                  {% endif %}
+                  {% if loglevel != "دسترسی معمولی" %}
+               <li class="active"><a href="#"><span>کارمندان »</span></a>
+                <ul>
+                 <li><a href="reserv/leave/"><span>ساعت حضور</span></a>
+{#                  <ul>#}
+{#                   <li><a href="reserv/leave/"><span>ساعات حضور</span></a></li>#}
+{#                   <li><a href="#"><span>صفات HTML</span></a></li>#}
+{#                  </ul>#}
+                 </li>
+                 <li><a href="#"><span>بررسی حقوق</span></a>
+{#                  <ul>#}
+{#                   <li><a href="#"><span>انتخابگرهای CSS</span></a></li>#}
+{#                   <li><a href="#"><span>ویژگی های CSS</span></a></li>#}
+{#                  </ul>#}
+                 </li>
+                </ul>
+               </li>
+                  {% endif %}
+               <li><a href="#"><span>درباره ما</span></a></li>
+               <li><a href="#"><span>تماس با ما</span></a></li>
+              </ul>
+            </div>
+        </div>
+
+
+            <div style="text-align:center">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            </div>
+
+            
+    </div>
+    <div id="gap1">
+    </div>
+    <p class="textgap1">
+            خدمات ما
+    </p>
+<div class="part4">
+    <a href="reserv/reserv/">
+        <div class="doctor1">
+            <img class="imgdoctorlaserficial" src="{% static "img/team2.jpg" %}" alt="doctor">
+            <div class="imgeefect"></div>
+            <div class="boxdoctormassagefisial">
+                <p class="textdoctorficialmassge">
+                    رزرو آنلاین
+                </p>
+            </div>
+        </div>
+    </a>
+{##}
+{#    <a href="">#}
+{#        <div class="doctor2">#}
+{#            <img class="imgdoctorlaserficial" src="{%  static "img/ficial.jpg" %}" alt="doctor">#}
+{#            <div class="imgeefect"></div>#}
+{#            <div class="boxdoctormassagefisial">#}
+{#                <p class="textdoctorficialmassge">#}
+{#                    فیشیال و پاکسازی#}
+{#                </p>#}
+{#            </div>#}
+{#        </div>#}
+{#    </a>#}
+{##}
+{#    <a href="">#}
+{#        <div class="doctor3">#}
+{#            <img class="imgdoctorlaserficial" src="{% static "img/massage1.jpg" %}" alt="doctor">#}
+{#            <div class="imgeefect"></div>#}
+{#            <div class="boxdoctormassagefisial">#}
+{#                <p class="textdoctorficialmassge">#}
+{#                    ماساژ#}
+{#                </p>#}
+{#            </div>#}
+{#        </div>#}
+{#    </a>#}
+{#</div>#}
+{#<div class="part4">#}
+{#    <a href="">#}
+{#    <div class="doctor1">#}
+{#        <img class="imgdoctorlaserficial" src="{% static "img/massage1.jpg" %}" alt="doctor">#}
+{#        <div class="imgeefect"></div>#}
+{#        <div class="boxdoctormassagefisial">#}
+{#            <p class="textdoctorficialmassge">#}
+{#                لیزر موهای زائد#}
+{#            </p>#}
+{#        </div>#}
+{#    </div>#}
+{#    </a>#}
+{##}
+{#    <a href="">#}
+{#        <div class="doctor2">#}
+{#            <img class="imgdoctorlaserficial" src="{% static "/img/team3.jpg" %}" alt="doctor">#}
+{#            <div class="imgeefect"></div>#}
+{#            <div class="boxdoctormassagefisial">#}
+{#                <p class="textdoctorficialmassge">#}
+{#                    محصولات#}
+{#                </p>#}
+{#            </div>#}
+{#        </div>#}
+{#    </a>#}
+{##}
+{#    <a href="">#}
+{#        <div class="doctor3">#}
+{#            <img class="imgdoctorlaserficial" src="{% static "img/beauty_treatment_2.jpg" %}" alt="doctor">#}
+{#            <div class="imgeefect"></div>#}
+{#            <div class="boxdoctormassagefisial">#}
+{#                <p class="textdoctorficialmassge">#}
+{#                    کاشت#}
+{#                </p>#}
+{#            </div>#}
+{#        </div>#}
+{#    </a>#}
+
+</div>
+    <div id="gap3"></div>
+{#    <div class="moraba1">#}
+{#            <div class="tomoraba1">#}
+{#                <a href="">#}
+{#                    <img class="imgtomoraba" src= "{% static "/img/doctor.jpg" %}" alt="doctor">#}
+{#                    <p class="textmoraba">#}
+{#                        رزرو آنلاین#}
+{#                    </p>#}
+{#                </a>#}
+{#            </div>#}
+{#        </div>#}
+{#    <div class="moraba2">#}
+{#            <div class="tomoraba2">#}
+{#                <a href="">#}
+{#                    <img class="imgtomoraba" src="{% static "/img/doctor.jpg" %}" alt="doctor">#}
+{#                    <p class="textmoraba">#}
+{#                        نمونه کارها#}
+{#                    </p>#}
+{#                </a>#}
+{#            </div>#}
+{#        </div>#}
+{#    <div class="moraba3">#}
+{#            <div class="tomoraba3">#}
+{#                <a href="">#}
+{#                    <img class="imgtomoraba" src="{% static "/img/doctor.jpg" %}" alt="doctor">#}
+{#                    <p class="textmoraba">#}
+{#                        تخفیف ها#}
+{#                    </p>#}
+{#                </a>#}
+{#            </div>#}
+{#        </div>#}
+{#    <div class="moraba4">#}
+{#            <div class="tomoraba4">#}
+{#                <a href="">#}
+{#                    <img class="imgtomoraba" src="{%  static "/img/doctor.jpg" %}" alt="doctor">#}
+{#                    <p class="textmoraba">#}
+{#                        ثبت نظرات#}
+{#                    </p>#}
+{#                </a>#}
+{#            </div>#}
+{#        </div>#}
+
+        <div id="gap2"></div>
+        <div id="gap2"></div>
+        <div id="gap2"></div>
+        <div id="gap2"></div>
+        <div id="gap2"></div>
+        <div id="gap2"></div>
+        <div id="gap2"></div>
+        <div id="gap2"></div>
+<a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=361568&amp;Code=rfRJvt89x7WeFTvMVzE8">
+    <img referrerpolicy="origin" src="https://Trustseal.eNamad.ir/logo.aspx?id=361568&amp;Code=rfRJvt89x7WeFTvMVzE8" alt="" style="cursor:pointer" id="rfRJvt89x7WeFTvMVzE8">
+</a>
+
+<label id="loginetebar" hidden >{{  loginetebar }}</label><label id="etebar"  hidden>{{ etebar }}</label>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static "/js/homeeee.js" %}">    </script>
+
+
+
+    
+</body>
+</html>

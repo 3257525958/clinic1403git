@@ -1,0 +1,235 @@
+html {
+    box-sizing: border-box;
+  }
+:root{
+    --test : rgb(209, 151, 220);
+    --vred:209;
+    --vgreen:151;
+    --vblue:220;
+    --ghotr:3px;
+    --contrast:1;
+    --ekhtelaf:0.7;
+  }
+body {
+    direction: rtl;
+    margin: 10px;
+    font-family: cursive;
+    background: whitesmoke;
+    min-height: 100vh;
+  }
+#titr{
+    position: absolute;
+    width: 100%;
+    top: -2%;
+    font-family:Tahoma;
+    color: black;
+    text-align: center;
+    font-size: xx-large;
+  }
+.maine {
+    position: relative;
+    width: 350px;
+    height: 230px;
+    top: 100px;
+    left: calc(-50% + 175px);
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(var(--vred), var(--vgreen), var(--vblue),calc(var(--contrast) - var(--ekhtelaf)));
+    border-top: var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-left:var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-right:var(--ghotr) inset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-bottom:var(--ghotr) inset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-radius: 10px;
+    /* border: 4px solid blue; */
+    /* min-height: 100px   */
+  }
+.textbox {
+    display: inline-block;
+    /* background-color: rgb(var(--vred), var(--vgreen), var(--vblue),calc(var(--contrast) - var(--ekhtelaf))); */
+    position: relative;
+    /* top:5%; */
+    /* left: 100px; */
+    font-family:Tahoma;
+    color: black;
+    text-align: center;
+    font-size:large ;
+    font-weight: bold;
+}
+.textobject{
+  position: relative;
+}
+.effectse {
+   position: relative;
+   top: 0px;
+   left: 0%;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    overflow: auto;
+    padding: 0px 0;
+    /* background: rgb(var(--vred), var(--vgreen), var(--vblue),calc(var(--contrast) - var(--ekhtelaf)));   */
+    flex: 10 10 150px;
+    border-radius: 5px;
+    /* border: 1px solid gray; */
+    /* border-top: var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-left:var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-right:var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),calc(var(--contrast) - var(--ekhtelaf)));
+    border-bottom:var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),calc(var(--contrast) - var(--ekhtelaf))); */
+    margin: 0px ;
+    padding: 0px ;
+  }
+.effects__iteme {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 170px;
+    margin: 0 10px;
+    background: rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border: 2px solid rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    padding-bottom: 10px;
+    margin: 10px;
+    transition: .3s border;
+    line-height: 5px;
+  }
+.effects__item.selected ,
+.effects__item:hover {
+    border-color: var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),1);
+  }
+.effects__item.selected .effects__name,
+.effects__item:hover .effects__name {
+    color: var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    font-weight: bold;
+
+  }
+.maint {
+    position: relative;
+    text-align: center;
+    width:calc(100% / 13 * 12);
+    height: 1150px;
+    top: 100px;
+    left: calc(-50% + calc(100% / 13 * 6));
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(var(--vred), var(--vgreen), var(--vblue),calc(var(--contrast) - var(--ekhtelaf)));
+    border-top: var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-left:var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-right:var(--ghotr) inset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-bottom:var(--ghotr) inset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-radius: 10px;
+    /* border: 4px solid blue; */
+    /* min-height: 100px   */
+  }
+.boxxx{
+  position: relative;
+  top: 0px;
+  border: 3px unset rgb(var(--vred), var(--vgreen), var(--vblue),var(--ekhtelaf));
+  transition: .3s color;
+  width: 100px;
+  height: 35px;
+  border-radius: 5px;
+  font-family: "B Yekan";
+  font-size: 15px;
+  margin: 7px;
+}
+.boxxxf{
+  position: relative;
+  background: red;
+  top: 0px;
+  border: 3px unset rgb(var(--vred), var(--vgreen), var(--vblue),var(--ekhtelaf));
+  transition: .3s color;
+  width: 100px;
+  height: 35px;
+  border-radius: 5px;
+  font-family: "B Yekan";
+  font-size: 15px;
+  margin: 7px;
+}
+.textboxxx {
+  display: inline-block;
+  /* background-color: rgb(var(--vred), var(--vgreen), var(--vblue),calc(var(--contrast) - var(--ekhtelaf))); */
+  position: relative;
+  /* top:5%; */
+  /* left: 100px; */
+  font-family:  "B Yekan";
+  color: black;
+  text-align: center;
+  font-size:17px ;
+  font-weight: bold;
+}
+.effects {
+   position: relative;
+   top: 0px;
+   left: 0%;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    overflow: auto;
+    padding: 0px 0;
+    /* background: rgb(var(--vred), var(--vgreen), var(--vblue),calc(var(--contrast) - var(--ekhtelaf)));   */
+    flex: 10 10 125px;
+    border-radius: 5px;
+    /* border: 1px solid gray; */
+    /* border-top: var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-left:var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-right:var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),calc(var(--contrast) - var(--ekhtelaf)));
+    border-bottom:var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),calc(var(--contrast) - var(--ekhtelaf))); */
+    margin: 0px ;
+    padding: 0px ;
+  }
+.effects__item {
+    /* display: flex; */
+    flex-direction: column;
+    flex: 0 0 170px;
+    margin: 0 10px;
+    background: rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border: 2px solid rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    padding-bottom: 10px;
+    margin: 10px;
+    transition: .3s border;
+    line-height: 5px;
+  }
+.effects__name {
+    /* flex-grow: 1; */
+    color:black;
+  /* left:35px; */
+    position: relative;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* text-align: center; */
+    font-size: small;
+    /* padding: 0em; */
+    /* text-transform: capitalize; */
+    transition: .3s color;
+    /* user-select: none; */
+    font-family: "B Yekan";
+
+  }
+.effects__iteme.selected .effects__name,
+.effects__iteme:hover .effects__name,
+.boxxx:hover {
+    color: var(--ghotr) outset rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
+    font-weight: bold;
+  }
+.regesterbuttoncancel{
+    position: relative;
+    width: 120px;
+    height: 50px;
+    border-top: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1) ;
+    border-right: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1) ;
+    border-left: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1) ;
+    border-bottom: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1);
+    margin-right: calc(40% + 30px);
+    border-radius: 10px;
+    margin-top: 0px;
+    background-color: var(--vcolor);
+    font-family: Tahoma;
+    font-size: 90%;
+    top: 100px;
+    left: 30px;
+}

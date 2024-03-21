@@ -1,0 +1,241 @@
+
+:root{
+    --maintem:rgb(83, 5, 60);
+    --m:hsl(254, 100%, 8%);
+    --vred:0;
+    --vgreen:0;
+    --vblue:0;
+    --maincolo:20;
+    --vcolor:white;
+
+    --navbarcolor : rgb(0,0,0);
+    --wet : 30%;
+    --zel_moraba: 80px;
+    --fasele_moraba : 0px;
+  }
+  @media only screen and (max-width: 600px)
+  {}
+  @media only screen and (min-width: 600px)
+  {}
+    .navbar {
+          width: 100%;
+          height: 80px;
+          /* border: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1);
+          background:rgba(var(--vred),var(--vgreen),var(--vblue),.5); */
+          position: relative;
+          border-radius: 10px;
+          display: inline-block;
+          
+  }
+    #navbarbtn1 {
+          width: 15%;
+          height: 100%;
+          left: 83%;
+          background:rgba(var(--vred),var(--vgreen),var(--vblue),.5);
+          border: 2px solid rgb(var(--vred),var(--vgreen),var(--vblue));
+          border-radius: 10px;
+          font-family:Tahoma;
+          color:white;
+          text-align: center;
+          font-size: small;
+          position: absolute;
+  
+  }
+  #navbarbtn2 {
+          width: 15%;
+          height: 100%;
+          left: 67%;
+          background:rgba(var(--vred),var(--vgreen),var(--vblue),.5);
+          border: 2px solid rgb(var(--vred),var(--vgreen),var(--vblue));
+          border-radius: 10px;
+          font-family:Tahoma;
+          color:white;
+          text-align: center;
+          font-size: small;
+          position: absolute;
+  
+  }
+  #navbarbtn3 {
+          width: 15%;
+          height: 100%;
+          left: 51%;
+          background:rgba(var(--vred),var(--vgreen),var(--vblue),.5);
+          border: 2px solid rgb(var(--vred),var(--vgreen),var(--vblue));
+          border-radius: 10px;
+          font-family:Tahoma;
+          color:white;
+          text-align: center;
+          font-size: small;
+          position: absolute;
+  
+  }
+  #navbarbtn4 {
+          width: 15%;
+          height: 100%;
+          left: 35%;
+          background:rgba(var(--vred),var(--vgreen),var(--vblue),.5);
+          border: 2px solid rgb(var(--vred),var(--vgreen),var(--vblue));
+          border-radius: 10px;
+          font-family:Tahoma;
+          color:white;
+          text-align: center;
+          font-size: small;
+          position: absolute;
+  
+  }
+
+  #navbarbtn5 {
+        width: 15%;
+        height: 100%;
+        left: 19%;
+        background:rgba(var(--vred),var(--vgreen),var(--vblue),.5);
+        border: 2px solid rgb(var(--vred),var(--vgreen),var(--vblue));
+        border-radius: 10px;
+        font-family:Tahoma;
+        color:white;
+        text-align: center;
+        font-size: small;
+        position: absolute;
+
+}
+  #navbarbtn6 {
+          width: 15%;
+          height: 100%;
+          left: 3%;
+          background:rgba(var(--vred),var(--vgreen),var(--vblue),.5);
+          border: 2px solid rgb(var(--vred),var(--vgreen),var(--vblue));
+          border-radius: 10px;
+          font-family:Tahoma;
+          color:white;
+          text-align: center;
+          font-size: small;
+          position: absolute;
+
+  }
+
+.maine{
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 0px;
+    height: 700px;
+    text-align: center;
+    position: relative;
+
+}
+.imgmaine {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+#textobject {
+    position: absolute;
+    width: 100%;
+    top: -2%;
+    font-family:Tahoma;
+    color: black;
+    text-align: center;
+    font-size: xx-large;
+}
+
+#regester{
+    position: absolute;
+    height: 520px;
+    width: 290px;
+    border: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1);
+    top: 10%;
+    right: calc(50% - 145px);
+    border-radius: 15px;
+    background:rgba(var(--vred),var(--vgreen),var(--vblue),.7);
+}
+.nametable{
+    position: absolute;
+    top: 5px;
+    width: 270px;
+    height: 510px;
+    right: 10px;
+
+}
+.inputclass{
+    width: 240px;
+    height: 27px;
+    border-radius: 10px;
+    font-family: Tahoma;
+    font-size: 90%;
+    color: black;
+}
+#selectcss{
+    width: 240px;
+    height: 27px;
+    border-radius: 10px;
+    font-family: Tahoma;
+    font-size: 90%;
+    color: black;
+}
+#sel{
+    width: 240px;
+    height: 27px;
+    border-radius: 10px;
+    font-family: Tahoma;
+    font-size: 90%;
+    color: black;
+}
+#time{
+    width: 240px;
+    height: 27px;
+    border-radius: 10px;
+    font-family: Tahoma;
+    font-size: 90%;
+    color: black;
+}
+
+.regesterbuttonsave{
+    width: 120px;
+    height: 50px;
+    border-top: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1) ;
+    border-right: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1) ;
+    border-left: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1) ;
+    border-bottom: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1);
+    position: absolute;
+    border-radius: 10px;
+    background-color: var(--vcolor);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 85%;
+    top: 90%;
+    right: 1%;
+}
+#regesterbuttoncancel{
+    width: 120px;
+    height: 50px;
+    border-top: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1) ;
+    border-right: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1) ;
+    border-left: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1) ;
+    border-bottom: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1);
+    position: absolute;
+    margin-right: calc(40% + 30px);
+    border-radius: 10px;
+    margin-top: 0px;
+    background-color: var(--vcolor);
+    font-family: Tahoma;
+    font-size: 90%;
+    top: 90%;
+    right: 1%;
+}
+.texbutton {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    right: 2px;
+    border: 3px grey solid;
+    border-radius: 5px;
+    font-family: Tahoma;
+    font-size: 90%;
+    border-radius: 10px;
+
+}
+.newjob {
+    color: var(--vcolor);
+    font-family: tahoma;
+    font-size: 90%;
+    top: 1px;
+    text-align: right;
+}

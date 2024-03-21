@@ -1,0 +1,110 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href= "{%  static "/css/calandarr.css" %}">
+    <title>Document</title>
+</head>
+<body dir="rtl">
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="maine">
+        <!-- <img class="imgmaine" src="css/img/massage.jpg" alt="addcantact"> -->
+        <p class="textobject">
+            سال تولد خود را وارد کنید
+        </p>
+
+        <div class="calanderheadyear">
+            <input id="yeartabel"  type="number" maxlength="2" name="input_year"value="{{ year }}" oninput="yearselect(this.value)">
+{#            <select name="" class="yeartabel">#}
+{#                <option value="">1402</option>#}
+{#            </select>#}
+        </div>
+
+        <div class="calanderhead">
+           <button class="btnmounthup" name="button_upmounth" value="accept"><p class="monthup">&#10148 </p></button>
+            <p class="monthtext">{{ mounth }}</p>
+            <button class="btnmounthdown" name="button_downmounth" value="accept"><p class="monthdown">&#10148 </p></button>
+
+        </div>
+        <div class="calandeer">
+            <div class="clum1">
+                <div class="box1"> شنبه</div>
+                <div class="box2">یک شنبه</div>
+                <div class="box3">دو شنبه</div>
+                <div class="box4">سه شنبه</div>
+                <div class="box5">چهار شنبه</div>
+                <div class="box6">پنج شنبه</div>
+                <div class="box7">جمعه</div>
+            </div>
+            <div class="clum2">
+                <div class="box1"><button class="btn1"name="bbtn"value="1"><p class="textweek">{{ calandar_aray.1 }}</p></button></div>
+                <div class="box2"><button class="btn2"name="bbtn"value="2"><p class="textweek">{{ calandar_aray.2 }}</p></button></div>
+                <div class="box3"><button class="btn3"name="bbtn"value="3"><p class="textweek">{{ calandar_aray.3 }}</p></button></div>
+                <div class="box4"><button class="btn4"name="bbtn"value="4"><p class="textweek">{{ calandar_aray.4 }}</p></button></div>
+                <div class="box5"><button class="btn5"name="bbtn"value="5"><p class="textweek">{{ calandar_aray.5 }}</p></button></div>
+                <div class="box6"><button class="btn6"name="bbtn"value="6"><p class="textweek">{{ calandar_aray.6 }}</p></button></div>
+                <div class="box7"><button class="btn7"name="bbtn"value="7"><p class="textweek">{{ calandar_aray.7 }}</p></button></div>
+            </div>
+            <div class="clum3">
+                <div class="box1"><button class="btn1"name="bbtn"value="8"><p class="textweek">{{ calandar_aray.8 }}</p></button></div>
+                <div class="box2"><button class="btn2"name="bbtn"value="9"><p class="textweek">{{ calandar_aray.9 }}</p></button></div>
+                <div class="box3"><button class="btn3"name="bbtn"value="10"><p class="textweek">{{ calandar_aray.10 }}</p></button></div>
+                <div class="box4"><button class="btn4"name="bbtn"value="11"><p class="textweek">{{ calandar_aray.11}}</p></button></div>
+                <div class="box5"><button class="btn5"name="bbtn"value="12"><p class="textweek">{{ calandar_aray.12 }}</p></button></div>
+                <div class="box6"><button class="btn6"name="bbtn"value="13"><p class="textweek">{{ calandar_aray.13 }}</p></button></div>
+                <div class="box7"><button class="btn7"name="bbtn"value="14"><p class="textweek">{{ calandar_aray.14 }}</p></button></div>
+            </div>
+            <div class="clum4">
+                <div class="box1"><button class="btn1"name="bbtn"value="15"><p class="textweek">{{ calandar_aray.15 }}</p></button></div>
+                <div class="box2"><button class="btn2"name="bbtn"value="16"><p class="textweek">{{ calandar_aray.16 }}</p></button></div>
+                <div class="box3"><button class="btn3"name="bbtn"value="17"><p class="textweek">{{ calandar_aray.17 }}</p></button></div>
+                <div class="box4"><button class="btn4"name="bbtn"value="18"><p class="textweek">{{ calandar_aray.18 }}</p></button></div>
+                <div class="box5"><button class="btn5"name="bbtn"value="19"><p class="textweek">{{ calandar_aray.19 }}</p></button></div>
+                <div class="box6"><button class="btn6"name="bbtn"value="20"><p class="textweek">{{ calandar_aray.20 }}</p></button></div>
+                <div class="box7"><button class="btn7"name="bbtn"value="21"><p class="textweek">{{ calandar_aray.21 }}</p></button></div>
+            </div>
+            <div class="clum5">
+                <div class="box1"><button class="btn1"name="bbtn"value="22"><p class="textweek">{{ calandar_aray.22 }}</p></button></div>
+                <div class="box2"><button class="btn2"name="bbtn"value="23"><p class="textweek">{{ calandar_aray.23 }}</p></button></div>
+                <div class="box3"><button class="btn3"name="bbtn"value="24"><p class="textweek">{{ calandar_aray.24 }}</p></button></div>
+                <div class="box4"><button class="btn4"name="bbtn"value="25"><p class="textweek">{{ calandar_aray.25 }}</p></button></div>
+                <div class="box5"><button class="btn5"name="bbtn"value="26"><p class="textweek">{{ calandar_aray.26 }}</p></button></div>
+                <div class="box6"><button class="btn6"name="bbtn"value="27"><p class="textweek">{{ calandar_aray.27 }}</p></button></div>
+                <div class="box7"><button class="btn7"name="bbtn"value="28"><p class="textweek">{{ calandar_aray.28 }}</p></button></div>
+            </div>
+            <div class="clum6">
+                <div class="box1"><button class="btn1"name="bbtn"value="29"><p class="textweek">{{ calandar_aray.29 }}</p></button></div>
+                <div class="box2"><button class="btn2"name="bbtn"value="30"><p class="textweek">{{ calandar_aray.30 }}</p></button></div>
+                <div class="box3"><button class="btn3"name="bbtn"value="31"><p class="textweek">{{ calandar_aray.31 }}</p></button></div>
+                <div class="box4"><button class="btn4"name="bbtn"value="32"><p class="textweek">{{ calandar_aray.32 }}</p></button></div>
+                <div class="box5"><button class="btn5"name="bbtn"value="33"><p class="textweek">{{ calandar_aray.33 }}</p></button></div>
+                <div class="box6"><button class="btn6"name="bbtn"value="34"><p class="textweek">{{ calandar_aray.34 }}</p></button></div>
+                <div class="box7"><button class="btn7"name="bbtn"value="35"><p class="textweek">{{ calandar_aray.35 }}</p></button></div>
+            </div>
+            <div class="clum7">
+                <div class="box1"><button class="btn1"name="bbtn"value="36"><p class="textweek">{{ calandar_aray.36 }}</p></button></div>
+                <div class="box2"><button class="btn2"name="bbtn"value="37"><p class="textweek">{{ calandar_aray.37 }}</p></button></div>
+                <div class="box3"><button class="btn3"name="bbtn"value="38"><p class="textweek">{{ calandar_aray.38 }}</p></button></div>
+                <div class="box4"><button class="btn4"name="bbtn"value="39"><p class="textweek">{{ calandar_aray.39 }}</p></button></div>
+                <div class="box5"><button class="btn5"name="bbtn"value="40"><p class="textweek">{{ calandar_aray.40 }}</p></button></div>
+                <div class="box6"><button class="btn6"name="bbtn"value="41"><p class="textweek">{{ calandar_aray.41 }}</p></button></div>
+                <div class="box7"><button class="btn7"name="bbtn"value="42"><p class="textweek">{{ calandar_aray.42 }}</p></button></div>
+            </div>
+        </div>
+        <div id="w">
+            <div id="myBar" class="w3" hidden>0%</div>
+      </div>
+
+    </div>
+
+            <button id="face" name="facebutton" value="accept" hidden >
+                اینتر
+            </button>
+
+</form>
+<script src="{% static "/js/calandarr.js" %}">    </script>
+</body>
+</html>

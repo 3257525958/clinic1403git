@@ -1,0 +1,46 @@
+{% load  static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href= "{% static "/css/end.css" %}">
+    <title>مرکز زیبایی دکتر اسدپور</title>
+</head>
+<body dir="rtl" >
+<form method="get">
+    <div class="maine">
+        <img class="imgmaine" src="{% static "img/massage2.jpg" %}" alt="login">
+        <p class="textobject">
+           اطلاعات رزرو
+        </p>
+        <div class="regester">
+                <div class="box">
+                    <p>
+                         {{ result.5 }}  {{ result.6 }} عزیز
+                    </p>
+                    <p id="reservtext">
+                        پرداخت شما با موفقیت انجام شد کد رهگیری پرداخت:{{ result.2 }}
+                    </p>
+                    <P>
+                        خدمت رزرو شد:{{ result.7 }}
+                    </P>
+                    <p>
+                        تاریخ رزرو:{{ result.8 }}
+                    </p>
+                    <P>
+                        ساعت رزرو:{{ result.9 }}
+                    </P>
+                    <P>
+                        مراجعه کننده محترم با توجه به فشرده بودن وقتها حتما سر تایم مراجعه فرمایید
+                    </P>
+                </div>
+            <button class="regesterbuttoncancel" type="submit" name="backbutton" value="accept">
+                بازگشت
+            </button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
