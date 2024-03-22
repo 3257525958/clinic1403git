@@ -27,8 +27,8 @@ SECRET_KEY = 'django-insecure-2g&%dn06my3m55@+8_9%po(ro$qavn=d!7px(#zkqk6xwkz&^*
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://drmahdiasadpour.ir']
-ALLOWED_ORIGINS = ['http://*****','htpps://*****']
+ALLOWED_HOSTS = ['drmahdiasadpour.ir','www.drmahdiasadpour.ir']
+ALLOWED_ORIGINS = ['http://*****','https://*****']
 CSRF_TRUSTED_ORIGINS = ALLOWED_ORIGINS.copy()
 # ALLOWED_HOSTS = []
 
