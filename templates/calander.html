@@ -26,24 +26,24 @@
         {% if mounth == "0" %}
         <div class="calandeerm" >
             <div class="clumm1">
-                <div class="boxm1"><button class="btn1"name="mbtn"value="1"><p class="textmunth">فروردین</p></button></div>
-                <div class="boxm2"><button class="btn1"name="mbtn"value="2"><p class="textmunth">اردیبهشت</p></button></div>
-                <div class="boxm3"><button class="btn1"name="mbtn"value="3"><p class="textmunth">خرداد</p></button></div>
+                <div class="boxm1"><button class="btn1"name="mbtn"value="1"><p class="textmunth" onclick="move()">فروردین</p></button></div>
+                <div class="boxm2"><button class="btn1"name="mbtn"value="2"><p class="textmunth" onclick="move()">اردیبهشت</p></button></div>
+                <div class="boxm3"><button class="btn1"name="mbtn"value="3"><p class="textmunth" onclick="move()">خرداد</p></button></div>
             </div>
             <div class="clumm2">
-                <div class="boxm1"><button class="btn1"name="mbtn"value="4"><p class="textmunth">تیر</p></button></div>
-                <div class="boxm2"><button class="btn1"name="mbtn"value="5"><p class="textmunth">مرداد</p></button></div>
-                <div class="boxm3"><button class="btn1"name="mbtn"value="6"><p class="textmunth">شهریور</p></button></div>
+                <div class="boxm1"><button class="btn1"name="mbtn"value="4"><p class="textmunth" onclick="move()">تیر</p></button></div>
+                <div class="boxm2"><button class="btn1"name="mbtn"value="5"><p class="textmunth" onclick="move()">مرداد</p></button></div>
+                <div class="boxm3"><button class="btn1"name="mbtn"value="6"><p class="textmunth" onclick="move()">شهریور</p></button></div>
             </div>
             <div class="clumm3">
-                <div class="boxm1"><button class="btn1"name="mbtn"value="7"><p class="textmunth">مهر</p></button></div>
-                <div class="boxm2"><button class="btn1"name="mbtn"value="8"><p class="textmunth">آبان</p></button></div>
-                <div class="boxm3"><button class="btn1"name="mbtn"value="9"><p class="textmunth">آذر</p></button></div>
+                <div class="boxm1"><button class="btn1"name="mbtn"value="7"><p class="textmunth" onclick="move()">مهر</p></button></div>
+                <div class="boxm2"><button class="btn1"name="mbtn"value="8"><p class="textmunth" onclick="move()">آبان</p></button></div>
+                <div class="boxm3"><button class="btn1"name="mbtn"value="9"><p class="textmunth" onclick="move()">آذر</p></button></div>
             </div>
             <div class="clumm4">
-                <div class="boxm1"><button class="btn1"name="mbtn"value="10"><p class="textmunth">دی</p></button></div>
-                <div class="boxm2"><button class="btn1"name="mbtn"value="11"><p class="textmunth">بهمن</p></button></div>
-                <div class="boxm3"><button class="btn1"name="mbtn"value="12"><p class="textmunth">اسفند</p></button></div>
+                <div class="boxm1"><button class="btn1"name="mbtn"value="10"><p class="textmunth" onclick="move()">دی</p></button></div>
+                <div class="boxm2"><button class="btn1"name="mbtn"value="11"><p class="textmunth" onclick="move()">بهمن</p></button></div>
+                <div class="boxm3"><button class="btn1"name="mbtn"value="12"><p class="textmunth" onclick="move()">اسفند</p></button></div>
             </div>
 
         </div>
@@ -68,7 +68,7 @@
                 <div class="box7">جمعه</div>
             </div>
             <div class="clum2">
-                <div class="box1"><button class="btn1"name="bbtn"value="1"><p class="textweek">{{ calandar_aray.1 }}</p></button></div>
+                <div class="box1"><button class="btn1"name="bbtn"value="1"><p class="textweek" onclick="move()">{{ calandar_aray.1 }}</p></button></div>
                 <div class="box2"><button class="btn2"name="bbtn"value="2"><p class="textweek">{{ calandar_aray.2 }}</p></button></div>
                 <div class="box3"><button class="btn3"name="bbtn"value="3"><p class="textweek">{{ calandar_aray.3 }}</p></button></div>
                 <div class="box4"><button class="btn4"name="bbtn"value="4"><p class="textweek">{{ calandar_aray.4 }}</p></button></div>

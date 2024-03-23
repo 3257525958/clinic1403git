@@ -207,14 +207,6 @@ def addcantactdef(request):
         for user in users :
             if user.melicode == melicod :
                 melicod_etebar[0] = 'false'
-        # if len(str(melicod)) != 10:
-        #     melicod_etebar[0] = 'repeat'
-        #
-        # try:
-        #     melicod = str(int(melicod))
-        # except:
-        #     melicod_etebar[0] = 'stringerror'
-
         melicod_r[0] = melicod
 
     if melicod_r[0] == None :
@@ -236,6 +228,7 @@ def addcantactdef(request):
                                                         "year" : year[0],
                                                         "mounth": mounth_number[0],
                                                         "calandar_aray":calandar_array_for_show,
+                                                       "test": phonnumber_r[0],
                                                        })
 
 # -------اینجا وقتی یک ماه انتخاب میشه میاد و جدول هفته اون رو مشخص میکنه------------------------------------------------------------------------------
@@ -289,13 +282,11 @@ def addcantactdef(request):
                                                         "year" : year[0],
                                                         "mounth":cuntmounth(int(mounth_number[0])),
                                                         "calandar_aray":calandar_array_for_show,
-                                                        "test":cuntmounth(int(mounth_number[0])),
+                                                       "test": phonnumber_r[0],
                                                        })
 
 # ---------اگر دکمه تقئیم خورد سال رو به هم اکنون تغییر میده دقت شود که در مواد دیگه مثل بالا زدن-سال یا چیزی دیگه - button calandar برابر acceot میشد-----------------------------------متوجه شدم که placeholder-مقدارش داخل input خواهد بود----------------------------------------------------------------
     if button_calandar == "accept" :
-        # year[0] = int(str('14' + stry(datetime.datetime.now())))
-        # input_year = year[0]
         t[0] = datetime.datetime.now()
         calandar_array_for_show[0] = '0'
         calandar_array_for_miladidate[0] = datetime.datetime.now()
@@ -308,6 +299,7 @@ def addcantactdef(request):
                                                  "year": year[0],
                                                  "mounth": mounth_number[0],
                                                  "calandar_aray": calandar_array_for_show,
+                                                 "test":phonnumber_r[0],
                                                  })
 # ****************************************************کلید برگشت**********************************************
     if button_back == "accept" :
