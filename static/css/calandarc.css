@@ -115,19 +115,117 @@
     background:rgba(var(--vred),var(--vgreen),var(--vblue),0);
 
 }
-
-.monthtext{
-    width: 6%;
-    height: 30%;
-    margin-top: 1%;
-    margin-right: 43%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.textmunth {
+    font-family:Tahoma;
+    color: rgb(0, 0, 0);
+    text-align: center;
     font-size: 150%;
-    color: black;
-    display: inline-block;
-    position: absolute;
-    right: 0px;
+    margin: 0 auto;
+    top: 2px;
+
 }
+.textmunthheader{
+    font-family:Tahoma;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 150%;
+    margin: 0 auto;
+    top: 2px;
+    height: 50px;
+    width: calc(6*8px + 45*7px);
+    border: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1);
+    border-radius: 15px;
+    background:rgba(var(--vred),var(--vgreen),var(--vblue),.7);
+    position: absolute;
+    top: 150px;
+    right: calc(50% - 182px);
+
+}
+.calandeerm{
+    height: 218px;
+    width: calc(6*8px + 45*7px);
+    border: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1);
+    margin: 0 auto;
+    margin-top: 15px;
+    border-radius: 15px;
+    background:rgba(var(--vred),var(--vgreen),var(--vblue),.7);
+    position: absolute;
+    top: 150px;
+    right: calc(50% - 182px);
+
+}.boxm1 {
+    position: absolute;
+    width: 112px;
+    height: 45px;
+    top: 2px;
+    right:6px;
+    border: 2px white solid;
+    border-radius: 7px;
+}
+.boxm2 {
+    position: absolute;
+    width: 112px;
+    height: 45px;
+    top: 2px;
+    right: calc(6px + 6px + 112px);
+    border-radius: px;
+    border: 2px white solid;
+    border-radius: 7px;
+}
+.boxm3 {
+    position: absolute;
+    width: 112px;
+    height: 45px;
+    top: 2px;
+    right: calc(6px + 12px + 112*2px);
+    border: 2px white solid;
+    border-radius: 7px;
+}
+.clumm1 {
+    width: 100%;
+    height: 54px;
+    position: relative;
+    top: px;
+    font-family:Tahoma;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 110%;
+    font-style: oblique;
+}
+.clumm2 {
+    width: 100%;
+    height: 54px;
+    position: relative;
+    top: px;
+    font-family:Tahoma;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 110%;
+    font-style: oblique;
+}
+.clumm3 {
+    width: 100%;
+    height: 54px;
+    position: relative;
+    top: px;
+    font-family:Tahoma;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 110%;
+    font-style: oblique;
+}
+.clumm4 {
+    width: 100%;
+    height: 54px;
+    position: relative;
+    top: px;
+    font-family:Tahoma;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 110%;
+    font-style: oblique;
+}
+
 .calandeer{
     height: 378px;
     width: calc(6*8px + 45*7px);
@@ -139,7 +237,28 @@
     position: absolute;
     top: 200px;
     right: calc(50% - 182px);
+}
+.textweek {
+    font-family:Tahoma;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 150%;
+    margin: 0 auto;
+    top: 2px;
 
+}
+
+.calandarmunth{
+    height: 178px;
+    width: calc(6*8px + 45*7px);
+    border: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1);
+    margin: 0 auto;
+    margin-top: 15px;
+    border-radius: 15px;
+    background:rgba(var(--vred),var(--vgreen),var(--vblue),.7);
+    position: absolute;
+    top: 200px;
+    right: calc(50% - 182px);
 }
 .clum1 {
     width: 100%;

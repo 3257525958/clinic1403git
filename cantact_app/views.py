@@ -68,6 +68,35 @@ def strd(tdef):
     if rday == '09':
         rday = '9'
     return (rday)
+def cuntmounth(x):
+    w = ""
+    if x == 1 :
+        w = "فروردین"
+    if x == 2 :
+        w = "اردیبهشت"
+    if x == 3 :
+        w = "خرداد"
+    if x == 4 :
+        w = "تیر"
+    if x == 5 :
+        w = "مرداد"
+    if x == 6 :
+        w = "شهریور"
+    if x == 7 :
+        w = "مهر"
+    if x == 8 :
+        w = "آبان"
+    if x == 9 :
+        w = "آذر"
+    if x == 10 :
+        w = "دی"
+    if x == 11 :
+        w = "بهمن"
+    if x == 12 :
+        w = "اسفند"
+    return (w)
+
+
 def stra(tdef):
     x = str(datetime2jalali(tdef).strftime('%a %d %b %y'))
     rweek = x[0:3]
@@ -113,7 +142,8 @@ def strbd(tdef):
 t = [datetime.datetime.now()]
 t[0] = datetime.datetime.now()
 year = [int(str('14' + stry(datetime.datetime.now())))]
-year[0] =int(str('14' + stry(datetime.datetime.now())))
+year[0] = []
+# year[0] =int(str('14' + stry(datetime.datetime.now())))
 calandar_array_for_show = ['0']
 calandar_array_for_show[0] ='0'
 calandar_array_for_miladidate = [datetime.datetime.now()]
@@ -127,11 +157,12 @@ phonnumber_r = ['']
 berthmiladi_r = [datetime.datetime.now()]
 berthmiladi_r[0] = datetime.datetime.now()
 melicod_etebar = ['true']
+mounth_number = ['']
 def addcantactdef(request):
+    mounth_number[0] = request.POST.get('mbtn')
+    if mounth_number[0] == None :
+        mounth_number[0] == ''
     bbtn = request.POST.get("bbtn")
-    input_year = request.POST.get("input_year")
-    if (input_year == None) or (input_year == ''):
-        input_year = str(year[0])
     button_upmounth = request.POST.get("button_upmounth")
     button_downmounth = request.POST.get("button_downmounth")
     button_calandar = request.POST.get("button_calandar")
@@ -141,16 +172,18 @@ def addcantactdef(request):
     buttoncode_send = request.POST.get('buttoncode_send')
     inputcode_regester = request.POST.get('inputcode_regester')
     formuser = accuntform(request.POST, request.FILES)
-# ---------اگر دکمه تقئیم خورد سال رو به هم اکنون تغییر میده دقت شود که در مواد دیگه مثل بالا زدن-سال یا چیزی دیگه - button calandar برابر acceot میشد-----------------------------------متوجه شدم که placeholder-مقدارش داخل input خواهد بود----------------------------------------------------------------
-    if button_calandar == "accept" :
-        year[0] = int(str('14' + stry(datetime.datetime.now())))
-        input_year = year[0]
-        t[0] = datetime.datetime.now()
-        calandar_array_for_show[0] = '0'
-        calandar_array_for_miladidate[0] = datetime.datetime.now()
-        calandar_array_for_shamsidate[0] = stradby(t[0])
-        berthmiladi_r[0] = datetime.datetime.now()
-    # ---------- در این قسمت داده هایی که به صفحه addcontact داده میشود در آرایه هایدمربوطه ذخیره میشه تا با زدن دکمه ها اونا نپرن ----
+    facebotton = request.POST.get("facebutton")
+# ---------- در این قسمت داده هایی که به صفحه addcontact داده میشود در آرایه هایدمربوطه ذخیره میشه تا با زدن دکمه ها اونا نپرن ----
+    input_year = request.POST.get("input_year")
+    if (input_year != '') and ( input_year != None) :
+        year[0] = input_year
+
+    # ------اگر ماه رو اشتباه وارد کرده باشه و بخواد ماه رو عوض کنه روی ماه میزنه و سال صفر میشه د دوباره کلید تقویم میخورد و همه جی از اول-----
+    mounthbtn = request.POST.get("mounthbtn")
+    if mounthbtn == "accept":
+        button_calandar = "accept"
+        year[0] = []
+
     firstname = request.POST.get("firstname")
     if (firstname != '') and ( firstname != None) :
         firstname_r[0] = firstname
@@ -192,6 +225,90 @@ def addcantactdef(request):
         phonnumber_r[0] = phonnumber
     if phonnumber_r[0] == None :
         phonnumber_r[0] = ''
+
+# --------پس از وارد کردن یک عدد چهار رقمی در باکس سال توسط جاوا دکمه battonface زده میشود در این قسمت میگوید اگر اگر زده شد یعتی سال وارد شده و پس جدول ماهها باز شور---------
+    if facebotton == "accept":
+        mounth_number[0] = "0"
+        return render(request,'calander.html',context={"firstname":firstname_r[0],
+                                                       "lastname":lastname_r[0],
+                                                       "melicod":melicod_r[0],
+                                                       "phonnumber":phonnumber_r[0],
+                                                        "year" : year[0],
+                                                        "mounth": mounth_number[0],
+                                                        "calandar_aray":calandar_array_for_show,
+                                                       })
+
+# -------اینجا وقتی یک ماه انتخاب میشه میاد و جدول هفته اون رو مشخص میکنه------------------------------------------------------------------------------
+    if (mounth_number[0] != '') and (mounth_number[0] != "0") and (mounth_number[0] != None):
+        time = datetime.datetime.now()
+        q = '14'
+        while int(str(q + stry(time))) >= int(str(year[0])) :
+            time -= timedelta(days=1)
+            if stry(time) == '99' :
+                q = '13'
+        time += timedelta(days=1)
+
+        while strb(time) != cuntmounth(int(mounth_number[0])) :
+            time += timedelta(days=1)
+
+        calandar_array_for_show.clear()
+        calandar_array_for_miladidate.clear()
+        calandar_array_for_shamsidate.clear()
+        i = 0
+        if stra(time) == "شنبه" :
+            i = 1
+        if stra(time) == "یکشنبه" :
+            i = 2
+        if stra(time) == "دوشنبه" :
+            i = 3
+        if stra(time) == "سه‌شنبه" :
+            i = 4
+        if stra(time) == "چهارشنبه" :
+            i = 5
+        if stra(time) == "پنج‌شنبه" :
+            i = 6
+        if stra(time) == "جمعه" :
+            i = 7
+        for j in range(i):
+            time -= timedelta(days=1)
+        for j in range(i) :
+            calandar_array_for_show.append("")
+            calandar_array_for_miladidate.append(time)
+            calandar_array_for_shamsidate.append(stradby(time))
+            time += timedelta(days=1)
+
+        while strb(time) == cuntmounth(int(mounth_number[0])) :
+            calandar_array_for_show.append(strd(time))
+            calandar_array_for_miladidate.append(time)
+            calandar_array_for_shamsidate.append(stradby(time))
+            time += timedelta(days=1)
+        return render(request,'calander.html',context={"firstname":firstname_r[0],
+                                                       "lastname":lastname_r[0],
+                                                       "melicod":melicod_r[0],
+                                                       "phonnumber":phonnumber_r[0],
+                                                        "year" : year[0],
+                                                        "mounth":cuntmounth(int(mounth_number[0])),
+                                                        "calandar_aray":calandar_array_for_show,
+                                                        "test":cuntmounth(int(mounth_number[0])),
+                                                       })
+
+# ---------اگر دکمه تقئیم خورد سال رو به هم اکنون تغییر میده دقت شود که در مواد دیگه مثل بالا زدن-سال یا چیزی دیگه - button calandar برابر acceot میشد-----------------------------------متوجه شدم که placeholder-مقدارش داخل input خواهد بود----------------------------------------------------------------
+    if button_calandar == "accept" :
+        # year[0] = int(str('14' + stry(datetime.datetime.now())))
+        # input_year = year[0]
+        t[0] = datetime.datetime.now()
+        calandar_array_for_show[0] = '0'
+        calandar_array_for_miladidate[0] = datetime.datetime.now()
+        calandar_array_for_shamsidate[0] = stradby(t[0])
+        berthmiladi_r[0] = datetime.datetime.now()
+        return render(request, 'calander.html', context={"firstname": firstname_r[0],
+                                                 "lastname": lastname_r[0],
+                                                 "melicod": melicod_r[0],
+                                                 "phonnumber": phonnumber_r[0],
+                                                 "year": year[0],
+                                                 "mounth": mounth_number[0],
+                                                 "calandar_aray": calandar_array_for_show,
+                                                 })
 # ****************************************************کلید برگشت**********************************************
     if button_back == "accept" :
         melicod_r[0] = ''
@@ -207,91 +324,6 @@ def addcantactdef(request):
                                                            "berthday_shamsi":calandar_array_for_shamsidate[int(bbtn)],
                                                            "melicod_etebar": 'true',
                                                            })
-# ---------------------------------------------------------------------------------
-    if(input_year != None) and (input_year != ''):
-        if int(input_year) < 1200:
-            input_year = 1402
-        if int(input_year) > int(str('14' + stry(datetime.datetime.now()))):
-            input_year = str(year[0])
-        mounth_of_t = strb(t[0])
-        while int(input_year) != year[0] :
-            if int(input_year) < year[0] :
-                if (strb(t[0]) == 'فروردین') and (strd(t[0]) == '1'):
-                    year[0] -= 1
-                    button_calandar = "accept"
-                    button_upmounth = None
-                    button_downmounth = None
-                t[0] -= timedelta(days=1)
-            if int(input_year) > year[0] :
-                if (strb(t[0]) == 'فروردین') and (strd(t[0]) == '1'):
-                    year[0] += 1
-                    button_calandar = "accept"
-                    button_upmounth = None
-                    button_downmounth = None
-                t[0] += timedelta(days=1)
-
-        if strb(t[0]) == 'اسفند' :
-            while strb(t[0]) != mounth_of_t :
-                t[0] -= timedelta(days=1)
-        if strb(t[0]) == 'فروردین' :
-            while strb(t[0]) != mounth_of_t :
-                t[0] += timedelta(days=1)
-# ----------------------------------------------------------------------------------------------------------
-    if button_upmounth == "accept" :
-        button_calandar = "accept"
-        mounth = strb(t[0])
-        while strb(t[0]) == mounth :
-            t[0] += timedelta(days=1)
-        if strb(t[0]) == 'فروردین' :
-            year[0] += 1
-# -----------------------------------------------------------------------------------------------------
-    if button_downmounth == "accept" :
-        button_calandar = "accept"
-        mounth = strb(t[0])
-        while strb(t[0]) == mounth :
-            t[0] -= timedelta(days=1)
-        if strb(t[0]) == 'اسفند' :
-            year[0] -= 1
-# ------------------------------------------------------------------------------------------------------
-    if button_calandar == "accept" :
-        mounth = strb(t[0])
-        day_of_mounth = strd(t[0])
-        day_of_week = stra(t[0])
-        r = 0
-        g = 0
-        calandar_array_for_show.clear()
-        calandar_array_for_miladidate.clear()
-        calandar_array_for_shamsidate.clear()
-
-        for r in range(int(day_of_mounth)) :
-            t[0] -= timedelta(days=1)
-        while stra(t[0]) != 'جمعه' :
-            t[0] -= timedelta(days=1)
-            calandar_array_for_show.append('')
-            calandar_array_for_miladidate.append(t[0])
-            calandar_array_for_shamsidate.append(stradby(t[0]))
-
-        calandar_array_for_show.append('')
-        calandar_array_for_miladidate.append(t[0])
-        calandar_array_for_shamsidate.append(stradby(t[0]))
-        while strd(t[0]) != "1" :
-            t[0] +=timedelta(days=1)
-        i = 0
-        while strb(t[0]) == mounth :
-            i += 1
-            calandar_array_for_show.append(i)
-            calandar_array_for_miladidate.append(t[0])
-            calandar_array_for_shamsidate.append(stradby(t[0]))
-            t[0] += timedelta(days=1)
-        t[0] -=timedelta(days=1)
-        return render(request,'calander.html',context={"firstname":firstname_r[0],
-                                                       "lastname":lastname_r[0],
-                                                       "melicod":melicod_r[0],
-                                                       "phonnumber":phonnumber_r[0],
-                                                        "year" : year[0],
-                                                        "mounth": mounth,
-                                                        "calandar_aray":calandar_array_for_show,
-                                                       })
 # ------------------------------------------------بعد از زدن دکمه ارسال در صفحه add_cantact- و یا بعد از زدن دکمه ارسال مجدد----کد ارسال میکنخ با پیامک-------------------------
     if (button_send == 'accept') or (buttoncode_repeat == 'accept'):
         if (melicod_r[0] == '') and (melicod_r[0] == None)  :
@@ -392,6 +424,8 @@ def addcantactdef(request):
 
     return render(request,'add_cantact.html',context={'melicod_etebar':melicod_etebar[0]})
 login_etebar = ['f']
+
+
 def logindef(request):
     username = request.POST.get("username")
     password = request.POST.get("password")

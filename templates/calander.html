@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href= "{%  static "/css/calandarr.css" %}">
+    <link rel="stylesheet" type="text/css" href= "{%  static "/css/calandarc.css" %}">
     <title>Document</title>
 </head>
 <body dir="rtl">
@@ -23,16 +23,43 @@
 {#                <option value="">1402</option>#}
 {#            </select>#}
         </div>
-
-        <div class="calanderhead">
-           <button class="btnmounthup" name="button_upmounth" value="accept"><p class="monthup">&#10148 </p></button>
-            <p class="monthtext">{{ mounth }}</p>
-            <button class="btnmounthdown" name="button_downmounth" value="accept"><p class="monthdown">&#10148 </p></button>
+        {% if mounth == "0" %}
+        <div class="calandeerm" >
+            <div class="clumm1">
+                <div class="boxm1"><button class="btn1"name="mbtn"value="1"><p class="textmunth">فروردین</p></button></div>
+                <div class="boxm2"><button class="btn1"name="mbtn"value="2"><p class="textmunth">اردیبهشت</p></button></div>
+                <div class="boxm3"><button class="btn1"name="mbtn"value="3"><p class="textmunth">خرداد</p></button></div>
+            </div>
+            <div class="clumm2">
+                <div class="boxm1"><button class="btn1"name="mbtn"value="4"><p class="textmunth">تیر</p></button></div>
+                <div class="boxm2"><button class="btn1"name="mbtn"value="5"><p class="textmunth">مرداد</p></button></div>
+                <div class="boxm3"><button class="btn1"name="mbtn"value="6"><p class="textmunth">شهریور</p></button></div>
+            </div>
+            <div class="clumm3">
+                <div class="boxm1"><button class="btn1"name="mbtn"value="7"><p class="textmunth">مهر</p></button></div>
+                <div class="boxm2"><button class="btn1"name="mbtn"value="8"><p class="textmunth">آبان</p></button></div>
+                <div class="boxm3"><button class="btn1"name="mbtn"value="9"><p class="textmunth">آذر</p></button></div>
+            </div>
+            <div class="clumm4">
+                <div class="boxm1"><button class="btn1"name="mbtn"value="10"><p class="textmunth">دی</p></button></div>
+                <div class="boxm2"><button class="btn1"name="mbtn"value="11"><p class="textmunth">بهمن</p></button></div>
+                <div class="boxm3"><button class="btn1"name="mbtn"value="12"><p class="textmunth">اسفند</p></button></div>
+            </div>
 
         </div>
+        {% endif %}
+
+        {% if mounth != "0" %}
+            {% if mounth != '' %}
+                {% if mounth != None %}
+                <div>
+{#                   <button class="btnmounthup" name="button_upmounth" value="accept"><p class="monthup">&#10148 </p></button>#}
+                    <button class="textmunthheader" name="mounthbtn" value="accept">{{ mounth }}</button>
+{#                    <button class="btnmounthdown" name="button_downmounth" value="accept"><p class="monthdown">&#10148 </p></button>#}
+                </div>
         <div class="calandeer">
             <div class="clum1">
-                <div class="box1"> شنبه</div>
+                <div class="box1">شنبه</div>
                 <div class="box2">یک شنبه</div>
                 <div class="box3">دو شنبه</div>
                 <div class="box4">سه شنبه</div>
@@ -95,12 +122,16 @@
                 <div class="box7"><button class="btn7"name="bbtn"value="42"><p class="textweek">{{ calandar_aray.42 }}</p></button></div>
             </div>
         </div>
+                {% endif %}
+        {% endif %}
+    {% endif %}
+
         <div id="w">
             <div id="myBar" class="w3" hidden>0%</div>
       </div>
 
     </div>
-
+            <label>{{ test }}</label>
             <button id="face" name="facebutton" value="accept" hidden >
                 اینتر
             </button>
@@ -108,6 +139,6 @@
 </form>
 
 
-<script src="{% static "/js/calandarr.js" %}">    </script>
+<script src="{% static "/js/calandar.js" %}">    </script>
 </body>
 </html>
