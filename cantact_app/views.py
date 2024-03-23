@@ -221,7 +221,8 @@ def addcantactdef(request):
 # --------پس از وارد کردن یک عدد چهار رقمی در باکس سال توسط جاوا دکمه battonface زده میشود در این قسمت میگوید اگر اگر زده شد یعتی سال وارد شده و پس جدول ماهها باز شور---------
     if facebotton == "accept":
         mounth_number[0] = "0"
-        return render(request,'calander.html',context={"firstname":firstname_r[0],
+        return render(request,'calander.html',context={
+                                                       "firstname":firstname_r[0],
                                                        "lastname":lastname_r[0],
                                                        "melicod":melicod_r[0],
                                                        "phonnumber":phonnumber_r[0],
@@ -453,7 +454,13 @@ def logindef(request):
                     if user_login is not None:
                         login(request, user_login)
                         # return redirect('/')
-    return render(request,'login_cantact.html',context={'login_etebar':login_etebar[0],})
+    return render(request,'login_cantact.html',context={
+                                                                    "firstname": firstname_r[0],
+                                                                    "lastname": lastname_r[0],
+                                                                    "melicod": melicod_r[0],
+                                                                    "phonnumber": phonnumber_r[0],
+                                                                    'login_etebar':login_etebar[0],
+                                                                    })
 ignor_etebar = ['false']
 melicod_ignor = ['']
 
