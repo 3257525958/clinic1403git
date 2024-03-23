@@ -414,7 +414,7 @@ def addcantactdef(request):
         #                            berthday=berthmiladi_r[0]
         #                            )
         # return redirect('/')
-
+    year[0] = []
     return render(request,'add_cantact.html',context={'melicod_etebar':melicod_etebar[0]})
 login_etebar = ['f']
 
