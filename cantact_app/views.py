@@ -229,7 +229,6 @@ def addcantactdef(request):
                                                         "year" : year[0],
                                                         "mounth": mounth_number[0],
                                                         "calandar_aray":calandar_array_for_show,
-                                                       "test": phonnumber_r[0],
                                                        })
 
 # -------اینجا وقتی یک ماه انتخاب میشه میاد و جدول هفته اون رو مشخص میکنه------------------------------------------------------------------------------
@@ -283,7 +282,6 @@ def addcantactdef(request):
                                                         "year" : year[0],
                                                         "mounth":cuntmounth(int(mounth_number[0])),
                                                         "calandar_aray":calandar_array_for_show,
-                                                       "test": phonnumber_r[0],
                                                        })
 
 # ---------اگر دکمه تقئیم خورد سال رو به هم اکنون تغییر میده دقت شود که در مواد دیگه مثل بالا زدن-سال یا چیزی دیگه - button calandar برابر acceot میشد-----------------------------------متوجه شدم که placeholder-مقدارش داخل input خواهد بود----------------------------------------------------------------
@@ -293,6 +291,7 @@ def addcantactdef(request):
         calandar_array_for_miladidate[0] = datetime.datetime.now()
         calandar_array_for_shamsidate[0] = stradby(t[0])
         berthmiladi_r[0] = datetime.datetime.now()
+        year[0] = []
         return render(request, 'calander.html', context={"firstname": firstname_r[0],
                                                  "lastname": lastname_r[0],
                                                  "melicod": melicod_r[0],
@@ -300,7 +299,6 @@ def addcantactdef(request):
                                                  "year": year[0],
                                                  "mounth": mounth_number[0],
                                                  "calandar_aray": calandar_array_for_show,
-                                                 "test":phonnumber_r[0],
                                                  })
 # ****************************************************کلید برگشت**********************************************
     if button_back == "accept" :
@@ -405,16 +403,6 @@ def addcantactdef(request):
             else:
                 e = 'false'
                 return render(request, 'code_cantact.html', context={'etebar': e}, )
-
-
-
-        # accuntmodel.objects.create(firstname=firstname_r[0],
-        #                            lastname=lastname_r[0],
-        #                            melicode=melicod_r[0],
-        #                            phonnumber=phonnumber_r[0],
-        #                            berthday=berthmiladi_r[0]
-        #                            )
-        # return redirect('/')
     year[0] = []
     return render(request,'add_cantact.html',context={'melicod_etebar':melicod_etebar[0]})
 login_etebar = ['f']

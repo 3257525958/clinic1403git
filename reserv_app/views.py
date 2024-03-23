@@ -151,6 +151,7 @@ def reservdef(request):
                 ww.append(w.work)
         ww.pop(0)
 #**********************انتخاب کاربر به صورت یک عدد از forloop  از وب میاد و در اینجا اون عدد تبدیل میشه به انتخاب اصلی و در  f  ریخته میشه**************
+        works = workmodel.objects.all()
         c = 0
         if inputwork != None:
             reservposition[0] = "1"
@@ -183,19 +184,20 @@ def reservdef(request):
             t = datetime.datetime.now()
             mount = strb(t)
             tedaderooz = 0
-            # _________اگه از روز بیستم ماه گذشته باشه30 روز نمایش داده میشه_________
-            if int(strd(t)) <= 20 :
-                for i in range(30) :
-                    if strb(t) != mount :
-                        break
-                    tedaderooz += 1
-                    t += timedelta(days=1)
+            # # _________اگه از روز بیستم ماه گذشته باشه30 روز نمایش داده میشه_________
+            # if int(strd(t)) <= 20 :
+            #     for i in range(30) :
+            #         if strb(t) != mount :
+            #             break
+            #         tedaderooz += 1
+            #         t += timedelta(days=1)
+            # t = datetime.datetime.now()
+            # # _________و اگه قبل از بیستم ماه باشه فقط تا اخر ماه تعداد روز های قابل مشاهده خواهند بود_______
+            # if int(strd(t)) > 20 :
+            #     tedaderooz = 30
+            # # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
             t = datetime.datetime.now()
-            # _________و اگه قبل از بیستم ماه باشه فقط تا اخر ماه تعداد روز های قابل مشاهده خواهند بود_______
-            if int(strd(t)) > 20 :
-                tedaderooz = 30
-            # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
-            t = datetime.datetime.now()
+            tedaderooz = 7
             for i in range(tedaderooz) :
                 shamsiarray.append(stradb(t))
                 miladiarray.append(t.strftime('%a %d %b %y'))
@@ -290,8 +292,8 @@ def reservdef(request):
 
                 t += timedelta(days=1)
                 day.append(dayarr)
-            day.pop(0)
-            day.pop(0)
+            # day.pop(0)
+            # day.pop(0)
             return render(request,'timereserv.html',context={'day':day,
                                                              'person':" رزرو وقت برای " + selectprocedure[0] +" "+ selectprocedure[1] + "(" + selectprocedure[2] + ")",
                                                              })
