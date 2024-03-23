@@ -308,6 +308,7 @@ def addcantactdef(request):
 # -----------------------------------------------------------------انتخاب روز تولد----------------------------------------------
     if (bbtn != None) and (bbtn != '') and (calandar_array_for_show != None) and (calandar_array_for_show != '') :
         berthmiladi_r[0] = str(calandar_array_for_miladidate[int(bbtn)])
+        year[0] = []
         return render(request,'add_cantact.html',context={ "firstname":firstname_r[0],
                                                            "lastname":lastname_r[0],
                                                            "melicod":melicod_r[0],
