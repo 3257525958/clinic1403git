@@ -197,7 +197,9 @@ def reservdef(request):
             #     tedaderooz = 30
             # # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
             t = datetime.datetime.now()
-            tedaderooz = 7
+            tedaderooz = 8
+            shamsiarray.append("")
+            miladiarray.append("")
             for i in range(tedaderooz) :
                 shamsiarray.append(stradb(t))
                 miladiarray.append(t.strftime('%a %d %b %y'))
@@ -302,8 +304,9 @@ def reservdef(request):
             reservposition[0] = 2
             s = timeselect
             stime = s.split(",")
-            selectprocedure.append(shamsiarray[int(stime[1])])
-            selectprocedure.append(miladiarray[int(stime[1])])
+            n = int(stime[1])
+            selectprocedure.append(shamsiarray[n])
+            selectprocedure.append(miladiarray[n])
             selectprocedure.append(stry(datetime.datetime.now()))
             selectprocedure.append(stime[0])
             if stime[0] == "1"  :
