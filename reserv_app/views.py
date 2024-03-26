@@ -152,12 +152,12 @@ def reservdef(request):
         ww.pop(0)
 #**********************انتخاب کاربر به صورت یک عدد از forloop  از وب میاد و در اینجا اون عدد تبدیل میشه به انتخاب اصلی و در  f  ریخته میشه**************
         c = 0
+        selectprocedure[0] = "0"
         if inputwork != None:
             reservposition[0] = "1"
             for f in works :
                 if int(c) == int(inputwork) :
                     selectprocedure.clear()
-                    print(selectprocedure)
                     selectprocedure.append(f.work)
                     selectprocedure.append(f.detalework)
                     selectprocedure.append(f.person)
@@ -180,20 +180,20 @@ def reservdef(request):
             day.clear()
             reservs = reservemodel.objects.all()
             # ___________در این قسمت تعداد روزهایی که قرار هستش به مراجعه کننده نشون بدیم مشخص میشه____
-            t = datetime.datetime.now()
-            mount = strb(t)
-            tedaderooz = 0
+            # t = datetime.datetime.now()
+            # mount = strb(t)
+            tedaderooz = 10
             # _________اگه از روز بیستم ماه گذشته باشه30 روز نمایش داده میشه_________
-            if int(strd(t)) <= 20 :
-                for i in range(30) :
-                    if strb(t) != mount :
-                        break
-                    tedaderooz += 1
-                    t += timedelta(days=1)
-            t = datetime.datetime.now()
-            # _________و اگه قبل از بیستم ماه باشه فقط تا اخر ماه تعداد روز های قابل مشاهده خواهند بود_______
-            if int(strd(t)) > 20 :
-                tedaderooz = 30
+            # if int(strd(t)) <= 20 :
+            #     for i in range(30) :
+            #         if strb(t) != mount :
+            #             break
+            #         tedaderooz += 1
+            #         t += timedelta(days=1)
+            # t = datetime.datetime.now()
+            # # _________و اگه قبل از بیستم ماه باشه فقط تا اخر ماه تعداد روز های قابل مشاهده خواهند بود_______
+            # if int(strd(t)) > 20 :
+            #     tedaderooz = 30
             # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
             t = datetime.datetime.now()
             for i in range(tedaderooz) :
@@ -217,7 +217,7 @@ def reservdef(request):
                             if (l.personelmelicod == user.melicode) and (l.muont == strb(t)) :
                                 s = l.leave.split(",")
                                 a = 2
-                                for i in range(int(len(s))):
+                                for iii in range(int(len(s))):
                                     if a <= len(s):
                                         if s[a] == strd(t):
                                             dayarr[int(s[a-1])] = "false"
@@ -249,51 +249,53 @@ def reservdef(request):
                                 dayarr[int(r.numbertime) + 2] = "false"
                                 dayarr[int(r.numbertime) + 3] = "false"
                                 dayarr[int(r.numbertime) + 4] = "false"
-                if selectprocedure[3] == "2" :
-                    for hh in range(19) :
-                        if dayarr[int(hh) + 1] == "false" :
-                            dayarr[int(hh)] = "false"
-                    dayarr[20] = "false"
-                if selectprocedure[3] == "3" :
-                    for hh in range(18) :
-                        if dayarr[int(hh) + 1] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 2] == "false":
-                            dayarr[int(hh)] = "false"
-                    dayarr[19] = "false"
-                    dayarr[20] = "false"
-                if selectprocedure[3] == "4" :
-                    for hh in range(17) :
-                        if dayarr[int(hh) + 1] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 2] == "false":
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 3] == "false":
-                            dayarr[int(hh)] = "false"
-                    dayarr[18] = "false"
-                    dayarr[19] = "false"
-                    dayarr[20] = "false"
-                if selectprocedure[3] == "5" :
-                    for hh in range(16) :
-                        if dayarr[int(hh) + 1] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 2] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 3] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 4] == "false" :
-                            dayarr[int(hh)] = "false"
-                    dayarr[17] = "false"
-                    dayarr[18] = "false"
-                    dayarr[19] = "false"
-                    dayarr[20] = "false"
+                    if selectprocedure[3] == "2" :
+                        for hh in range(19) :
+                            if dayarr[int(hh) + 1] == "false" :
+                                dayarr[int(hh)] = "false"
+                        dayarr[20] = "false"
+                    if selectprocedure[3] == "3" :
+                        for hh in range(18) :
+                            if dayarr[int(hh) + 1] == "false" :
+                                dayarr[int(hh)] = "false"
+                            if dayarr[int(hh) + 2] == "false":
+                                dayarr[int(hh)] = "false"
+                        dayarr[19] = "false"
+                        dayarr[20] = "false"
+                    if selectprocedure[3] == "4" :
+                        for hh in range(17) :
+                            if dayarr[int(hh) + 1] == "false" :
+                                dayarr[int(hh)] = "false"
+                            if dayarr[int(hh) + 2] == "false":
+                                dayarr[int(hh)] = "false"
+                            if dayarr[int(hh) + 3] == "false":
+                                dayarr[int(hh)] = "false"
+                        dayarr[18] = "false"
+                        dayarr[19] = "false"
+                        dayarr[20] = "false"
+                    if selectprocedure[3] == "5" :
+                        for hh in range(16) :
+                            if dayarr[int(hh) + 1] == "false" :
+                                dayarr[int(hh)] = "false"
+                            if dayarr[int(hh) + 2] == "false" :
+                                dayarr[int(hh)] = "false"
+                            if dayarr[int(hh) + 3] == "false" :
+                                dayarr[int(hh)] = "false"
+                            if dayarr[int(hh) + 4] == "false" :
+                                dayarr[int(hh)] = "false"
+                        dayarr[17] = "false"
+                        dayarr[18] = "false"
+                        dayarr[19] = "false"
+                        dayarr[20] = "false"
 
                 t += timedelta(days=1)
                 day.append(dayarr)
-            day.pop(0)
-            day.pop(0)
 
-            return render(request,'timereserv.html',context={'day':day,
+            # day.pop(0)
+            # day.pop(0)
+
+            return render(request,'timereserv.html',context={
+                                                             'day':day,
                                                              'person':" رزرو وقت برای " + selectprocedure[0] +" "+ selectprocedure[1] + "(" + selectprocedure[2] + ")",
                                                              })
 # _______انتخاب یه تایم برای خدمت مورد نظر__________
