@@ -25,7 +25,7 @@ urlpatterns = [
     path('jobs/', include('jobs_app.urls')),
     path('reserv/', include('reserv_app.urls')),
     path('logout/', include('home_app.urls')),
-    path('zib/', include('peyment_app.urls')),
+    path('zib/', include('cash_app.urls')),
 
 ]
 

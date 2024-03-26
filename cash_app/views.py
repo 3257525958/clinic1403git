@@ -15,132 +15,6 @@ from cantact_app.models import accuntmodel
 
 
 
-class OrderPageView(View):
-    def get(self, request):
-        return render(request,'reserv_end.html')
-
-
-
-amount = 1000  # Rial / Required
-description = "توضیحات مربوط به تراکنش را در این قسمت وارد کنید"  # Required
-phone = 'YOUR_PHONE_NUMBER'  # Optional
-# Important: need to edit for realy server.
-CallbackURL = 'http://127.0.0.1:8000/zib/verify/'
-merchandzibal = "zibal"
-#? sandbox merchant
-if settings.SANDBOX:
-    sandbox = 'sandbox'
-else:
-    sandbox = 'www'
-ZP_API_REQUEST = f"https://{sandbox}.zarinpal.com/pg/rest/WebGate/PaymentRequest.json"
-ZP_API_VERIFY = f"https://{sandbox}.zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
-ZP_API_STARTPAY = f"https://{sandbox}.zarinpal.com/pg/StartPay/"
-
-class OrderPayView(View):
-    def get(self,request):
-        data = {
-            "MerchantID": settings.MERCHANT,
-            "Amount": amount,
-            "Description": description,
-            "Phone": phone,
-            "CallbackURL": CallbackURL,
-        }
-        data = json.dumps(data)
-        headers = {'content-type': 'application/json', 'content-length': str(len(data)) }
-        res = requests.post(ZP_API_REQUEST, data=data,headers=headers)
-        if res.status_code == 200 :
-            response = res.json()
-            if response['Status'] == 100 :
-                url = f"{ZP_API_STARTPAY}{response['Authority']}"
-                return redirect(url)
-        else:
-            print(res.json()['errors'])
-            return HttpResponse(str(res.json()['errors']))
-class VerifyPayView(View):
-    def get(self,request):
-        authority = request.GET['Authority']
-        data = {
-            "MerchantID": settings.MERCHANT,
-            "Amount": amount,
-            "Authority" : authority,
-        }
-        data = json.dumps(data)
-        headers = {'content-type': 'application/json', 'content-length': str(len(data)) }
-        res = requests.post(ZP_API_VERIFY, data=data,headers=headers)
-        if res.status_code == 200 :
-            response = res.json()
-            if response['Status'] == 100 :
-                return HttpResponse({'Status': response['Status'],'RefID':response['RefID']})
-            else:
-                return HttpResponse({'Status': response['Status'],'RefID':response['RefID']})
-        else:
-            return HttpResponse('پرداخت ناموفق')
-
-
-
-
-
-
-# Irandargah_request_url = f"https://dargaah.com/payment"
-# merchand_irandargah='69097262-cc95-4999-9d6c-2fe5865bb891'
-# Irandargah_send_url="https://dargaah.com/ird/startpay/"
-# Irandargah_verify_url='https://dargaah.com/verification'
-Irandargah_request_url = f"https://dargaah.com/sandbox/payment"
-merchand_irandargah='TEST'
-Irandargah_send_url="https://dargaah.com/sandbox/ird/startpay/"
-Irandargah_verify_url="https://dargaah.com/sandbox/verification"
-# callbackirandargaah = 'http://drmahdiasadpour.ir/zib/irandargahcallback/'
-callbackirandargaah = 'http://127.0.0.1:8000/zib/irandargahcallback/'
-class OrderPayViewirandagaah(View):
-    def get(self,request):
-        data = {
-            'merchantID': merchand_irandargah,
-            'amount': 10000,  # amount of transaction in rial (amount must be between 10,000 and 500,000,000 rial)
-            'callbackURL': callbackirandargaah,
-            'orderId': '1234',  # you can set your desired unique order id for transaction
-            'mobile': '09122852099',  # for more information in transaction's detail // OPTIONAL
-            'description': 'YOUR DESCRIPTION'  # for more information in transaction's detail // OPTIONAL
-        }
-        data = json.dumps(data)
-        url = Irandargah_request_url
-        headers = {'content-type': 'application/json', 'content-length': str(len(data)) }
-        res = requests.post(url, data=data,headers=headers)
-        if res.status_code == 200 :
-            response = res.json()
-            urll = f"{Irandargah_send_url}{response['authority']}"
-            return redirect(urll)
-        else:
-            return HttpResponse(str(res.json()['message']))
-# ++++++++++++++++\
-class Verifyi(View):
-    def get(self,request):
-        if request.POST['code'] == 100:
-            data = {
-                'merchantID': merchand_irandargah,
-                'authority': request.POST['authority'],
-                'amount': int(request.POST['amount']),
-                'orderId': request.POST['orderId'],
-            }
-            data = json.dumps(data)
-            url = Irandargah_request_url
-            headers = {'content-type': 'application/json', 'content-length': str(len(data)) }
-            res = requests.post(url, data=data, headers=headers)
-            if res.status_code == 200 :
-                response = res.json()
-                if response['Status'] == 100 :
-                    return HttpResponse({'Status': response['Status'],'RefID':response['RefID']})
-                else:
-                    return HttpResponse({'Status': response['Status'],'RefID':response['RefID']})
-            else:
-                return HttpResponse('پرداخت ناموفق')
-
-        else:
-            print('error in transaction\'s payment: ' + request.POST['message'])
-            return render(request, 'test.html')
-
-
-
-
 ZIB_API_REQUEST = "https://gateway.zibal.ir/v1/request"
 ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
@@ -151,6 +25,7 @@ callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
 m=["0"]
 peyment = 50000
 phonnumber = ["0"]
+amount = 50000
 def orderzibal(request):
     if request.user.is_authenticated:
         users = accuntmodel.objects.all()
@@ -187,7 +62,7 @@ def orderzibal(request):
         }
         data = json.dumps(data)
         headers = {'content-type': 'application/json', 'content-length': str(len(data)) }
-        res = requests.post(ZP_API_VERIFY, data=data,headers=headers)
+        res = requests.post(ZIB_API_VERIFY, data=data,headers=headers)
         if res.status_code == 200 :
             response = res.json()
             if response['Status'] == 100 :

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class PeymentAppConfig(AppConfig):
+class CashAppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'peyment_app'
+    name = 'cash_app'
