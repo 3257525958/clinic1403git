@@ -452,10 +452,28 @@ def reservdef(request):
                 image_show = image_show,
                 satisfact = satisfact,
                                            )
-            return render(request,'reserv_end.html',context={"selectprocedure":selectprocedure,
-                                                             "firstname":ferstname_user,
-                                                             "lastname":lastname_user,})
-        return render(request,'reserv.html',context={'works':works,
+            rtotal = reservemodeltest.objects.all()
+            for r in rtotal:
+                if r.mellicode == request.user.username:
+                    work = r.jobreserv
+                    detalework = r.detalereserv
+                    personwork = r.personreserv
+                    dateshamsi = r.dateshamsireserv
+                    hoursreserv = r.hourreserv
+                    firstname = r.fiestname
+                    lastname = r.lastname
+
+            return render(request, 'reserv_end.html', context={
+                "work": work,
+                "detalework": detalework,
+                "personwork": personwork,
+                "dateshamsi": dateshamsi,
+                "hoursreserv": hoursreserv,
+                "firstname": firstname,
+                "firstname": firstname,
+                "lastname": lastname,
+            })
+return render(request,'reserv.html',context={'works':works,
                                                  'job':ww,
                                                  'shamsiarray':shamsiarray,
                                                  })

@@ -133,7 +133,7 @@ def callbackzibal(request):
                     api = KavenegarAPI(
                         '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
                     params = {
-                        'receptor': r.phonnumber,
+                        'receptor': str(r.phonnumber),
                         'template': 'test',
                         'token': message,
                         'type': 'sms',
