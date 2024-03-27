@@ -125,7 +125,7 @@ def reservdef(request):
                 lastname_user = user.lastname
                 mellicoduser[0] = user.melicode
                 a = reservemodeltest.objects.filter(mellicode=request.user.username)
-                a.update(fiestname=user.firstname, lastname=user.lastname)
+                a.update(fiestname=user.firstname, lastname=user.lastname , phonnumber=user.phonnumber)
         filesendbutton = request.POST.get("filesendbutton")
         inject_botax  = request.POST.get("r1")
         illnes  = request.POST.get("r2")

@@ -87,6 +87,11 @@ def callbackzibal(request):
     res = requests.post(ZIB_API_VERIFY, data=data, headers=headers)
     if res.status_code == 200:
         r = res.json()
+        a = reservemodeltest.objects.filter(mellicode=request.user.username)
+        a.update(message=r['message'],
+                 cardnumber=r['cardNumber'],
+                 rahgiricod=trac,
+                 )
         endresult.append(r['message'])
         endresult.append(r['cardNumber'])
         endresult.append(trac)
@@ -101,11 +106,11 @@ def callbackzibal(request):
     if endresult[0] == "success":
         reserve = reservemodeltest.objects.all()
         for r in reserve :
-            if r.mellicode == m[0]:
+            if r.mellicode == request.user.username:
                 endresult.append(r.jobreserv+" "+r.detalereserv)
                 endresult.append(r.dateshamsireserv)
                 endresult.append(r.hourreserv)
-                reservemodel.objects.create(melicod =str(request.user.username),
+                reservemodel.objects.create(melicod =r.mellicode,
                                             jobreserv=r.jobreserv,
                                             detalereserv=r.detalereserv,
                                             personreserv=r.personreserv,
@@ -116,18 +121,41 @@ def callbackzibal(request):
                                             dateshamsireserv=r.dateshamsireserv,
                                             datemiladireserv=r.datemiladireserv,
                                             yearshamsi=r.yearshamsi,
-                                            cardnumber="result[1]",
-                                            pyment=peyment,
-                                            trakingcod = str(endresult[2]),
+                                            cardnumber=r.cardnumber,
+                                            pyment=r.castreserv,
+                                            trakingcod =r.rahgiricod,
                                             bank= "zibal"
                                             )
-                a = reservemodeltest.objects.filter(mellicode=m[0])
+                message = f"{r.fiestname}_{r.lastname}پرداخت_موفقیت_آمیز_کدرهگیری_{r.rahgiricod}دکتر_اسدپور_"
+                # message = f"{endresult[0]}_{endresult[1]}_{endresult[2]}_{endresult[3]}_{endresult[4]}_{endresult[5]}_{endresult[6]}_{endresult[7]}_{endresult[8]}"
+
+                try:
+                    api = KavenegarAPI(
+                        '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                    params = {
+                        'receptor': r.phonnumber,
+                        'template': 'test',
+                        'token': message,
+                        'type': 'sms',
+                    }
+                    response = api.verify_lookup(params)
+                    return render(request, 'end.html', context={"result": endresult, })
+                except APIException as e:
+                    m = 'tellerror'
+                    # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+                    return render(request, 'end.html', context={"result": endresult, })
+                except HTTPException as e:
+                    m = 'neterror'
+                    # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+                    # return render(request, 'add_cantact.html')
+                    return render(request, 'end.html', context={"result": endresult, })
+                a = reservemodeltest.objects.filter(request.user.username)
                 a.delete()
         neurse = neursetestmodel.objects.all()
         for r in neurse :
-            if r.mellicode == m[0]:
+            if r.mellicode == request.user.username:
                 neursemodel.objects.create(
-                    mellicode=m[0],
+                    mellicode=r.mellicode,
                     inject_botax=r.inject_botax,
                     illnes=r.illnes,
                     drug=r.drug,
@@ -137,33 +165,10 @@ def callbackzibal(request):
                     image_show=r.image_show,
                     satisfact=r.satisfact,
                 )
-                a = neursetestmodel.objects.filter(mellicode=m[0])
+                a = neursetestmodel.objects.filter(mellicode=request.user.username)
                 a.delete()
 
         # return redirect('http://127.0.0.1:8000/zib/end/')
-        message = f"{endresult[5]}_{endresult[6]}پرداخت_موفقیت_آمیز_کدرهگیری_{endresult[2]}دکتر_اسدپور_"
-        # message = f"{endresult[0]}_{endresult[1]}_{endresult[2]}_{endresult[3]}_{endresult[4]}_{endresult[5]}_{endresult[6]}_{endresult[7]}_{endresult[8]}"
-
-        try:
-            api = KavenegarAPI(
-                '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-            params = {
-                'receptor': endresult[4],
-                'template': 'test',
-                'token': message,
-                'type': 'sms',
-            }
-            response = api.verify_lookup(params)
-            return render(request, 'end.html', context={"result": endresult, })
-        except APIException as e:
-            m = 'tellerror'
-            # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-            return render(request, 'end.html', context={"result": endresult, })
-        except HTTPException as e:
-            m = 'neterror'
-            # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-            # return render(request, 'add_cantact.html')
-            return render(request, 'end.html', context={"result": endresult, })
 
     return redirect('https://drmahdiasadpour.ir/zib/end/')
 
