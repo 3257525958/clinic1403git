@@ -105,6 +105,18 @@ def stradby(tdef):
 
 def reservdef(request):
     if request.user.is_authenticated:
+# ---------اگر فردی که وارد شده است login  کرده باشد اینجا برایش در reservmodeltest  یک object ساخته میشود-----------
+        melicodcheck = "false"
+        rtotal = reservemodeltest.objects.all()
+        for r in rtotal :
+            if r.mellicode == request.user.username:
+                melicodcheck = "true"
+
+        if melicodcheck == "false" :
+            reservemodeltest.objects.create(
+                mellicode= request.user.username
+            )
+# ----------با توجه به کد ملی فرد login شده اسم کوچک و بزرگ او را پیدا میکنیم---------------------------
         users = accuntmodel.objects.all()
         for user in users:
             if user.melicode == request.user.username:
@@ -112,6 +124,8 @@ def reservdef(request):
                 ferstname_user = user.firstname
                 lastname_user = user.lastname
                 mellicoduser[0] = user.melicode
+                a = reservemodeltest.objects.filter(mellicode=request.user.username)
+                a.update(fiestname=user.firstname, lastname=user.lastname)
         filesendbutton = request.POST.get("filesendbutton")
         inject_botax  = request.POST.get("r1")
         illnes  = request.POST.get("r2")
@@ -124,10 +138,10 @@ def reservdef(request):
         inputwork = request.POST.get("inputwork")
         timeselect = request.POST.get("timeselect")
 # ______________________________کلید صفحه reserv___________________________
-        backbuttonfianal = request.POST.get("backbuttonfianal")
-        if backbuttonfianal =="accept":
-            # return redirect('http://127.0.0.1:8000/')
-            return redirect("/")
+#         backbuttonfianal = request.POST.get("backbuttonfianal")
+#         if backbuttonfianal =="accept":
+#             # return redirect('http://127.0.0.1:8000/')
+#             return redirect("/")
 
 # +++++++++++++++++++++++++++++کلید های صفحه reserv_end.html++همون که بزنی میره برا پرداخت+++++++++++++++++++++++++++
         peymentbutton = request.POST.get("peymentbutton")
@@ -343,51 +357,8 @@ def reservdef(request):
                 selectprocedure.append("19.5")
             reservs = reservemodel.objects.all()
             reservetebar[0] = 'succes'
-            # if selectprocedure[3] == "1" :
-            #     reservetebar[0] = "succes"
-            # t = 0
-            # if selectprocedure[3] == '2' :
-            #     t = int(selectprocedure[8])
-            #     for r in reservs :
-            #         if r.personreserv == selectprocedure[2] :
-            #             if r.dateshamsireserv == selectprocedure[5] :
-            #                 if int(r.timereserv) == int(t) +1:
-            #                     reservetebar[0] = "false2"
-            # if selectprocedure[3] == '3' :
-            #     t = int(selectprocedure[8])
-            #     for r in reservs :
-            #         if r.personreserv == selectprocedure[2] :
-            #             if r.dateshamsireserv == selectprocedure[5] :
-            #                 if int(r.timereserv) == int(t) +1:
-            #                     reservetebar[0] = "fals3"
-            #                 if int(r.timereserv) == int(t) + 2:
-            #                     reservetebar[0] = "false3"
-            # if selectprocedure[3] == '4' :
-            #     t = int(selectprocedure[8])
-            #     for r in reservs :
-            #         if r.personreserv == selectprocedure[2] :
-            #             if r.dateshamsireserv == selectprocedure[5] :
-            #                 if int(r.timereserv) == int(t) + 1:
-            #                     reservetebar[0] = "false4"
-            #                 if int(r.timereserv) == int(t) + 2:
-            #                     reservetebar[0] = "false4"
-            #                 if int(r.timereserv) == int(t) + 3:
-            #                     reservetebar[0] = "false4"
-            # if selectprocedure[3] == '5' :
-            #     t = int(selectprocedure[8])
-            #     for r in reservs :
-            #         if r.personreserv == selectprocedure[2] :
-            #             if r.dateshamsireserv == selectprocedure[5] :
-            #                 if int(r.timereserv) == int(t) + 1:
-            #                     reservetebar[0] = "false5"
-            #                 if int(r.timereserv) == int(t) + 2:
-            #                     reservetebar[0] = "false5"
-            #                 if int(r.timereserv) == int(t) + 3:
-            #                     reservetebar[0] = "false5"
-            #                 if int(r.timereserv) == int(t) + 4:
-            #                     reservetebar[0] = "false5"
-            if reservetebar[0] == 'succes' :
-                reservemodeltest.objects.create(jobreserv=selectprocedure[0],
+            a = reservemodeltest.objects.filter(mellicode=request.user.username)
+            a.update(jobreserv=selectprocedure[0],
                                             detalereserv=selectprocedure[1],
                                             personreserv=selectprocedure[2],
                                             timereserv=selectprocedure[3],
@@ -397,12 +368,37 @@ def reservdef(request):
                                             yearshamsi=selectprocedure[7],
                                             numbertime=selectprocedure[8],
                                             hourreserv=selectprocedure[9],
-                                            mellicode= mellicoduser[0],
                                             )
+            filepage1 = "false"
+            page =neursetestmodel.objects.all()
+            for p in page :
+                if p.mellicode == request.user.username :
+                    filepage1 = "true"
+            if filepage1 == "false" :
                 return render(request,'add_userfilebotax.html',context={'f':timeselect})
-
             else:
-                return render(request,'timereserv.html',context={'reservetebar':reservetebar[0],})
+                rtotal = reservemodeltest.objects.all()
+                for r in rtotal:
+                    if r.mellicode == request.user.username:
+                        work = r.jobreserv
+                        detalework = r.detalereserv
+                        personwork = r.personreserv
+                        dateshamsi = r.dateshamsireserv
+                        hoursreserv = r.hourreserv
+                        firstname = r.fiestname
+                        lastname = r.lastname
+
+                return render(request, 'reserv_end.html', context={
+                                                                                "work" : work,
+                                                                                "detalework" : detalework,
+                                                                                "personwork" :personwork,
+                                                                                "dateshamsi" : dateshamsi,
+                                                                                "hoursreserv" :hoursreserv,
+                                                                                "firstname" : firstname,
+                                                                                "firstname" : firstname,
+                                                                                "lastname" : lastname,
+                                                                                })
+
 # ___________________تشکیل پرونده___________
         if filesendbutton == "accept" :
             reservposition[0] = "3"
