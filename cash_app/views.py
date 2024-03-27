@@ -18,9 +18,9 @@ from cantact_app.models import accuntmodel
 ZIB_API_REQUEST = "https://gateway.zibal.ir/v1/request"
 ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
-callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
+# callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
 merchanzibal = 'zibal'
-# callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
+callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
 # merchanzibal = '64c2047fcbbc270017f4c6b2'
 m=["0"]
 peyment = 50000

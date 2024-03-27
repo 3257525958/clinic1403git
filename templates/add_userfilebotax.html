@@ -14,8 +14,8 @@
         <p class="textobject">
             تشکیل پرونده بوتاکس
         </p>
-            <div class="regester">
-            <form action="" class="nametable" method="POST">
+    <div class="regester">
+        <form action="" class="nametable" method="POST">
                 {% csrf_token %}
                 <div class="box">
                     <p class=>
@@ -90,6 +90,7 @@
         </div>
         </form>
     </div>
+    <label>{{ f }}</label>
     <label id="error" hidden>{{ error }}</label>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static "/js/userfile_botax.js" %}"></script>
