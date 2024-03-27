@@ -138,10 +138,10 @@ def reservdef(request):
         inputwork = request.POST.get("inputwork")
         timeselect = request.POST.get("timeselect")
 # ______________________________کلید صفحه reserv___________________________
-#         backbuttonfianal = request.POST.get("backbuttonfianal")
-#         if backbuttonfianal =="accept":
-#             # return redirect('http://127.0.0.1:8000/')
-#             return redirect("/")
+        backbuttonfianal = request.POST.get("backbuttonfianal")
+        if backbuttonfianal =="accept":
+            # return redirect('http://127.0.0.1:8000/')
+            return redirect("/")
 
 # +++++++++++++++++++++++++++++کلید های صفحه reserv_end.html++همون که بزنی میره برا پرداخت+++++++++++++++++++++++++++
         peymentbutton = request.POST.get("peymentbutton")
@@ -473,7 +473,7 @@ def reservdef(request):
                 "firstname": firstname,
                 "lastname": lastname,
             })
-return render(request,'reserv.html',context={'works':works,
+        return render(request,'reserv.html',context={'works':works,
                                                  'job':ww,
                                                  'shamsiarray':shamsiarray,
                                                  })
