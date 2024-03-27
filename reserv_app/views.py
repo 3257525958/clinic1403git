@@ -7,6 +7,20 @@ from datetime import timedelta
 import matplotlib
 from reserv_app.models import reservemodel,leavemodel,reservemodeltest,neursetestmodel
 from cantact_app.models import accuntmodel
+ww = ['t']
+shamsiarray = ['t']
+miladiarray = ['t']
+selectprocedure = ['t']
+reservetebar = ['t']
+day = ['t']
+day.clear()
+level = ['']
+loginetebar = ['t']
+reservposition = ['0']
+file_botax = ["0"]
+for i  in range(10) :
+    file_botax.append("0")
+mellicoduser = ["0"]
 matplotlib.use('Agg')
 def strb(tdef):
     x = str(datetime2jalali(tdef).strftime('%a %d %b %y'))
@@ -89,20 +103,6 @@ def stradby(tdef):
     r = stra(tdef)+' '+strd(tdef)+' '+strb(tdef)+' '+stry(tdef)
     return (r)
 
-ww = ['t']
-shamsiarray = ['t']
-miladiarray = ['t']
-selectprocedure = ['t']
-reservetebar = ['t']
-day = ['t']
-day.clear()
-level = ['']
-loginetebar = ['t']
-reservposition = ['0']
-file_botax = ["0"]
-for i  in range(10) :
-    file_botax.append("0")
-mellicoduser = ["0"]
 def reservdef(request):
     if request.user.is_authenticated:
         users = accuntmodel.objects.all()

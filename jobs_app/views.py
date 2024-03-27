@@ -174,20 +174,19 @@ def jobs(request):
             deletemploy_etebar[0] = 'emptyjob'
             melicodearay[0] = ''
 # **********************************************************ساختن یک خدمت*********************************************************
-    selectjob[0] = "t"
-    addetebar[0] = 'p'
+    selectjob[0] = ""
+    addetebar[0] = ""
     joblist.clear()
     allservic = jobsmodel.objects.all()
-    scsc = 'انتخاب کنید'
+    servicselect = 'انتخاب کنید'
     for ser in allservic :
         joblist.append(ser.job)
     if facebutton == "accept" :
         emplist.clear()
         savework.clear()
         savework.append(joblist[int(servicselector)])
-        savework[0] = joblist[int(servicselector)]
         selectjob[0] = 'true'
-        scsc = joblist[int(servicselector)]
+        servicselect = joblist[int(servicselector)]
         allservic = jobsmodel.objects.all()
         for ser in allservic :
             if ser.job == joblist[int(servicselector)] :
@@ -244,7 +243,7 @@ def jobs(request):
                                                'employename':employename,
                                                'allservic':joblist,
                                                'allemployee':emplist,
-                                               'servicselect':scsc,
+                                               'servicselect':servicselect,
                                                'selectjob':selectjob[0],
                                                'emplist':emplist,
                                                'deletservics':deletservics,
