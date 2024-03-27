@@ -20,7 +20,8 @@ ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
 # callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
 merchanzibal = 'zibal'
-callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
+callbackzibalurl = 'https://drmahdiasadpour.ir'
+# callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
 # merchanzibal = '64c2047fcbbc270017f4c6b2'
 m=["0"]
 peyment = 50000
@@ -139,43 +140,56 @@ def callbackzibal(request):
                 a = neursetestmodel.objects.filter(mellicode=m[0])
                 a.delete()
 
-    # return redirect('http://127.0.0.1:8000/zib/end/')
+        # return redirect('http://127.0.0.1:8000/zib/end/')
+        message = f"{endresult[5]}_{endresult[6]}پرداخت_موفقیت_آمیز_کدرهگیری_{endresult[2]}دکتر_اسدپور_"
+        # message = f"{endresult[0]}_{endresult[1]}_{endresult[2]}_{endresult[3]}_{endresult[4]}_{endresult[5]}_{endresult[6]}_{endresult[7]}_{endresult[8]}"
+
+        try:
+            api = KavenegarAPI(
+                '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+            params = {
+                'receptor': endresult[4],
+                'template': 'test',
+                'token': message,
+                'type': 'sms',
+            }
+            response = api.verify_lookup(params)
+            return render(request, 'end.html', context={"result": endresult, })
+        except APIException as e:
+            m = 'tellerror'
+            # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+            return render(request, 'end.html', context={"result": endresult, })
+        except HTTPException as e:
+            m = 'neterror'
+            # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+            # return render(request, 'add_cantact.html')
+            return render(request, 'end.html', context={"result": endresult, })
+
     return redirect('https://drmahdiasadpour.ir/zib/end/')
 
+
+
 def end(request):
-    # print(result[0])
-    # print(result[1])
-    # print(result[2])
-    # print(result[3])
-    # print(result[4])
-    # print(result[5])
-    # print(result[6])
-    print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
-    print(endresult)
-    print(request)
-    logout(request)
+    # logout(request)
 
     backbutton = request.GET.get("backbutton")
     if backbutton == "accept":
         us = User.objects.all()
         for u in us :
-            print(u.username,endresult[3])
             if str(u.username) == str(endresult[3]):
                 user_login = authenticate(request,
                                           username=u.username,
                                           password=u.password,
                                           )
-                print("okokokokokokokokokokok")
                 if user_login is not None:
-                    print("مممممممممممممممممممممممممممممم")
                     login(request, user_login)
                 return render(request,"home.html",context={'u':u.username,
                                                            'p':u.password,
                                                            })
                 # return redirect('https://drmahdiasadpour.ir/')
 
-    # message = f"{endresult[5]}_{endresult[6]}پرداخت_موفقیت_آمیز_کدرهگیری_{endresult[2]}دکتر_اسدپور_"
-    message = f"{endresult[0]}_{endresult[1]}_{endresult[2]}_{endresult[3]}_{endresult[4]}_{endresult[5]}_{endresult[6]}_{endresult[7]}_{endresult[8]}"
+    message = f"{endresult[5]}_{endresult[6]}پرداخت_موفقیت_آمیز_کدرهگیری_{endresult[2]}دکتر_اسدپور_"
+    # message = f"{endresult[0]}_{endresult[1]}_{endresult[2]}_{endresult[3]}_{endresult[4]}_{endresult[5]}_{endresult[6]}_{endresult[7]}_{endresult[8]}"
 
     try:
         api = KavenegarAPI(
@@ -197,3 +211,4 @@ def end(request):
         # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
         # return render(request, 'add_cantact.html')
         return render(request, 'end.html', context={"result": endresult, })
+    return redirect("/")

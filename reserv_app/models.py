@@ -32,6 +32,12 @@ class reservemodeltest(models.Model):
     dateshamsireserv = models.CharField(max_length=150,default='0')
     datemiladireserv = models.CharField(max_length=150,default='0')
     yearshamsi = models.CharField(max_length=10,default='0')
+    message = models.CharField(max_length=20,default='0')
+    cardnumber = models.CharField(max_length=20,default='0')
+    rahgiricod = models.CharField(max_length=20,default='0')
+    phonnumber = models.CharField(max_length=12,default='0')
+    fiestname =models.CharField(max_length=150,default='0')
+    lastname =models.CharField(max_length=150,default='0')
     def __str__(self):
         return f"{self.personreserv}"
 
