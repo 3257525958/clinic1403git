@@ -311,8 +311,13 @@ def reservdef(request):
             # reservposition[0] = 2
             s = timeselect
             stime = s.split(",")
-            selectprocedure.append(shamsiarray[int(stime[1])-1])
-            selectprocedure.append(miladiarray[int(stime[1])-1])
+            print(stime[1])
+            ttime = datetime.datetime.now()
+            for tt in range(int(stime[1])) :
+                ttime += timedelta(days=1)
+            ttime -= timedelta(days=1)
+            selectprocedure.append(stradb(ttime))
+            selectprocedure.append(ttime.strftime('%a %d %b %y'))
             selectprocedure.append(stry(datetime.datetime.now()))
             selectprocedure.append(stime[0])
             if stime[0] == "1"  :

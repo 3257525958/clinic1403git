@@ -193,27 +193,4 @@ def end(request):
                                                            })
                 # return redirect('https://drmahdiasadpour.ir/')
 
-    message = f"{endresult[5]}_{endresult[6]}پرداخت_موفقیت_آمیز_کدرهگیری_{endresult[2]}دکتر_اسدپور_"
-    # message = f"{endresult[0]}_{endresult[1]}_{endresult[2]}_{endresult[3]}_{endresult[4]}_{endresult[5]}_{endresult[6]}_{endresult[7]}_{endresult[8]}"
-
-    try:
-        api = KavenegarAPI(
-            '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-        params = {
-            'receptor': endresult[4],
-            'template': 'test',
-            'token': message,
-            'type': 'sms',
-        }
-        response = api.verify_lookup(params)
-        return render(request, 'end.html', context={"result": endresult, })
-    except APIException as e:
-        m = 'tellerror'
-        # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-        return render(request, 'end.html', context={"result": endresult, })
-    except HTTPException as e:
-        m = 'neterror'
-        # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-        # return render(request, 'add_cantact.html')
-        return render(request, 'end.html', context={"result": endresult, })
     return redirect("/")
