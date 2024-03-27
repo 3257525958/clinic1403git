@@ -18,9 +18,9 @@ from cantact_app.models import accuntmodel
 ZIB_API_REQUEST = "https://gateway.zibal.ir/v1/request"
 ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
-# callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
+callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
 merchanzibal = 'zibal'
-callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
+# callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
 # merchanzibal = '64c2047fcbbc270017f4c6b2'
 m=["0"]
 peyment = 50000
@@ -150,6 +150,7 @@ def end(request):
     # print(result[4])
     # print(result[5])
     # print(result[6])
+    print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
     print(endresult)
     print(request)
     logout(request)
@@ -172,7 +173,9 @@ def end(request):
                                                            'p':u.password,
                                                            })
                 # return redirect('https://drmahdiasadpour.ir/')
-    message = f"{endresult[5]}_{endresult[6]}پرداخت_موفقیت_آمیز_کدرهگیری_{endresult[2]}دکتر_اسدپور_"
+
+    # message = f"{endresult[5]}_{endresult[6]}پرداخت_موفقیت_آمیز_کدرهگیری_{endresult[2]}دکتر_اسدپور_"
+    message = f"{endresult[0]}_{endresult[1]}_{endresult[2]}_{endresult[3]}_{endresult[4]}_{endresult[5]}_{endresult[6]}_{endresult[7]}_{endresult[8]}"
 
     try:
         api = KavenegarAPI(

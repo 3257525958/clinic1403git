@@ -152,7 +152,6 @@ def reservdef(request):
         ww.pop(0)
 #**********************انتخاب کاربر به صورت یک عدد از forloop  از وب میاد و در اینجا اون عدد تبدیل میشه به انتخاب اصلی و در  f  ریخته میشه**************
         c = 0
-        selectprocedure[0] = "0"
         if inputwork != None:
             reservposition[0] = "1"
             for f in works :
@@ -178,22 +177,9 @@ def reservdef(request):
             shamsiarray.clear()
             miladiarray.clear()
             day.clear()
-            reservs = reservemodel.objects.all()
+            res = reservemodel.objects.all()
             # ___________در این قسمت تعداد روزهایی که قرار هستش به مراجعه کننده نشون بدیم مشخص میشه____
-            # t = datetime.datetime.now()
-            # mount = strb(t)
             tedaderooz = 10
-            # _________اگه از روز بیستم ماه گذشته باشه30 روز نمایش داده میشه_________
-            # if int(strd(t)) <= 20 :
-            #     for i in range(30) :
-            #         if strb(t) != mount :
-            #             break
-            #         tedaderooz += 1
-            #         t += timedelta(days=1)
-            # t = datetime.datetime.now()
-            # # _________و اگه قبل از بیستم ماه باشه فقط تا اخر ماه تعداد روز های قابل مشاهده خواهند بود_______
-            # if int(strd(t)) > 20 :
-            #     tedaderooz = 30
             # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
             t = datetime.datetime.now()
             for i in range(tedaderooz) :
@@ -225,8 +211,8 @@ def reservdef(request):
                                         a += 2
                                     else:
                                         break
-
-                for r in reservs :
+# -------------------------اینجا رزرو های قبلی رو چک میکنه---------
+                for r in res :
                     if r.personreserv == selectprocedure[2] :
                         if r.dateshamsireserv == stradb(t) :
                             if r.timereserv == '1' :
@@ -249,62 +235,70 @@ def reservdef(request):
                                 dayarr[int(r.numbertime) + 2] = "false"
                                 dayarr[int(r.numbertime) + 3] = "false"
                                 dayarr[int(r.numbertime) + 4] = "false"
-                    if selectprocedure[3] == "2" :
-                        for hh in range(19) :
-                            if dayarr[int(hh) + 1] == "false" :
-                                dayarr[int(hh)] = "false"
-                        dayarr[20] = "false"
-                    if selectprocedure[3] == "3" :
-                        for hh in range(18) :
-                            if dayarr[int(hh) + 1] == "false" :
-                                dayarr[int(hh)] = "false"
-                            if dayarr[int(hh) + 2] == "false":
-                                dayarr[int(hh)] = "false"
-                        dayarr[19] = "false"
-                        dayarr[20] = "false"
-                    if selectprocedure[3] == "4" :
-                        for hh in range(17) :
-                            if dayarr[int(hh) + 1] == "false" :
-                                dayarr[int(hh)] = "false"
-                            if dayarr[int(hh) + 2] == "false":
-                                dayarr[int(hh)] = "false"
-                            if dayarr[int(hh) + 3] == "false":
-                                dayarr[int(hh)] = "false"
-                        dayarr[18] = "false"
-                        dayarr[19] = "false"
-                        dayarr[20] = "false"
-                    if selectprocedure[3] == "5" :
-                        for hh in range(16) :
-                            if dayarr[int(hh) + 1] == "false" :
-                                dayarr[int(hh)] = "false"
-                            if dayarr[int(hh) + 2] == "false" :
-                                dayarr[int(hh)] = "false"
-                            if dayarr[int(hh) + 3] == "false" :
-                                dayarr[int(hh)] = "false"
-                            if dayarr[int(hh) + 4] == "false" :
-                                dayarr[int(hh)] = "false"
-                        dayarr[17] = "false"
-                        dayarr[18] = "false"
-                        dayarr[19] = "false"
-                        dayarr[20] = "false"
-
+# # ---------------------------------------------اگر کاری مه انتخاب شده بیش از نیم ساعت باشه یعنی دو تا نیم ساغت یا سه  یا پهارتا یا پنج تا نیم ساعت باشه-----------
+# # ------باید چک شود که تا تایم های اینده اش  به همون اندازه که وقت میخواد وقت باشه ---------------------------------------
+#
+                if selectprocedure[3] == "2" :
+                    for hh in range(19) :
+                        hh += 1
+                        if dayarr[int(hh) + 1] == "false" :
+                            dayarr[int(hh)] = "false"
+                    dayarr[20] = "false"
+#
+                if selectprocedure[3] == "3" :
+                    for hh in range(18) :
+                        hh += 1
+                        if dayarr[int(hh) + 1] == "false" :
+                            dayarr[int(hh)] = "false"
+                        if dayarr[int(hh) + 2] == "false":
+                            dayarr[int(hh)] = "false"
+                    dayarr[19] = "false"
+                    dayarr[20] = "false"
+                if selectprocedure[3] == "4" :
+                    for hh in range(17) :
+                        hh += 1
+                        if dayarr[int(hh) + 1] == "false" :
+                            dayarr[int(hh)] = "false"
+                        if dayarr[int(hh) + 2] == "false":
+                            dayarr[int(hh)] = "false"
+                        if dayarr[int(hh) + 3] == "false":
+                            dayarr[int(hh)] = "false"
+                    dayarr[18] = "false"
+                    dayarr[19] = "false"
+                    dayarr[20] = "false"
+                if selectprocedure[3] == "5" :
+                    for hh in range(16) :
+                        hh += 1
+                        if dayarr[int(hh) + 1] == "false" :
+                            dayarr[int(hh)] = "false"
+                        if dayarr[int(hh) + 2] == "false" :
+                            dayarr[int(hh)] = "false"
+                        if dayarr[int(hh) + 3] == "false" :
+                            dayarr[int(hh)] = "false"
+                        if dayarr[int(hh) + 4] == "false" :
+                            dayarr[int(hh)] = "false"
+                    dayarr[17] = "false"
+                    dayarr[18] = "false"
+                    dayarr[19] = "false"
+                    dayarr[20] = "false"
+#
                 t += timedelta(days=1)
                 day.append(dayarr)
-
+# --------------------------اگر ابن دوخظ انجام شه دو دیتای اول در ارایه ی روزها پاک خواهد شد یعنی ار دو روز بعد میتونن نوبا بگیرن--------------
+# -----ولی اگه بخوایم این کار رو بکنیم باید ارایه های شمسی و میلادی هم از دوتا دور تر خونده بشن یغنی یغنی خط.ط 301 و 302 عوض شنبه جای اینکه از اول خوانده بشن از دوتا جلوتر خوانده بشن
             # day.pop(0)
             # day.pop(0)
-
             return render(request,'timereserv.html',context={
                                                              'day':day,
                                                              'person':" رزرو وقت برای " + selectprocedure[0] +" "+ selectprocedure[1] + "(" + selectprocedure[2] + ")",
                                                              })
 # _______انتخاب یه تایم برای خدمت مورد نظر__________
         if (timeselect != None) and (timeselect != '') :
-            reservposition[0] = 2
+            # reservposition[0] = 2
             s = timeselect
             stime = s.split(",")
-            selectprocedure.append(shamsiarray[int(stime[1])+1])
-            selectprocedure.append(miladiarray[int(stime[1])+1])
+            selectprocedure.append(shamsiarray[int(stime[1])-1])
+            selectprocedure.append(miladiarray[int(stime[1])-1])
             selectprocedure.append(stry(datetime.datetime.now()))
             selectprocedure.append(stime[0])
             if stime[0] == "1"  :
@@ -349,49 +343,49 @@ def reservdef(request):
                 selectprocedure.append("19.5")
             reservs = reservemodel.objects.all()
             reservetebar[0] = 'succes'
-            if selectprocedure[3] == "1" :
-                reservetebar[0] = "succes"
-            t = 0
-            if selectprocedure[3] == '2' :
-                t = int(selectprocedure[8])
-                for r in reservs :
-                    if r.personreserv == selectprocedure[2] :
-                        if r.dateshamsireserv == selectprocedure[5] :
-                            if int(r.timereserv) == int(t) +1:
-                                reservetebar[0] = "false2"
-            if selectprocedure[3] == '3' :
-                t = int(selectprocedure[8])
-                for r in reservs :
-                    if r.personreserv == selectprocedure[2] :
-                        if r.dateshamsireserv == selectprocedure[5] :
-                            if int(r.timereserv) == int(t) +1:
-                                reservetebar[0] = "fals3"
-                            if int(r.timereserv) == int(t) + 2:
-                                reservetebar[0] = "false3"
-            if selectprocedure[3] == '4' :
-                t = int(selectprocedure[8])
-                for r in reservs :
-                    if r.personreserv == selectprocedure[2] :
-                        if r.dateshamsireserv == selectprocedure[5] :
-                            if int(r.timereserv) == int(t) + 1:
-                                reservetebar[0] = "false4"
-                            if int(r.timereserv) == int(t) + 2:
-                                reservetebar[0] = "false4"
-                            if int(r.timereserv) == int(t) + 3:
-                                reservetebar[0] = "false4"
-            if selectprocedure[3] == '5' :
-                t = int(selectprocedure[8])
-                for r in reservs :
-                    if r.personreserv == selectprocedure[2] :
-                        if r.dateshamsireserv == selectprocedure[5] :
-                            if int(r.timereserv) == int(t) + 1:
-                                reservetebar[0] = "false5"
-                            if int(r.timereserv) == int(t) + 2:
-                                reservetebar[0] = "false5"
-                            if int(r.timereserv) == int(t) + 3:
-                                reservetebar[0] = "false5"
-                            if int(r.timereserv) == int(t) + 4:
-                                reservetebar[0] = "false5"
+            # if selectprocedure[3] == "1" :
+            #     reservetebar[0] = "succes"
+            # t = 0
+            # if selectprocedure[3] == '2' :
+            #     t = int(selectprocedure[8])
+            #     for r in reservs :
+            #         if r.personreserv == selectprocedure[2] :
+            #             if r.dateshamsireserv == selectprocedure[5] :
+            #                 if int(r.timereserv) == int(t) +1:
+            #                     reservetebar[0] = "false2"
+            # if selectprocedure[3] == '3' :
+            #     t = int(selectprocedure[8])
+            #     for r in reservs :
+            #         if r.personreserv == selectprocedure[2] :
+            #             if r.dateshamsireserv == selectprocedure[5] :
+            #                 if int(r.timereserv) == int(t) +1:
+            #                     reservetebar[0] = "fals3"
+            #                 if int(r.timereserv) == int(t) + 2:
+            #                     reservetebar[0] = "false3"
+            # if selectprocedure[3] == '4' :
+            #     t = int(selectprocedure[8])
+            #     for r in reservs :
+            #         if r.personreserv == selectprocedure[2] :
+            #             if r.dateshamsireserv == selectprocedure[5] :
+            #                 if int(r.timereserv) == int(t) + 1:
+            #                     reservetebar[0] = "false4"
+            #                 if int(r.timereserv) == int(t) + 2:
+            #                     reservetebar[0] = "false4"
+            #                 if int(r.timereserv) == int(t) + 3:
+            #                     reservetebar[0] = "false4"
+            # if selectprocedure[3] == '5' :
+            #     t = int(selectprocedure[8])
+            #     for r in reservs :
+            #         if r.personreserv == selectprocedure[2] :
+            #             if r.dateshamsireserv == selectprocedure[5] :
+            #                 if int(r.timereserv) == int(t) + 1:
+            #                     reservetebar[0] = "false5"
+            #                 if int(r.timereserv) == int(t) + 2:
+            #                     reservetebar[0] = "false5"
+            #                 if int(r.timereserv) == int(t) + 3:
+            #                     reservetebar[0] = "false5"
+            #                 if int(r.timereserv) == int(t) + 4:
+            #                     reservetebar[0] = "false5"
             if reservetebar[0] == 'succes' :
                 reservemodeltest.objects.create(jobreserv=selectprocedure[0],
                                             detalereserv=selectprocedure[1],
@@ -403,9 +397,10 @@ def reservdef(request):
                                             yearshamsi=selectprocedure[7],
                                             numbertime=selectprocedure[8],
                                             hourreserv=selectprocedure[9],
-                                            mellicode= mellicoduser[0]
+                                            mellicode= mellicoduser[0],
                                             )
-                return render(request,'add_userfilebotax.html')
+                return render(request,'add_userfilebotax.html',context={'f':timeselect})
+
             else:
                 return render(request,'timereserv.html',context={'reservetebar':reservetebar[0],})
 # ___________________تشکیل پرونده___________
@@ -415,7 +410,9 @@ def reservdef(request):
                 file_botax[0] = inject_botax
             else:
                 error = "inject_botax"
-                return render(request, 'add_userfilebotax.html', context={"error": error})
+                return render(request, 'add_userfilebotax.html', context={"error": error,
+                                                                                       'f':timeselect,
+                                                                                      })
             if (illnes == "yes") or (illnes == "no"):
                 file_botax[1] = illnes
             else:
