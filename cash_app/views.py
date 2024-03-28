@@ -261,7 +261,7 @@ def callbackzibal(request):
                     image_show=r.image_show,
                     satisfact=r.satisfact,
                 )
-                a = neursetestmodel.objects.filter(mellicode=m[0])
+                a = filepage1model.objects.filter(mellicode=m[0])
                 a.delete()
 
     # return redirect('http://127.0.0.1:8000/zib/end/')
