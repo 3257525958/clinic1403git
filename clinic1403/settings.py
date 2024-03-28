@@ -122,10 +122,10 @@ WSGI_APPLICATION = 'clinic1403.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'clinicdactx_db',
+        'NAME': 'clinicdaasx_db',
         'USER': 'root',
-        'PASSWORD': 'sCd1jRvCdMCu4nA6Wmqs',
-        'HOST': 'clinicdata1403-zim-service',
+        'PASSWORD': 'fX6tneUDw1lGXHIpkh2u',
+        'HOST': 'clinicdata1403-1-wmc-service',
 
     }
 }
