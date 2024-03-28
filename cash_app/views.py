@@ -101,7 +101,6 @@ def callbackzibal(request):
         if r['message'] == "success":
             reserve = reservemodeltest.objects.all()
             a = reservemodeltest.objects.filter(mellicode=request.user.username)
-            print()
             a.update(message=r['message'],
                      cardnumber=r['cardNumber'],
                      rahgiricod=trac,
