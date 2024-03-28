@@ -61,7 +61,7 @@ class neursemodel(models.Model):
     satisfact = models.CharField(max_length=150,default='0')
     def __str__(self):
         return f"{self.mellicode}"
-class neursetestmodel(models.Model):
+class filepage1model(models.Model):
     mellicode = models.CharField(max_length=12, default="0")
     inject_botax = models.CharField(max_length=150,default='0')
     illnes = models.CharField(max_length=150,default='0')

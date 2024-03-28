@@ -5,7 +5,7 @@ import datetime
 from jalali_date import date2jalali,datetime2jalali
 from datetime import timedelta
 import matplotlib
-from reserv_app.models import reservemodel,leavemodel,reservemodeltest,neursetestmodel
+from reserv_app.models import reservemodel,leavemodel,reservemodeltest,filepage1model
 from cantact_app.models import accuntmodel
 ww = ['t']
 shamsiarray = ['t']
@@ -258,7 +258,6 @@ def reservdef(request):
                         if dayarr[int(hh) + 1] == "false" :
                             dayarr[int(hh)] = "false"
                     dayarr[20] = "false"
-#
                 if selectprocedure[3] == "3" :
                     for hh in range(18) :
                         hh += 1
@@ -311,7 +310,6 @@ def reservdef(request):
             # reservposition[0] = 2
             s = timeselect
             stime = s.split(",")
-            print(stime[1])
             ttime = datetime.datetime.now()
             for tt in range(int(stime[1])) :
                 ttime += timedelta(days=1)
@@ -375,12 +373,12 @@ def reservdef(request):
                                             hourreserv=selectprocedure[9],
                                             )
             filepage1 = "false"
-            page =neursetestmodel.objects.all()
+            page =filepage1model.objects.all()
             for p in page :
                 if p.mellicode == request.user.username :
                     filepage1 = "true"
             if filepage1 == "false" :
-                return render(request,'add_userfilebotax.html',context={'f':timeselect})
+                return render(request,'add_userfilebotax.html')
             else:
                 rtotal = reservemodeltest.objects.all()
                 for r in rtotal:
@@ -441,7 +439,7 @@ def reservdef(request):
             else:
                 error = "satisfact"
                 return render(request, 'add_userfilebotax.html', context={"error": error})
-            neursetestmodel.objects.create(
+            filepage1model.objects.create(
                 mellicode=mellicoduser[0],
                 inject_botax=inject_botax,
                 illnes=illnes,
