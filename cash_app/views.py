@@ -103,7 +103,7 @@ def callbackzibal(request):
             a = reservemodeltest.objects.filter(mellicode=request.user.username)
             a.update(message=r['message'],
                      cardnumber=r['cardNumber'],
-                     rahgiricod=trac,
+                     rahgiricod=trac
                      )
             for r in reserve :
                 if r.mellicode == request.user.username:
