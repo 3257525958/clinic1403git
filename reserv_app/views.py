@@ -319,51 +319,75 @@ def reservdef(request):
                 dateshamsireserv=stradb(ttime),
                 datemiladireserv=ttime.strftime('%a %d %b %y'),
                 yearshamsi=stry(datetime.datetime.now()),
+                numbertime=stime[0],
             )
             selectprocedure.append(stradb(ttime))
             selectprocedure.append(ttime.strftime('%a %d %b %y'))
             selectprocedure.append(stry(datetime.datetime.now()))
             selectprocedure.append(stime[0])
+            s = ""
             if stime[0] == "1"  :
+                s ="10"
                 selectprocedure.append("10")
             if stime[0] == "2"  :
+                s ="10.5"
                 selectprocedure.append("10.5")
             if stime[0] == "3"  :
+                s ="11"
                 selectprocedure.append("11")
             if stime[0] == "4"  :
+                s ="11.5"
                 selectprocedure.append("11.5")
             if stime[0] == "5"  :
+                s ="12"
                 selectprocedure.append("12")
             if stime[0] == "6"  :
+                s ="12.5"
                 selectprocedure.append("12.5")
             if stime[0] == "7"  :
+                s ="13"
                 selectprocedure.append("13")
             if stime[0] == "8"  :
+                s ="13.5"
                 selectprocedure.append("13.5")
             if stime[0] == "9"  :
+                s ="14"
                 selectprocedure.append("14")
             if stime[0] == "10"  :
+                s ="14.5"
                 selectprocedure.append("14.5")
             if stime[0] == "11"  :
+                s ="15"
                 selectprocedure.append("15")
             if stime[0] == "12"  :
+                s ="15.5"
                 selectprocedure.append("15.5")
             if stime[0] == "13"  :
+                s ="16"
                 selectprocedure.append("16")
             if stime[0] == "14"  :
+                s ="16.5"
                 selectprocedure.append("16.5")
             if stime[0] == "15"  :
+                s ="17"
                 selectprocedure.append("17")
             if stime[0] == "16"  :
+                s ="17.5"
                 selectprocedure.append("17.5")
             if stime[0] == "17"  :
+                s ="18"
                 selectprocedure.append("18")
             if stime[0] == "18"  :
+                s ="18.5"
                 selectprocedure.append("18.5")
             if stime[0] == "19"  :
+                s ="19"
                 selectprocedure.append("19")
             if stime[0] == "20"  :
+                s ="19.5"
                 selectprocedure.append("19.5")
+            a = reservemodeltest.objects.filter(mellicode=request.user.username)
+            a.update(ourreserv=s)
             reservs = reservemodel.objects.all()
             reservetebar[0] = 'succes'
             a = reservemodeltest.objects.filter(mellicode=request.user.username)
@@ -372,7 +396,6 @@ def reservdef(request):
                                             personreserv=selectprocedure[2],
                                             timereserv=selectprocedure[3],
                                             castreserv=selectprocedure[4],
-                                            numbertime=selectprocedure[8],
                                             hourreserv=selectprocedure[9],
                                             )
             filepage1 = "false"
