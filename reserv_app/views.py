@@ -314,6 +314,12 @@ def reservdef(request):
             for tt in range(int(stime[1])) :
                 ttime += timedelta(days=1)
             ttime -= timedelta(days=1)
+            a = reservemodeltest.objects.filter(mellicode=request.user.username)
+            a.update(
+                dateshamsireserv=stradb(ttime),
+                datemiladireserv=ttime.strftime('%a %d %b %y'),
+                yearshamsi=stry(datetime.datetime.now()),
+            )
             selectprocedure.append(stradb(ttime))
             selectprocedure.append(ttime.strftime('%a %d %b %y'))
             selectprocedure.append(stry(datetime.datetime.now()))
@@ -366,9 +372,6 @@ def reservdef(request):
                                             personreserv=selectprocedure[2],
                                             timereserv=selectprocedure[3],
                                             castreserv=selectprocedure[4],
-                                            dateshamsireserv=selectprocedure[5],
-                                            datemiladireserv=selectprocedure[6],
-                                            yearshamsi=selectprocedure[7],
                                             numbertime=selectprocedure[8],
                                             hourreserv=selectprocedure[9],
                                             )

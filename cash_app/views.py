@@ -248,50 +248,22 @@ def callbackzibal(request):
                 a = reservemodeltest.objects.filter(mellicode=m[0])
                 a.delete()
         neurse = filepage1model.objects.all()
-        for r in neurse :
-            if r.mellicode == m[0]:
-                neursemodel.objects.create(
-                    mellicode=m[0],
-                    inject_botax=r.inject_botax,
-                    illnes=r.illnes,
-                    drug=r.drug,
-                    sensivety=r.sensivety,
-                    pregnancy=r.pregnancy,
-                    date_finaly=r.date_finaly,
-                    image_show=r.image_show,
-                    satisfact=r.satisfact,
-                )
-                a = filepage1model.objects.filter(mellicode=m[0])
-                a.delete()
-
     # return redirect('http://127.0.0.1:8000/zib/end/')
     return redirect('https://drmahdiasadpour.ir/zib/end/')
 
 def end(request):
-    # print(result[0])
-    # print(result[1])
-    # print(result[2])
-    # print(result[3])
-    # print(result[4])
-    # print(result[5])
-    # print(result[6])
-    print(endresult)
-    print(request)
     logout(request)
 
     backbutton = request.GET.get("backbutton")
     if backbutton == "accept":
         us = User.objects.all()
         for u in us :
-            print(u.username,endresult[3])
             if str(u.username) == str(endresult[3]):
                 user_login = authenticate(request,
                                           username=u.username,
                                           password=u.password,
                                           )
-                print("okokokokokokokokokokok")
                 if user_login is not None:
-                    print("مممممممممممممممممممممممممممممم")
                     login(request, user_login)
                 return render(request,"home.html",context={'u':u.username,
                                                            'p':u.password,
