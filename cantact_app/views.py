@@ -308,12 +308,17 @@ def addcantactdef(request):
     if (bbtn != None) and (bbtn != '') and (calandar_array_for_show != None) and (calandar_array_for_show != '') :
         berthmiladi_r[0] = str(calandar_array_for_miladidate[int(bbtn)])
         year[0] = []
-        return render(request,'add_cantact.html',context={ "firstname":firstname_r[0],
-                                                           "lastname":lastname_r[0],
-                                                           "melicod":melicod_r[0],
-                                                           "phonnumber":phonnumber_r[0],
+        f = firstname_r[0]
+        l = lastname_r[0]
+        m = melicod_r[0]
+        p = phonnumber_r[0]
+        c = calandar_array_for_shamsidate[int(bbtn)]
+        return render(request,'add_cantact.html',context={ "firstname":f,
+                                                           "lastname":l,
+                                                           "melicod":m,
+                                                           "phonnumber":p,
                                                            "year" : year[0],
-                                                           "berthday_shamsi":calandar_array_for_shamsidate[int(bbtn)],
+                                                           "berthday_shamsi":c,
                                                            "melicod_etebar": 'true',
                                                            })
 # ------------------------------------------------بعد از زدن دکمه ارسال در صفحه add_cantact- و یا بعد از زدن دکمه ارسال مجدد----کد ارسال میکنخ با پیامک-------------------------
