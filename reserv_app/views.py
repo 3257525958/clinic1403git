@@ -464,15 +464,15 @@ def reservdef(request):
                     lastname = r.lastname
 
             return render(request, 'reserv_end.html', context={
-                "work": work,
-                "detalework": detalework,
-                "personwork": personwork,
-                "dateshamsi": dateshamsi,
-                "hoursreserv": hoursreserv,
-                "firstname": firstname,
-                "firstname": firstname,
-                "lastname": lastname,
-            })
+                                                                            "work": work,
+                                                                            "detalework": detalework,
+                                                                            "personwork": personwork,
+                                                                            "dateshamsi": dateshamsi,
+                                                                            "hoursreserv": hoursreserv,
+                                                                            "firstname": firstname,
+                                                                            "firstname": firstname,
+                                                                            "lastname": lastname,
+                                                                        })
         return render(request,'reserv.html',context={'works':works,
                                                  'job':ww,
                                                  'shamsiarray':shamsiarray,

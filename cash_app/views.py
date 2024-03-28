@@ -18,9 +18,9 @@ from cantact_app.models import accuntmodel
 ZIB_API_REQUEST = "https://gateway.zibal.ir/v1/request"
 ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
-# callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
+callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
 merchanzibal = 'zibal'
-callbackzibalurl = 'https://drmahdiasadpour.ir'
+# callbackzibalurl = 'https://drmahdiasadpour.ir'
 # callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
 # merchanzibal = '64c2047fcbbc270017f4c6b2'
 m=["0"]
@@ -87,88 +87,89 @@ def callbackzibal(request):
     res = requests.post(ZIB_API_VERIFY, data=data, headers=headers)
     if res.status_code == 200:
         r = res.json()
-        a = reservemodeltest.objects.filter(mellicode=request.user.username)
-        a.update(message=r['message'],
-                 cardnumber=r['cardNumber'],
-                 rahgiricod=trac,
-                 )
         endresult.append(r['message'])
         endresult.append(r['cardNumber'])
         endresult.append(trac)
         users = accuntmodel.objects.all()
         for user in users:
-            if user.melicode == m[0]:
+            if user.melicode == request.user.username:
                 phonnumber[0] = user.phonnumber
                 endresult.append(user.melicode)
                 endresult.append(str(user.phonnumber))
                 endresult.append(user.firstname)
                 endresult.append(user.lastname)
-    if endresult[0] == "success":
-        reserve = reservemodeltest.objects.all()
-        for r in reserve :
-            if r.mellicode == request.user.username:
-                endresult.append(r.jobreserv+" "+r.detalereserv)
-                endresult.append(r.dateshamsireserv)
-                endresult.append(r.hourreserv)
-                reservemodel.objects.create(melicod =r.mellicode,
-                                            jobreserv=r.jobreserv,
-                                            detalereserv=r.detalereserv,
-                                            personreserv=r.personreserv,
-                                            timereserv=r.timereserv,
-                                            castreserv=r.castreserv,
-                                            numbertime=r.numbertime,
-                                            hourreserv=r.hourreserv,
-                                            dateshamsireserv=r.dateshamsireserv,
-                                            datemiladireserv=r.datemiladireserv,
-                                            yearshamsi=r.yearshamsi,
-                                            cardnumber=r.cardnumber,
-                                            pyment=r.castreserv,
-                                            trakingcod =r.rahgiricod,
-                                            bank= "zibal"
-                                            )
-                message = f"{r.fiestname}_{r.lastname}پرداخت_موفقیت_آمیز_کدرهگیری_{r.rahgiricod}دکتر_اسدپور_"
-                # message = f"{endresult[0]}_{endresult[1]}_{endresult[2]}_{endresult[3]}_{endresult[4]}_{endresult[5]}_{endresult[6]}_{endresult[7]}_{endresult[8]}"
+        if r['message'] == "success":
+            reserve = reservemodeltest.objects.all()
+            a = reservemodeltest.objects.filter(mellicode=request.user.username)
+            print()
+            a.update(message=r['message'],
+                     cardnumber=r['cardNumber'],
+                     rahgiricod=trac,
+                     )
+            for r in reserve :
+                if r.mellicode == request.user.username:
+                    endresult.append(r.jobreserv+" "+r.detalereserv)
+                    endresult.append(r.dateshamsireserv)
+                    endresult.append(r.hourreserv)
+                    reservemodel.objects.create(melicod =r.mellicode,
+                                                jobreserv=r.jobreserv,
+                                                detalereserv=r.detalereserv,
+                                                personreserv=r.personreserv,
+                                                timereserv=r.timereserv,
+                                                castreserv=r.castreserv,
+                                                numbertime=r.numbertime,
+                                                hourreserv=r.hourreserv,
+                                                dateshamsireserv=r.dateshamsireserv,
+                                                datemiladireserv=r.datemiladireserv,
+                                                yearshamsi=r.yearshamsi,
+                                                cardnumber=r.cardnumber,
+                                                pyment=r.castreserv,
+                                                trakingcod =r.rahgiricod,
+                                                bank= "zibal"
+                                                )
+                    message = f"{r.fiestname}_{r.lastname}پرداخت_موفقیت_آمیز_کدرهگیری_{r.rahgiricod}دکتر_اسدپور_"
+                    # message = f"{endresult[0]}_{endresult[1]}_{endresult[2]}_{endresult[3]}_{endresult[4]}_{endresult[5]}_{endresult[6]}_{endresult[7]}_{endresult[8]}"
 
-                try:
-                    api = KavenegarAPI(
-                        '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-                    params = {
-                        'receptor': str(r.phonnumber),
-                        'template': 'test',
-                        'token': message,
-                        'type': 'sms',
-                    }
-                    response = api.verify_lookup(params)
-                    return render(request, 'end.html', context={"result": endresult, })
-                except APIException as e:
-                    m = 'tellerror'
-                    # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-                    return render(request, 'end.html', context={"result": endresult, })
-                except HTTPException as e:
-                    m = 'neterror'
-                    # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-                    # return render(request, 'add_cantact.html')
-                    return render(request, 'end.html', context={"result": endresult, })
-                a = reservemodeltest.objects.filter(request.user.username)
-                a.delete()
-        neurse = neursetestmodel.objects.all()
-        for r in neurse :
-            if r.mellicode == request.user.username:
-                neursemodel.objects.create(
-                    mellicode=r.mellicode,
-                    inject_botax=r.inject_botax,
-                    illnes=r.illnes,
-                    drug=r.drug,
-                    sensivety=r.sensivety,
-                    pregnancy=r.pregnancy,
-                    date_finaly=r.date_finaly,
-                    image_show=r.image_show,
-                    satisfact=r.satisfact,
-                )
-                a = neursetestmodel.objects.filter(mellicode=request.user.username)
-                a.delete()
+                    try:
+                        api = KavenegarAPI(
+                            '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                        params = {
+                            'receptor': r.phonnumber,
+                            'template': 'test',
+                            'token': message,
+                            'type': 'sms',
+                        }
+                        response = api.verify_lookup(params)
+                        return render(request, 'end.html', context={"result": endresult, })
+                    except APIException as e:
+                        m = 'tellerror'
+                        # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+                        return render(request, 'end.html', context={"result": endresult, })
+                    except HTTPException as e:
+                        m = 'neterror'
+                        # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+                        # return render(request, 'add_cantact.html')
+                        return render(request, 'end.html', context={"result": endresult, })
+                    a = reservemodeltest.objects.filter(request.user.username)
+                    a.delete()
+            neurse = neursetestmodel.objects.all()
+            for r in neurse :
+                if r.mellicode == request.user.username:
+                    neursemodel.objects.create(
+                        mellicode=r.mellicode,
+                        inject_botax=r.inject_botax,
+                        illnes=r.illnes,
+                        drug=r.drug,
+                        sensivety=r.sensivety,
+                        pregnancy=r.pregnancy,
+                        date_finaly=r.date_finaly,
+                        image_show=r.image_show,
+                        satisfact=r.satisfact,
+                    )
+                    a = neursetestmodel.objects.filter(mellicode=request.user.username)
+                    a.delete()
 
-        # return redirect('http://127.0.0.1:8000/zib/end/')
+            # return redirect('http://127.0.0.1:8000/zib/end/')
 
     return redirect('https://drmahdiasadpour.ir/zib/end/')
 
