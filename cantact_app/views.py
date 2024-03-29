@@ -238,14 +238,14 @@ def addcantactdef(request):
 
 # -------اینجا وقتی یک ماه انتخاب میشه میاد و جدول هفته اون رو مشخص میکنه------------------------------------------------------------------------------
     if (mounth_number[0] != '') and (mounth_number[0] != "0") and (mounth_number[0] != None):
-        print("mounth")
         time = datetime.datetime.now()
         q = '14'
         while int(str(q + stry(time))) >= int(str(year[0])) :
-            time -= timedelta(days=1)
+            time -= timedelta(days=30)
             if stry(time) == '99' :
                 q = '13'
-        time += timedelta(days=1)
+        while int(str(q + stry(time))) == int(str(year[0])) :
+            time += timedelta(days=1)
 
         while strb(time) != cuntmounth(int(mounth_number[0])) :
             time += timedelta(days=1)
@@ -273,9 +273,7 @@ def addcantactdef(request):
         s = " "
         shamsi = " "
         miladi = " "
-        print(melicod_r[0])
         for j in range(i) :
-            print("1")
             s = s + " "+","
             shamsi = shamsi + " "+","
             miladi = miladi + " "+","
@@ -291,7 +289,6 @@ def addcantactdef(request):
             time += timedelta(days=1)
 
         while strb(time) == cuntmounth(int(mounth_number[0])) :
-            print("2")
             s = s + strd(time)+","
             shamsi = shamsi + stradby(time)+","
             miladi = miladi + time.strftime('%a %d %b %y')+","
@@ -343,9 +340,6 @@ def addcantactdef(request):
         return redirect('/')
 # -----------------------------------------------------------------انتخاب روز تولد----------------------------------------------
     if (bbtn != None) and (bbtn != '') and (calandarshow != None) and (calandarshow != '') :
-        print("bbtn")
-        print(melicod_r[0])
-
         alldata = dataacont.objects.all()
         for data in alldata :
             if data.melicode == melicod_r[0] :
