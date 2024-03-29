@@ -144,11 +144,10 @@ t[0] = datetime.datetime.now()
 year = [int(str('14' + stry(datetime.datetime.now())))]
 year[0] = []
 # year[0] =int(str('14' + stry(datetime.datetime.now())))
-berthmiladi_r = [""]
 calandarshow = ['0']
 calandarshow[0] ='0'
-calandarmiladidate = [""]
-calandarmiladidate[0] = datetime.datetime.now().strftime('%a %d %b %y')
+calandarmiladidate = [datetime.datetime.now()]
+calandarmiladidate[0] = datetime.datetime.now()
 calandarshamsidate = [stradby(t[0])]
 calandarshamsidate [0] = stradby(t[0])
 firstname_r = ['']
@@ -273,10 +272,9 @@ def addcantactdef(request):
 
         while strb(time) == cuntmounth(int(mounth_number[0])) :
             calandarshow.append(strd(time))
-            calandarmiladidate.append(time.strftime('%a %d %b %y'))
+            calandarmiladidate.append(time)
             calandarshamsidate.append(stradby(time))
             time += timedelta(days=1)
-
         return render(request,'calander.html',context={"firstname":firstname_r[0],
                                                        "lastname":lastname_r[0],
                                                        "melicod":melicod_r[0],
@@ -288,12 +286,12 @@ def addcantactdef(request):
 
 # ---------اگر دکمه تقئیم خورد سال رو به هم اکنون تغییر میده دقت شود که در مواد دیگه مثل بالا زدن-سال یا چیزی دیگه - button calandar برابر acceot میشد-----------------------------------متوجه شدم که placeholder-مقدارش داخل input خواهد بود----------------------------------------------------------------
     if button_calandar == "accept" :
-        # t[0] = datetime.datetime.now()
-        # calandarshow[0] = '0'
-        # calandarmiladidate[0] = datetime.datetime.now()
-        # calandarshamsidate[0] = stradby(t[0])
-        # berthmiladi_r[0] = datetime.datetime.now()
-        # year[0] = []
+        t[0] = datetime.datetime.now()
+        calandarshow[0] = '0'
+        calandarmiladidate[0] = datetime.datetime.now()
+        calandarshamsidate[0] = stradby(t[0])
+        berthmiladi_r[0] = datetime.datetime.now()
+        year[0] = []
         return render(request, 'calander.html', context={"firstname": firstname_r[0],
                                                  "lastname": lastname_r[0],
                                                  "melicod": melicod_r[0],
@@ -308,9 +306,8 @@ def addcantactdef(request):
         return redirect('/')
 # -----------------------------------------------------------------انتخاب روز تولد----------------------------------------------
     if (bbtn != None) and (bbtn != '') and (calandarshow != None) and (calandarshow != '') :
-        print(len(calandarmiladidate))
-        print(int(bbtn))
-        berthmiladi_r[0] = str(calandarmiladidate[int(bbtn)])
+        # berthmiladi_r[0] = str(calandarmiladidate[int(bbtn)])
+        print(len(calandarshamsidate))
         year[0] = []
         return render(request,'add_cantact.html',context={ "firstname":firstname_r[0],
                                                            "lastname":lastname_r[0],
