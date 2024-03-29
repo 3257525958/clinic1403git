@@ -199,7 +199,7 @@ def reservdef(request):
                     a = reservemodeltest.objects.filter(mellicode=request.user.username)
                     a.update(
                              timereserv=sel,
-                             castreserv=f.cast,
+                             castreserv=str(int(f.cast) // 5),
                              )
 
                 c +=1
