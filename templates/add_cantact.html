@@ -43,12 +43,42 @@
 
                 <div class="box">
                     <p class=>
-                        تاریخ تولد:
+                        سال تولد:
                     </p>
-                    <input type="text" disabled class="inputclass" value="{{ berthday_shamsi }}">
-                    <button class="texbutton" name="button_calandar" value="accept">
-                        تقویم
-                    </button >
+                    <select class="inputclass" name="year" >
+                        {% for i in yearcant %}
+                            <option value={{ i }}>{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="box">
+                    <p class=>
+                        ماه تولد:
+                    </p>
+                    <select class="inputclass" name="mounth" >
+                        <option value="فروردین">فروردین</option>
+                        <option value="اردیبهشت">اردیبهشت</option>
+                        <option value="خرداد">خرداد</option>
+                        <option value="تیر">تیر</option>
+                        <option value="مرداد">مرداد</option>
+                        <option value="شهریور">شهریور</option>
+                        <option value="مهر">مهر</option>
+                        <option value="آبان">آبان</option>
+                        <option value="آذر">آذر</option>
+                        <option value="دی">دی</option>
+                        <option value="بهمن">بهمن</option>
+                        <option value="اسفند">اسفند</option>
+                    </select>
+                </div>
+                <div class="box">
+                    <p class=>
+                        روز تولد:
+                    </p>
+                    <select class="inputclass" name="day" >
+                        {% for iday in day %}
+                            <option value={{ iday }}>{{ iday }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <button class="regesterbuttonsave" name="button_send" value="accept">
                     ارسال

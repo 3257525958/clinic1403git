@@ -141,8 +141,8 @@ def strbd(tdef):
 
 t = [datetime.datetime.now()]
 t[0] = datetime.datetime.now()
-year = [int(str('14' + stry(datetime.datetime.now())))]
-year[0] = []
+# year = [int(str('14' + stry(datetime.datetime.now())))]
+# year[0] = []
 # year[0] =int(str('14' + stry(datetime.datetime.now())))
 calandarshow = ['0']
 calandarshow[0] ='0'
@@ -158,12 +158,8 @@ berthmiladi_r = [datetime.datetime.now()]
 berthmiladi_r[0] = datetime.datetime.now()
 melicod_etebar = ['true']
 mounth_number = ['']
+year = [1402]
 def addcantactdef(request):
-    df = ""
-    dl = ""
-    dm = ""
-    dph = ""
-
     mounth_number[0] = request.POST.get('mbtn')
     if mounth_number[0] == None :
         mounth_number[0] == ''
@@ -178,6 +174,9 @@ def addcantactdef(request):
     inputcode_regester = request.POST.get('inputcode_regester')
     formuser = accuntform(request.POST, request.FILES)
     facebotton = request.POST.get("facebutton")
+    yearj = request.POST.get("year")
+    mounthj = request.POST.get("mounth")
+    dayj = request.POST.get("day")
 # ---------- در این قسمت داده هایی که به صفحه addcontact داده میشود در آرایه هایدمربوطه ذخیره میشه تا با زدن دکمه ها اونا نپرن ----
     input_year = request.POST.get("input_year")
     if (input_year != '') and ( input_year != None) :
@@ -293,22 +292,22 @@ def addcantactdef(request):
                                                        })
 
 # ---------اگر دکمه تقئیم خورد سال رو به هم اکنون تغییر میده دقت شود که در مواد دیگه مثل بالا زدن-سال یا چیزی دیگه - button calandar برابر acceot میشد-----------------------------------متوجه شدم که placeholder-مقدارش داخل input خواهد بود----------------------------------------------------------------
-    if button_calandar == "accept" :
-        t[0] = datetime.datetime.now()
-        calandarshow[0] = '0'
-        calandarmiladidate[0] = datetime.datetime.now()
-        calandarshamsidate[0] = stradby(t[0])
-        berthmiladi_r[0] = datetime.datetime.now()
-        year[0] = []
-        return render(request, 'calander.html', context={"firstname": firstname_r[0],
-                                                 "lastname": lastname_r[0],
-                                                 "melicod": melicod_r[0],
-                                                 "phonnumber": phonnumber_r[0],
-                                                 "year": year[0],
-                                                 "mounth": mounth_number[0],
-                                                 "calandar_aray": calandarshow,
-                                                 })
-# ****************************************************کلید برگشت**********************************************
+#     if button_calandar == "accept" :
+#         t[0] = datetime.datetime.now()
+#         calandarshow[0] = '0'
+#         calandarmiladidate[0] = datetime.datetime.now()
+#         calandarshamsidate[0] = stradby(t[0])
+#         berthmiladi_r[0] = datetime.datetime.now()
+#         year[0] = []
+#         return render(request, 'calander.html', context={"firstname": firstname_r[0],
+#                                                  "lastname": lastname_r[0],
+#                                                  "melicod": melicod_r[0],
+#                                                  "phonnumber": phonnumber_r[0],
+#                                                  "year": year[0],
+#                                                  "mounth": mounth_number[0],
+#                                                  "calandar_aray": calandarshow,
+#                                                  })
+# # ****************************************************کلید برگشت**********************************************
     if button_back == "accept" :
         melicod_r[0] = ''
         return redirect('/')
@@ -329,13 +328,27 @@ def addcantactdef(request):
         if (melicod_r[0] == '') and (melicod_r[0] == None)  :
             melicod_etebar[0] = 'empty'
         if melicod_etebar[0] == 'true' :
+
+            time = datetime.datetime.now()
+            q = '14'
+            while int(str(q + stry(time))) >= int(str(yearj)):
+                time -= timedelta(days=30)
+                if int(stry(time)) == int('99'):
+                    q = '13'
+            while int(str(q + stry(time))) == int(str(yearj)):
+                time += timedelta(days=1)
+            while strb(time) != mounthj:
+                time += timedelta(days=1)
+            while int(strd(time)) != int(dayj):
+                time += timedelta(days=1)
+
             savecods = savecodphon.objects.all()
             for savecode in savecods:
                 a = savecodphon.objects.filter(melicode=savecode.melicode)
                 a.delete()
             randomcode = random.randint(1000, 9999)
             savecodphon.objects.create(firstname=firstname_r, lastname=lastname_r,melicode=str(melicod_r[0]),
-                                       phonnumber=str(phonnumber_r[0]),berthday=str(berthmiladi_r[0]),code=str(randomcode),expaiercode="2",
+                                       phonnumber=str(phonnumber_r[0]),berthday=stryadb(time),code=str(randomcode),expaiercode="2",
                                        )
             try:
                 api = KavenegarAPI(
@@ -380,16 +393,17 @@ def addcantactdef(request):
             if (int(savecode.code) == int(inputcode_regester)) and (int(savecode.melicode) == int(melicod_r[0])):
                     savecods = savecodphon.objects.all()
                     for savecode in savecods:
-                        a = savecodphon.objects.filter(melicode=savecode.melicode)
-                        a.delete()
-                    accuntmodel.objects.create(
-                        firstname=firstname_r[0],
-                        lastname=lastname_r[0],
-                        melicode=str(melicod_r[0]),
-                        phonnumber=str( phonnumber_r[0]),
-                        berthday=str(berthmiladi_r[0]),
-                        pasword=str(phonnumber_r[0]),
-                        )
+                        if savecode.melicode == melicod_r[0] :
+                            accuntmodel.objects.create(
+                                firstname=firstname_r[0],
+                                lastname=lastname_r[0],
+                                melicode=str(melicod_r[0]),
+                                phonnumber=str( phonnumber_r[0]),
+                                berthday=savecode.berthday,
+                                pasword=str(phonnumber_r[0]),
+                                )
+                            a = savecodphon.objects.filter(melicode=savecode.melicode)
+                            a.delete()
 
                     User.objects.create_user(
                                                 username=melicod_r[0],
@@ -412,7 +426,22 @@ def addcantactdef(request):
                 e = 'false'
                 return render(request, 'code_cantact.html', context={'etebar': e}, )
     year[0] = []
-    return render(request,'add_cantact.html',context={'melicod_etebar':melicod_etebar[0]})
+    yearcant = [1300]
+    h =1300
+    t = datetime.datetime.now()
+    while h <= int(stry(t))+1399 :
+        h +=1
+        yearcant.append(h)
+    day = [1]
+    hh = 1
+    while hh <= 30 :
+        hh +=1
+        day.append(hh)
+
+    return render(request,'add_cantact.html',context={'melicod_etebar':melicod_etebar[0],
+                                                                    "yearcant":yearcant,
+                                                                    "day":day,
+                                                                    })
 login_etebar = ['f']
 
 

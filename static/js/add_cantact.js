@@ -53,3 +53,10 @@
         })
 
     }
+
+    function citylist()
+{
+        f = document.getElementById("face");
+        f.click()
+}
+
