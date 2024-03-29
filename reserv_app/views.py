@@ -174,18 +174,34 @@ def reservdef(request):
                     selectprocedure.append(f.work)
                     selectprocedure.append(f.detalework)
                     selectprocedure.append(f.person)
+                    a = reservemodeltest.objects.filter(mellicode=request.user.username)
+                    a.update(jobreserv=f.work,
+                             detalereserv=f.detalework,
+                             personreserv=f.person,
+                             )
 
                     if f.time == "نیم ساعت" :
+                        sel = "1"
                         selectprocedure.append("1")
                     if f.time == "یک ساعت" :
+                        sel = "2"
                         selectprocedure.append("2")
                     if f.time =="یک و نیم ساعت" :
+                        sel = "3"
                         selectprocedure.append("3")
                     if f.time == "دو ساعت" :
+                        sel = "4"
                         selectprocedure.append("4")
                     if f.time == "دو نیم ساعت" :
+                        sel = "5"
                         selectprocedure.append("5")
                     selectprocedure.append(f.cast)
+                    a = reservemodeltest.objects.filter(mellicode=request.user.username)
+                    a.update(
+                             timereserv=sel,
+                             castreserv=f.cast,
+                             )
+
                 c +=1
 
             shamsiarray.clear()
@@ -387,17 +403,9 @@ def reservdef(request):
                 s ="19.5"
                 selectprocedure.append("19.5")
             a = reservemodeltest.objects.filter(mellicode=request.user.username)
-            a.update(ourreserv=s)
+            a.update(hourreserv=s)
             reservs = reservemodel.objects.all()
             reservetebar[0] = 'succes'
-            a = reservemodeltest.objects.filter(mellicode=request.user.username)
-            a.update(jobreserv=selectprocedure[0],
-                                            detalereserv=selectprocedure[1],
-                                            personreserv=selectprocedure[2],
-                                            timereserv=selectprocedure[3],
-                                            castreserv=selectprocedure[4],
-                                            hourreserv=selectprocedure[9],
-                                            )
             filepage1 = "false"
             page =filepage1model.objects.all()
             for p in page :
