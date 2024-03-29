@@ -144,6 +144,7 @@ t[0] = datetime.datetime.now()
 year = [int(str('14' + stry(datetime.datetime.now())))]
 year[0] = []
 # year[0] =int(str('14' + stry(datetime.datetime.now())))
+berthmiladi_r = [""]
 calandarshow = ['0']
 calandarshow[0] ='0'
 calandarmiladidate = [datetime.datetime.now()]
@@ -306,6 +307,8 @@ def addcantactdef(request):
         return redirect('/')
 # -----------------------------------------------------------------انتخاب روز تولد----------------------------------------------
     if (bbtn != None) and (bbtn != '') and (calandarshow != None) and (calandarshow != '') :
+        print(len(calandarmiladidate))
+        print(int(bbtn))
         berthmiladi_r[0] = str(calandarmiladidate[int(bbtn)])
         year[0] = []
         return render(request,'add_cantact.html',context={ "firstname":firstname_r[0],
