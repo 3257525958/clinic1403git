@@ -24,8 +24,8 @@ def home(request):
                                                   )
                         if user_login is not None:
                             login(request, user_login)
-                            # return redirect('https://drmahdiasadpour.ir')
-                            return redirect('http://127.0.0.1:8000')
+                            return redirect('https://drmahdiasadpour.ir')
+                            # return redirect('http://127.0.0.1:8000')
     if request.user.is_authenticated:
         us = accuntmodel.objects.all()
         for u in us:
