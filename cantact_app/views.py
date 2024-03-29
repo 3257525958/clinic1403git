@@ -326,6 +326,18 @@ def addcantactdef(request):
                                  melicode=melicod_r[0],
                                  phonnumber=phonnumber_r[0],
                                  )
+        f = "false"
+        atotal = dataacont.objects.all()
+        for a in atotal :
+            if a.melicode == melicod_r[0] :
+                f = "true"
+        if f == "false" :
+            dataacont.objects.create(firstname=firstname_r[0],
+                                     lastname=lastname_r[0],
+                                     melicode=melicod_r[0],
+                                     phonnumber=phonnumber_r[0],
+                                     )
+
         return render(request, 'calander.html', context={"firstname": firstname_r[0],
                                                  "lastname": lastname_r[0],
                                                  "melicod": melicod_r[0],
