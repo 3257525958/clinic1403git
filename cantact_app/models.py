@@ -21,3 +21,17 @@ class savecodphon(models.Model):
     expaiercode = models.CharField(max_length=20)
     def __str__(self):
         return f"{self.melicode}"
+
+
+
+class dataacont(models.Model):
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    melicode = models.CharField(max_length=20 , default="0")
+    phonnumber = models.CharField(max_length=20 , default="0")
+    berthday = models.CharField(max_length=100)
+    miladiarray = models.CharField(max_length=5000 , default="0")
+    shamsiarray = models.CharField(max_length=5000 , default="0")
+    showclandarray = models.CharField(max_length=5000 , default="0")
+    def __str__(self):
+        return f"{self.melicode}"

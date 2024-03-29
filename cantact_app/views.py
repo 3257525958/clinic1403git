@@ -4,7 +4,7 @@ from tkinter import messagebox
 import datetime
 from jalali_date import date2jalali,datetime2jalali
 from datetime import timedelta
-from cantact_app.models import accuntmodel,savecodphon
+from cantact_app.models import accuntmodel,savecodphon,dataacont
 from cantact_app.forms import accuntform
 from kavenegar import *
 import random
@@ -264,17 +264,40 @@ def addcantactdef(request):
             i = 7
         for j in range(i):
             time -= timedelta(days=1)
+        s = " "
+        shamsi = " "
+        miladi = " "
         for j in range(i) :
+            s = s + " "+","
+            shamsi = shamsi + " "+","
+            miladi = miladi + " "+","
+            a = dataacont.objects.filter(melicode=melicod_r[0])
+            a.update(
+                showclandarray=s,
+                shamsiarray=shamsi,
+                miladiarray=miladi,
+                     )
             calandarshow.append("")
             calandarmiladidate.append(time)
             calandarshamsidate.append(stradby(time))
             time += timedelta(days=1)
 
         while strb(time) == cuntmounth(int(mounth_number[0])) :
+            s = s + strd(time)+","
+            shamsi = shamsi + stradby(time)+","
+            miladi = miladi + time.strftime('%a %d %b %y')+","
+            a = dataacont.objects.filter(melicode=melicod_r[0])
+            a.update(
+                showclandarray=s,
+                shamsiarray=shamsi,
+                miladiarray=miladi,
+                     )
             calandarshow.append(strd(time))
             calandarmiladidate.append(time)
             calandarshamsidate.append(stradby(time))
             time += timedelta(days=1)
+        for i in range(len(calandarshamsidate)) :
+            w = calandarshamsidate[i]
         return render(request,'calander.html',context={"firstname":firstname_r[0],
                                                        "lastname":lastname_r[0],
                                                        "melicod":melicod_r[0],
@@ -292,6 +315,11 @@ def addcantactdef(request):
         calandarshamsidate[0] = stradby(t[0])
         berthmiladi_r[0] = datetime.datetime.now()
         year[0] = []
+        dataacont.objects.create(firstname=firstname_r[0],
+                                 lastname=lastname_r[0],
+                                 melicode=melicod_r[0],
+                                 phonnumber=phonnumber_r[0],
+                                 )
         return render(request, 'calander.html', context={"firstname": firstname_r[0],
                                                  "lastname": lastname_r[0],
                                                  "melicod": melicod_r[0],
@@ -306,15 +334,44 @@ def addcantactdef(request):
         return redirect('/')
 # -----------------------------------------------------------------انتخاب روز تولد----------------------------------------------
     if (bbtn != None) and (bbtn != '') and (calandarshow != None) and (calandarshow != '') :
-        # berthmiladi_r[0] = str(calandarmiladidate[int(bbtn)])
-        print(len(calandarshamsidate))
+        alldata = dataacont.objects.all()
+        for data in alldata :
+            if data.melicode == melicod_r[0] :
+                dshow = data.showclandarray
+                dmiladi = data.miladiarray
+                dshamsi = data.shamsiarray
+                dsho = dshow.split(",")
+                dsha = dshamsi.split(",")
+                dmi = dmiladi.split(",")
+                df = data.firstname
+                dl = data.lastname
+                dm = data.melicode
+                dph = data.phonnumber
+                berthmiladi_r[0] = str(dmi[int(bbtn)])
         year[0] = []
-        return render(request,'add_cantact.html',context={ "firstname":firstname_r[0],
-                                                           "lastname":lastname_r[0],
-                                                           "melicod":melicod_r[0],
-                                                           "phonnumber":phonnumber_r[0],
+        alldata = dataacont.objects.all()
+        for data in alldata :
+            if (data.melicode != " ") and (data.melicode != None) :
+                data.delete()
+            else:
+                if (data.firstname != " ") and (data.firstname != None):
+                    data.delete()
+                else:
+                    if (data.lastname != " ") and (data.lastname != None):
+                        data.delete()
+                    else:
+                        if (data.phonnumber != " ") and (data.phonnumber != None):
+                            data.delete()
+                        else:
+                            if (data.berthday != " ") and (data.berthday != None):
+                                data.delete()
+
+        return render(request,'add_cantact.html',context={ "firstname":df,
+                                                           "lastname":dl,
+                                                           "melicod":dm,
+                                                           "phonnumber":dph,
                                                            "year" : year[0],
-                                                           "berthday_shamsi":calandarshamsidate[int(bbtn)],
+                                                           "berthday_shamsi":dsha[int(bbtn)],
                                                            "melicod_etebar": 'true',
                                                            })
 # ------------------------------------------------بعد از زدن دکمه ارسال در صفحه add_cantact- و یا بعد از زدن دکمه ارسال مجدد----کد ارسال میکنخ با پیامک-------------------------
