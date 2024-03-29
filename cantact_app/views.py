@@ -159,6 +159,11 @@ berthmiladi_r[0] = datetime.datetime.now()
 melicod_etebar = ['true']
 mounth_number = ['']
 def addcantactdef(request):
+    df = ""
+    dl = ""
+    dm = ""
+    dph = ""
+
     mounth_number[0] = request.POST.get('mbtn')
     if mounth_number[0] == None :
         mounth_number[0] == ''
