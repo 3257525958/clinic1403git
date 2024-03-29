@@ -147,8 +147,8 @@ year[0] = []
 berthmiladi_r = [""]
 calandarshow = ['0']
 calandarshow[0] ='0'
-calandarmiladidate = [datetime.datetime.now()]
-calandarmiladidate[0] = datetime.datetime.now()
+calandarmiladidate = [""]
+calandarmiladidate[0] = datetime.datetime.now().strftime('%a %d %b %y')
 calandarshamsidate = [stradby(t[0])]
 calandarshamsidate [0] = stradby(t[0])
 firstname_r = ['']
@@ -222,9 +222,6 @@ def addcantactdef(request):
 # --------پس از وارد کردن یک عدد چهار رقمی در باکس سال توسط جاوا دکمه battonface زده میشود در این قسمت میگوید اگر اگر زده شد یعتی سال وارد شده و پس جدول ماهها باز شور---------
     if facebotton == "accept":
         mounth_number[0] = "0"
-        print(len(calandarmiladidate))
-        print("facebotton")
-
         return render(request,'calander.html',context={
                                                        "firstname":firstname_r[0],
                                                        "lastname":lastname_r[0],
@@ -279,8 +276,7 @@ def addcantactdef(request):
             calandarmiladidate.append(time.strftime('%a %d %b %y'))
             calandarshamsidate.append(stradby(time))
             time += timedelta(days=1)
-            print(len(calandarmiladidate))
-            print("mounth_number")
+
         return render(request,'calander.html',context={"firstname":firstname_r[0],
                                                        "lastname":lastname_r[0],
                                                        "melicod":melicod_r[0],
@@ -297,10 +293,7 @@ def addcantactdef(request):
         # calandarmiladidate[0] = datetime.datetime.now()
         # calandarshamsidate[0] = stradby(t[0])
         # berthmiladi_r[0] = datetime.datetime.now()
-        print(len(calandarmiladidate))
-        print("button_calandar")
-
-        year[0] = []
+        # year[0] = []
         return render(request, 'calander.html', context={"firstname": firstname_r[0],
                                                  "lastname": lastname_r[0],
                                                  "melicod": melicod_r[0],
