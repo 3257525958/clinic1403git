@@ -272,7 +272,7 @@ def addcantactdef(request):
 
         while strb(time) == cuntmounth(int(mounth_number[0])) :
             calandarshow.append(strd(time))
-            calandarmiladidate.append(time)
+            calandarmiladidate.append(time.strftime('%a %d %b %y'))
             calandarshamsidate.append(stradby(time))
             time += timedelta(days=1)
         return render(request,'calander.html',context={"firstname":firstname_r[0],
