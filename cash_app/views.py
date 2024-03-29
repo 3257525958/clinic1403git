@@ -270,13 +270,12 @@ def end(request):
                                                            })
                 # return redirect('https://drmahdiasadpour.ir/')
     message = f"دکتر_اسدپور_"
-    # message = f"{endresult[5]}_{endresult[6]}پرداخت_موفقیت_آمیز_کدرهگیری_{endresult[2]}دکتر_اسدپور_"
 
     try:
         api = KavenegarAPI(
             '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
         params = {
-            'receptor': endresult[4],
+            'receptor': "09122852099",
             'template': 'test',
             'token': message,
             'type': 'sms',
