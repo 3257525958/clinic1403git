@@ -314,7 +314,7 @@ def addcantactdef(request):
         return redirect('/')
 # -----------------------------------------------------------------انتخاب روز تولد----------------------------------------------
     if (bbtn != None) and (bbtn != '') and (calandarshow != None) and (calandarshow != '') :
-        berthmiladi_r[0] = str(calandarmiladidate[int(bbtn)])
+        # berthmiladi_r[0] = str(calandarmiladidate[int(bbtn)])
         year[0] = []
         return render(request,'add_cantact.html',context={ "firstname":firstname_r[0],
                                                            "lastname":lastname_r[0],
