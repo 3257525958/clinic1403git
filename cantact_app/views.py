@@ -353,10 +353,13 @@ def addcantactdef(request):
                 dl = data.lastname
                 dm = data.melicode
                 dph = data.phonnumber
-                # berthmiladi_r[0] = str(dmi[int(bbtn)])
+                try:
+                    berthmiladi_r[0] = str(dmi[int(bbtn)])
+                except:
+                    berthmiladi_r[0] = str(calandarmiladidate[int(bbtn)])
+
         year[0] = []
         alldata = dataacont.objects.all()
-        berthmiladi_r[0] = str(calandarmiladidate[int(bbtn)])
         for data in alldata :
             if (data.melicode != " ") and (data.melicode != None) :
                 data.delete()
