@@ -18,11 +18,11 @@ ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
 ZIB_API_TOKEN = 'https://gateway.zibal.ir/v1/verify'
 # callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
-merchanzibal = 'zibal'
+# merchanzibal = 'zibal'
 # ENDURL = "http://127.0.0.1:8000"
 ENDURL = "https://drmahdiasadpour.ir"
 callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
-# merchanzibal = '64c2047fcbbc270017f4c6b2'
+merchanzibal = '64c2047fcbbc270017f4c6b2'
 
 def orderzibal(request):
     peyment = 50000
