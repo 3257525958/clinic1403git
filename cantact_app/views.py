@@ -275,6 +275,7 @@ def addcantactdef(request):
         miladi = " "
         print(melicod_r[0])
         for j in range(i) :
+            print("1")
             s = s + " "+","
             shamsi = shamsi + " "+","
             miladi = miladi + " "+","
@@ -290,6 +291,7 @@ def addcantactdef(request):
             time += timedelta(days=1)
 
         while strb(time) == cuntmounth(int(mounth_number[0])) :
+            print("2")
             s = s + strd(time)+","
             shamsi = shamsi + stradby(time)+","
             miladi = miladi + time.strftime('%a %d %b %y')+","
