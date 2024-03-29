@@ -353,9 +353,10 @@ def addcantactdef(request):
                 dl = data.lastname
                 dm = data.melicode
                 dph = data.phonnumber
-                berthmiladi_r[0] = str(dmi[int(bbtn)])
+                # berthmiladi_r[0] = str(dmi[int(bbtn)])
         year[0] = []
         alldata = dataacont.objects.all()
+        berthmiladi_r[0] = str(calandarmiladidate[int(bbtn)])
         for data in alldata :
             if (data.melicode != " ") and (data.melicode != None) :
                 data.delete()
@@ -377,7 +378,7 @@ def addcantactdef(request):
                                                            "melicod":dm,
                                                            "phonnumber":dph,
                                                            "year" : year[0],
-                                                           "berthday_shamsi":dsha[int(bbtn)],
+                                                           "berthday_shamsi":calandarshamsidate[int(bbtn)],
                                                            "melicod_etebar": 'true',
                                                            })
 # ------------------------------------------------بعد از زدن دکمه ارسال در صفحه add_cantact- و یا بعد از زدن دکمه ارسال مجدد----کد ارسال میکنخ با پیامک-------------------------
