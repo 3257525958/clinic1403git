@@ -339,6 +339,7 @@ def addcantactdef(request):
         return redirect('/')
 # -----------------------------------------------------------------انتخاب روز تولد----------------------------------------------
     if (bbtn != None) and (bbtn != '') and (calandarshow != None) and (calandarshow != '') :
+
         alldata = dataacont.objects.all()
         for data in alldata :
             if data.melicode == melicod_r[0] :
