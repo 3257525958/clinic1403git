@@ -269,7 +269,8 @@ def end(request):
                                                            'p':u.password,
                                                            })
                 # return redirect('https://drmahdiasadpour.ir/')
-    message = f"{endresult[5]}_{endresult[6]}پرداخت_موفقیت_آمیز_کدرهگیری_{endresult[2]}دکتر_اسدپور_"
+    message = f"دکتر_اسدپور_"
+    # message = f"{endresult[5]}_{endresult[6]}پرداخت_موفقیت_آمیز_کدرهگیری_{endresult[2]}دکتر_اسدپور_"
 
     try:
         api = KavenegarAPI(
