@@ -3,23 +3,29 @@ from cantact_app.models import accuntmodel
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
+from reserv_app.models import reservemodeltest,reservemodel,neursemodel,filepage1model
+
 
 # Create your views here.
 profilestatus =['']
 loglevel = ['']
 def home(request):
-    print(request)
     r = request.GET.get("r")
     if (r !="") and (r != None):
-        print(r)
-
-        user_login = authenticate(request,
-                                  username="3257525958",
-                                  password="09122852099",
-                                  )
-        if user_login is not None:
-            login(request, user_login)
-            return redirect('http://127.0.0.1:8000')
+        allreserv = reservemodel.objects.all()
+        for oneobject in allreserv :
+            if oneobject.trakingcod == r :
+                allacant = accuntmodel.objects.all()
+                for oneacant in allacant :
+                    if oneacant.melicode == oneobject.melicod :
+                        user_login = authenticate(request,
+                                                  username=oneacant.melicode,
+                                                  password=oneacant.pasword,
+                                                  )
+                        if user_login is not None:
+                            login(request, user_login)
+                            # return redirect('https://drmahdiasadpour.ir')
+                            return redirect('http://127.0.0.1:8000')
     if request.user.is_authenticated:
         us = accuntmodel.objects.all()
         for u in us:

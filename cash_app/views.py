@@ -17,12 +17,13 @@ ZIB_API_REQUEST = "https://gateway.zibal.ir/v1/request"
 ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
 ZIB_API_TOKEN = 'https://gateway.zibal.ir/v1/verify'
-# callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
-# merchanzibal = 'zibal'
-# ENDURL = "http://127.0.0.1:8000"
-ENDURL = "https://drmahdiasadpour.ir"
-callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
-merchanzibal = '64c2047fcbbc270017f4c6b2'
+
+callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
+merchanzibal = 'zibal'
+ENDURL = "http://127.0.0.1:8000"
+# ENDURL = "https://drmahdiasadpour.ir"
+# callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
+# merchanzibal = '64c2047fcbbc270017f4c6b2'
 
 def orderzibal(request):
     peyment = 50000
@@ -57,8 +58,9 @@ def orderzibal(request):
 
 def callbackzibal(request):
     backbutton = request.GET.get('backbutton')
-    if backbutton == "accept" :
-        ur = ENDURL
+    if (backbutton != "") and (backbutton != None) :
+        ur = f"{ENDURL}/?r={backbutton}"
+        # ur = ENDURL
         return redirect(ur)
 
     trac = request.GET['trackId']
