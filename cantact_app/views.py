@@ -328,20 +328,6 @@ def addcantactdef(request):
         if (melicod_r[0] == '') and (melicod_r[0] == None)  :
             melicod_etebar[0] = 'empty'
         if melicod_etebar[0] == 'true' :
-
-            # time = datetime.datetime.now()
-            # q = '14'
-            # while int(str(q + stry(time))) >= int(str(yearj)):
-            #     time -= timedelta(days=30)
-            #     if int(stry(time)) == int('99'):
-            #         q = '13'
-            # while int(str(q + stry(time))) == int(str(yearj)):
-            #     time += timedelta(days=1)
-            # while strb(time) != mounthj:
-            #     time += timedelta(days=1)
-            # while int(strd(time)) != int(dayj):
-            #     time += timedelta(days=1)
-            #
             savecods = savecodphon.objects.all()
             for savecode in savecods:
                 a = savecodphon.objects.filter(melicode=savecode.melicode)
