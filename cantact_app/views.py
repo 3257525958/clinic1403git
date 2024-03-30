@@ -399,51 +399,53 @@ def addcantactdef(request):
             print(savecode.code)
             print(inputcode_regester)
             print(savecode.melicode)
+            print("uu")
             print(melicod_r[0])
-            if (int(savecode.code) == int(inputcode_regester)) and (int(savecode.melicode) == int(melicod_r[0])):
-                yj = savecode.berthdayyear
-                dj = savecode.berthdayday
-                mj = savecode.berthdaymounth
-                time = datetime.datetime.now()
-                q = '14'
-                while int(str(q + stry(time))) >= int(yj):
-                    time -= timedelta(days=30)
-                    if int(stry(time)) == int('99'):
-                        q = '13'
-                while int(str(q + stry(time))) == int(yj):
-                    time += timedelta(days=1)
-                while strb(time) != mj:
-                    time += timedelta(days=1)
-                while int(strd(time)) != int(dj):
-                    time += timedelta(days=1)
+            if int(savecode.code) == int(inputcode_regester):
+                if int(savecode.melicode) == melicod_r[0]:
+                    yj = savecode.berthdayyear
+                    dj = savecode.berthdayday
+                    mj = savecode.berthdaymounth
+                    time = datetime.datetime.now()
+                    q = '14'
+                    while int(str(q + stry(time))) >= int(yj):
+                        time -= timedelta(days=30)
+                        if int(stry(time)) == int('99'):
+                            q = '13'
+                    while int(str(q + stry(time))) == int(yj):
+                        time += timedelta(days=1)
+                    while strb(time) != mj:
+                        time += timedelta(days=1)
+                    while int(strd(time)) != int(dj):
+                        time += timedelta(days=1)
 
 
-                accuntmodel.objects.create(
-                                firstname=savecode.firstname,
-                                lastname=savecode.lastname,
-                                melicode=savecode.melicode,
-                                phonnumber=savecode.phonnumber,
-                                berthday=stradby(time),
-                                pasword=savecode.phonnumber,
-                                )
-                a = savecodphon.objects.filter(melicode=savecode.melicode)
-                a.delete()
+                    accuntmodel.objects.create(
+                                    firstname=savecode.firstname,
+                                    lastname=savecode.lastname,
+                                    melicode=savecode.melicode,
+                                    phonnumber=savecode.phonnumber,
+                                    berthday=stradby(time),
+                                    pasword=savecode.phonnumber,
+                                    )
+                    a = savecodphon.objects.filter(melicode=savecode.melicode)
+                    a.delete()
 
-                User.objects.create_user(
-                                                username=savecode.melicode,
-                                                password=savecode.phonnumber,
-                                                first_name=savecode.firstname,
-                                                last_name=savecode.lastname,
-                                            )
+                    User.objects.create_user(
+                                                    username=savecode.melicode,
+                                                    password=savecode.phonnumber,
+                                                    first_name=savecode.firstname,
+                                                    last_name=savecode.lastname,
+                                                )
 
-                user_login =authenticate(request,
-                                             username=savecode.melicode,
-                                             password=savecode.phonnumber,
-                                             )
+                    user_login =authenticate(request,
+                                                 username=savecode.melicode,
+                                                 password=savecode.phonnumber,
+                                                 )
 
-                login (request,user_login)
-                e = 'succes'
-                return render(request,'code_cantact.html',context={'etebar':e},)
+                    login (request,user_login)
+                    e = 'succes'
+                    return render(request,'code_cantact.html',context={'etebar':e},)
                         # return redirect('/')
             # return render(request, 'cod_of_phon.html')
             else:
