@@ -46,6 +46,7 @@
                         سال تولد:
                     </p>
                     <select class="inputclass" name="year" >
+                            <option value = "1400" >1400</option>
                         {% for i in yearcant %}
                             <option value={{ i }}>{{ i }}</option>
                         {% endfor %}
@@ -75,12 +76,13 @@
                         روز تولد:
                     </p>
                     <select class="inputclass" name="day" >
+                            <option value= "1" >1</option>
                         {% for iday in day %}
                             <option value={{ iday }}>{{ iday }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                <button class="regesterbuttonsave" name="button_send" value="accept" >
+                <button class="regesterbuttonsave" name="button_send" value="accept" onclick="move()" >
                     ارسال
                 </button>
                 <button class="regesterbuttoncancel" name="button_back" value="accept">
@@ -88,6 +90,10 @@
                 </button>
                 <label id="melicod_etebar" hidden >{{ melicod_etebar }}</label>
                 {% csrf_token %}
+                <div id="w">
+                    <div id="myBar" class="w3" hidden>0%</div>
+                </div>
+
             </form>
 
         </div>
@@ -95,7 +101,7 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/add_cantactt.js" %}"></script>
+<script src="{% static "/js/add_cantact.js" %}"></script>
 
 </body>
 </html>
