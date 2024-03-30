@@ -120,19 +120,21 @@
     font-size: 90%;
     color: black;
 }
-    #w {
+#w {
     position: relative;
-    top: 145px;
+    top: 100px;
     width: 380px;
     right: calc(50% - 182px);
 
 
 }
 .w3{
-    background:rgb(179, 180, 181);
+    background:rgb(69, 199, 47);
     border-radius: 15px;
     width:0%;
-    height: 40px;
+    height: 10px;
     }
+
+
 
 
