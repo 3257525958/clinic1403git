@@ -35,7 +35,7 @@
 
     .regester{
         position: absolute;
-        height: 670px;
+        height: 680px;
         width: 290px;
         border: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1);
         top: 20%;
@@ -71,7 +71,7 @@
         background-color: var(--vcolor);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 85%;
-        top: 580px;
+        top: 620px;
         right: 1%;
     }
     .regesterbuttoncancel{
@@ -88,7 +88,7 @@
         background-color: var(--vcolor);
         font-family: Tahoma;
         font-size: 90%;
-        top: 580px;
+        top: 620px;
         right: 1%;
     }
     .texbutton {

@@ -16,7 +16,9 @@ class savecodphon(models.Model):
     lastname = models.CharField(max_length=100)
     melicode = models.CharField(max_length=20 , default="0")
     phonnumber = models.CharField(max_length=20 , default="0")
-    berthday = models.CharField(max_length=100)
+    berthdayyear = models.CharField(max_length=100)
+    berthdayday = models.CharField(max_length=100)
+    berthdaymounth = models.CharField(max_length=100)
     code = models.CharField(max_length=20)
     expaiercode = models.CharField(max_length=20)
     def __str__(self):
