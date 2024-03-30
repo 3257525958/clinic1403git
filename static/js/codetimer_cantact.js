@@ -67,3 +67,20 @@ startTimer();
     if ( etebar.innerHTML == 'false' ){
         Swal.fire('رمز اشتباه است یک دقیقه دیگر رمز جدید دریافت کنید')
     }
+ function move() {
+    var elem = document.getElementById("myBar");
+    var width = 0;
+    var id = setInterval(frame, 100);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+        elem.hidden=true
+      } else {
+        width++;
+        elem.style.width = width + '%';
+        elem.innerHTML = width * 1  + '%';
+        elem.hidden=false
+      }
+    }
+  }
+
