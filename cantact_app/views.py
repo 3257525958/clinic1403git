@@ -234,95 +234,11 @@ def addcantactdef(request):
                                                         "mounth": mounth_number[0],
                                                         "calandar_aray":calandarshow,
                                                        })
-
-# -------اینجا وقتی یک ماه انتخاب میشه میاد و جدول هفته اون رو مشخص میکنه------------------------------------------------------------------------------
-#     if (mounth_number[0] != '') and (mounth_number[0] != "0") and (mounth_number[0] != None):
-#         time = datetime.datetime.now()
-#         q = '14'
-#         while int(str(q + stry(time))) >= int(str(year[0])) :
-#             time -= timedelta(days=30)
-#             if stry(time) == '99' :
-#                 q = '13'
-#         while int(str(q + stry(time))) == int(str(year[0])) :
-#             time += timedelta(days=1)
-#
-#         while strb(time) != cuntmounth(int(mounth_number[0])) :
-#             time += timedelta(days=1)
-#
-#         calandarshow.clear()
-#         calandarmiladidate.clear()
-#         calandarshamsidate.clear()
-#         i = 0
-#         if stra(time) == "شنبه" :
-#             i = 1
-#         if stra(time) == "یکشنبه" :
-#             i = 2
-#         if stra(time) == "دوشنبه" :
-#             i = 3
-#         if stra(time) == "سه‌شنبه" :
-#             i = 4
-#         if stra(time) == "چهارشنبه" :
-#             i = 5
-#         if stra(time) == "پنج‌شنبه" :
-#             i = 6
-#         if stra(time) == "جمعه" :
-#             i = 7
-#         for j in range(i):
-#             time -= timedelta(days=1)
-#         for j in range(i) :
-#             calandarshow.append("")
-#             calandarmiladidate.append(time)
-#             calandarshamsidate.append(stradby(time))
-#             time += timedelta(days=1)
-#
-#         while strb(time) == cuntmounth(int(mounth_number[0])) :
-#             calandarshow.append(strd(time))
-#             calandarmiladidate.append(time)
-#             calandarshamsidate.append(stradby(time))
-#             time += timedelta(days=1)
-#         for i in range(len(calandarshamsidate)) :
-#             w = calandarshamsidate[i]
-#         return render(request,'calander.html',context={"firstname":firstname_r[0],
-#                                                        "lastname":lastname_r[0],
-#                                                        "melicod":melicod_r[0],
-#                                                        "phonnumber":phonnumber_r[0],
-#                                                         "year" : year[0],
-#                                                         "mounth":cuntmounth(int(mounth_number[0])),
-#                                                         "calandar_aray":calandarshow,
-#                                                        })
-#
-# ---------اگر دکمه تقئیم خورد سال رو به هم اکنون تغییر میده دقت شود که در مواد دیگه مثل بالا زدن-سال یا چیزی دیگه - button calandar برابر acceot میشد-----------------------------------متوجه شدم که placeholder-مقدارش داخل input خواهد بود----------------------------------------------------------------
-#     if button_calandar == "accept" :
-#         t[0] = datetime.datetime.now()
-#         calandarshow[0] = '0'
-#         calandarmiladidate[0] = datetime.datetime.now()
-#         calandarshamsidate[0] = stradby(t[0])
-#         berthmiladi_r[0] = datetime.datetime.now()
-#         year[0] = []
-#         return render(request, 'calander.html', context={"firstname": firstname_r[0],
-#                                                  "lastname": lastname_r[0],
-#                                                  "melicod": melicod_r[0],
-#                                                  "phonnumber": phonnumber_r[0],
-#                                                  "year": year[0],
-#                                                  "mounth": mounth_number[0],
-#                                                  "calandar_aray": calandarshow,
-#                                                  })
 # # ****************************************************کلید برگشت**********************************************
     if button_back == "accept" :
         melicod_r[0] = ''
+        # return redirect('/')
         return redirect('https://drmahdiasadpour.ir')
-# -----------------------------------------------------------------انتخاب روز تولد----------------------------------------------
-#     if (bbtn != None) and (bbtn != '') and (calandarshow != None) and (calandarshow != '') :
-#         # berthmiladi_r[0] = str(calandarmiladidate[int(bbtn)])
-#         year[0] = []
-#         return render(request,'add_cantact.html',context={ "firstname":firstname_r[0],
-#                                                            "lastname":lastname_r[0],
-#                                                            "melicod":melicod_r[0],
-#                                                            "phonnumber":phonnumber_r[0],
-#                                                            "year" : year[0],
-#                                                            "berthday_shamsi":calandarshamsidate[int(bbtn)],
-#                                                            "melicod_etebar": 'true',
-#                                                            })
 # ------------------------------------------------بعد از زدن دکمه ارسال در صفحه add_cantact- و یا بعد از زدن دکمه ارسال مجدد----کد ارسال میکنخ با پیامک-------------------------
     if (button_send == 'accept') or (buttoncode_repeat == 'accept'):
         if (melicod_r[0] == '') and (melicod_r[0] == None)  :
@@ -358,18 +274,7 @@ def addcantactdef(request):
             except HTTPException as e:
                 m = 'neterror'
                 return render(request, 'add_cantact.html', context={'melicod_etebar': m}, )
-
-            #     return render(request, 'code_cantact.html')
-            # except APIException as e:
-            #     # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-            #     return render(request, 'add_cantact.html')
-            # except HTTPException as e:
-            #     # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-            #     return render(request, 'add_cantact.html')
-            #
-
         else :
-            year[0] = []
             yearcant = [1300]
             h = 1300
             t = datetime.datetime.now()
@@ -422,9 +327,6 @@ def addcantactdef(request):
                                 berthday=stradby(time),
                                 pasword=savecode.phonnumber,
                                 )
-                a = savecodphon.objects.filter(melicode=savecode.melicode)
-                a.delete()
-
                 User.objects.create_user(
                                                 username=savecode.melicode,
                                                 password=savecode.phonnumber,
@@ -439,13 +341,16 @@ def addcantactdef(request):
 
                 login (request,user_login)
                 e = 'succes'
+
+                a = savecodphon.objects.filter(melicode=savecode.melicode)
+                a.delete()
+
                 return render(request,'code_cantact.html',context={'etebar':e},)
                         # return redirect('/')
             # return render(request, 'cod_of_phon.html')
             else:
                 e = 'false'
                 return render(request, 'code_cantact.html', context={'etebar': e}, )
-    year[0] = []
     yearcant = [1300]
     h =1300
     t = datetime.datetime.now()
