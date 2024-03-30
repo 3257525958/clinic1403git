@@ -396,6 +396,10 @@ def addcantactdef(request):
     if (buttoncode_send != None) and (buttoncode_send != '') and (inputcode_regester != None) and (inputcode_regester != ''):
         savecods = savecodphon.objects.all()
         for savecode in savecods :
+            print(savecode.code)
+            print(inputcode_regester)
+            print(savecode.melicode)
+            print(melicod_r[0])
             if (int(savecode.code) == int(inputcode_regester)) and (int(savecode.melicode) == int(melicod_r[0])):
                 yj = savecode.berthdayyear
                 dj = savecode.berthdayday
