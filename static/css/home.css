@@ -25,7 +25,7 @@ nav .brand-logo img{
 @media(max-width:992px){
     nav .brand-logo{
         top: 0.2rem;
-    }    
+    }
 }
 nav ul li a:hover{
     background: transparent;
@@ -89,7 +89,7 @@ nav ul li a:hover{
     nav .brand-logo{
         right: 10px !important;
     }
-    
+
 }
 .nav_container{
     filter: drop-shadow(0 0 5px black);
@@ -122,11 +122,17 @@ nav ul li a:hover{
     font-size: 2rem;
 
 }
-.ul_s {
+.faseleye_nevarbala {
     display: flex;
     position: relative;
     right: 70px;
 }
+.esme_morajee{
+    display: flex;
+    position: relative;
+    left: 30px;
+}
+
 .w-100{
     width: 100% !important;
 }
@@ -151,7 +157,8 @@ nav ul li a:hover{
     margin: 0;
     color: #4a148c;
 
-}.quick_item{
+}
+.quick_item{
     position: relative;
 
     transform: perspective(800px) rotateY(25deg) scale(0.8) rotateX(10deg);
@@ -184,14 +191,19 @@ nav ul li a:hover{
 .m2-text a{
     margin: 0.5rem;
 }
-.socialsocial_icons_row a {
+/* .socialsocial_icons_row a {
     transition: all 100ms linear;
 }
 .social_icons_row a:hover {
     text-shadow: 0 0 8px #4a148c;
     transform: scale(1.2);
-}
+} */
 .top-20{
     position: relative;
     top: 40px;
+}
+.nav-rastchin{
+    display: flex;
+    position: relative;
+    right: 70px;
 }

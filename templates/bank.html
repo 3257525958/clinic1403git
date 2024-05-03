@@ -4,13 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">                 #}
-    <link rel="stylesheet" type="text/css" href="{% static "/css/materialize.min.css" %}">
+    <link rel="stylesheet" href={%  static "/css/materialize.min.css" %}>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static  "/css/materialize-rtl.css"%}">
-    <link rel="stylesheet" type="text/css" href="{% static "/fontawesome/css/all.css" %}">
-    <link rel="stylesheet" type="text/css" href= "{% static "/css/home.css" %}">
-    <link rel="stylesheet" type="text/css" href= "{% static "/css/add-contact.css" %}">
+    <link rel="stylesheet" href="{% static "/css/materialize-rtl.css" %}">
+    <link rel="stylesheet" href={%  static "/fontawesome/css/all.css" %}>
+    <link rel="stylesheet" href={% static "/css/home.css" %}>
+    <link rel="stylesheet" href={% static "/css/add-contact.css" %}>
     <title>مرکز زیبایی دکتر اسدپور</title>
 </head>
 <body dir="rtl" class="body">
@@ -31,11 +30,11 @@
     
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo">
-        <img src={% static "/img/logo.jpg" %} alt="menu">
+        <img src="/static/img/logo.jpg" alt="">
       </a>
 
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <a href="#" class=" right sidenav-trigger ">مهدی اسدپور بزرگ</a>
+      <a href="#" class=" right sidenav-trigger ">مهدی اسدپور</a>
 
       <ul class="right hide-on-med-and-down ul_s">
         <li><a class="menu_links_desktop" href="sass.html ">ورود و ثبت نام</a></li>
@@ -46,7 +45,7 @@
         <li><a class="menu_links_desktop" href="mobile.html">راهنما</a></li>
       </ul>
       <ul class="left hide-on-med-and-down ul_s esme_morajee">
-        <li> مهدی اسدپور موبایل</li>
+        <li> مهدماپور</li>
       </ul>
 
     </div>
@@ -67,82 +66,49 @@
 </ul>
 <!-- ----------پایان ناوبار------------ -->
 <main>
-  <form class="row w-100 login dakhel_loginsec" method="POST">
+  <form class="row w-100 login dakhel_loginsec" method="POST" action="">
+  {% csrf_token %}
     <div class="col m3 l4 hide-on-small-and-down"></div>
 
     <div class="ghesmate_login col s12 m6 l4">
 
-    
-      <i class="center-align blick-shodan fas fa-user-plus fa-2x"></i>
+      <i class="center-align blick-shodan fas fa-cash-register fa-4x"></i>
 
-      <div class="input-field col s12 ">
-        <input type="text" name="firstname" value="{{ firstname }}" id="firstname" class="validate" autocomplete="off">
-        <label for="firstname">نام :</label>
-      </div>
-
-      <div class="input-field col s12 ">
-        <input type="text" name="lastname" value="{{ lastname }}" id="lastname" class="validate" autocomplete="off">
-        <label for="lastname">نام خانوادگی :</label>
-      </div>
-      <div class="input-field col s12 ">
-        <input type="number" name="melicod" value="{{ melicod }}" id="melicod" class="validate" autocomplete="off">
-        <label for="melicod">کد ملی :</label>
-      </div>
-      <div class="input-field col s12 ">
-        <input type="number" name="phonnumber" value="{{ phonnumber }}" id="phonnumber" class="validate" autocomplete="off">
-        <label for="phonnumber">شماره تلفن :</label>
+      <div class="input-field col s6 ">
+        <input type="text" name="onvan" id="onvan" class="validate" autocomplete="off" >
+        <label for="onvan">عنوان حساب :</label>
       </div>
 
-      <div class="input-field col s4">
-                    <select class="inputclass" name="day" >
-                            <option value= "1" >1</option>
-                        {% for iday in day %}
-                            <option value={{ iday }}>{{ iday }}</option>
-                        {% endfor %}
-                    </select>
-        <label class="teal-text text-darken-4">روز تولد :</label>
-      </div>    
-      <div class="input-field col s4">
-                    <select  name="mounth" >
-                        <option value="فروردین">فروردین</option>
-                        <option value="اردیبهشت">اردیبهشت</option>
-                        <option value="خرداد">خرداد</option>
-                        <option value="تیر">تیر</option>
-                        <option value="مرداد">مرداد</option>
-                        <option value="شهریور">شهریور</option>
-                        <option value="مهر">مهر</option>
-                        <option value="آبان">آبان</option>
-                        <option value="آذر">آذر</option>
-                        <option value="دی">دی</option>
-                        <option value="بهمن">بهمن</option>
-                        <option value="اسفند">اسفند</option>
-                    </select>
-        <label class="teal-text text-darken-4 ">ماه تولد :</label>
-      </div>    
-      <div class="input-field col s4">
-                    <select name="year">
-                        <option value = "1400" >1400</option>
-                        {% for i in yearcant %}
-                            <option value={{ i }}>{{ i }}</option>
-                        {% endfor %}
-                    </select>
-        <label class="teal-text text-darken-4">سال تولد</label>
-      </div>    
-    
+      <div class="input-field col s6 ">
+        <input type="text" name="officnamber"  id="officnamber" class="validate" autocomplete="off" >
+        <label for="officnamber">شماره حساب</label>
+      </div>
+
+      <div class="input-field col s6 ">
+        <input type="text" name="namberkart"  id="namberkart" class="validate" autocomplete="off" >
+        <label for="namberkart">شماره کارت</label>
+      </div>
+
+      <div class="input-field col s6 ">
+        <input type="text" name="shebanamber"  id="shebanamber" class="validate" autocomplete="off" >
+        <label for="shebanamber">شماره شبا</label>
+      </div>
+      <div class="input-field col s12 ">
+        <input type="number" name="melicodebank"  id="melicodebank" class="validate" autocomplete="off" >
+        <label for="melicodebank">کد ملی صاحب حساب</label>
+      </div>
+   
 
       <div class="center-align dokmeye-vorood ">
-        <button class="w-100 btn waves-effect" name="button_send" value="accept" onclick="move()">ثبت اطلاعات و ارسال پیامک</button>
+        <button class="w-100 btn waves-effect" name="interky" value="accept">ثبت اطلاعات و ارسال پیامک</button>
       </div>
-        
+
+      
     </div>
 
     <div class="col m3 l4 hide-on-small-and-down"></div>
-                  <label id="melicod_etebar" hidden >{{ melicod_etebar }}</label>
-                {% csrf_token %}
-                <div id="w">
-                    <div id="myBar" class="w3" hidden>0%</div>
-                </div>
 
+    <button id="face" name="facebutton" value="accept" hidden >اینتر</button>
   </form>
 </main>
 
@@ -191,12 +157,24 @@
   </div>
 
 </footer> 
+{#<label id="newjobetebar"  hidden >{{ newjob_etebar }}</label>#}
+{#<label id="newemployetebar"  hidden >{{ newemploy_etebar }}</label>#}
+{#<label id="deletjob"  hidden >{{ delet_etebar }}</label>#}
+{#<label id="lenjob"  hidden >{{ actcount }}</label>#}
+{#<label id="useretebar"  hidden >{{ useretebar }}</label>#}
+{#<label id="employeeetebar"  hidden >{{ employeeetebar }}</label>#}
+{#<label id="employeemessage"  hidden >{{ employeemessage }}</label>#}
+{#<label id="deletemployetebar"  hidden >{{ deletemployetebar }}</label>#}
+{#<label id="selectjob"  hidden >{{ selectjob }}</label>#}
+{#<label id="allservic" hidden>{{  allservicforjava }}</label>#}
+{#<label id="deletworkmessage"  hidden >{{ deletworkmessage }}</label>#}
+{#<label id="addetebar" hidden>{{  addetebar }}</label>#}
+{#<label id="succes" hidden>{{  succes }}</label>#}
 
-<script src="/static/js/materialize.min.js"></script>
-<script src="/static/js/home.js"></script>
-<script src="/static/js/addselect.js"></script>
+<script src={%  static "/js/materialize.min.js" %}></script>
+<script src={% static "/js/home.js" %}></script>
+<script src={% static "/js/addselect.js" %}></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/add_cantact.js" %}"></script>
-
+<script src="{% static "/js/cast_form.js" %}">    </script>
 </body>
 </html>

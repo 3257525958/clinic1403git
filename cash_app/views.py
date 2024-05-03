@@ -9,9 +9,13 @@ from django.http import HttpResponse, HttpRequest
 from kavenegar import KavenegarAPI, APIException, HTTPException
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.models import User
-
-from reserv_app.models import reservemodeltest,reservemodel,neursemodel,filepage1model
-from cantact_app.models import accuntmodel
+import datetime
+from datetime import timedelta
+from jalali_date import date2jalali,datetime2jalali
+from cantact_app.views import strb,stry,strd
+from reserv_app.models import reservemodeltest,reservemodel
+from jobs_app.models import jobsmodel,employeemodel,workmodel
+from cash_app.models import bankmodel,castmodel
 
 ZIB_API_REQUEST = "https://gateway.zibal.ir/v1/request"
 ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
@@ -174,3 +178,133 @@ def end(request):
         # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
         # return render(request, 'add_cantact.html')
         return render(request, 'end.html', context={"result": 'endresult', })
+
+
+
+def cast(request):
+    # facebutton = request.POST.get("facebutton")
+    # if facebutton == "accept":
+    peyment = request.POST.get("peyment")
+    melicode = request.POST.get("melicode")
+    detalejobselect = request.POST.get("detalejobselect")
+    method =request.POST.get("method")
+    select_persone = request.POST.get("persone")
+    day = request.POST.get("day")
+    mounth = request.POST.get("mounth")
+    year = request.POST.get("year")
+    select_job = request.POST.get("select_job")
+    bankonvan = request.POST.get("bankonvan")
+
+    banks = bankmodel.objects.all()
+    b = ""
+    hesabs = [""]
+    hesabs.clear()
+    for bank in banks:
+        r = 0
+        for hesab in hesabs :
+            if hesab ==  bank.onvan :
+                r = 1
+                break
+        if r == 0 :
+            hesabs.append(bank.onvan)
+    if (bankonvan != None) and (bankonvan != ""):
+        b = hesabs[int(bankonvan)]
+
+    works = workmodel.objects.all()
+    s = ""
+    jobs = [""]
+    jobs.clear()
+    for work in works:
+        r = 0
+        for job in jobs :
+            if job ==  work.work :
+                r = 1
+                break
+        if r == 0 :
+            jobs.append(work.work +" "+ work.detalework)
+    if (select_job != None) and (select_job != ""):
+        s = jobs[int(select_job)]
+
+
+    works = workmodel.objects.all()
+    p = ""
+    persons = [""]
+    persons.clear()
+    for work in works:
+        r = 0
+        for person in persons :
+            if person ==  work.person :
+                r = 1
+                break
+        if r == 0 :
+            persons.append(work.person)
+    if (select_persone != None) and (select_persone != ""):
+        p = persons[int(select_persone)]
+
+
+
+    t = datetime.datetime.now()
+    d = strd(t)
+    y = str(1400 + int(stry(t)))
+    m = strb(t)
+    darrey = [1]
+
+    darrey.clear()
+    darrey.append(d)
+    de = "1"
+    while   int(de) <= 31 :
+        darrey.append(de)
+        de = str(int(de) + 1)
+    # while int(d) <= 31 :
+    #     darrey.append(d)
+    #     d = str(int(d) + 1)
+    #     if m == "اسفند" :
+    #         d = str(int(d) + 2)
+    #     if (m == "مهر") or (m == "آبان") or (m == "آذر") or (m == "دی") or (m == "بهمن") :
+    #         d = str(int(d) + 1)
+
+    marrray = [m]
+    marrray.clear()
+    marrray.append(m)
+    tt = datetime.datetime.now()
+    m1 = m
+    m2 = m
+    while m1 == m :
+        tt -= timedelta(days=1)
+        m1 = strb(tt)
+        if m1 != m :
+            marrray.append(m1)
+            m = m1
+            if m2 == m1 :
+                break
+
+    yarray = [1]
+    yarray.clear()
+    while int(y) > 1300 :
+        yarray.append(int(y))
+        y = str(int(y)-1)
+    return render(request,'cast_form.html',context={
+                                                                 # "listofperson": listofperson,
+                                                                 "jobs":jobs,
+                                                                 "persons":persons,
+                                                                 # "detaleworks":detaleworks,
+                                                                 # "select_job":select_job,
+                                                                 # "jobselect":s,
+                                                                 # " melicode": mel,
+                                                                 "yarray":yarray,
+                                                                 "darrey":darrey,
+                                                                 "marray":marrray,
+                                                                 "hesabs":hesabs,
+                                                                })
+
+def banksave(request):
+    onvan = request.POST.get("onvan")
+    officnamber = request.POST.get("officnamber")
+    namberkart = request.POST.get("namberkart")
+    shebanamber = request.POST.get("shebanamber")
+    melicodebank = request.POST.get("melicodebank")
+    interky = request.POST.get("interky")
+    if interky == "accept":
+        bankmodel.objects.create(onvan=onvan,officnamber=officnamber,namberkart=namberkart,
+                                  shebanamber=shebanamber,melicodebank=melicodebank,)
+    return render(request,'bank.html')

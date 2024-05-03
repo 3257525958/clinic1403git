@@ -249,6 +249,9 @@ def addcantactdef(request):
                 a = savecodphon.objects.filter(melicode=savecode.melicode)
                 a.delete()
             randomcode = random.randint(1000, 9999)
+            # randomcode = 'سلام شما به مهمانی دعوت شده اید منتظرتان هستیم'
+            # randomcode=randomcode.split(' ')
+
             savecodphon.objects.create(firstname=firstname_r[0], lastname=lastname_r[0],melicode=str(melicod_r[0]),
                                        phonnumber=str(phonnumber_r[0]),
                                        berthdayyear =str(yearj),

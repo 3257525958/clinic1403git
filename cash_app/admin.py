@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from cash_app.models import bankmodel,castmodel
+
+admin.site.register(bankmodel)
+admin.site.register(castmodel)

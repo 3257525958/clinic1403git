@@ -1,0 +1,56 @@
+.body{
+    background: linear-gradient(#ba68c8 , #e1bee7 , #f3e5f5) , url(/static/img/body_back4.jpg) repeat;
+}
+.dakhel_loginsec{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 10vh 0.5rem 2rem 0.5rem ;
+}
+.dakhel_loginsec *{
+    color: white !important;
+}
+.dakhel_loginsec input:not(.browser-default){
+    border-bottom: 1px solid white;
+}
+.ghesmate_login{
+    padding: 1rem !important;
+    background: #ffffff26;
+    border-radius: 5px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.7);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(11.5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.dokmeye-vorood .btn{
+    background: rgba(255, 255, 255, 0.2);
+}
+.blick-shodan{
+    display: block !important;
+    position: relative;
+    margin: 1rem;
+}
+.pink-text.text-lighten-4{
+    color: #7b1fa2 !important;
+}
+.khat-zir::after{
+    content: "";
+    width: 110%;
+    height: 3px;
+    background:  #ce93d8 ;
+    display: block;
+    position: relative;
+    bottom: 0px;
+    transform: scaleX(0);
+    transition: all 200ms ease;
+}
+.khat-zir::after{
+    transform: scaleX(1);
+}
+.dropdown-content li>a, .dropdown-content li>span {
+    background-color: #0D47A1; !important;
+}
+.row .col.m6{
+    margin-top: 5rem;
+}

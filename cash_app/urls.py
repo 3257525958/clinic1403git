@@ -11,5 +11,7 @@ urlpatterns = [
     # path('irandargahcallback/',views.Verifyi.as_view(),name='irandargahverify'),
     path('zibal/',views.orderzibal,name='zibal'),
     path('verifyzibal/',views.callbackzibal, name='zibalverify'),
-    path('end/',views.end, name='end')
-    ]
+    path('end/',views.end, name='end'),
+    path('cast/', views.cast, name='cast'),
+    path('bank/', views.banksave, name='banksave'),
+]

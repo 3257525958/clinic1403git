@@ -35,8 +35,8 @@ def home(request):
                 break;
             else:
                 profilestatus[0] = 'ورود به کاربری'
-    else:
-        profilestatus[0] = 'ورود به کاربری'
+    # else:
+    #     profilestatus[0] = 'ورود به کاربری'
 
     return render(request,'home.html',context={ 'loglevel':loglevel[0],
                                                 'profilestatus':profilestatus[0],
