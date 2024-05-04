@@ -6,4 +6,5 @@ urlpatterns = [
     path('login/',views.logindef),
     path('addcontact/',views.addcantactdef),
     path('ignor/',views.ignordef),
+    path('addphon/',views.addphone),
     ]

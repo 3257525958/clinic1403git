@@ -4,7 +4,7 @@ from tkinter import messagebox
 import datetime
 from jalali_date import date2jalali,datetime2jalali
 from datetime import timedelta
-from cantact_app.models import accuntmodel,savecodphon,dataacont
+from cantact_app.models import accuntmodel,savecodphon,dataacont,phonnambermodel
 from cantact_app.forms import accuntform
 from kavenegar import *
 import random
@@ -498,3 +498,20 @@ def ignordef(request):
 
 def chengpaswoord(request):
     return render(request,'changepaswoord.html')
+
+def addphone(request):
+    name = request.POST.get("name")
+    lastname = request.POST.get("lastname")
+    phonnamber = request.POST.get("phon")
+    phons = phonnambermodel.objects.all()
+    button_send= request.POST.get("button_send")
+    r = 0
+    for p in phons:
+        r = 0
+        if p.phonnumber == phonnamber :
+            r =1
+    if (r == 0) and (button_send == "accept"):
+        phonnambermodel.objects.create(name=name, lastname=lastname, phonnumber=phonnamber)
+    return render(request,'add_phon.html')
+
+
