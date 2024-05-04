@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from reserv_app.models import reservemodeltest,reservemodel,neursemodel,filepage1model
+from jobs_app.models import workmodel
 
 
 # Create your views here.
@@ -31,14 +32,29 @@ def home(request):
         for u in us:
             if u.melicode == request.user.username:
                 profilestatus[0] = f"{u.firstname} {u.lastname} عزیز خوش آمدید "
-                loglevel[0] = u.level
+                jobs = workmodel.objects.all()
+                r = 0
+
+                # loglevel = ['']
+                loglevel.clear()
+                for job in jobs:
+                    r = 0
+                    if job.person == u.firstname + ' ' + u.lastname :
+                        print(1)
+                        for l in loglevel:
+                            print(2)
+                            if l == job.work :
+                                r = 1
+                        loglevel.append(job.work)
+                # print(loglevel)
+                # loglevel[0] = u.level
                 break;
             else:
                 profilestatus[0] = 'ورود به کاربری'
     # else:
     #     profilestatus[0] = 'ورود به کاربری'
 
-    return render(request,'home.html',context={ 'loglevel':loglevel[0],
+    return render(request,'home.html',context={ 'loglevel':loglevel,
                                                 'profilestatus':profilestatus[0],
     })
 

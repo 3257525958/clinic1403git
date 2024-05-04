@@ -506,12 +506,14 @@ def addphone(request):
     phons = phonnambermodel.objects.all()
     button_send= request.POST.get("button_send")
     r = 0
+    repeat = "no"
     for p in phons:
-        r = 0
-        if p.phonnumber == phonnamber :
+        if str(p.phonnumber) == str(phonnamber) :
             r =1
     if (r == 0) and (button_send == "accept"):
         phonnambermodel.objects.create(name=name, lastname=lastname, phonnumber=phonnamber)
-    return render(request,'add_phon.html')
+    if r == 1 :
+        repeat = "yes"
+    return render(request,'add_phon.html',context={"repeat":repeat})
 
 

@@ -10,6 +10,7 @@ var deletemployetebar = document.getElementById('deletemployetebar');
 var selectjob = document.getElementById('selectjob');
 var deletworkmessage = document.getElementById('deletworkmessage');
 var addetebar = document.getElementById('addetebar');
+var addphon = document.getElementById('addphon');
 var    j = ( lenjob.innerHTML  * 19 ) + 100 ;
     console.log(addetebar);
 
@@ -24,6 +25,12 @@ var    j = ( lenjob.innerHTML  * 19 ) + 100 ;
         setTimeout('redirectt()',1000);
     }
 
+    if ( addphon.innerHTML == 'yes') {
+        Swal.fire({
+            icon: 'warning',
+            title: 'شماره تلفن تکراری است'
+        })
+    }
     if ( newjobetebar.innerHTML == 'false') {
         Swal.fire({
             icon: 'warning',

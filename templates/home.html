@@ -40,12 +40,15 @@
         <li><a class="menu_links_desktop" href="mobile.html">گالری</a></li>
         <li><a class="menu_links_desktop" href="mobile.html">ارتباط با ما</a></li>
         <li><a class="menu_links_desktop" href="mobile.html">راهنما</a></li>
-        {% if loglevel == "مدیر" or loglevel == "تولید محتوا" %} 
+      
+{#      {% for l in loglevel %}#}
+{#        {% if l == "مدیر" or l == "تولید محتوا" %} #}
             <li><a class="menu_links_desktop" href="zib/cast/">پرداخت</a></li>
             <li><a class="menu_links_desktop" href="jobs/">تعریف مشاغل</a></li>
             <li><a class="menu_links_desktop" href="zib/bank/">تعریف حساب بانکی</a></li>
             <li><a class="menu_links_desktop" href="cantact/addphon/">ورود تلفن </a></li>
-        {% endif %}   
+{#        {% endif %}   #}
+{#      {% endfor %}#}
       </ul>
       <ul class="left hide-on-med-and-down ul_s esme_morajee">
         <li>{{ profilestatus }}</li>
@@ -62,12 +65,10 @@
         <li><a class="menu_links_desktop" href="mobile.html">گالری</a></li>
         <li><a class="menu_links_desktop" href="mobile.html">ارتباط با ما</a></li>
         <li><a class="menu_links_desktop" href="mobile.html">راهنما</a></li>
-        {% if loglevel == "مدیر" or loglevel == "تولید محتوا" %} 
-            <li><a class="menu_links_desktop" href="zib/cast/">پرداخت</a></li>
-            <li><a class="menu_links_desktop" href="jobs/">تعریف مشاغل</a></li>
-            <li><a class="menu_links_desktop" href="zib/bank/">تعریف حساب بانکی</a></li>
-            <li><a class="menu_links_desktop" href="cantact/addphon/">ورود تلفن </a></li>
-        {% endif %}   
+        <li><a class="menu_links_desktop" href="zib/cast/">پرداخت</a></li>
+        <li><a class="menu_links_desktop" href="jobs/">تعریف مشاغل</a></li>
+        <li><a class="menu_links_desktop" href="zib/bank/">تعریف حساب بانکی</a></li>
+        <li><a class="menu_links_desktop" href="cantact/addphon/">ورود تلفن </a></li>
 </ul>
 <ul class="sidenav" id="mobile-demo">
   <li><a href="sass.html">مهدی اسدپور</a></li>
