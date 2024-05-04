@@ -112,7 +112,7 @@
 
     <div class="col m3 l4 hide-on-small-and-down"></div>
       
-    <label id="addphon" hidden >{{ repeat }}</label>
+    <label id="addphon"  >{{ repeat }}</label>
 
   </form>
 </main>
@@ -168,12 +168,11 @@
 
 </footer> 
 
-<script src="/static/js/materialize.min.js"></script>
-<script src="/static/js/home.js"></script>
+<script src="{% static  "/js/materialize.min.js" %}"></script>
+<script src="{% static "/js/home.js" %}"></script>
 <script src="{% static "/js/addselect.js" %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static "/js/login_cantact.js" %}"></script>
-  <script src="{% static "/js/jobe.js" %}"> </script>
 
 </body>
 </html>

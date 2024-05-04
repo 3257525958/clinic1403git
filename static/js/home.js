@@ -1,3 +1,13 @@
+var addphon = document.getElementById('addphon');
+    if ( addphon.innerHTML == 'yes') {
+        Swal.fire({
+            icon: 'warning',
+            title: 'شماره تلفن تکراری است'
+        })
+    }
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.sidenav');
     var instances = M.Sidenav.init(elems, {
