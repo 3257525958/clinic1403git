@@ -265,7 +265,7 @@ def addcantactdef(request):
                     '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
                 params = {
                     'receptor': phonnumber_r[0],
-                    'template': 'test',
+                    'template': 'login',
                     'token': randomcode,
                     'type': 'sms',
                     }
