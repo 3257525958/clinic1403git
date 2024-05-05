@@ -32,27 +32,27 @@ def home(request):
         for u in us:
             if u.melicode == request.user.username:
                 profilestatus[0] = f"{u.firstname} {u.lastname} عزیز خوش آمدید "
-                jobs = workmodel.objects.all()
-                r = 0
-
+                # jobs = workmodel.objects.all()
+                # r = 0
+                #
                 # loglevel = ['']
-                loglevel.clear()
-                for job in jobs:
-                    r = 0
-                    if job.person == u.firstname + ' ' + u.lastname :
-                        for l in loglevel:
-                            if l == job.work :
-                                r = 1
-                        loglevel.append(job.work)
+                # loglevel.clear()
+                # for job in jobs:
+                #     r = 0
+                #     if job.person == u.firstname + ' ' + u.lastname :
+                #         for l in loglevel:
+                #             if l == job.work :
+                #                 r = 1
+                #         loglevel.append(job.work)
                 # print(loglevel)
-                # loglevel[0] = u.level
+                loglevel[0] = u.level
                 break;
             else:
                 profilestatus[0] = 'ورود به کاربری'
     # else:
     #     profilestatus[0] = 'ورود به کاربری'
 
-    return render(request,'home.html',context={ 'loglevel':loglevel,
+    return render(request,'home.html',context={ 'loglevel':loglevel[0],
                                                 'profilestatus':profilestatus[0],
     })
 
