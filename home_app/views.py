@@ -40,9 +40,7 @@ def home(request):
                 for job in jobs:
                     r = 0
                     if job.person == u.firstname + ' ' + u.lastname :
-                        print(1)
                         for l in loglevel:
-                            print(2)
                             if l == job.work :
                                 r = 1
                         loglevel.append(job.work)

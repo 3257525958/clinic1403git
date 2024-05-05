@@ -514,6 +514,16 @@ def addphone(request):
         phonnambermodel.objects.create(name=name, lastname=lastname, phonnumber=phonnamber)
     if r == 1 :
         repeat = "yes"
+    i = 0
+    pp = phonnambermodel.objects.all()
+    ppp = phonnambermodel.objects.all()
+    for hh in pp:
+        for jjj in ppp :
+            if hh.phonnumber == jjj.phonnumber:
+                i += 1
+                if i > 1 :
+                    jjj.clean_fields()
+                    
     return render(request,'add_phon.html',context={"repeat":repeat})
 
 
