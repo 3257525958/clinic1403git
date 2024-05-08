@@ -31,7 +31,7 @@ def home(request):
         us = accuntmodel.objects.all()
         for u in us:
             if u.melicode == request.user.username:
-                profilestatus[0] = f"{u.firstname} {u.lastname} عزیز خوش آمدید "
+                profilestatus[0] = f"{u.firstname} {u.lastname}  "
                 # jobs = workmodel.objects.all()
                 # r = 0
                 #
