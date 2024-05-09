@@ -278,29 +278,25 @@ def addcantactdef(request):
                 m = 'neterror'
                 return render(request, 'add_cantact.html', context={'melicod_etebar': m}, )
         else :
-            yearcant = [1300]
-            h = 1300
-            t = datetime.datetime.now()
-            while h <= int(stry(t)) + 1399:
-                h += 1
+            yearcant = [0]
+            yearcant.clear()
+            tyear = datetime.datetime.now()
+            h = int(stry(tyear)) + 1400
+            while 1300 <= h:
                 yearcant.append(h)
+                h -= 1
             day = [1]
             hh = 1
             while hh <= 30:
                 hh += 1
                 day.append(hh)
 
-            return render(request, 'add_cantact.html', context={
-                                                                'melicod_etebar': melicod_etebar[0],
+            return render(request, 'add_cantact.html', context={'melicod_etebar': melicod_etebar[0],
                                                                 "yearcant": yearcant,
                                                                 "day": day,
-                                                                "firstname": firstname_r[0],
-                                                                "lastname": lastname_r[0],
-                                                                "melicod": melicod_r[0],
-                                                                "phonnumber": phonnumber_r[0],
-                                                            })
+                                                                })
 
-# --------------------------------------------------------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------------------------------------------------------------
     if (buttoncode_send != None) and (buttoncode_send != '') and (inputcode_regester != None) and (inputcode_regester != ''):
         savecods = savecodphon.objects.all()
         for savecode in savecods :
@@ -354,12 +350,13 @@ def addcantactdef(request):
             else:
                 e = 'false'
                 return render(request, 'code_cantact.html', context={'etebar': e}, )
-    yearcant = [1300]
-    h =1300
-    t = datetime.datetime.now()
-    while h <= int(stry(t))+1399 :
-        h +=1
+    yearcant = [0]
+    yearcant.clear()
+    tyear = datetime.datetime.now()
+    h = int(stry(tyear))+1400
+    while 1300 <= h :
         yearcant.append(h)
+        h -= 1
     day = [1]
     hh = 1
     while hh <= 30 :
