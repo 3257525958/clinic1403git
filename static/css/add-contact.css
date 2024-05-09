@@ -9,7 +9,7 @@
     padding: 10vh 0.5rem 2rem 0.5rem ;
 }
 .dakhel_loginsec *{
-    color: white !important;
+    color: black !important;
 }
 .dakhel_loginsec input:not(.browser-default){
     border-bottom: 1px solid white;

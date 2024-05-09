@@ -26,6 +26,7 @@ urlpatterns = [
     path('reserv/', include('reserv_app.urls')),
     path('logout/', include('home_app.urls')),
     path('zib/', include('cash_app.urls')),
+    path('it/', include('it_app.urls')),
 
 ]
 
