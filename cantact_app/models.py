@@ -40,8 +40,8 @@ class dataacont(models.Model):
 
 
 class phonnambermodel(models.Model):
-    name = models.CharField(max_length=100)
-    lastname = models.CharField(max_length=100)
+    name = models.CharField(max_length=100,default="0")
+    lastname = models.CharField(max_length=100, default="0")
     phonnumber = models.CharField(max_length=20 , default="0")
     def __str__(self):
         return f"{self.phonnumber}"
