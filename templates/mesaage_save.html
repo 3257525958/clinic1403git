@@ -65,7 +65,8 @@
 </ul> -->
 <!-- ----------پایان ناوبار------------ -->
 <main>
-  <form class="row w-100 login dakhel_loginsec">
+  <form class="row w-100 login dakhel_loginsec" method="POST">
+      {% csrf_token %}
     <div class="col m3 l4 hide-on-small-and-down"></div>
 
     <div class="ghesmate_login col s12 m6 l4">
@@ -73,17 +74,16 @@
       <i class="center-align blick-shodan fas fa-address-card fa-5x"></i>
 
       <div class="input-field col s12">
-        <select>
-          <option value="1">فروردین</option>
-        </select>
-        <label class="teal-text text-darken-4 ">ماه تولد :</label>
+        <input type="text" class="validate" name="mesaagename">
+        <label class="teal-text text-darken-4 ">اسم پیام</label>
       </div>    
     
       <div class="input-field col s12">
-        <input type="text" class="validate">
+        <input type="text" class="validate" name="mesaagetext">
+        <label class="teal-text text-darken-4 ">متن پیام</label>
       </div>
       <div class="center-align dokmeye-vorood ">
-        <button class="w-100 btn waves-effect">ارسال پیامک</button>
+        <button class="w-100 btn waves-effect" name="savebutton" value="accept">ارسال پیامک</button>
       </div>
 
 
