@@ -33,12 +33,16 @@ console.log("llllllllllllllllllll");
         m44.hidden = true;
     }
         if ( l == "دسترسی معمولی") {
-        m1.hidden = false;
-        m2.hidden = false;
-        m3.hidden = false;
-        m4.hidden = false;
-        m11.hidden = false;
-        m22.hidden = false;
-        m33.hidden = false;
-        m44.hidden = false;
+        m1.hidden = true;
+        m2.hidden = true;
+        m3.hidden = true;
+        m4.hidden = true;
+        m11.hidden = true;
+        m22.hidden = true;
+        m33.hidden = true;
+        m44.hidden = true;
     }
+        console.log(m44.innerHTML);
+        console.log(m44.hidden);
+        console.log(m4.innerHTML);
+        console.log(m4.hidden);
