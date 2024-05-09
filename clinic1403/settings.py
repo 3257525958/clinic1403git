@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'azbankgateways',
     # 'peyment_app.apps.PeymentAppConfig'
     'cash_app.apps.CashAppConfig',
+    'it_app.apps.ItAppConfig',
 ]
 JALALI_DATE_DEFAULTS = {
    'Strftime': {
