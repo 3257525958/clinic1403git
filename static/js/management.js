@@ -7,6 +7,8 @@ var m22 = document.getElementById("m22");
 var m33 = document.getElementById("m33");
 var m44 = document.getElementById("m44");
 var l = document.getElementById("loglevel").innerHTML;
+var x = document.getElementById("m44").innerHTML;
+console.log(x);
 console.log(l);
 console.log("llllllllllllllllllll");
     if ( l == "مدیر");
