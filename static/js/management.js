@@ -99,6 +99,6 @@ var l = document.getElementById("loglevel").innerHTML;
         m88.hidden = true;
         m99.hidden = true;
         m1010.hidden = true;
-        m1111.hidden = true;
-        m1212.hidden = true;
+        m1111.hidden = false;
+        m1212.hidden = false;
     }
