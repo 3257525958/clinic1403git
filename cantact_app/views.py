@@ -343,6 +343,9 @@ def addcantactdef(request):
                                 phonnumber=savecode.phonnumber,
                                 berthday=stradby(time),
                                 pasword=savecode.phonnumber,
+                                dayb= savecode.berthdayday,
+                                mountb= savecode.berthdaymounth,
+                                yearb=savecode.berthdayyear,
                                 )
                 User.objects.create_user(
                                                 username=savecode.melicode,
@@ -388,6 +391,12 @@ def addcantactdef(request):
 login_etebar = ['f']
 
 
+
+
+
+
+
+
 def logindef(request):
     username = request.POST.get("username")
     password = request.POST.get("password")
@@ -431,6 +440,14 @@ def logindef(request):
                                                                     })
 ignor_etebar = ['false']
 melicod_ignor = ['']
+
+
+
+
+
+
+
+
 
 def ignordef(request):
     ignor_etebar[0] = 'false'
