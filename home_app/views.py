@@ -12,6 +12,8 @@ profilestatus =['']
 loglevel = ['']
 def home(request):
     r = request.GET.get("r")
+    loglevel[0] = [""]
+    profilestatus = ['']
     if (r !="") and (r != None):
         allreserv = reservemodel.objects.all()
         for oneobject in allreserv :
@@ -32,23 +34,10 @@ def home(request):
         for u in us:
             if u.melicode == request.user.username:
                 profilestatus[0] = f"{u.firstname} {u.lastname}  "
-                # jobs = workmodel.objects.all()
-                # r = 0
-                #
-                # loglevel = ['']
-                # loglevel.clear()
-                # for job in jobs:
-                #     r = 0
-                #     if job.person == u.firstname + ' ' + u.lastname :
-                #         for l in loglevel:
-                #             if l == job.work :
-                #                 r = 1
-                #         loglevel.append(job.work)
-                # print(loglevel)
                 loglevel[0] = u.level
                 break;
-            else:
-                profilestatus[0] = 'ورود به کاربری'
+            # else:
+            #     profilestatus[0] = 'ورود به کاربری'
     # else:
     #     profilestatus[0] = 'ورود به کاربری'
 

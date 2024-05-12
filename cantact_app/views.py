@@ -159,6 +159,12 @@ berthmiladi_r[0] = datetime.datetime.now()
 melicod_etebar = ['true']
 mounth_number = ['']
 year = [1402]
+yearjarray = ['']
+yearjarray[0] = ''
+mounthjarry = ['']
+mounthjarry[0] = ''
+dayjarray = ['']
+dayjarray[0] = ''
 def addcantactdef(request):
     mounth_number[0] = request.POST.get('mbtn')
     if mounth_number[0] == None :
@@ -175,8 +181,20 @@ def addcantactdef(request):
     formuser = accuntform(request.POST, request.FILES)
     facebotton = request.POST.get("facebutton")
     yearj = request.POST.get("year")
+    if (yearj != '') and ( yearj != None) :
+        yearjarray[0] = yearj
+    else: yearj = yearjarray[0]
+
     mounthj = request.POST.get("mounth")
+    if (mounthj != '') and ( mounthj != None) :
+        mounthjarry[0] = mounthj
+    else: mounthj = mounthjarry[0]
+
     dayj = request.POST.get("day")
+    if (dayj != '') and ( dayj != None) :
+        dayjarray[0] = dayj
+    else: dayj = dayjarray[0]
+
 # ---------- در این قسمت داده هایی که به صفحه addcontact داده میشود در آرایه هایدمربوطه ذخیره میشه تا با زدن دکمه ها اونا نپرن ----
     input_year = request.POST.get("input_year")
     if (input_year != '') and ( input_year != None) :
@@ -243,7 +261,7 @@ def addcantactdef(request):
     if (button_send == 'accept') or (buttoncode_repeat == 'accept'):
         if (melicod_r[0] == '') and (melicod_r[0] == None)  :
             melicod_etebar[0] = 'empty'
-        if melicod_etebar[0] == 'true' :
+        if (melicod_etebar[0] == 'true') or (buttoncode_repeat == 'accept') :
             savecods = savecodphon.objects.all()
             for savecode in savecods:
                 a = savecodphon.objects.filter(melicode=savecode.melicode)
@@ -422,6 +440,7 @@ def ignordef(request):
     inputcode_regester = request.POST.get('inputcode_regester')
     changhbutton = request.POST.get("changhbutton")
     newpass = request.POST.get("newpass")
+    buttoncode_repeat = request.POST.get("buttoncode_repeat")
     if (melicode != '') and (melicode != None) :
         melicod_ignor[0] = melicode
     if changhbutton == "accept":
@@ -447,7 +466,7 @@ def ignordef(request):
                     e = 'false'
                     return render(request, 'code_cantact.html', context={'etebar': e}, )
 
-    if button_send == 'accept':
+    if (button_send == 'accept') or (buttoncode_repeat == 'accept'):
         if (melicod_ignor[0] == '') or (melicod_ignor[0] == None) :
             ignor_etebar[0] = 'empty'
         if (melicod_ignor[0] != '') and (melicod_ignor[0] != None) :
@@ -455,15 +474,17 @@ def ignordef(request):
             users = accuntmodel.objects.all()
             for user in users :
                 if user.melicode == melicod_ignor[0] :
+                    name = user.firstname +" "+user.lastname
                     randomcode = random.randint(1000, 9999)
-                    message = f"رمزجدید{randomcode}"
+                    message = randomcode
                     try:
                         api = KavenegarAPI(
                             '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
                         params = {
                             'receptor': user.phonnumber,
-                            'template': 'test',
+                            'template': 'chengpass',
                             'token': message,
+                            'token20':name,
                             'type': 'sms',
                         }
                         response = api.verify_lookup(params)
