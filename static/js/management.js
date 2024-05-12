@@ -78,7 +78,7 @@ var l = document.getElementById("loglevel").innerHTML;
     }
         if ( l == "دسترسی معمولی") {
         m1.hidden = false;
-        m2.hidden = true;
+        m2.hidden = false;
         m3.hidden = true;
         m4.hidden = true;
         m5.hidden = true;
@@ -87,10 +87,11 @@ var l = document.getElementById("loglevel").innerHTML;
         m8.hidden = true;
         m9.hidden = true;
         m10.hidden = true;
-        m111.hidden = false;
-        m12.hidden = false;
+        m111.hidden = true;
+        m12.hidden = true;
+
         m11.hidden = false;
-        m22.hidden = true;
+        m22.hidden = false;
         m33.hidden = true;
         m44.hidden = true;
         m55.hidden = true;
@@ -99,8 +100,8 @@ var l = document.getElementById("loglevel").innerHTML;
         m88.hidden = true;
         m99.hidden = true;
         m1010.hidden = true;
-        m1111.hidden = false;
-        m1212.hidden = false;
+        m1111.hidden = true;
+        m1212.hidden = true;
     }
         if ( l == "رزروشن") {
         m1.hidden = false;
