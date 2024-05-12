@@ -102,6 +102,33 @@ var l = document.getElementById("loglevel").innerHTML;
         m1111.hidden = false;
         m1212.hidden = false;
     }
+        if ( l == "رزروشن") {
+        m1.hidden = false;
+        m2.hidden = false;
+        m3.hidden = true;
+        m4.hidden = true;
+        m5.hidden = true;
+        m6.hidden = true;
+        m7.hidden = false;
+        m8.hidden = true;
+        m9.hidden = true;
+        m10.hidden = false;
+        m111.hidden = true;
+        m12.hidden = true;
+
+        m11.hidden = false;
+        m22.hidden = false;
+        m33.hidden = true;
+        m44.hidden = true;
+        m55.hidden = true;
+        m66.hidden = true;
+        m77.hidden = false;
+        m88.hidden = true;
+        m99.hidden = true;
+        m1010.hidden = false;
+        m1111.hidden = true;
+        m1212.hidden = true;
+    }
         if (l != "دسترسی معمولی" ){
             if (l != "تولید محتوا") {
                 if (l != "مدیر") {
