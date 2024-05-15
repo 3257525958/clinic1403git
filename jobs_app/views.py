@@ -185,8 +185,11 @@ def jobs(request):
         emplist.clear()
         savework.clear()
         savework.append(joblist[int(servicselector)])
+        print(servicselector)
         selectjob[0] = 'true'
         servicselect = joblist[int(servicselector)]
+        print(servicselect)
+        print(joblist)
         allservic = jobsmodel.objects.all()
         for ser in allservic :
             if ser.job == joblist[int(servicselector)] :
@@ -197,7 +200,6 @@ def jobs(request):
                         for user in users :
                             if emp.melicod == user.melicode :
                                 emplist.append(user.firstname+' '+user.lastname)
-
     if servicsave == "accept" :
         if (cast != '') and (cast != None):
             if (detalejob != '') and (detalejob != None):
