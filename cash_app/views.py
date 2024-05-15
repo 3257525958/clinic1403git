@@ -1,3 +1,4 @@
+from cash_app.models import castmodel
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render , redirect
 from django.views import View
@@ -195,6 +196,7 @@ def cast(request):
     select_job = request.POST.get("select_job")
     bankonvan = request.POST.get("bankonvan")
     savebottom =request.POST.get("savebottom")
+    facebutton = request.POST.get("facebutton")
 
     banks = bankmodel.objects.all()
     b = ""
@@ -223,6 +225,8 @@ def cast(request):
                 break
         if r == 0 :
             jobs.append(work.work +" "+ work.detalework)
+
+
     if (select_job != None) and (select_job != ""):
         s = jobs[int(select_job)]
 
@@ -284,10 +288,26 @@ def cast(request):
             etebarmelicod = "true"
 
 
-    # if (savebottom = "accept") and (etebarmelicod == "true"):
+
+    cash = 0
+    selectjob = "انتخاب کنید"
+    if facebutton == "accept" :
+        selectjob = request.POST.get("select_job")
+        js = workmodel.objects.all()
+        for j in js :
+            if (jobs[int(selectjob)] == j.work +" "+ j.detalework ) :
+                cash = j.cast
+                sjb = j.work +" "+ j.detalework
+        selectjob = sjb
+
+    if (savebottom == "accept") and (etebarmelicod == "true"):
+        operatore = request.user.username
+        castmodel.objects.create(peyment=peyment,melicodevarizande=melicodevarizande,selectjob=select_job,bankonvan=bankonvan,
+                                 person=person,operatore=operatore,day=day,mounth=mounth,year=year)
     g = "3200"
 
     return render(request,'cast_form.html',context={
+                                                                 "selectjob":selectjob,
                                                                  # "listofperson": listofperson,
                                                                  "g":g,
                                                                  "jobs":jobs,
@@ -296,6 +316,7 @@ def cast(request):
                                                                  # "select_job":select_job,
                                                                  # "jobselect":s,
                                                                  # " melicode": mel,
+                                                                 "cash":cash,
                                                                  "yarray":yarray,
                                                                  "darrey":darrey,
                                                                  "marray":marrray,

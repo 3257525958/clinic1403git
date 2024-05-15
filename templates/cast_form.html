@@ -74,12 +74,28 @@
 
       <i class="center-align blick-shodan fas fa-cash-register fa-4x"></i>
 
+      <div class="input-field col s12">
+        <select  id="jobselect" name="select_job" onchange="chengh()">
+            <option>{{ selectjob }}</option>
+           {% for job in jobs %}
+             <option value={{ forloop.counter0 }}>{{ job }}</option>
+           {% endfor %}
+        </select>
+        <label class="teal-text text-darken-4">عنوان خدمت :</label>
+      </div>    
+
+    
       <div class="input-field col s6 ">
-        <input type="number" name="peyment" id="cast" class="validate" autocomplete="off" placeholder="{{ g }}">
+        <input type="number" name="peyment" id="cast" class="validate" autocomplete="off" placeholder="{{ cash }}" >
         <label for="cast">مبلغ :</label>
       </div>
 
       <div class="input-field col s6 ">
+        <input type="number" name="peyment" id="cast" class="validate" autocomplete="off" >
+        <label for="cast">مبلغ تخفیف :</label>
+      </div>
+
+      <div class="input-field col s12 ">
         <input type="number" name="melicodevarizande"  id="melicodevarizande" class="validate" autocomplete="off" >
         <label for="melicodevarizande">کد ملی :</label>
       </div>
@@ -92,17 +108,7 @@
         </select>
         <label class="teal-text text-darken-4">روش پرداخت :</label>
       </div>    
-
-      <div class="input-field col s12">
-        <select  id="jobselect" name="select_job" >
-           {% for job in jobs %}
-             <option value={{ forloop.counter0 }}>{{ job }}</option>
-           {% endfor %}
-        </select>
-        <label class="teal-text text-darken-4">عنوان خدمت :</label>
-      </div>    
-
-
+    
       <div class="input-field col s12">
         <select name="persone">
            {% for person in persons %}
@@ -142,15 +148,15 @@
     
 
       <div class="center-align dokmeye-vorood ">
-        <button class="w-100 btn waves-effect" name="savebottom" value="accept">ثبت اطلاعات </button>
+        <button class="w-100 btn waves-effect">ثبت اطلاعات </button>
       </div>
 
       
     </div>
 
     <div class="col m3 l4 hide-on-small-and-down"></div>
-    <label id="etebarmelicod"  hidden >{{ etebarmelicod }}</label>
 
+    <button id="face" name="facebutton" value="accept" hidden >اینتر</button>
   </form>
 </main>
 
