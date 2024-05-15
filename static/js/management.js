@@ -23,6 +23,7 @@ var m1010 = document.getElementById("m1010");
 var m1111 = document.getElementById("m1111");
 var m1212 = document.getElementById("m1212");
 var l = document.getElementById("loglevel").innerHTML;
+console.log(l)
     if ( l == "مدیر");
        {
         m1.hidden = false;
