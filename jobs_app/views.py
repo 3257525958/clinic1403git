@@ -185,7 +185,9 @@ def jobs(request):
         emplist.clear()
         savework.clear()
         savework.append(joblist[int(servicselector)])
+        print("1")
         print(servicselector)
+        print(savework)
         selectjob[0] = 'true'
         servicselect = joblist[int(servicselector)]
         print(servicselect)
@@ -203,9 +205,13 @@ def jobs(request):
     if servicsave == "accept" :
         if (cast != '') and (cast != None):
             if (detalejob != '') and (detalejob != None):
+                print(cast)
                 savework.append(str(cast))
+                print(timename)
                 savework.append(timename)
+                print(employselector)
                 savework.append(emplist[int(employselector)])
+                print(detalejob)
                 savework.append(detalejob)
                 workmodel.objects.create(work=savework[0],
                                          cast=savework[1],
