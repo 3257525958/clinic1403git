@@ -210,13 +210,13 @@ def jobs(request):
                                          time=savework[2],
                                          person=savework[3],
                                          detalework=savework[4])
+                addetebar[0] = 'succes'
                 savework.clear()
                 selectjob.clear()
                 addetebar.clear()
                 joblist.clear()
                 emplist.clear()
                 selectjob.clear()
-                addetebar[0] = 'succes'
 
             else:
                 addetebar[0] = 'detalejob'
