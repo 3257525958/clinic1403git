@@ -174,7 +174,7 @@ def jobs(request):
             deletemploy_etebar[0] = 'emptyjob'
             melicodearay[0] = ''
 # **********************************************************ساختن یک خدمت*********************************************************
-    selectjob[0] = ""
+    selectjob.append("")
     addetebar[0] = ""
     joblist.clear()
     allservic = jobsmodel.objects.all()
