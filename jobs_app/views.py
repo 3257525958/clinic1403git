@@ -205,6 +205,8 @@ def jobs(request):
     if servicsave == "accept" :
         if (cast != '') and (cast != None):
             if (detalejob != '') and (detalejob != None):
+                print("2")
+                print(servicselector)
                 print(cast)
                 savework.append(str(cast))
                 print(timename)
