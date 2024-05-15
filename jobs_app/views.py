@@ -213,13 +213,16 @@ def jobs(request):
                 addetebar[0] = 'succes'
                 savework.clear()
                 selectjob.clear()
-                addetebar.clear()
                 joblist.clear()
                 emplist.clear()
                 selectjob.clear()
+                return render(request, "jobs.html", context={
+                                                         'addetebar': addetebar[0],
+                                                         })
 
             else:
                 addetebar[0] = 'detalejob'
+
         else:
             addetebar[0] = 'cast'
 
