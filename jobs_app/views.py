@@ -179,12 +179,12 @@ def jobs(request):
     joblist.clear()
     allservic = jobsmodel.objects.all()
     servicselect = 'انتخاب کنید'
+    pers = 'انتخاب کنید'
     for ser in allservic :
         joblist.append(ser.job)
     if facebutton == "accept" :
         emplist.clear()
         savework.clear()
-        savework.append(joblist[int(servicselector)])
         print("1")
         print(servicselector)
         print(savework)
@@ -202,12 +202,15 @@ def jobs(request):
                         for user in users :
                             if emp.melicod == user.melicode :
                                 emplist.append(user.firstname+' '+user.lastname)
+
     if servicsave == "accept" :
         if (cast != '') and (cast != None):
             if (detalejob != '') and (detalejob != None):
                 print("2")
+                [print(pers)]
                 print(servicselector)
                 print(cast)
+                savework.append(servicselector)
                 savework.append(str(cast))
                 print(timename)
                 savework.append(timename)
@@ -264,6 +267,7 @@ def jobs(request):
                                                'allservic':joblist,
                                                'allemployee':emplist,
                                                'servicselect':servicselect,
+                                               'pers':pers,
                                                'selectjob':selectjob[0],
                                                'emplist':emplist,
                                                'deletservics':deletservics,
