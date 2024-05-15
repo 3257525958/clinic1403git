@@ -210,6 +210,7 @@ def jobs(request):
                 print(timename)
                 savework.append(timename)
                 print(employselector)
+                print(emplist)
                 savework.append(emplist[int(employselector)])
                 print(detalejob)
                 savework.append(detalejob)
