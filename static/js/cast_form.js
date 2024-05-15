@@ -11,7 +11,15 @@ var selectjob = document.getElementById('selectjob');
 var deletworkmessage = document.getElementById('deletworkmessage');
 var addetebar = document.getElementById('addetebar');
 var    j = ( lenjob.innerHTML  * 19 ) + 100 ;
-    console.log(addetebar);
+var etebarmelicod = document.getElementById("etebarmelicod");
+
+
+    if ( newemployetebar.innerHTML == 'false') {
+        Swal.fire({
+            icon: 'warning',
+            title: 'کد ملی وارد شده قبلا ثبت نام نکرده است'
+        })
+    }
 
     if ( newjobetebar.innerHTML == 'ok' ){
         Swal.fire({
@@ -22,26 +30,6 @@ var    j = ( lenjob.innerHTML  * 19 ) + 100 ;
           timer: 2000
                  });
         setTimeout('redirectt()',1000);
-    }
-
-    if ( newjobetebar.innerHTML == 'false') {
-        Swal.fire({
-            icon: 'warning',
-            title: 'لطفا فعالیت مورد نظرتان را وارد کنید'
-        })
-    }
-    if ( newemployetebar.innerHTML == 'false') {
-        Swal.fire({
-            icon: 'warning',
-            title: 'لطفا عنوان کارمند را وارد کنید'
-        })
-    }
-
-    if ( newjobetebar.innerHTML == 'repeat') {
-        Swal.fire({
-            icon: 'warning',
-            title: 'فعالیت وارد شده تکراری است لطفا فعالیت جدید وارد کنید'
-        })
     }
 
     function redirectt() { window.location = "/"; }

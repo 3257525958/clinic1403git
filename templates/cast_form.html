@@ -75,7 +75,7 @@
       <i class="center-align blick-shodan fas fa-cash-register fa-4x"></i>
 
       <div class="input-field col s6 ">
-        <input type="number" name="peyment" id="cast" class="validate" autocomplete="off" >
+        <input type="number" name="peyment" id="cast" class="validate" autocomplete="off" placeholder="{{ g }}">
         <label for="cast">مبلغ :</label>
       </div>
 
@@ -142,15 +142,15 @@
     
 
       <div class="center-align dokmeye-vorood ">
-        <button class="w-100 btn waves-effect">ثبت اطلاعات و ارسال پیامک</button>
+        <button class="w-100 btn waves-effect" name="savebottom" value="accept">ثبت اطلاعات </button>
       </div>
 
       
     </div>
 
     <div class="col m3 l4 hide-on-small-and-down"></div>
+    <label id="etebarmelicod"  hidden >{{ etebarmelicod }}</label>
 
-    <button id="face" name="facebutton" value="accept" hidden >اینتر</button>
   </form>
 </main>
 

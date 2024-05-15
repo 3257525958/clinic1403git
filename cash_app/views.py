@@ -16,7 +16,7 @@ from cantact_app.views import strb,stry,strd
 from reserv_app.models import reservemodeltest,reservemodel
 from jobs_app.models import jobsmodel,employeemodel,workmodel
 from cash_app.models import bankmodel,castmodel
-
+from cantact_app.models import accuntmodel
 ZIB_API_REQUEST = "https://gateway.zibal.ir/v1/request"
 ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
@@ -185,7 +185,7 @@ def cast(request):
     # facebutton = request.POST.get("facebutton")
     # if facebutton == "accept":
     peyment = request.POST.get("peyment")
-    melicode = request.POST.get("melicode")
+    melicodevarizande = request.POST.get("melicodevarizande")
     detalejobselect = request.POST.get("detalejobselect")
     method =request.POST.get("method")
     select_persone = request.POST.get("persone")
@@ -194,6 +194,7 @@ def cast(request):
     year = request.POST.get("year")
     select_job = request.POST.get("select_job")
     bankonvan = request.POST.get("bankonvan")
+    savebottom =request.POST.get("savebottom")
 
     banks = bankmodel.objects.all()
     b = ""
@@ -255,13 +256,6 @@ def cast(request):
     while   int(de) <= 31 :
         darrey.append(de)
         de = str(int(de) + 1)
-    # while int(d) <= 31 :
-    #     darrey.append(d)
-    #     d = str(int(d) + 1)
-    #     if m == "اسفند" :
-    #         d = str(int(d) + 2)
-    #     if (m == "مهر") or (m == "آبان") or (m == "آذر") or (m == "دی") or (m == "بهمن") :
-    #         d = str(int(d) + 1)
 
     marrray = [m]
     marrray.clear()
@@ -283,8 +277,19 @@ def cast(request):
     while int(y) > 1300 :
         yarray.append(int(y))
         y = str(int(y)-1)
+    us = accuntmodel.objects.all()
+    etebarmelicod = "false"
+    for u in us:
+        if u.melicode == melicodevarizande :
+            etebarmelicod = "true"
+
+
+    # if (savebottom = "accept") and (etebarmelicod == "true"):
+    g = "3200"
+
     return render(request,'cast_form.html',context={
                                                                  # "listofperson": listofperson,
+                                                                 "g":g,
                                                                  "jobs":jobs,
                                                                  "persons":persons,
                                                                  # "detaleworks":detaleworks,
@@ -295,6 +300,7 @@ def cast(request):
                                                                  "darrey":darrey,
                                                                  "marray":marrray,
                                                                  "hesabs":hesabs,
+                                                                 "etebarmelicod":etebarmelicod,
                                                                 })
 
 def banksave(request):
