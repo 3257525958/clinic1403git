@@ -189,16 +189,16 @@ def jobs(request):
         emplist.clear()
         savework.clear()
         selectjob[0] = 'true'
-        servicselect = joblist[int(servicselector)]
+        select = joblist[int(servicselector)]
         print(servicselect)
-        jobselectormodel.objects.create(w=servicselect)
+        jobselectormodel.objects.create(w=joblist[int(servicselector)])
         print(joblist)
         allservic = jobsmodel.objects.all()
         for ser in allservic :
             print("1")
             print(servicselect)
             print(ser.job)
-            if str(ser.job) == str(servicselector) :
+            if ser.job == joblist[int(servicselector)] :
                 emps = employeemodel.objects.all()
                 print("2")
                 for emp in emps :
