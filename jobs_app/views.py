@@ -198,7 +198,7 @@ def jobs(request):
             print("1")
             print(servicselect)
             print(ser.job)
-            if ser.job == servicselector :
+            if str(ser.job) == str(servicselector) :
                 emps = employeemodel.objects.all()
                 print("2")
                 for emp in emps :
