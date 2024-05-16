@@ -196,6 +196,8 @@ def jobs(request):
         allservic = jobsmodel.objects.all()
         for ser in allservic :
             print("1")
+            print(servicselect)
+            print(ser.job)
             if ser.job == servicselector :
                 emps = employeemodel.objects.all()
                 print("2")
