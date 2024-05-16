@@ -178,20 +178,15 @@ def jobs(request):
     addetebar[0] = ""
     joblist.clear()
     allservic = jobsmodel.objects.all()
-    servicselect = 'انتخاب کنید'
+    # servicselect = 'انتخاب کنید'
     pers = 'انتخاب کنید'
     for ser in allservic :
         joblist.append(ser.job)
     if facebutton == "accept" :
         emplist.clear()
         savework.clear()
-        print("1")
-        print(servicselector)
-        print(savework)
         selectjob[0] = 'true'
         servicselect = joblist[int(servicselector)]
-        print(servicselect)
-        print(joblist)
         allservic = jobsmodel.objects.all()
         for ser in allservic :
             if ser.job == joblist[int(servicselector)] :
