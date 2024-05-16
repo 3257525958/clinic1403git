@@ -178,7 +178,8 @@ def jobs(request):
     addetebar[0] = ""
     joblist.clear()
     allservic = jobsmodel.objects.all()
-    # servicselect = 'انتخاب کنید'
+    if (servicselector == None) or (servicselector == ""):
+        servicselect = 'انتخاب کنید'
     pers = 'انتخاب کنید'
     for ser in allservic :
         joblist.append(ser.job)
