@@ -16,7 +16,7 @@ from jalali_date import date2jalali,datetime2jalali
 from cantact_app.views import strb,stry,strd
 from reserv_app.models import reservemodeltest,reservemodel
 from jobs_app.models import jobsmodel,employeemodel,workmodel
-from cash_app.models import bankmodel,castmodel
+from cash_app.models import bankmodel,castmodel,casttestmodel
 from cantact_app.models import accuntmodel
 ZIB_API_REQUEST = "https://gateway.zibal.ir/v1/request"
 ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
@@ -189,7 +189,7 @@ def cast(request):
     melicodevarizande = request.POST.get("melicodevarizande")
     detalejobselect = request.POST.get("detalejobselect")
     method =request.POST.get("method")
-    select_persone = request.POST.get("persone")
+    persone = request.POST.get("persone")
     day = request.POST.get("day")
     mounth = request.POST.get("mounth")
     year = request.POST.get("year")
@@ -197,7 +197,9 @@ def cast(request):
     bankonvan = request.POST.get("bankonvan")
     savebottom =request.POST.get("savebottom")
     facebutton = request.POST.get("facebutton")
-
+    off = request.POST.get("off")
+    print(persone)
+                    # ------تولید لیست حسابهای بانکی در hesabs-و کار انتخاب شده رو میریزه توی b----
     banks = bankmodel.objects.all()
     b = ""
     hesabs = [""]
@@ -212,7 +214,8 @@ def cast(request):
             hesabs.append(bank.onvan)
     if (bankonvan != None) and (bankonvan != ""):
         b = hesabs[int(bankonvan)]
-
+    print(1)
+                # ---------لیست کارها در jobs-----
     works = workmodel.objects.all()
     s = ""
     jobs = [""]
@@ -226,28 +229,28 @@ def cast(request):
         if r == 0 :
             jobs.append(work.work +" "+ work.detalework)
 
+    print("2")
+    # if (select_job != None) and (select_job != ""):
+    #     s = jobs[int(select_job)]
 
-    if (select_job != None) and (select_job != ""):
-        s = jobs[int(select_job)]
+                # ----------اقرادی کارها رو انجان میدن رو میریزه توی pesons و اونی که انتخاب شده رو میریزه توی p--------
+    # works = workmodel.objects.all()
+    # p = ""
+    # persons = [""]
+    # persons.clear()
+    # for work in works:
+    #     r = 0
+    #     for person in persons :
+    #         if person ==  work.person :
+    #             r = 1
+    #             break
+    #     if r == 0 :
+    #         persons.append(work.person)
+    # if (select_persone != None) and (select_persone != ""):
+    #     p = persons[int(select_persone)]
 
 
-    works = workmodel.objects.all()
-    p = ""
-    persons = [""]
-    persons.clear()
-    for work in works:
-        r = 0
-        for person in persons :
-            if person ==  work.person :
-                r = 1
-                break
-        if r == 0 :
-            persons.append(work.person)
-    if (select_persone != None) and (select_persone != ""):
-        p = persons[int(select_persone)]
-
-
-
+            # ---------- 31 روز رو میریزه توی darray----
     t = datetime.datetime.now()
     d = strd(t)
     y = str(1400 + int(stry(t)))
@@ -260,7 +263,7 @@ def cast(request):
     while   int(de) <= 31 :
         darrey.append(de)
         de = str(int(de) + 1)
-
+            # -----------ماه ها رو میریزه توی marray--------
     marrray = [m]
     marrray.clear()
     marrray.append(m)
@@ -275,43 +278,63 @@ def cast(request):
             m = m1
             if m2 == m1 :
                 break
-
+            # ---------سالها رو میریزه توی yarry-------------
     yarray = [1]
     yarray.clear()
     while int(y) > 1300 :
         yarray.append(int(y))
         y = str(int(y)-1)
     us = accuntmodel.objects.all()
-    etebarmelicod = "false"
-    for u in us:
-        if u.melicode == melicodevarizande :
-            etebarmelicod = "true"
 
+
+    etebarmelicod = "true"
 
 
     cash = 0
     selectjob = "انتخاب کنید"
     if facebutton == "accept" :
+        cs = casttestmodel.objects.all()
+        for j in cs:
+            j.delete()
         selectjob = request.POST.get("select_job")
         js = workmodel.objects.all()
         for j in js :
             if (jobs[int(selectjob)] == j.work +" "+ j.detalework ) :
                 cash = j.cast
                 sjb = j.work +" "+ j.detalework
+                persone =j.person
         selectjob = sjb
-
-    if (savebottom == "accept") and (etebarmelicod == "true"):
-        operatore = request.user.username
-        castmodel.objects.create(peyment=peyment,melicodevarizande=melicodevarizande,selectjob=select_job,bankonvan=bankonvan,
-                                 person=person,operatore=operatore,day=day,mounth=mounth,year=year)
-    g = "3200"
+        casttestmodel.objects.create(
+            peyment=cash,
+            selectjob=selectjob,
+            persone=persone,
+        )
+    if savebottom == "accept":
+        etebarmelicod = "false"
+        for u in us:
+            if u.melicode == melicodevarizande:
+                etebarmelicod = "true"
+        if etebarmelicod == "true":
+            cs = casttestmodel.objects.all()
+            for j in cs:
+                operatore = request.user.username
+                castmodel.objects.create(peyment=j.peyment,
+                                         melicodevarizande=melicodevarizande,
+                                         selectjob=j.selectjob,
+                                         bankonvan=b,
+                                         persone=j.persone,
+                                         operatore=operatore,
+                                         day=day,
+                                         mounth=mounth,
+                                         year=year,
+                                         off=str(off))
+    # persone = "lidi"
 
     return render(request,'cast_form.html',context={
                                                                  "selectjob":selectjob,
                                                                  # "listofperson": listofperson,
-                                                                 "g":g,
                                                                  "jobs":jobs,
-                                                                 "persons":persons,
+                                                                 "person":persone,
                                                                  # "detaleworks":detaleworks,
                                                                  # "select_job":select_job,
                                                                  # "jobselect":s,

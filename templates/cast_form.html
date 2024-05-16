@@ -86,12 +86,12 @@
 
     
       <div class="input-field col s6 ">
-        <input type="number" name="peyment" id="cast" class="validate" autocomplete="off" placeholder="{{ cash }}" >
+        <input type="number" name="peyment" id="cast" class="validate" autocomplete="off" value="{{ cash }}" disabled>
         <label for="cast">مبلغ :</label>
       </div>
 
       <div class="input-field col s6 ">
-        <input type="number" name="peyment" id="cast" class="validate" autocomplete="off" >
+        <input type="number" name="off" id="cast" class="validate" autocomplete="off" >
         <label for="cast">مبلغ تخفیف :</label>
       </div>
 
@@ -110,11 +110,12 @@
       </div>    
     
       <div class="input-field col s12">
-        <select name="persone">
-           {% for person in persons %}
-             <option value={{ forloop.counter0 }}>{{ person }}</option>
-           {% endfor %}
-        </select>
+{#        <select name="persone">#}
+{#           {% for person in persons %}#}
+{#             <option value={{ forloop.counter0 }}>{{ person }}</option>#}
+{#           {% endfor %}#}
+{#        </select>#}
+        <input type="text" name="persone" id="cast" class="validate" autocomplete="off" value="{{ person }}"disabled>
         <label class="teal-text text-darken-4">فرد انجام دهنده خدمت :</label>
       </div>    
 
@@ -148,14 +149,16 @@
     
 
       <div class="center-align dokmeye-vorood ">
-        <button class="w-100 btn waves-effect">ثبت اطلاعات </button>
+        <button class="w-100 btn waves-effect" name="savebottom" value="accept">ثبت اطلاعات </button>
       </div>
 
       
     </div>
 
     <div class="col m3 l4 hide-on-small-and-down"></div>
-
+  
+  
+    <label id="etebarmelicod"   >{{ etebarmelicod }}</label>
     <button id="face" name="facebutton" value="accept" hidden >اینتر</button>
   </form>
 </main>

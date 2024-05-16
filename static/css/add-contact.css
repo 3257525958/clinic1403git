@@ -49,7 +49,7 @@
     transform: scaleX(1);
 }
 .dropdown-content li>a, .dropdown-content li>span {
-    background-color: #0D47A1; !important;
+    background-color: #e040fb; !important;
 }
 .row .col.m6{
     margin-top: 5rem;
