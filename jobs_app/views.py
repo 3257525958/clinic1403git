@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from jobs_app.models import jobsmodel , employeemodel , workmodel
+from jobs_app.models import jobsmodel , employeemodel , workmodel,jobselectormodel
 from cantact_app.models import accuntmodel
 from store_app.models import storemodel
 
@@ -183,6 +183,9 @@ def jobs(request):
     for ser in allservic :
         joblist.append(ser.job)
     if facebutton == "accept" :
+        sjs = jobselectormodel.objects.all()
+        for sj in sjs :
+            sj.delete()
         emplist.clear()
         savework.clear()
         print("1")
@@ -191,6 +194,7 @@ def jobs(request):
         selectjob[0] = 'true'
         servicselect = joblist[int(servicselector)]
         print(servicselect)
+        jobselectormodel.objects.create(w=servicselect)
         print(joblist)
         allservic = jobsmodel.objects.all()
         for ser in allservic :
@@ -211,7 +215,10 @@ def jobs(request):
                 savework.append(timename)
                 savework.append(emplist[int(employselector)])
                 savework.append(detalejob)
-                workmodel.objects.create(work=servicselect,
+                sjs = jobselectormodel.objects.all()
+                for sj in sjs :
+                    sss = sj.w
+                workmodel.objects.create(work=sss,
                                          cast=cast,
                                          time=timename,
                                          person=emplist[int(employselector)],
