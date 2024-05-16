@@ -206,24 +206,18 @@ def jobs(request):
     if servicsave == "accept" :
         if (cast != '') and (cast != None):
             if (detalejob != '') and (detalejob != None):
-                print("2")
-                [print(pers)]
-                print(servicselector)
-                print(cast)
                 savework.append(servicselector)
                 savework.append(str(cast))
-                print(timename)
                 savework.append(timename)
-                print(employselector)
-                print(emplist)
                 savework.append(emplist[int(employselector)])
-                print(detalejob)
                 savework.append(detalejob)
-                workmodel.objects.create(work=savework[0],
-                                         cast=savework[1],
-                                         time=savework[2],
-                                         person=savework[3],
-                                         detalework=savework[4])
+                workmodel.objects.create(
+                                         work=servicselect,
+                                         cast=cast,
+                                         time=timename,
+                                         person=emplist[int(employselector)],
+                                         detalework=savework[4],
+                                         )
                 addetebar[0] = 'succes'
                 savework.clear()
                 selectjob.clear()
