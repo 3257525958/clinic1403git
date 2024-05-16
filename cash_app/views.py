@@ -305,9 +305,9 @@ def cast(request):
                 persone =j.person
         selectjob = sjb
         casttestmodel.objects.create(
-            peyment=cash,
-            selectjob=selectjob,
-            persone=persone,
+            p=cash,
+            s=selectjob,
+            c=persone,
         )
     if savebottom == "accept":
         etebarmelicod = "false"
@@ -318,11 +318,11 @@ def cast(request):
             cs = casttestmodel.objects.all()
             for j in cs:
                 operatore = request.user.username
-                castmodel.objects.create(peyment=j.peyment,
+                castmodel.objects.create(peyment=j.p,
                                          melicodevarizande=melicodevarizande,
-                                         selectjob=j.selectjob,
+                                         selectjob=j.s,
                                          bankonvan=b,
-                                         persone=j.persone,
+                                         persone=j.c,
                                          operatore=operatore,
                                          day=day,
                                          mounth=mounth,
