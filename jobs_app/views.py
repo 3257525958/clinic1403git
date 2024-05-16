@@ -178,7 +178,7 @@ def jobs(request):
     addetebar[0] = ""
     joblist.clear()
     allservic = jobsmodel.objects.all()
-    servicselect = 'انتخاب کنید'
+    servi = 'انتخاب کنید'
     pers = 'انتخاب کنید'
     for ser in allservic :
         joblist.append(ser.job)
@@ -189,7 +189,7 @@ def jobs(request):
         emplist.clear()
         savework.clear()
         selectjob[0] = 'true'
-        select = joblist[int(servicselector)]
+        servi= joblist[int(servicselector)]
         print(servicselect)
         jobselectormodel.objects.create(w=joblist[int(servicselector)])
         print(joblist)
@@ -271,7 +271,7 @@ def jobs(request):
                                                'employename':employename,
                                                'allservic':joblist,
                                                'allemployee':emplist,
-                                               'servicselect':servicselect,
+                                               'servicselect':servi,
                                                'pers':pers,
                                                'selectjob':selectjob[0],
                                                'emplist':emplist,
