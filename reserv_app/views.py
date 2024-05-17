@@ -180,6 +180,9 @@ def reservdef(request):
                              personreserv=f.person,
                              )
 
+                    if f.time == "زمان کمی میبرد" :
+                        sel = "0"
+                        selectprocedure.append("0")
                     if f.time == "نیم ساعت" :
                         sel = "1"
                         selectprocedure.append("1")
