@@ -180,6 +180,8 @@ def jobs(request):
     allservic = jobsmodel.objects.all()
     if (servicselector == None) or (servicselector == ""):
         servi = 'انتخاب کنید'
+    else:
+        servi = servicselector
     pers = 'انتخاب کنید'
     for ser in allservic :
         joblist.append(ser.job)
@@ -191,26 +193,16 @@ def jobs(request):
         savework.clear()
         selectjob[0] = 'true'
         servi= joblist[int(servicselector)]
-        print(servicselector)
         jobselectormodel.objects.create(w=joblist[int(servicselector)])
-        print(joblist)
         allservic = jobsmodel.objects.all()
         for ser in allservic :
-            print("1")
-            print(servicselector)
-            print(ser.job)
             if ser.job == joblist[int(servicselector)] :
                 emps = employeemodel.objects.all()
-                print("2")
                 for emp in emps :
-                    print("3")
                     if ser.employee == emp.employee :
-                        print("4")
                         users = accuntmodel.objects.all()
                         for user in users :
-                            print("6")
                             if emp.melicod == user.melicode :
-                                print("7")
                                 emplist.append(user.firstname+' '+user.lastname)
 
     if servicsave == "accept" :
