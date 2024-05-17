@@ -177,6 +177,7 @@ def jobs(request):
     selectjob.append("")
     addetebar[0] = ""
     joblist.clear()
+    emplist.clear()
     allservic = jobsmodel.objects.all()
     if (servicselector == None) or (servicselector == ""):
         servi = 'انتخاب کنید'
@@ -208,14 +209,19 @@ def jobs(request):
     if servicsave == "accept" :
         if (cast != '') and (cast != None):
             if (detalejob != '') and (detalejob != None):
-                savework.append(servicselector)
-                savework.append(str(cast))
-                savework.append(timename)
-                savework.append(emplist[int(employselector)])
-                savework.append(detalejob)
                 sjs = jobselectormodel.objects.all()
                 for sj in sjs :
                     sss = sj.w
+                allservic = jobsmodel.objects.all()
+                for ser in allservic:
+                    if ser.job == sss:
+                        emps = employeemodel.objects.all()
+                        for emp in emps:
+                            if ser.employee == emp.employee:
+                                users = accuntmodel.objects.all()
+                                for user in users:
+                                    if emp.melicod == user.melicode:
+                                        emplist.append(user.firstname + ' ' + user.lastname)
                 workmodel.objects.create(work=sss,
                                          cast=cast,
                                          time=timename,
