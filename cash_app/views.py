@@ -228,28 +228,6 @@ def cast(request):
                 break
         if r == 0 :
             jobs.append(work.work +" "+ work.detalework)
-
-    print("2")
-    # if (select_job != None) and (select_job != ""):
-    #     s = jobs[int(select_job)]
-
-                # ----------اقرادی کارها رو انجان میدن رو میریزه توی pesons و اونی که انتخاب شده رو میریزه توی p--------
-    # works = workmodel.objects.all()
-    # p = ""
-    # persons = [""]
-    # persons.clear()
-    # for work in works:
-    #     r = 0
-    #     for person in persons :
-    #         if person ==  work.person :
-    #             r = 1
-    #             break
-    #     if r == 0 :
-    #         persons.append(work.person)
-    # if (select_persone != None) and (select_persone != ""):
-    #     p = persons[int(select_persone)]
-
-
             # ---------- 31 روز رو میریزه توی darray----
     t = datetime.datetime.now()
     d = strd(t)
