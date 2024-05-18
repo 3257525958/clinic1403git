@@ -233,3 +233,6 @@ body {
     top: 100px;
     left: 30px;
 }
+.row .col.l4{
+    margin: 1rem !important;
+}
