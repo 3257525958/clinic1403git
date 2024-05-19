@@ -18,3 +18,10 @@ class mesaagecuntermodel(models.Model):
     cunt = models.CharField(max_length=100,default="0")
     def __str__(self):
         return f"{self.name}"
+
+
+class homeimgmodel(models.Model):
+    name = models.CharField(max_length=100,default="0")
+    image = models.ImageField(upload_to='image/home')
+    def __str__(self):
+        return f"{self.name}"

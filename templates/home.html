@@ -46,6 +46,7 @@
         <li id="m10" hidden="hidden" ><a class="menu_links_desktop"  href="cantact/addphon/" >ورود تلفن </a></li>
         <li id="m111" hidden="hidden" ><a class="menu_links_desktop"  href="it/sendmesaage/" >ارسال پیامک </a></li>
         <li id="m12" hidden="hidden" ><a class="menu_links_desktop"  href="it/savemesaage/" >ثبت پیامک </a></li>
+        <li id="m13" hidden="hidden" ><a class="menu_links_desktop"  href="it/control/" >کنترل it </a></li>
       </ul>
       <ul class="left hide-on-med-and-down ul_s esme_morajee">
         <li>{{ profilestatus }}</li>
@@ -68,6 +69,7 @@
         <li id="m1010" hidden="hidden" ><a class="menu_links_desktop"  href="cantact/addphon/">ورود تلفن </a></li>
         <li id="m1111" hidden="hidden" ><a class="menu_links_desktop"  href="it/sendmesaage/" >ارسال پیامک </a></li>
         <li id="m1212" hidden="hidden" ><a class="menu_links_desktop"  href="it/savemesaage/" >ثبت پیامک </a></li>
+        <li id="m1313" hidden="hidden" ><a class="menu_links_desktop"  href="it/control/" >کنترل it </a></li>
 </ul>
 <ul class="sidenav" id="mobile-demo">
   <li><a href="sass.html"></a></li>
@@ -80,17 +82,19 @@
 
 
   <!-- ------------شروع عکس متحرک -- -->
-{#  <main>#}
-{##}
-{#    <div class="carousel carousel-slider cros-style" >#}
-{##}
-{#      <a class="carousel-item" href="#">#}
-{#        <img class="hide-on-med-and-up" src="{% static "/img/pic1 (1).jpg" %}" alt="hello">#}
-{#        <img class="hide-on-small-only" src="{% static "/img/pic1 (1).jpg" %}" alt="hello">#}
-{#        <div class="text_style">#}
-{#            تزریق بوتاکس#}
-{#        </div>#}
-{#      </a>#}
+  <main>
+        <img class="hide-on-med-and-up" src="{{ u.image.url }}" alt="hello">
+        <img class="hide-on-med-and-up" src="{% static "/img/pic1 (3).jpg" %}" alt="hello">
+
+    <div class="carousel carousel-slider cros-style" >
+
+      <a class="carousel-item" href="#">
+        <img class="hide-on-med-and-up" src="{{ u.image.url }}" alt="hello">
+        <img class="hide-on-small-only" src="{{ u.image.url }}" alt="hello">
+        <div class="text_style">
+            salam
+        </div>
+      </a>
 {#      <a class="carousel-item" href="#">#}
 {#        <img class="hide-on-med-and-up" src="{% static "/img/pic1 (2).jpg" %}" alt="hello">#}
 {#        <img class="hide-on-small-only" src="{% static "/img/pic1 (2).jpg" %}" alt="hello">#}
@@ -115,11 +119,11 @@
 {#          تزریق ژل#}
 {#        </div>#}
 {#    </a>#}
-{##}
-{#    </div>#}
-{##}
-{##}
-{#  </main>#}
+
+    </div>
+
+
+  </main>
 <!-- ---------------پایان عکس متحرک----- -->
   
   

@@ -54,3 +54,7 @@
 .row .col.m6{
     margin-top: 5rem;
 }
+.upload{
+    display: none;
+
+}

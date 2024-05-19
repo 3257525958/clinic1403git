@@ -9,8 +9,9 @@ var m8 = document.getElementById("m8");
 var m9 = document.getElementById("m9");
 var m10 = document.getElementById("m10");
 var m11 = document.getElementById("m11");
-var m111 = document.getElementById("m111");
 var m12 = document.getElementById("m12");
+var m13 = document.getElementById("m13");
+var m111 = document.getElementById("m111");
 var m22 = document.getElementById("m22");
 var m33 = document.getElementById("m33");
 var m44 = document.getElementById("m44");
@@ -22,6 +23,8 @@ var m99 = document.getElementById("m99");
 var m1010 = document.getElementById("m1010");
 var m1111 = document.getElementById("m1111");
 var m1212 = document.getElementById("m1212");
+var m1313 = document.getElementById("m1313");
+
 var l = document.getElementById("loglevel").innerHTML;
 console.log(l)
     if ( l == "مدیر");
@@ -37,8 +40,9 @@ console.log(l)
         m9.hidden = false;
         m10.hidden = false;
         m11.hidden = false;
-        m111.hidden = false;
         m12.hidden = false;
+        m13.hidden = false;
+        m111.hidden = false;
         m22.hidden = false;
         m33.hidden = false;
         m44.hidden = false;
@@ -50,6 +54,7 @@ console.log(l)
         m1010.hidden = false;
         m1111.hidden = false;
         m1212.hidden = false;
+        m1313.hidden = false;
     }
         if ( l == "تولید محتوا") {
         m1.hidden = false;
@@ -62,8 +67,10 @@ console.log(l)
         m8.hidden = true;
         m9.hidden = true;
         m10.hidden = true;
-        m111.hidden = false;
         m12.hidden = false;
+        m13.hidden = true;
+        m111.hidden = false;
+
         m11.hidden = false;
         m22.hidden = true;
         m33.hidden = true;
@@ -76,6 +83,7 @@ console.log(l)
         m1010.hidden = true;
         m1111.hidden = false;
         m1212.hidden = false;
+        m1313.hidden = true;
     }
         if ( l == "دسترسی معمولی") {
         m1.hidden = false;
@@ -90,6 +98,7 @@ console.log(l)
         m10.hidden = true;
         m111.hidden = true;
         m12.hidden = true;
+        m13.hidden = true;
 
         m11.hidden = false;
         m22.hidden = false;
@@ -103,6 +112,7 @@ console.log(l)
         m1010.hidden = true;
         m1111.hidden = true;
         m1212.hidden = true;
+        m1313.hidden = false;
     }
         if ( l == "رزروشن") {
         m1.hidden = false;
@@ -117,6 +127,7 @@ console.log(l)
         m10.hidden = false;
         m111.hidden = true;
         m12.hidden = true;
+        m13.hidden = true;
 
         m11.hidden = false;
         m22.hidden = false;
@@ -130,6 +141,7 @@ console.log(l)
         m1010.hidden = false;
         m1111.hidden = true;
         m1212.hidden = true;
+        m1313.hidden = true;
     }
         if (l != "دسترسی معمولی" ) {
             if (l != "تولید محتوا") {
@@ -147,6 +159,9 @@ console.log(l)
                         m10.hidden = true;
                         m111.hidden = true;
                         m12.hidden = true;
+                        m13.hidden = true;
+
+
                         m11.hidden = false;
                         m22.hidden = true;
                         m33.hidden = true;
@@ -159,6 +174,7 @@ console.log(l)
                         m1010.hidden = true;
                         m1111.hidden = true;
                         m1212.hidden = true;
+                        m1313.hidden = false;
                     }
                 }
             }
