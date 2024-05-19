@@ -27,10 +27,10 @@ SECRET_KEY = 'django-insecure-2g&%dn06my3m55@+8_9%po(ro$qavn=d!7px(#zkqk6xwkz&^*
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# ALLOWED_HOSTS = ['http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://drmahdiasadpour.ir']
-# CSRF_TRUSTED_ORIGINS = ["https://drmahdiasadpour.ir",'http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://www.drmahdiasadpour.ir','http://www.drmahdiasadpour.ir']
+ALLOWED_HOSTS = ['http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://drmahdiasadpour.ir']
+CSRF_TRUSTED_ORIGINS = ["https://drmahdiasadpour.ir",'http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://www.drmahdiasadpour.ir','http://www.drmahdiasadpour.ir']
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -112,24 +112,24 @@ WSGI_APPLICATION = 'clinic1403.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'data1403vpo_db',
-#         'USER': 'root',
-#         'PASSWORD': 'qIL5rMnBTI4e4zxmuJow',
-#         'HOST': 'data1403-uwf-service',
-#
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'data1403vpo_db',
+        'USER': 'root',
+        'PASSWORD': 'qIL5rMnBTI4e4zxmuJow',
+        'HOST': 'data1403-uwf-service',
+
+    }
+}
 
 
 # Password validation
