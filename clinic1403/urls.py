@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.urls import path , include
 from django.contrib import admin
+from django.conf.urls.static import static
+from . import settings
+
 
 admin.autodiscover()
 
@@ -32,3 +35,4 @@ urlpatterns = [
 
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

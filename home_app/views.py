@@ -41,17 +41,13 @@ def home(request):
             #     profilestatus[0] = 'ورود به کاربری'
     # else:
     #     profilestatus[0] = 'ورود به کاربری'
+    images = []
     us =homeimgmodel.objects.all()
     for u in us:
-        if u.name == "110":
-            print("22")
-            return render(request, 'home.html', context={'loglevel': loglevel[0],
-                                                         'profilestatus': profilestatus[0],
-                                                         'u': u,
-                                                         })
-
+        images.append(u)
     return render(request,'home.html',context={ 'loglevel':loglevel[0],
                                                 'profilestatus':profilestatus[0],
+                                                'images':images,
     })
 
 def logute(request):
