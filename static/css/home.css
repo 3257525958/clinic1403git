@@ -191,13 +191,6 @@ nav ul li a:hover{
 .m2-text a{
     margin: 0.5rem;
 }
-/* .socialsocial_icons_row a {
-    transition: all 100ms linear;
-}
-.social_icons_row a:hover {
-    text-shadow: 0 0 8px #4a148c;
-    transform: scale(1.2);
-} */
 .top-20{
     position: relative;
     top: 40px;
