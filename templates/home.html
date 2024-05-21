@@ -14,248 +14,248 @@
 </head>
 <body dir="rtl" class="body">
   <!-- -----------------ناو بار ----شروع---------------- -->
-<div class="navbar-fixed">
-  <nav class="purple darken-3 nav nav_container">
-    <svg id="nav-svg" 
-    xmlns="http://www.w3.org/2000/svg"
-     viewBox="0 0 1440 320">
-     <path fill="#6a1b9a" 
-     fill-opacity="1" 
-     d="M0,96L120,85.3C240,75,480,53,720,58.7C960,64,1200,96,1320,112L1440,128L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z">  
-    </path>
-    </svg>
+    <div class="navbar-fixed">
+      <nav class="purple darken-3 nav nav_container">
+        <svg id="nav-svg" 
+        xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 1440 320">
+         <path fill="#6a1b9a" 
+         fill-opacity="1" 
+         d="M0,96L120,85.3C240,75,480,53,720,58.7C960,64,1200,96,1320,112L1440,128L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z">  
+        </path>
+        </svg>
+        
+        <div class="nav-wrapper">
+          <a href="#!" class="brand-logo">
+            <img src="/static/img/logo.jpg" alt="">
+          </a>
     
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">
-        <img src="/static/img/logo.jpg" alt="">
-      </a>
-
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <a href="#" class=" right sidenav-trigger ">{{ profilestatus }}</a>
-
-      <ul class="right hide-on-med-and-down nav-rastchin">
-        <li id="m1" ><a class="menu_links_desktop" href="cantact/login/">ثبت نام و ورود</a></li>
-        <li id="m2" hidden="hidden" ><a class="menu_links_desktop" href="reserv/reserv/">رزرو آنلاین</a></li>
-        <li id="m3" hidden="hidden" ><a class="menu_links_desktop" href="collapsible.html">آموزش مجازی</a></li>
-        <li id="m4" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">گالری</a></li>
-        <li id="m5" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">ارتباط با ما</a></li>
-        <li id="m6" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">راهنما</a></li>
-        <li id="m7" hidden="hidden" ><a class="menu_links_desktop"  href="zib/cast/" >پرداخت</a></li>
-        <li id="m8" hidden="hidden" ><a class="menu_links_desktop"  href="jobs/" >تعریف مشاغل</a></li>
-        <li id="m9" hidden="hidden" ><a class="menu_links_desktop"  href="zib/bank/" >تعریف حساب بانکی</a></li>
-        <li id="m10" hidden="hidden" ><a class="menu_links_desktop"  href="cantact/addphon/" >ورود تلفن </a></li>
-        <li id="m111" hidden="hidden" ><a class="menu_links_desktop"  href="it/sendmesaage/" >ارسال پیامک </a></li>
-        <li id="m12" hidden="hidden" ><a class="menu_links_desktop"  href="it/savemesaage/" >ثبت پیامک </a></li>
-        <li id="m13" hidden="hidden" ><a class="menu_links_desktop"  href="it/control/" >کنترل it </a></li>
-      </ul>
-      <ul class="left hide-on-med-and-down ul_s esme_morajee">
-        <li>{{ profilestatus }}</li>
-      </ul>
-
-    </div>
-
-  </nav>
-</div>
-<ul class="sidenav" id="mobile-demo">
-        <li id="m11" ><a class="menu_links_desktop" href="cantact/login/">ثبت نام و ورود</a></li>
-        <li id="m22" hidden="hidden" ><a class="menu_links_desktop" href="reserv/reserv/">رزرو آنلاین</a></li>
-        <li id="m33" hidden="hidden" ><a class="menu_links_desktop" href="collapsible.html">آموزش مجازی</a></li>
-        <li id="m44" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">گالری</a></li>
-        <li id="m55" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">ارتباط با ما</a></li>
-        <li id="m66" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">راهنما</a></li>
-        <li id="m77" hidden="hidden" ><a class="menu_links_desktop"  href="zib/cast/" >پرداخت</a></li>
-        <li id="m88" hidden="hidden" ><a class="menu_links_desktop"  href="jobs/" >تعریف مشاغل</a></li>
-        <li id="m99" hidden="hidden" ><a class="menu_links_desktop"  href="zib/bank/" >تعریف حساب بانکی</a></li>
-        <li id="m1010" hidden="hidden" ><a class="menu_links_desktop"  href="cantact/addphon/">ورود تلفن </a></li>
-        <li id="m1111" hidden="hidden" ><a class="menu_links_desktop"  href="it/sendmesaage/" >ارسال پیامک </a></li>
-        <li id="m1212" hidden="hidden" ><a class="menu_links_desktop"  href="it/savemesaage/" >ثبت پیامک </a></li>
-        <li id="m1313" hidden="hidden" ><a class="menu_links_desktop"  href="it/control/" >کنترل it </a></li>
-</ul>
-<ul class="sidenav" id="mobile-demo">
-  <li><a href="sass.html"></a></li>
-</ul>
-  <label id="loglevel" hidden="">{{ loglevel }}</label>
-  <!-- ----------پایان ناوبار------------ -->
-
-
-
-
-
-  <!-- ------------شروع عکس متحرک -- -->
-  <main>
-    <div class="carousel carousel-slider cros-style" >
-    {% for i in images %}
-      <a class="carousel-item" href="#">
-        <img class="hide-on-med-and-up" src="{{ i.image.url }}" alt="hello">
-        <img class="hide-on-small-only" src="{{ i.image.url }}" alt="hello">
-        <div class="text_style">
-            {{ i.name }}
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <a href="#" class=" right sidenav-trigger ">{{ profilestatus }}</a>
+    
+          <ul class="right hide-on-med-and-down nav-rastchin">
+            <li id="m1" ><a class="menu_links_desktop" href="cantact/login/">ثبت نام و ورود</a></li>
+            <li id="m2" hidden="hidden" ><a class="menu_links_desktop" href="reserv/reserv/">رزرو آنلاین</a></li>
+            <li id="m3" hidden="hidden" ><a class="menu_links_desktop" href="collapsible.html">آموزش مجازی</a></li>
+            <li id="m4" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">گالری</a></li>
+            <li id="m5" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">ارتباط با ما</a></li>
+            <li id="m6" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">راهنما</a></li>
+            <li id="m7" hidden="hidden" ><a class="menu_links_desktop"  href="zib/cast/" >پرداخت</a></li>
+            <li id="m8" hidden="hidden" ><a class="menu_links_desktop"  href="jobs/" >تعریف مشاغل</a></li>
+            <li id="m9" hidden="hidden" ><a class="menu_links_desktop"  href="zib/bank/" >تعریف حساب بانکی</a></li>
+            <li id="m10" hidden="hidden" ><a class="menu_links_desktop"  href="cantact/addphon/" >ورود تلفن </a></li>
+            <li id="m111" hidden="hidden" ><a class="menu_links_desktop"  href="it/sendmesaage/" >ارسال پیامک </a></li>
+            <li id="m12" hidden="hidden" ><a class="menu_links_desktop"  href="it/savemesaage/" >ثبت پیامک </a></li>
+            <li id="m13" hidden="hidden" ><a class="menu_links_desktop"  href="it/control/" >کنترل it </a></li>
+          </ul>
+          <ul class="left hide-on-med-and-down ul_s esme_morajee">
+            <li>{{ profilestatus }}</li>
+          </ul>
+    
         </div>
-      </a>
-    {% endfor %}    
-      <a class="carousel-item" href="#">
-        <img class="hide-on-med-and-up" src="{% static "/img/pic1 (3).jpg (2).jpg" %}" alt="hello">
-        <img class="hide-on-small-only" src="{% static "/img/pic1 (3).jpg (2).jpg" %}" alt="hello">
-        <div class="text_style">
-            تزریق بوتاکس
-        </div>
-      </a>
-{##}
-{#      <a class="carousel-item" href="#">#}
-{#        <img class="hide-on-med-and-up" src="{% static "/img/pic1 (3).jpg" %}" alt="hello">#}
-{#        <img class="hide-on-small-only" src="{% static "/img/pic1 (3).jpg" %}" alt="hello">#}
-{#        <div class="text_style">#}
-{#            تزریق بوتاکس#}
-{#        </div>#}
-{#      </a>#}
-{##}
-{##}
-{#      <a class="carousel-item" href="#">#}
-{#        <img class="hide-on-med-and-up" src="{% static "/img/pic1 (4).jpg" %}" alt="hello">#}
-{#        <img class="hide-on-small-only" src="{% static "/img/pic1 (4).jpg" %}" alt="hello">#}
-{#        <div class="text_style">#}
-{#          تزریق ژل#}
-{#        </div>#}
-{#    </a>#}
-
+    
+      </nav>
     </div>
-
-
-  </main>
-<!-- ---------------پایان عکس متحرک----- -->
-  
-  
-  
-  
-  
-<!-- --------------شروع ساهت منوی سریع------ -->
-<section id="quick_section">
-
-  <div class="row menosari w-100">
-
-    <div class="col l1 hide-on-med-and-down"></div>
-
-    <div class="col s6 m3 l2 quick_item">
-      <a href="#">
-        <div class="image center-align ">
-          <img src="{% static "/img/pic1 (1).jpg" %}" alt="photo">
+    <ul class="sidenav" id="mobile-demo">
+            <li id="m11" ><a class="menu_links_desktop" href="cantact/login/">ثبت نام و ورود</a></li>
+            <li id="m22" hidden="hidden" ><a class="menu_links_desktop" href="reserv/reserv/">رزرو آنلاین</a></li>
+            <li id="m33" hidden="hidden" ><a class="menu_links_desktop" href="collapsible.html">آموزش مجازی</a></li>
+            <li id="m44" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">گالری</a></li>
+            <li id="m55" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">ارتباط با ما</a></li>
+            <li id="m66" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">راهنما</a></li>
+            <li id="m77" hidden="hidden" ><a class="menu_links_desktop"  href="zib/cast/" >پرداخت</a></li>
+            <li id="m88" hidden="hidden" ><a class="menu_links_desktop"  href="jobs/" >تعریف مشاغل</a></li>
+            <li id="m99" hidden="hidden" ><a class="menu_links_desktop"  href="zib/bank/" >تعریف حساب بانکی</a></li>
+            <li id="m1010" hidden="hidden" ><a class="menu_links_desktop"  href="cantact/addphon/">ورود تلفن </a></li>
+            <li id="m1111" hidden="hidden" ><a class="menu_links_desktop"  href="it/sendmesaage/" >ارسال پیامک </a></li>
+            <li id="m1212" hidden="hidden" ><a class="menu_links_desktop"  href="it/savemesaage/" >ثبت پیامک </a></li>
+            <li id="m1313" hidden="hidden" ><a class="menu_links_desktop"  href="it/control/" >کنترل it </a></li>
+    </ul>
+    <ul class="sidenav" id="mobile-demo">
+      <li><a href="sass.html"></a></li>
+    </ul>
+      <label id="loglevel" hidden="">{{ loglevel }}</label>
+      <!-- ----------پایان ناوبار------------ -->
+    
+    
+    
+    
+    
+      <!-- ------------شروع عکس متحرک -- -->
+      <main>
+        <div class="carousel carousel-slider cros-style" >
+        {% for i in images %}
+          <a class="carousel-item" href="#">
+            <img class="hide-on-med-and-up" src="{{ i.image.url }}" alt="hello">
+            <img class="hide-on-small-only" src="{{ i.image.url }}" alt="hello">
+            <div class="text_style">
+                {{ i.name }}
+            </div>
+          </a>
+        {% endfor %}    
+          <a class="carousel-item" href="#">
+            <img class="hide-on-med-and-up" src="{% static "/img/pic1 (3).jpg (2).jpg" %}" alt="hello">
+            <img class="hide-on-small-only" src="{% static "/img/pic1 (3).jpg (2).jpg" %}" alt="hello">
+            <div class="text_style">
+                تزریق بوتاکس
+            </div>
+          </a>
+    {##}
+    {#      <a class="carousel-item" href="#">#}
+    {#        <img class="hide-on-med-and-up" src="{% static "/img/pic1 (3).jpg" %}" alt="hello">#}
+    {#        <img class="hide-on-small-only" src="{% static "/img/pic1 (3).jpg" %}" alt="hello">#}
+    {#        <div class="text_style">#}
+    {#            تزریق بوتاکس#}
+    {#        </div>#}
+    {#      </a>#}
+    {##}
+    {##}
+    {#      <a class="carousel-item" href="#">#}
+    {#        <img class="hide-on-med-and-up" src="{% static "/img/pic1 (4).jpg" %}" alt="hello">#}
+    {#        <img class="hide-on-small-only" src="{% static "/img/pic1 (4).jpg" %}" alt="hello">#}
+    {#        <div class="text_style">#}
+    {#          تزریق ژل#}
+    {#        </div>#}
+    {#    </a>#}
+    
         </div>
-        <h2 class="center-align">بوتاکس زیبا</h2>
-      </a>
-    </div>
+    
+    
+      </main>
+    <!-- ---------------پایان عکس متحرک----- -->
       
-    <div class="col s6 m3 l2 quick_item">
-      <a href="#">
-        <div class="image center-align ">
-          <img src="{% static "/img/pic1 (2).jpg" %}" alt="photo">
+      
+      
+      
+      
+    <!-- --------------شروع ساهت منوی سریع------ -->
+    <section id="quick_section">
+    
+      <div class="row menosari w-100">
+    
+        <div class="col l1 hide-on-med-and-down"></div>
+    
+        <div class="col s6 m3 l2 quick_item">
+          <a href="#">
+            <div class="image center-align ">
+              <img src="{% static "/img/pic1 (1).jpg" %}" alt="photo">
+            </div>
+            <h2 class="center-align">بوتاکس زیبا</h2>
+          </a>
         </div>
-        <h2 class="center-align">بوتاکس زیبا</h2>
-      </a>
-    </div>
-    <div class="col s12 m3 l2 quick_item">
-      <a href="#">
-        <div class="image center-align ">
-          <img src="{% static "/img/pic1 (3).jpg" %}" alt="photo">
+          
+        <div class="col s6 m3 l2 quick_item">
+          <a href="#">
+            <div class="image center-align ">
+              <img src="{% static "/img/pic1 (2).jpg" %}" alt="photo">
+            </div>
+            <h2 class="center-align">بوتاکس زیبا</h2>
+          </a>
         </div>
-        <h2 class="center-align">بوتاکس زیبا</h2>
-      </a>
-    </div>
-    <div class="col s6 m3 l2 quick_item">
-      <a href="#">
-        <div class="image center-align ">
-          <img src="{% static "/img/pic1 (4).jpg" %}" alt="photo">
+        <div class="col s12 m3 l2 quick_item">
+          <a href="#">
+            <div class="image center-align ">
+              <img src="{% static "/img/pic1 (3).jpg" %}" alt="photo">
+            </div>
+            <h2 class="center-align">بوتاکس زیبا</h2>
+          </a>
         </div>
-        <h2 class="center-align">بوتاکس زیبا</h2>
-      </a>
-    </div>
-    <div class="col s6 m3 l2 quick_item">
-      <a href="#">
-        <div class="image center-align ">
-          <img src="{% static "/img/pic1 (5).jpg" %}" alt="photo">
+        <div class="col s6 m3 l2 quick_item">
+          <a href="#">
+            <div class="image center-align ">
+              <img src="{% static "/img/pic1 (4).jpg" %}" alt="photo">
+            </div>
+            <h2 class="center-align">بوتاکس زیبا</h2>
+          </a>
         </div>
-        <h2 class="center-align">بوتاکس زیبا</h2>
-      </a>
-    </div>
-
-
-    <div class="col li hide-on-med-and-down"></div>
-  </div>
-
-</section>
-
-<!-- ------------پایان ساخت منوی سریع -->
-
-  
-  
-  
-<!-- ------- شروع پیگیری صفحات مجازی--------------- -->
-<section class="row top-20">
-  <div class="">
-    <h5 class="center-align pink-text text-accent-3 t1-text ">
-      ما را در فضای مجازی مجازی دنبال کنید 
-    </h5>
-  </div>  
-    <div class="social_icons_row m2-text">
-      <a href="https://www.instagram.com/dr.mahdiasadpour/?hl=fa" class="fab fa-instagram fa-3x purple-text text-accent-4"></a>
-      <a href="tel:02144291669" class="btn-floating pulse btn-large">
-        <i class="fas fa-phone"></i>
-      </a>
-    </div>
-
-</section>
-<!-- ------------------پایان ساخت پیگیری صفحات مجاری--- -->
-  
-  
-  
-  
-<footer class="clum ">
-
-  <svg id="footer-svg"  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1440 320">
-    <path fill="#6a1b9a" fill-opacity="1" d="M0,160L120,186.7C240,213,480,267,720,266.7C960,267,1200,213,1320,186.7L1440,160L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
-  </svg>
-
-  <div class="purple darken-3 w-100">
-
-    <div class="row">
-
-      <div class="col l6 s12">
-        <h5 class="white-text">ارتباط با ما</h5>
-        <p class="grey-text text-lighten-4">مجموعه ما مجموعه خیلی باحالیه و دلسوز که سعی مبکنه بهترین کارهای تخصصی رو انجام بده</p>
+        <div class="col s6 m3 l2 quick_item">
+          <a href="#">
+            <div class="image center-align ">
+              <img src="{% static "/img/pic1 (5).jpg" %}" alt="photo">
+            </div>
+            <h2 class="center-align">بوتاکس زیبا</h2>
+          </a>
+        </div>
+    
+    
+        <div class="col li hide-on-med-and-down"></div>
       </div>
-
-      <div class="col l4 offset-l2 s12">
-
-{#        <h5 class="white-text">لینک های مرتبط</h5>#}
-{#        <ul>#}
-{#          <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>#}
-{#          <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>#}
-{#          <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>#}
-{#          <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>#}
-{#        </ul>#}
-
+    
+    </section>
+    
+    <!-- ------------پایان ساخت منوی سریع -->
+    
+      
+      
+      
+    <!-- ------- شروع پیگیری صفحات مجازی--------------- -->
+    <section class="row top-20">
+      <div class="">
+        <h5 class="center-align pink-text text-accent-3 t1-text ">
+          ما را در فضای مجازی مجازی دنبال کنید 
+        </h5>
+      </div>  
+        <div class="social_icons_row m2-text">
+          <a href="https://www.instagram.com/dr.mahdiasadpour/?hl=fa" class="fab fa-instagram fa-3x purple-text text-accent-4"></a>
+          <a href="tel:02144291669" class="btn-floating pulse btn-large">
+            <i class="fas fa-phone"></i>
+          </a>
+        </div>
+    
+    </section>
+    <!-- ------------------پایان ساخت پیگیری صفحات مجاری--- -->
+      
+      
+      
+      
+    <footer class="clum ">
+    
+      <svg id="footer-svg"  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1440 320">
+        <path fill="#6a1b9a" fill-opacity="1" d="M0,160L120,186.7C240,213,480,267,720,266.7C960,267,1200,213,1320,186.7L1440,160L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
+      </svg>
+    
+      <div class="purple darken-3 w-100">
+    
+        <div class="row">
+    
+          <div class="col l6 s12">
+            <h5 class="white-text">ارتباط با ما</h5>
+            <p class="grey-text text-lighten-4">مجموعه ما مجموعه خیلی باحالیه و دلسوز که سعی مبکنه بهترین کارهای تخصصی رو انجام بده</p>
+          </div>
+    
+          <div class="col l4 offset-l2 s12">
+    
+    {#        <h5 class="white-text">لینک های مرتبط</h5>#}
+    {#        <ul>#}
+    {#          <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>#}
+    {#          <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>#}
+    {#          <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>#}
+    {#          <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>#}
+    {#        </ul>#}
+    
+          </div>
+          <div class="col l2 s12">
+            <a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=361568&amp;Code=rfRJvt89x7WeFTvMVzE8">
+              <img referrerpolicy="origin" src="https://Trustseal.eNamad.ir/logo.aspx?id=361568&amp;Code=rfRJvt89x7WeFTvMVzE8" alt="" style="cursor:pointer" id="rfRJvt89x7WeFTvMVzE8">
+            </a>      
+          </div>
+    
+        </div>
       </div>
-      <div class="col l2 s12">
-        <a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=361568&amp;Code=rfRJvt89x7WeFTvMVzE8">
-          <img referrerpolicy="origin" src="https://Trustseal.eNamad.ir/logo.aspx?id=361568&amp;Code=rfRJvt89x7WeFTvMVzE8" alt="" style="cursor:pointer" id="rfRJvt89x7WeFTvMVzE8">
-        </a>      
+    
+      <div class="footer-copyright purple darken-2">
+        <div class="container">
+        © 2014 Copyright Text
+        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
       </div>
-
-    </div>
-  </div>
-
-  <div class="footer-copyright purple darken-2">
-    <div class="container">
-    © 2014 Copyright Text
-    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-    </div>
-  </div>
-</footer> 
-
-    <script src="{% static "/js/materialize.min.js" %}"></script>
-    <script src="{% static "/js/home.js" %}" ></script>
-    <script src="{% static "/js/management.js" %}" ></script>
-
-
-
+    </footer> 
+    
+        <script src="{% static "/js/materialize.min.js" %}"></script>
+        <script src="{% static "/js/home.js" %}" ></script>
+        <script src="{% static "/js/management.js" %}" ></script>
+    
+    
+    
 </body>
 </html>

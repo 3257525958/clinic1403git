@@ -3,7 +3,14 @@ from it_app.models import homeimgmodel
 class homeimgform(forms.ModelForm):
     class Meta:
         model = homeimgmodel
-        fields = ('image','name',)
+        fields = ('name','image',)
+        labels = {'name':'نام',
+                  'image':'آپلود'
+                  }
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'image':forms.FileInput(attrs={'class':'btn','idden':"hidden"})
+                   }
 
 # # class mform(forms.ModelForm):
 # #
@@ -23,6 +30,6 @@ class homeimgform(forms.ModelForm):
 # #             # "consentletter":forms.CheckboxSelectMultiple(choices=con),
 # #         }
 # #
-# class mform(forms.Form):
-#     name = forms.CharField(max_length=100, label='اسم فایل مورد نظر را وارد کنید')
-#     image = forms.ImageField(label="سلام")
+# class homeimgform(forms.Form):
+#     name = forms.CharField(max_length=100, label='متن روی عکس :')
+#     image = forms.ImageField(label="آپلود")
