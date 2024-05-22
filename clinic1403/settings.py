@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-2g&%dn06my3m55@+8_9%po(ro$qavn=d!7px(#zkqk6xwkz&^*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = ['http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://drmahdiasadpour.ir']
-CSRF_TRUSTED_ORIGINS = ["https://drmahdiasadpour.ir",'http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://www.drmahdiasadpour.ir','http://www.drmahdiasadpour.ir']
+# CSRF_TRUSTED_ORIGINS = ["https://drmahdiasadpour.ir",'http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://www.drmahdiasadpour.ir','http://www.drmahdiasadpour.ir']
 
 # ALLOWED_HOSTS = []
 
@@ -125,10 +125,10 @@ WSGI_APPLICATION = 'clinic1403.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'c1403rmw_db',
+        'NAME': 'd1403qhv_db',
         'USER': 'root',
-        'PASSWORD': 'yaVMrm7UcXZ7ht3uNnJb',
-        'HOST': 'c1403-nzp-service',
+        'PASSWORD': 'am5rTvZ5t8MnRFdWYgse',
+        'HOST': 'd1403-dnn-service',
 
     }
 }
