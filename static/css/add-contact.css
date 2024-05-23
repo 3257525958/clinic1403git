@@ -63,7 +63,7 @@
 }
 .input-field.col label{
     z-index: 1 ;!important;
-    margin-top: 5%;
+    /*margin-top: 5%;*/
 }
 .loadlabel{
     right: 35% !important;
