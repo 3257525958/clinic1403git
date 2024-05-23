@@ -76,10 +76,16 @@
 
       <i class="center-align blick-shodan fas fa-upload fa-3x"></i>
 
-      <div class="input-field col s12 ">
+      <div class="input-field col s6 ">
         {{ form.name }}
         <label for="name">{{ form.name.label }}</label>
       </div>
+        <div class="col s6">
+      <div class="input-field col s12 ">
+        {{ form.image }}
+        <label  for="img" class="loadlabel">{{ form.image.label }}</label>
+      </div>
+        </div>
 {#      <div class="input-field col s12 ">#}
 {#        {{ form.image }}#}
 {#        <label  for="img">{{ form.image.label }}</label>#}
@@ -110,10 +116,6 @@
 {#      </div>#}
 
       <div class="center-align dokmeye-vorood col s12">
-      <div class="input-field col s12 ">
-        {{ form.image }}
-        <label  for="img" class="z-1 col s12">{{ form.image.label }}</label>
-      </div>
         <button class="w-100 btn waves-effect col s6" name="savebottom" value="accept">ثبت اطلاعات </button>
       </div>
 

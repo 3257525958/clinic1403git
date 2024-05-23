@@ -61,9 +61,14 @@
 .m-100{
     margin: 100px;
 }
-/*.input-field.col label{*/
-/*    z-index: 1 ;!important;*/
-/*}*/
+.input-field.col label{
+    z-index: 1 ;!important;
+    margin-top: 5%;
+}
+.loadlabel{
+    right: 35% !important;
+
+}
 /*.z-1{*/
 /*    z-index: 1; !important;*/
 /*}*/

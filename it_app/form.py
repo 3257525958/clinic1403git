@@ -5,9 +5,9 @@ class homeimgform(forms.ModelForm):
         model = homeimgmodel
         fields = ('name','image',)
         labels = {'name':'نام',
-                  'image':'آپلود'
+                  'image':'آپلود عکس'
                   }
         widgets = {
-            'name': forms.TextInput(attrs={'class':'form-control','name':'name'}),
-            'image':forms.FileInput(attrs={'class':'w-100 btn waves-effect col s6 m-100','hidden':"hidden", 'name':'img'}),
+            'name': forms.TextInput(attrs={'class':'form-control col s12','name':'name'}),
+            'image':forms.FileInput(attrs={'class':'w-100 btn waves-effect col s6 ','hidden':"hidden", 'name':'img'}),
                    }
