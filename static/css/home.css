@@ -118,7 +118,7 @@ nav ul li a:hover{
     transform: perspective(800px) rotateY(-15deg) scale(1) rotateX(-10deg);
     filter: blur(0);
     opacity: 1;
-    color: #ab47bc;
+    color: #4a148c;
     font-size: 2rem;
 
 }

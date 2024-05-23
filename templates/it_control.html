@@ -75,10 +75,15 @@
     <div class="ghesmate_login col s12 m6 l4">
 
       <i class="center-align blick-shodan fas fa-upload fa-3x"></i>
-        {{ form.name.label }}
+
+      <div class="input-field col s12 ">
         {{ form.name }}
-        {{ form.image.label }}
-        {{ form.image }}
+        <label for="name">{{ form.name.label }}</label>
+      </div>
+{#      <div class="input-field col s12 ">#}
+{#        {{ form.image }}#}
+{#        <label  for="img">{{ form.image.label }}</label>#}
+{#      </div>#}
 {#        {{ form.as_p }}#}
 {#      <div class="input-field col s12">#}
 {#        <select name="name">#}
@@ -104,7 +109,11 @@
 {#          </label>#}
 {#      </div>#}
 
-      <div class="center-align dokmeye-vorood col s6">
+      <div class="center-align dokmeye-vorood col s12">
+      <div class="input-field col s12 ">
+        {{ form.image }}
+        <label  for="img" class="z-1 col s12">{{ form.image.label }}</label>
+      </div>
         <button class="w-100 btn waves-effect col s6" name="savebottom" value="accept">ثبت اطلاعات </button>
       </div>
 
@@ -115,6 +124,7 @@
   
   
     <label id="etebarmelicod"  hidden >{{ etebarmelicod }}</label>
+      
     <button id="face" name="facebutton" value="accept" hidden >اینتر</button>
   </form>
 </main>

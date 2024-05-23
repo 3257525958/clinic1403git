@@ -25,3 +25,8 @@ class homeimgmodel(models.Model):
     image = models.ImageField(upload_to='image/home',null=True)
     def __str__(self):
         return f"{self.name}"
+class homemenosarimodel(models.Model):
+    name = models.CharField(max_length=100,default="0", null=True)
+    image = models.ImageField(upload_to='menosari/home',null=True)
+    def __str__(self):
+        return f"{self.name}"

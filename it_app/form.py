@@ -8,28 +8,6 @@ class homeimgform(forms.ModelForm):
                   'image':'آپلود'
                   }
         widgets = {
-            'name': forms.TextInput(attrs={'class':'form-control'}),
-            'image':forms.FileInput(attrs={'class':'btn','idden':"hidden"})
+            'name': forms.TextInput(attrs={'class':'form-control','name':'name'}),
+            'image':forms.FileInput(attrs={'class':'w-100 btn waves-effect col s6 m-100','hidden':"hidden", 'name':'img'}),
                    }
-
-# # class mform(forms.ModelForm):
-# #
-# #     class Meta:
-# #         model = homeimgmodel
-# #         exclude = ('image'),
-# #         labels = {
-# #             "namelabel": (": انتخاب موضوع"),
-# #             "imagelabel": ("انتخاب عکس"),
-# #         }
-# #         widgets = {
-# #             "name":forms.Textarea(attrs = {"class":"form-control p-4","style":"text-align: right",}),
-# #             # "image": forms.ImageField(),
-# #
-# #             # "cc":forms.Textarea(attrs = {"class":"form-control p-4","style":"text-align: right",}),
-# #             # "pmh":forms.CheckboxSelectMultiple(choices=pmh),
-# #             # "consentletter":forms.CheckboxSelectMultiple(choices=con),
-# #         }
-# #
-# class homeimgform(forms.Form):
-#     name = forms.CharField(max_length=100, label='متن روی عکس :')
-#     image = forms.ImageField(label="آپلود")
