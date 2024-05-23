@@ -65,6 +65,9 @@
     z-index: 1 ;!important;
     /*margin-top: 5%;*/
 }
+.mt-5{
+    margin-top: 5px !important;
+}
 .loadlabel{
     right: 35% !important;
 

@@ -9,5 +9,5 @@ class homeimgform(forms.ModelForm):
                   }
         widgets = {
             'name': forms.TextInput(attrs={'class':'form-control col s12','name':'name'}),
-            'image':forms.FileInput(attrs={'class':'w-100 btn waves-effect col s6 ','hidden':"hidden", 'name':'img'}),
+            'image':forms.FileInput(attrs={'class':'w-100 btn waves-effect col s6 mt-5','hidden':"hidden", 'name':'img'}),
                    }
