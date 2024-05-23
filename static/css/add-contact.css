@@ -61,10 +61,9 @@
 .m-100{
     margin: 100px;
 }
-.input-field.col label{
-    z-index: 1 ;!important;
-    /*margin-top: 5%;*/
-}
+/*.input-field.col label{*/
+    /*z-index: 1 ;!important;*/
+/*}*/
 .mt-5{
     margin-top: 5px !important;
 }

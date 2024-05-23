@@ -47,6 +47,7 @@
             <li id="m111" hidden="hidden" ><a class="menu_links_desktop"  href="it/sendmesaage/" >ارسال پیامک </a></li>
             <li id="m12" hidden="hidden" ><a class="menu_links_desktop"  href="it/savemesaage/" >ثبت پیامک </a></li>
             <li id="m13" hidden="hidden" ><a class="menu_links_desktop"  href="it/control/" >کنترل it </a></li>
+            <li id="m14" hidden="hidden" ><a class="menu_links_desktop"  href="it/delet/" >حذف it</a></li>
           </ul>
           <ul class="left hide-on-med-and-down ul_s esme_morajee">
             <li>{{ profilestatus }}</li>
@@ -70,6 +71,7 @@
             <li id="m1111" hidden="hidden" ><a class="menu_links_desktop"  href="it/sendmesaage/" >ارسال پیامک </a></li>
             <li id="m1212" hidden="hidden" ><a class="menu_links_desktop"  href="it/savemesaage/" >ثبت پیامک </a></li>
             <li id="m1313" hidden="hidden" ><a class="menu_links_desktop"  href="it/control/" >کنترل it </a></li>
+            <li id="m1414" hidden="hidden" ><a class="menu_links_desktop"  href="it/delet/" >حذف it</a></li>
     </ul>
     <ul class="sidenav" id="mobile-demo">
       <li><a href="sass.html"></a></li>
@@ -135,6 +137,7 @@
     
         <div class="col l1 hide-on-med-and-down"></div>
     
+      {% for i in imagesari %}
         <div class="col s6 m3 l2 quick_item">
           <a href="#">
             <div class="image center-align ">
@@ -143,39 +146,39 @@
             <h2 class="center-align">بوتاکس زیبا</h2>
           </a>
         </div>
-          
-        <div class="col s6 m3 l2 quick_item">
-          <a href="#">
-            <div class="image center-align ">
-              <img src="{% static "/img/pic1 (2).jpg" %}" alt="photo">
-            </div>
-            <h2 class="center-align">بوتاکس زیبا</h2>
-          </a>
-        </div>
-        <div class="col s12 m3 l2 quick_item">
-          <a href="#">
-            <div class="image center-align ">
-              <img src="{% static "/img/pic1 (3).jpg" %}" alt="photo">
-            </div>
-            <h2 class="center-align">بوتاکس زیبا</h2>
-          </a>
-        </div>
-        <div class="col s6 m3 l2 quick_item">
-          <a href="#">
-            <div class="image center-align ">
-              <img src="{% static "/img/pic1 (4).jpg" %}" alt="photo">
-            </div>
-            <h2 class="center-align">بوتاکس زیبا</h2>
-          </a>
-        </div>
-        <div class="col s6 m3 l2 quick_item">
-          <a href="#">
-            <div class="image center-align ">
-              <img src="{% static "/img/pic1 (5).jpg" %}" alt="photo">
-            </div>
-            <h2 class="center-align">بوتاکس زیبا</h2>
-          </a>
-        </div>
+      {% endfor %}    
+{#        <div class="col s6 m3 l2 quick_item">#}
+{#          <a href="#">#}
+{#            <div class="image center-align ">#}
+{#              <img src="{% static "/img/pic1 (2).jpg" %}" alt="photo">#}
+{#            </div>#}
+{#            <h2 class="center-align">بوتاکس زیبا</h2>#}
+{#          </a>#}
+{#        </div>#}
+{#        <div class="col s12 m3 l2 quick_item">#}
+{#          <a href="#">#}
+{#            <div class="image center-align ">#}
+{#              <img src="{% static "/img/pic1 (3).jpg" %}" alt="photo">#}
+{#            </div>#}
+{#            <h2 class="center-align">بوتاکس زیبا</h2>#}
+{#          </a>#}
+{#        </div>#}
+{#        <div class="col s6 m3 l2 quick_item">#}
+{#          <a href="#">#}
+{#            <div class="image center-align ">#}
+{#              <img src="{% static "/img/pic1 (4).jpg" %}" alt="photo">#}
+{#            </div>#}
+{#            <h2 class="center-align">بوتاکس زیبا</h2>#}
+{#          </a>#}
+{#        </div>#}
+{#        <div class="col s6 m3 l2 quick_item">#}
+{#          <a href="#">#}
+{#            <div class="image center-align ">#}
+{#              <img src="{% static "/img/pic1 (5).jpg" %}" alt="photo">#}
+{#            </div>#}
+{#            <h2 class="center-align">بوتاکس زیبا</h2>#}
+{#          </a>#}
+{#        </div>#}
     
     
         <div class="col li hide-on-med-and-down"></div>

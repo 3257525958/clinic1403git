@@ -11,6 +11,7 @@ var m10 = document.getElementById("m10");
 var m11 = document.getElementById("m11");
 var m12 = document.getElementById("m12");
 var m13 = document.getElementById("m13");
+var m14 = document.getElementById("m14");
 var m111 = document.getElementById("m111");
 var m22 = document.getElementById("m22");
 var m33 = document.getElementById("m33");
@@ -24,6 +25,7 @@ var m1010 = document.getElementById("m1010");
 var m1111 = document.getElementById("m1111");
 var m1212 = document.getElementById("m1212");
 var m1313 = document.getElementById("m1313");
+var m1414 = document.getElementById("m1414");
 
 var l = document.getElementById("loglevel").innerHTML;
 console.log(l)
@@ -42,6 +44,7 @@ console.log(l)
         m11.hidden = false;
         m12.hidden = false;
         m13.hidden = false;
+        m14.hidden = false;
         m111.hidden = false;
         m22.hidden = false;
         m33.hidden = false;
@@ -55,6 +58,7 @@ console.log(l)
         m1111.hidden = false;
         m1212.hidden = false;
         m1313.hidden = false;
+        m1414.hidden = false;
     }
         if ( l == "تولید محتوا") {
         m1.hidden = false;
@@ -160,6 +164,7 @@ console.log(l)
                         m111.hidden = true;
                         m12.hidden = true;
                         m13.hidden = true;
+                        m14.hidden = true;
 
 
                         m11.hidden = false;
@@ -175,6 +180,7 @@ console.log(l)
                         m1111.hidden = true;
                         m1212.hidden = true;
                         m1313.hidden = false;
+                        m1414.hidden = false;
                     }
                 }
             }
