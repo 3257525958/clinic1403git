@@ -78,7 +78,8 @@
     
       <div class="input-field col s12">
         <select name="select">
-             <option value="عکس اصلی">عکس اصلی</option>
+             <option value="عکس صفحه اصلی کامپیوتر">عکس صفحه اصلی کامپیوتر</option>
+             <option value="عکس صفحه اصلی موبایل">عکس صفحه اصلی موبایل</option>
              <option value="منوی سریع">منوی سریع</option>
         </select>
         <label class="teal-text text-darken-4">محل کنترل</label>
@@ -106,7 +107,7 @@
     <div class="col m3 l4 hide-on-small-and-down"></div>
   
   
-    <label id="etebarmelicod"  hidden >{{ etebarmelicod }}</label>
+    <label id="etebarit"  hidden >{{ etebarit }}</label>
       
     <button id="face" name="facebutton" value="accept" hidden >اینتر</button>
   </form>
@@ -176,5 +177,6 @@
 <script src={% static "/js/addselect.js" %}></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static "/js/cast_form.js" %}">    </script>
+<script src="{% static "/js/it_control.js" %}">    </script>
 </body>
 </html>

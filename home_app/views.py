@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from reserv_app.models import reservemodeltest,reservemodel,neursemodel,filepage1model
 from jobs_app.models import workmodel
-from it_app.models import homeimgmodel,homemenosarimodel
+from it_app.models import homeimgmodel,homemenosarimodel,homemobilemodel
 
 
 # Create your views here.
@@ -49,10 +49,23 @@ def home(request):
     us =homemenosarimodel.objects.all()
     for u in us:
         imagesari.append(u)
+    imgmobile = []
+    us =homemobilemodel.objects.all()
+    for u in us:
+        imgmobile.append(u)
+    btsize = request.POST.get('btsize')
+    b = request.POST.get('na')
+    print(b)
+    print(btsize)
+    d = 0
+    if b != None :
+        d = int(b)
     return render(request,'home.html',context={ 'loglevel':loglevel[0],
                                                 'profilestatus':profilestatus[0],
                                                 'images':images,
                                                 'imagesari':imagesari,
+                                                'imgmobile':imgmobile,
+                                                'bsize':d,
     })
 
 def logute(request):

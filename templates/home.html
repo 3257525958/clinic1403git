@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href= "{% static "/css/home.css" %}">
     <title>مرکز زیبایی دکتر اسدپور</title>
 </head>
-<body dir="rtl" class="body">
+<body dir="rtl" class="body" >
   <!-- -----------------ناو بار ----شروع---------------- -->
     <div class="navbar-fixed">
       <nav class="purple darken-3 nav nav_container">
@@ -24,14 +24,13 @@
          d="M0,96L120,85.3C240,75,480,53,720,58.7C960,64,1200,96,1320,112L1440,128L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z">  
         </path>
         </svg>
-        
-        <div class="nav-wrapper">
+        <div class="nav-wrapper" >
           <a href="#!" class="brand-logo">
             <img src={% static "/img/logo.jpg" %} alt="">
           </a>
     
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <a href="#" class=" right sidenav-trigger ">{{ profilestatus }}</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons" >menu</i></a>
+          <a href="#" class=" right sidenav-trigger " >{{ profilestatus }}</a>
     
           <ul class="right hide-on-med-and-down nav-rastchin">
             <li id="m1" ><a class="menu_links_desktop" href="cantact/login/">ثبت نام و ورود</a></li>
@@ -47,7 +46,7 @@
             <li id="m111" hidden="hidden" ><a class="menu_links_desktop"  href="it/sendmesaage/" >ارسال پیامک </a></li>
             <li id="m12" hidden="hidden" ><a class="menu_links_desktop"  href="it/savemesaage/" >ثبت پیامک </a></li>
             <li id="m13" hidden="hidden" ><a class="menu_links_desktop"  href="it/control/" >کنترل it </a></li>
-            <li id="m14" hidden="hidden" ><a class="menu_links_desktop"  href="it/delet/" >حذف it</a></li>
+            <li id="m14" hidden="hidden" ><a class="menu_links_desktop"  href="it/controldel/" >حذف کنترل it </a></li>
           </ul>
           <ul class="left hide-on-med-and-down ul_s esme_morajee">
             <li>{{ profilestatus }}</li>
@@ -71,7 +70,7 @@
             <li id="m1111" hidden="hidden" ><a class="menu_links_desktop"  href="it/sendmesaage/" >ارسال پیامک </a></li>
             <li id="m1212" hidden="hidden" ><a class="menu_links_desktop"  href="it/savemesaage/" >ثبت پیامک </a></li>
             <li id="m1313" hidden="hidden" ><a class="menu_links_desktop"  href="it/control/" >کنترل it </a></li>
-            <li id="m1414" hidden="hidden" ><a class="menu_links_desktop"  href="it/delet/" >حذف it</a></li>
+            <li id="m1414" hidden="hidden" ><a class="menu_links_desktop"  href="it/controldel/" >حذف کنترل it </a></li>
     </ul>
     <ul class="sidenav" id="mobile-demo">
       <li><a href="sass.html"></a></li>
@@ -85,16 +84,34 @@
     
       <!-- ------------شروع عکس متحرک -- -->
       <main>
+  <form class="row w-100 login dakhel_loginsec" method="POST" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+        <button id="testes" name="btsize" value="accept"hidden="hidden">ثبت اطلاعات </button>
+      <input id="ee" name="na" hidden="hidden">
+  </form>
         <div class="carousel carousel-slider cros-style" >
-        {% for i in images %}
-          <a class="carousel-item" href="#">
-{#            <img class="hide-on-med-and-up" src="{{ i.image.url }}" alt="hello">#}
-            <img class="hide-on-small-only" src="{{ i.image.url }}" alt="hello">
-            <div class="text_style">
-                {{ i.name }}
-            </div>
-          </a>
-        {% endfor %}
+        <label id="tab" hidden="hidden">{{ bsize }}</label>
+        {% if  bsize  > 1000 %}
+            {% for i in images %}
+              <a class="carousel-item" href="#" id="pc">
+                <img  src="{{ i.image.url }}" alt="hello">
+                <div class="text_style hide-on-small-only">
+                    {{ i.name }}
+                </div>
+              </a>
+            {% endfor %}
+        {% endif %}
+        
+        {% if  bsize < 1000 %}
+            {% for q in imgmobile %}
+              <a class="carousel-item " href="#">
+                <img  src="{{ q.image.url }}" alt="hello">
+                <div class="text_style hide-on-med-and-up">
+                    {{ q.name }}
+                </div>
+              </a>
+            {% endfor %}
+        {% endif %}
 {#          <a class="carousel-item" href="#">#}
 {#            <img class="hide-on-med-and-up" src="{% static "/img/pic1 (3).jpg (2).jpg" %}" alt="hello">#}
 {#            <img class="hide-on-small-only" src="{% static "/img/pic1 (3).jpg (2).jpg" %}" alt="hello">#}
@@ -136,17 +153,17 @@
       <div class="row menosari w-100">
     
         <div class="col l1 hide-on-med-and-down"></div>
-    
-      {% for i in imagesari %}
+    {% for s in imagesari %}
         <div class="col s6 m3 l2 quick_item">
           <a href="#">
             <div class="image center-align ">
-              <img src="{% static "/img/pic1 (1).jpg" %}" alt="photo">
+              <img src="{{ s.image.url }}" alt="photo">
             </div>
-            <h2 class="center-align">بوتاکس زیبا</h2>
+            <h2 class="center-align">{{ s.name }}</h2>
           </a>
         </div>
-      {% endfor %}    
+    {% endfor %}      
+          
 {#        <div class="col s6 m3 l2 quick_item">#}
 {#          <a href="#">#}
 {#            <div class="image center-align ">#}

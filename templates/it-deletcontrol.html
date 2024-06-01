@@ -19,15 +19,15 @@
   <!-- -----------------ناو بار ----شروع---------------- -->
 <div class="navbar-fixed">
   <nav class="purple darken-3 nav nav_container">
-    <svg id="nav-svg" 
+    <svg id="nav-svg"
     xmlns="http://www.w3.org/2000/svg"
      viewBox="0 0 1440 320">
-     <path fill="#6a1b9a" 
-     fill-opacity="1" 
-     d="M0,96L120,85.3C240,75,480,53,720,58.7C960,64,1200,96,1320,112L1440,128L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z">  
+     <path fill="#6a1b9a"
+     fill-opacity="1"
+     d="M0,96L120,85.3C240,75,480,53,720,58.7C960,64,1200,96,1320,112L1440,128L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z">
     </path>
     </svg>
-    
+
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo">
         <img src="/static/img/logo.jpg" alt="">
@@ -75,39 +75,49 @@
     <div class="ghesmate_login col s12 m6 l4">
 
       <i class="center-align blick-shodan fas fa-upload fa-3x"></i>
-    
+
       <div class="input-field col s12">
-        <select name="select">
-             <option value="عکس اصلی">عکس اصلی</option>
+        <select name="selectdelet" onchange="chengh()">
+             <option value="{{ selectdelet }}">{{ selectdelet}}</option>
+             <option value="عکس صفحه اصلی کامپیوتر">عکس صفحه اصلی کامپیوتر</option>
+             <option value="عکس صفحه اصلی موبایل">عکس صفحه اصلی موبایل</option>
              <option value="منوی سریع">منوی سریع</option>
         </select>
         <label class="teal-text text-darken-4">محل کنترل</label>
-      </div>    
+      </div>
+      <div class="input-field col s12">
+        <select name="selectjlist">
+            <option>{{ selectj }}</option>
+           {% for j in jlist %}
+             <option value={{ j.name }}>{{ j.name }}</option>
+           {% endfor %}
+        </select>
+        <label class="teal-text text-darken-4">انتخاب محتوا برای حذف</label>
+      </div>
 
-      <div class="input-field col s6 ">
-        {{ form.name }}
-        <label for="name">{{ form.name.label }}</label>
-      </div>
-      
-      <div class="col s6">
-          <div class="input-field col s12 ">
-            {{ form.image }}
-            <label  for="img" class="loadlabel">{{ form.image.label }}</label>
-          </div>
-      </div>
+{#      <div class="input-field col s6 ">#}
+{#        {{ form.name }}#}
+{#        <label for="name">{{ form.name.label }}</label>#}
+{#      </div>#}
+
+{#      <div class="col s6">#}
+{#          <div class="input-field col s12 ">#}
+{#            {{ form.image }}#}
+{#            <label  for="img" class="loadlabel">{{ form.image.label }}</label>#}
+{#          </div>#}
+{#      </div>#}
 
       <div class="center-align dokmeye-vorood col s12">
-        <button class="w-100 btn waves-effect col s6" name="savebottom" value="accept">ثبت اطلاعات </button>
+        <button class="w-100 btn waves-effect col s6" name="savebottom" value="accept" onclick="redirectt()">ثبت اطلاعات </button>
       </div>
 
-      
+
     </div>
 
     <div class="col m3 l4 hide-on-small-and-down"></div>
-  
-  
-    <label id="etebarmelicod"  hidden >{{ etebarmelicod }}</label>
-      
+
+
+    <label id="etebarit"  hidden >{{ etebarit }}</label>
     <button id="face" name="facebutton" value="accept" hidden >اینتر</button>
   </form>
 </main>
@@ -119,11 +129,11 @@
   <svg id="footer-svg"  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1440 320">
     <path fill="#6a1b9a" fill-opacity="1" d="M0,160L120,186.7C240,213,480,267,720,266.7C960,267,1200,213,1320,186.7L1440,160L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
   </svg>
-  
+
   <div class="purple darken-3 w-100">
 
     <div class="row">
-      
+
       <div class="col l6 s12">
         <h5 class="white-text">ارتباط با ما</h5>
         <p class="grey-text text-lighten-4">مجموعه ما مجموعه خیلی باحالیه و دلسوز که سعی مبکنه بهترین کارهای تخصصی رو انجام بده</p>
@@ -142,7 +152,7 @@
       <!-- <div class="col l2 s12">
         <a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=361568&amp;Code=rfRJvt89x7WeFTvMVzE8">
           <img referrerpolicy="origin" src="https://Trustseal.eNamad.ir/logo.aspx?id=361568&amp;Code=rfRJvt89x7WeFTvMVzE8" alt="" style="cursor:pointer" id="rfRJvt89x7WeFTvMVzE8">
-      </a>      
+      </a>
       </div> -->
 
     </div>
@@ -156,7 +166,7 @@
     </div>
   </div>
 
-</footer> 
+</footer>
 {#<label id="newjobetebar"  hidden >{{ newjob_etebar }}</label>#}
 {#<label id="newemployetebar"  hidden >{{ newemploy_etebar }}</label>#}
 {#<label id="deletjob"  hidden >{{ delet_etebar }}</label>#}
@@ -175,6 +185,6 @@
 <script src={% static "/js/home.js" %}></script>
 <script src={% static "/js/addselect.js" %}></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/cast_form.js" %}">    </script>
+<script src="{% static "/js/it_control.js" %}">    </script>
 </body>
 </html>

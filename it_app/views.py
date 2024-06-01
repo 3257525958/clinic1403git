@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from it_app.models import mesaagetextmodel,mesaagecuntermodel, homeimgmodel
+from it_app.models import mesaagetextmodel,mesaagecuntermodel, homeimgmodel,homemobilemodel,homemenosarimodel
 import datetime
 from cantact_app.views import stry,strd,strb,stra
-from it_app.form import homeimgform,homemenosariform
+from it_app.form import homeimgform,homemenosariform,homemobileform
 def sendmesaage(request):
     return render(request,'mesage_send.html')
 def savemesaage(request):
@@ -19,20 +19,70 @@ def savemesaage(request):
 def itcontrol(request):
     savebottom = request.POST.get("savebottom")
     select = request.POST.get("select")
-
+    etebarit = "None"
     form = homeimgform(request.POST, request.FILES)
 
     if select == "منوی سریع" :
         form = homemenosariform(request.POST, request.FILES)
+    if select == "عکس صفحه اصلی موبایل" :
+        form = homemobileform(request.POST, request.FILES)
 
     if form.is_valid():
         form.save()
+        etebarit = "true"
     if savebottom == "accept" :
-        print("4")
+        return render(request,'it_control.html',context={
+                                                                        'form':form,
+                                                                        'etebarit':etebarit,
+                                                                        })
     return render(request,'it_control.html',context={
                                                                     'form':form,
+                                                                    'etebarit':etebarit,
                                                                     })
 
 
 def itdeletcontrol(request):
-    return render(request,'it-deletcontrol.html')
+    selectdelet =request.POST.get("selectdelet")
+    if selectdelet == None :
+        selectdelet = "انتخاب کنید"
+    selectjlist =request.POST.get("selectjlist")
+    if selectjlist == None :
+        selectjlist = "انتخاب کنید"
+    savebottom =request.POST.get("savebottom")
+    etebarit = "false"
+    jlist = ['']
+    jlist.clear()
+
+
+    if selectdelet =="عکس صفحه اصلی کامپیوتر" :
+        os = homeimgmodel.objects.all()
+        for o in os:
+            jlist.append(o)
+    if selectdelet =="عکس صفحه اصلی موبایل" :
+        os = homemobilemodel.objects.all()
+        for o in os:
+            jlist.append(o)
+    if selectdelet =="منوی سریع" :
+        os = homemenosarimodel.objects.all()
+        for o in os:
+            jlist.append(o)
+
+    if savebottom == "accept":
+        if selectdelet == "عکس صفحه اصلی کامپیوتر":
+            a = homeimgmodel.objects.filter(name=selectjlist)
+            a.delete()
+            etebarit = "true"
+        if selectdelet == "عکس صفحه اصلی موبایل":
+            a = homemobilemodel.objects.filter(name=selectjlist)
+            a.delete()
+            etebarit = "true"
+        if selectdelet == "منوی سریع":
+            a = homemenosarimodel.objects.filter(name=selectjlist)
+            a.delete()
+            etebarit = "true"
+    return render(request,'it-deletcontrol.html', context={
+                                                                        'jlist':jlist,
+                                                                        'selectdelet':selectdelet,
+                                                                        'selectj':selectjlist,
+                                                                        'etebarit':etebarit,
+                                                                        })

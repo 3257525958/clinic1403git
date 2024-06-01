@@ -28,7 +28,6 @@ var m1313 = document.getElementById("m1313");
 var m1414 = document.getElementById("m1414");
 
 var l = document.getElementById("loglevel").innerHTML;
-console.log(l)
     if ( l == "مدیر");
        {
         m1.hidden = false;
@@ -185,3 +184,15 @@ console.log(l)
                 }
             }
         }
+
+// var e=document.getElementById("tes");
+var i=document.getElementById("ee");
+var f =document.getElementById("tab");
+    if ( i.value != window.outerWidth) {
+        console.log("aaaaaaaaa");
+        i.value = window.outerWidth;
+        if (f.innerHTML == 0){
+        e = document.getElementById("testes");
+        e.click();
+        console.log("qqqqqqqqq");}
+    }

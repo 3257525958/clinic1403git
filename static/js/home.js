@@ -1,10 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
+    if ( screen > 601){
+        var  a = 5000} else { var a = 0}
+
     var elems = document.querySelectorAll('.sidenav');
     var instances = M.Sidenav.init(elems, {
       edge : "right"
     });
+
+
     var carouselElems = document.querySelectorAll('.carousel');
     M.Carousel.init(carouselElems, {
+
       fullWidth : true ,
       indicators : true ,
       onCycleTo : function(){
@@ -19,5 +25,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     setInterval(function(){
       M.Carousel.getInstance(carouselElems[0]).next()
-    }, 5000)
-  });
+    }, 2000)
+  })
