@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cleanup.apps.CleanupConfig',
     'home_app.apps.HomeAppConfig',
     'cantact_app.apps.CantactAppConfig',
     'jalali_date',
@@ -52,7 +53,6 @@ INSTALLED_APPS = [
     # 'peyment_app.apps.PeymentAppConfig'
     'cash_app.apps.CashAppConfig',
     'it_app.apps.ItAppConfig',
-    'django_cleanup.apps.CleanupConfig',
 ]
 JALALI_DATE_DEFAULTS = {
    'Strftime': {
