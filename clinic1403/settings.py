@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-2g&%dn06my3m55@+8_9%po(ro$qavn=d!7px(#zkqk6xwkz&^*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = ['http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://drmahdiasadpour.ir']
-# CSRF_TRUSTED_ORIGINS = ["https://drmahdiasadpour.ir",'http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://www.drmahdiasadpour.ir','http://www.drmahdiasadpour.ir']
+CSRF_TRUSTED_ORIGINS = ["https://drmahdiasadpour.ir",'http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://www.drmahdiasadpour.ir','http://www.drmahdiasadpour.ir']
 
 # ALLOWED_HOSTS = []
 
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     # 'peyment_app.apps.PeymentAppConfig'
     'cash_app.apps.CashAppConfig',
     'it_app.apps.ItAppConfig',
-    # 'django_cleanup.apps.CleanupConfig',
+    'django_cleanup.apps.CleanupConfig',
 ]
 JALALI_DATE_DEFAULTS = {
    'Strftime': {
