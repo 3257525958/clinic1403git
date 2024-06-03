@@ -198,7 +198,6 @@ def cast(request):
     savebottom =request.POST.get("savebottom")
     facebutton = request.POST.get("facebutton")
     off = request.POST.get("off")
-    print(persone)
                     # ------تولید لیست حسابهای بانکی در hesabs-و کار انتخاب شده رو میریزه توی b----
     banks = bankmodel.objects.all()
     b = ""
@@ -214,7 +213,6 @@ def cast(request):
             hesabs.append(bank.onvan)
     if (bankonvan != None) and (bankonvan != ""):
         b = hesabs[int(bankonvan)]
-    print(1)
                 # ---------لیست کارها در jobs-----
     works = workmodel.objects.all()
     s = ""
@@ -336,3 +334,6 @@ def banksave(request):
         bankmodel.objects.create(onvan=onvan,officnamber=officnamber,namberkart=namberkart,
                                   shebanamber=shebanamber,melicodebank=melicodebank,)
     return render(request,'bank.html')
+
+def pardakht(request):
+    return render(request,'pardakht.html')
