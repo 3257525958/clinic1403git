@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     # 'peyment_app.apps.PeymentAppConfig'
     'cash_app.apps.CashAppConfig',
     'it_app.apps.ItAppConfig',
-    'django_cleanup.apps.CleanupConfig',
+    # 'django_cleanup.apps.CleanupConfig',
 ]
 JALALI_DATE_DEFAULTS = {
    'Strftime': {
@@ -126,10 +126,10 @@ WSGI_APPLICATION = 'clinic1403.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'd1403-3ulg_db',
+        'NAME': 'd1403-4ckh_db',
         'USER': 'root',
-        'PASSWORD': 'k7HE6nkrbbDNtY2YzWet',
-        'HOST': 'd1403-3-jnx-service',
+        'PASSWORD': 'uKcYnA32MS2neYWdtjqs',
+        'HOST': 'd1403-4-bik-service',
 
     }
 }
