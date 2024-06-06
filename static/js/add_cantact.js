@@ -57,7 +57,7 @@
     function citylist()
 {
         f = document.getElementById("face");
-        f.click()
+        f.click();
 }
  function move() {
     var elem = document.getElementById("myBar");

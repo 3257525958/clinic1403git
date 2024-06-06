@@ -30,7 +30,7 @@ urlpatterns = [
     path('logout/', include('home_app.urls')),
     path('zib/', include('cash_app.urls')),
     path('it/', include('it_app.urls')),
-
+    path('accountanc/', include('accountancy_app.urls')),
 ]
 
 USE_X_FORWARDED_HOST = True

@@ -27,4 +27,4 @@ class jobselectormodel(models.Model):
     w = models.CharField(max_length=150, default='تزریقات')
 
     def __str__(self):
-        return f"{self.work}"
+        return f"{self.w}"

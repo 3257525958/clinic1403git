@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate,login, logout
 
 
 
+
 import matplotlib
 matplotlib.use('Agg')
 
@@ -166,6 +167,8 @@ mounthjarry[0] = ''
 dayjarray = ['']
 dayjarray[0] = ''
 def addcantactdef(request):
+    logout(request)
+
     mounth_number[0] = request.POST.get('mbtn')
     if mounth_number[0] == None :
         mounth_number[0] == ''
@@ -347,6 +350,7 @@ def addcantactdef(request):
                                 mountb= savecode.berthdaymounth,
                                 yearb=savecode.berthdayyear,
                                 )
+
                 User.objects.create_user(
                                                 username=savecode.melicode,
                                                 password=savecode.phonnumber,

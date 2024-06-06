@@ -13,6 +13,9 @@ var m12 = document.getElementById("m12");
 var m13 = document.getElementById("m13");
 var m14 = document.getElementById("m14");
 var m15 = document.getElementById("m15");
+var m16 = document.getElementById("m16");
+var m17 = document.getElementById("m17");
+var m18 = document.getElementById("m18");
 var m111 = document.getElementById("m111");
 var m22 = document.getElementById("m22");
 var m33 = document.getElementById("m33");
@@ -28,6 +31,10 @@ var m1212 = document.getElementById("m1212");
 var m1313 = document.getElementById("m1313");
 var m1414 = document.getElementById("m1414");
 var m1515 = document.getElementById("m1515");
+var m1616 = document.getElementById("m1616");
+var m1717 = document.getElementById("m1717");
+var m1818 = document.getElementById("m1818");
+
 
 var l = document.getElementById("loglevel").innerHTML;
     if ( l == "مدیر");
@@ -37,7 +44,7 @@ var l = document.getElementById("loglevel").innerHTML;
         // m3.hidden = false;
         // m4.hidden = false;
         // m5.hidden = false;
-        m6.hidden = false;
+        // m6.hidden = false;
         m7.hidden = false;
         m8.hidden = false;
         m9.hidden = false;
@@ -47,6 +54,9 @@ var l = document.getElementById("loglevel").innerHTML;
         m13.hidden = false;
         m14.hidden = false;
         m15.hidden = false;
+        m16.hidden = false;
+        m17.hidden = false;
+        m18.hidden = false;
         m111.hidden = false;
         m22.hidden = false;
         m33.hidden = false;
@@ -62,14 +72,17 @@ var l = document.getElementById("loglevel").innerHTML;
         m1313.hidden = false;
         m1414.hidden = false;
         m1515.hidden = false;
+        m1616.hidden = false;
+        m1717.hidden = false;
+        m1818.hidden = false;
     }
         if ( l == "تولید محتوا") {
         m1.hidden = false;
         m2.hidden = true;
-        m3.hidden = true;
-        m4.hidden = true;
-        m5.hidden = true;
-        m6.hidden = true;
+        // m3.hidden = true;
+        // m4.hidden = true;
+        // m5.hidden = true;
+        // m6.hidden = true;
         m7.hidden = true;
         m8.hidden = true;
         m9.hidden = true;
@@ -169,6 +182,9 @@ var l = document.getElementById("loglevel").innerHTML;
                         m13.hidden = true;
                         m14.hidden = true;
                         m15.hidden = true;
+                        m16.hidden = true;
+                        m17.hidden = true;
+                        m18.hidden = true;
 
 
                         m11.hidden = false;
@@ -186,6 +202,9 @@ var l = document.getElementById("loglevel").innerHTML;
                         m1313.hidden = true;
                         m1414.hidden = true;
                         m1515.hidden = true;
+                        m1616.hidden = true;
+                        m1717.hidden = true;
+                        m1818.hidden = true;
                     }
                 }
             }

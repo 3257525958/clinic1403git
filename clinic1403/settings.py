@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     # 'peyment_app.apps.PeymentAppConfig'
     'cash_app.apps.CashAppConfig',
     'it_app.apps.ItAppConfig',
-    # 'django_cleanup.apps.CleanupConfig',
+    'django_cleanup.apps.CleanupConfig',
+    'accountancy_app.apps.AccountancyAppConfig'
 ]
 JALALI_DATE_DEFAULTS = {
    'Strftime': {

@@ -69,82 +69,71 @@
 </ul>
 <!-- ----------پایان ناوبار------------ -->
 <main>
-  <form class="row w-100 login dakhel_loginsec" method="POST">
-    <div class="col m3 l4 hide-on-small-and-down"></div>
-
-    <div class="ghesmate_login col s12 m6 l4">
-
-    
-      <i class="center-align blick-shodan fas fa-user-plus fa-2x"></i>
-
-      <div class="input-field col s12 ">
-        <input type="text" name="firstname"  id="firstname" class="validate" autocomplete="off">
-        <label for="firstname">نام :</label>
-      </div>
-
-      <div class="input-field col s12 ">
-        <input type="text" name="lastname"  id="lastname" class="validate" autocomplete="off">
-        <label for="lastname">نام خانوادگی :</label>
-      </div>
-      <div class="input-field col s12 ">
-        <input type="number" name="melicod"  id="melicod" class="validate" autocomplete="off">
-        <label for="melicod">کد ملی :</label>
-      </div>
-      <div class="input-field col s12 ">
-        <input type="number" name="phonnumber"  id="phonnumber" class="validate" autocomplete="off">
-        <label for="phonnumber">شماره تلفن :</label>
-      </div>
-
-      <div class="input-field col s4">
-                    <select class="inputclass" name="day" >
-                            <option value= "1" >1</option>
-                        {% for iday in day %}
-                            <option value={{ iday }}>{{ iday }}</option>
-                        {% endfor %}
-                    </select>
-        <label class="teal-text text-darken-4">روز تولد :</label>
-      </div>
-      <div class="input-field col s4">
-                    <select  name="mounth" >
-                        <option value="فروردین">فروردین</option>
-                        <option value="اردیبهشت">اردیبهشت</option>
-                        <option value="خرداد">خرداد</option>
-                        <option value="تیر">تیر</option>
-                        <option value="مرداد">مرداد</option>
-                        <option value="شهریور">شهریور</option>
-                        <option value="مهر">مهر</option>
-                        <option value="آبان">آبان</option>
-                        <option value="آذر">آذر</option>
-                        <option value="دی">دی</option>
-                        <option value="بهمن">بهمن</option>
-                        <option value="اسفند">اسفند</option>
-                    </select>
-        <label class="teal-text text-darken-4 ">ماه تولد :</label>
-      </div>
-      <div class="input-field col s4">
-                    <select name="year">
-                        {% for i in yearcant %}
-                            <option value={{ i }}>{{ i }}</option>
-                        {% endfor %}
-                    </select>
-        <label class="teal-text text-darken-4">سال تولد</label>
-      </div>
+  <form class="row w-100 login dakhel_loginsec" method="POST" action="">
+    {% csrf_token %}
+      <div class="col m3 l4 hide-on-small-and-down"></div>
+  
+      <div class="ghesmate_login col s12 m6 l4">
+  
+        <i class="center-align blick-shodan fas fa-paperclip fa-4x"></i>
 
 
-      <div class="center-align dokmeye-vorood ">
-        <button class="w-100 btn waves-effect" name="button_send" value="accept" onclick="move()">ثبت اطلاعات و ارسال پیامک</button>
-      </div>
+  
+        <div class="input-field col s12 ">
+            <input type="number" name="melicod" id="melicodestekhdam" class="validate" autocomplete="off" oninput="melicodcheck()" placeholder="{{ melicod }}">
+            <label for="melicod">کد ملی :</label>
+        </div>
+          
+        <div class="input-field col s12 ">
+            <label id="namemeli" hidden>{{ name }}</label>
+        </div>
+          
+        <div class="input-field col s12 "></div>
+        <div class="input-field col s12 "></div>
         
-    </div>
-
-    <div class="col m3 l4 hide-on-small-and-down"></div>
-                  <label id="melicod_etebar" hidden >{{ melicod_etebar }}</label>
-                {% csrf_token %}
-                <div id="w">
-                    <div id="myBar" class="w3" hidden>0%</div>
-                </div>
-
-  </form>
+          
+        <div class="input-field col s12" id="gharar" hidden>
+          <select  id="typeselect" name="type_select" onchange="checkmozd()">
+            <option value="انتخاب کنید"> انتخاب کنید</option>
+            <option value="ساعتی"> ساعتی</option>
+            <option value="درصدی">درصدی</option>
+            <option value="موردی">موردی</option>
+            <option value="ماهانه">ماهانه</option>
+          </select>
+          <label for="type_select" >نوع قرارداد :</label>
+        </div>    
+  
+        <div class="input-field col s12" id="job" hidden>
+          <select  id="jobselect" name="job_select">
+            <option value=""> انتخاب کنید</option>
+              {% for w in works %}
+            <option value="{{ w }}">{{ w }}</option>
+              {% endfor %}
+          </select>
+          <label for="jobselect" >فعالیت مورد نظر را انتخاب کنید:</label>
+        </div>    
+      
+        
+        <div class="input-field col s12" id="mozd" hidden>
+          <input type="number" name="cast" id="cast" class="validate" autocomplete="off">
+          <label for="cast" id="raveshpardakht"></label>
+        </div>
+  
+  
+        <div class="center-align dokmeye-vorood ">
+          <button class="w-100 btn waves-effect" name="savebottom" value="accept">ثبت اطلاعات </button>
+        </div>
+  
+        
+      </div>
+  
+      <div class="col m3 l4 hide-on-small-and-down"></div>
+    
+      <label id="melicodvalue"  hidden >{{ melicod }}</label>
+      <label id="etebarmelicod"  hidden >{{ melicodetebar }}</label>
+      <label id="etebar"  hidden >{{ etebar }}</label>
+      <button id="face" name="facebutton" value="accept" hidden >اینتر</button>
+    </form>
 </main>
 
 
@@ -193,11 +182,11 @@
 
 </footer> 
 
-<script src="/static/js/materialize.min.js"></script>
-<script src="/static/js/home.js"></script>
-<script src="/static/js/addselect.js"></script>
+<script src={% static "/js/materialize.min.js" %}></script>
+<script src={% static "/js/home.js" %}></script>
+<script src={% static "/js/addselect.js" %}></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/add_cantact.js" %}"></script>
+<script src="{% static "/js/gharardad_aghd.js" %}"></script>
 
 </body>
 </html>
