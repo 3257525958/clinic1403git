@@ -77,41 +77,65 @@
   
         <i class="center-align blick-shodan fas fa-cash-register fa-4x"></i>
 
+      <div class="input-field col s4">
+                    <select  name="mounthselect" id="munt" >
+                        <option value="فروردین">فروردین</option>
+                        <option value="اردیبهشت">اردیبهشت</option>
+                        <option value="خرداد">خرداد</option>
+                        <option value="تیر">تیر</option>
+                        <option value="مرداد">مرداد</option>
+                        <option value="شهریور">شهریور</option>
+                        <option value="مهر">مهر</option>
+                        <option value="آبان">آبان</option>
+                        <option value="آذر">آذر</option>
+                        <option value="دی">دی</option>
+                        <option value="بهمن">بهمن</option>
+                        <option value="اسفند">اسفند</option>
+                    </select>
+        <label class="teal-text text-darken-4 ">ماه :</label>
+      </div>
 
   
-        <div class="input-field col s12 ">
-            <input type="number" name="melicod" id="melicodestekhdam" class="validate" autocomplete="off">
+        <div class="input-field col s8 ">
+            <input type="number" name="melicod" id="melicodestekhdam" class="validate" autocomplete="off" oninput="melicodcheck()">
             <label for="cast">کد ملی :</label>
         </div>
-
-    
-        <div class="input-field col s12">
-          <select  id="jobselect" name="select_job">
-            <option value="ساعتی"> ساعتی</option>
-            <option value="درصدی">درصدی</option>
-            <option value="موردی">موردی</option>
-            <option value="ماهانه">ماهانه</option>
-          </select>
-          <label >نوع قرارداد :</label>
-        </div>    
-  
-      
-        <div class="input-field col s6">
-          <select  id="jobselect" name="select_job">
-            <option value="ساعتی"> ساعتی</option>
-            <option value="درصدی">درصدی</option>
-            <option value="موردی">موردی</option>
-            <option value="ماهانه">ماهانه</option>
-          </select>
-          <label >در صورت موردی یا درصدی بودن ، نوع خدمت را مشخص کنید:</label>
-        </div>    
-        
-        <div class="input-field col s6 ">
-          <input type="number" name="peyment" id="cast" class="validate" autocomplete="off" value="{{ cash }}" disabled>
-          <label for="cast">دستمزد به ریال یا به درصد :</label>
+          
+               <div class="input-field col s12 ">
+            <label id="namemeli" hidden>{{ a }}</label>
         </div>
-  
-  
+          
+        <div class="input-field col s12 "></div>
+        <div class="input-field col s12 "></div>
+   
+        <div class="col s12">
+          <table class="highlight" id="table" hidden >
+            <thead>
+              <tr>
+                  <th>انتخاب</th>
+                  <th>نوع خدمت</th>
+                  <th>نوع قرارداد</th>
+                  <th>دستمزد</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+            {% for dd in dastmozddasadimoredi %}
+              <tr>
+              {% if dd.3 == "notselect" %}
+                <td> <label><input name="tickon" id="tickon" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange="clicon()"/><span></span></label></td>  
+              {% endif %}
+              {% if dd.3 == "select" %}
+                <td> <label><input name="tickoff" id="tickoff" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange="clicoff()" checked/><span></span></label></td>
+              {% endif %}
+                <td>{{ dd.2 }}</td>
+                <td>{{ dd.3 }}</td>
+                <td>{{ dd.4 }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>  
         <div class="center-align dokmeye-vorood ">
           <button class="w-100 btn waves-effect" name="savebottom" value="accept">ثبت اطلاعات </button>
         </div>
@@ -120,8 +144,11 @@
       </div>
   
       <div class="col m3 l4 hide-on-small-and-down"></div>
-    
-    
+      <input id="notsel" name="notsel" hidden>
+      <input id="sel" name="sel" hidden>
+      <label id="jam"  hidden >{{ jam }}</label>
+      <label id="mounthselect"  hidden >{{ mounthselect }}</label>
+      <label id="melicodvalue"  hidden >{{ melicod }}</label>
       <label id="etebarmelicod"  hidden >{{ etebarmelicod }}</label>
       <button id="face" name="facebutton" value="accept" hidden >اینتر</button>
   
@@ -180,7 +207,7 @@
 <script src="/static/js/home.js"></script>
 <script src="/static/js/addselect.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/add_cantact.js" %}"></script>
+<script src="{% static "/js/pardakht_hoghogh.js" %}"></script>
 
 </body>
 </html>

@@ -211,6 +211,7 @@ def reservdef(request):
             miladiarray.clear()
             day.clear()
             res = reservemodel.objects.all()
+            reservmovaghats = reservemodeltest.objects.all()
             # ___________در این قسمت تعداد روزهایی که قرار هستش به مراجعه کننده نشون بدیم مشخص میشه____
             tedaderooz = 10
             # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
@@ -244,7 +245,31 @@ def reservdef(request):
                                         a += 2
                                     else:
                                         break
-# -------------------------اینجا رزرو های قبلی رو چک میکنه---------
+# ---------وقتی یه نفر یه کاری رو انتخاب میکنه تا قبل از پرداخت براش رزرو میشه تا کس دیگه ای تو این فاصله نتونه رزروش کنه--------
+                for reservmovaghat in reservmovaghats:
+                    if reservmovaghat.personreserv == selectprocedure[2]:
+                        if reservmovaghat.dateshamsireserv == stradb(t):
+                            if reservmovaghat.timereserv == '1':
+                                dayarr[int(reservmovaghat.numbertime)] = "false"
+                            if reservmovaghat.timereserv == '2':
+                                dayarr[int(reservmovaghat.numbertime)] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                            if reservmovaghat.timereserv == '3':
+                                dayarr[int(reservmovaghat.numbertime)] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+                            if reservmovaghat.timereserv == '4':
+                                dayarr[int(reservmovaghat.numbertime)] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+                            if reservmovaghat.timereserv == '5':
+                                dayarr[int(reservmovaghat.numbertime)] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 4] = "false"
+        # -------------------------اینجا رزرو های قبلی رو چک میکنه---------
                 for r in res :
                     if r.personreserv == selectprocedure[2] :
                         if r.dateshamsireserv == stradb(t) :

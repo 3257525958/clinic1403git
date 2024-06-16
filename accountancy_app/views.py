@@ -110,12 +110,13 @@ def pardakhthoghogh(request):
     mounthselect = request.POST.get("mounthselect")
     etebar = ""
 
-
-
-    d = ['']
-    d.clear()
+    notsel = request.POST.get("notsel")
+    sel = request.POST.get("sel")
+    tickon = request.POST.get("tickon")
     gs = gharardadmodel.objects.all()
     chekbox = "notselect"
+    d = []
+    d.clear()
     for g in gs:
         if g.melicod == melicod :
             if g.type_select == 'درصدی' :
@@ -126,7 +127,12 @@ def pardakhthoghogh(request):
                         dastmozddasadi = dastmozddasadi / 100
                         dd = ['']
                         dd.clear()
+                        ss = savemovaghat.objects.all()
+                        for s in ss:
+                            if int(s.idcod) == int(p.id):
+                                chekbox = "select"
                         dd = [p.selectjob,p.day+p.mounth+p.year,str(dastmozddasadi),chekbox,p.id]
+                        chekbox = "notselect"
                         d.append(dd)
             if g.type_select == 'موردی' :
                 ps = castmodel.objects.all()
@@ -135,21 +141,34 @@ def pardakhthoghogh(request):
                         dastmozdmoredi = int(g.cast)
                         dm = ['']
                         dm.clear()
+                        ss = savemovaghat.objects.all()
+                        for s in ss:
+                            if int(s.idcod) == int(p.id):
+                                chekbox = "select"
                         dm = [p.selectjob,p.day+p.mounth+p.year,str(dastmozdmoredi),chekbox,p.id]
+                        chekbox = "notselect"
                         d.append(dm)
-    check = request.POST.get("check")
-    # savemovaghat.objects.create(hoghoghmelicod=d[int(check)][])
-    if (check != None) and (check != ''):
-        # d[int(check)][3] = "select"
-        a = d[int(check)]
-        b = a[0]
-        print(b)
-        b = a[1]
-        print(b)
-        b = a[2]
-        print(b)
-        b = a[3]
-        print(b)
+    if (tickon != None) and (tickon != '') and (notsel != None) and (notsel != ''):
+        j = int(tickon)
+        c = 0
+        for i in d:
+            if c == j :
+                i[3] = "select"
+                savemovaghat.objects.create(hoghoghmelicod=melicod,idcod=i[4])
+            c = c+1
+    if  (sel != None) and (sel != ''):
+        print("sel")
+        print(sel)
+        j = int(sel)
+        c = 0
+        for i in d:
+            if c == j :
+                i[3] = "notselect"
+                a = savemovaghat.objects.filter(idcod=i[4],hoghoghmelicod=melicod)
+                a.delete()
+            c = c+1
+
+
     return render(request,'pardakht_hoghogh.html',context={
                                                                         'dastmozddasadimoredi':d,
                                                                         'mounthselect':mounthselect,
@@ -157,6 +176,7 @@ def pardakhthoghogh(request):
                                                                         'etebarmelicod':etebarmelicod,
                                                                         'etebar':etebar,
                                                                         'melicod':melicod,
+                                                                        # 'a':dd,
                                                                         })
 
 

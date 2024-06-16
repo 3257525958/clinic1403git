@@ -225,7 +225,7 @@ def cast(request):
                 r = 1
                 break
         if r == 0 :
-            jobs.append(work.work +" "+ work.detalework)
+            jobs.append(work.work +" "+ work.detalework+" "+work.person)
             # ---------- 31 روز رو میریزه توی darray----
     t = datetime.datetime.now()
     d = strd(t)
@@ -275,7 +275,7 @@ def cast(request):
         selectjob = request.POST.get("select_job")
         js = workmodel.objects.all()
         for j in js :
-            if (jobs[int(selectjob)] == j.work +" "+ j.detalework ) :
+            if (jobs[int(selectjob)] == j.work +" "+ j.detalework+" "+j.person ) :
                 cash = j.cast
                 sjb = j.work +" "+ j.detalework
                 persone =j.person
@@ -294,11 +294,15 @@ def cast(request):
             cs = casttestmodel.objects.all()
             for j in cs:
                 operatore = request.user.username
+                us = accuntmodel.objects.all()
+                for u in us:
+                    if u.firstname+" "+u.lastname == j.c:
+                        mp = u.melicode
                 castmodel.objects.create(peyment=j.p,
                                          melicodevarizande=melicodevarizande,
                                          selectjob=j.s,
                                          bankonvan=b,
-                                         persone=j.c,
+                                         persone=mp,
                                          operatore=operatore,
                                          day=day,
                                          mounth=mounth,
