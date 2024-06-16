@@ -120,8 +120,8 @@ var l = document.getElementById("loglevel").innerHTML;
         m12.hidden = true;
         m13.hidden = true;
 
-        m11.hidden = false;
-        m22.hidden = false;
+        m11.hidden = true;
+        m22.hidden = true;
         m33.hidden = true;
         m44.hidden = true;
         m55.hidden = true;
@@ -132,7 +132,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m1010.hidden = true;
         m1111.hidden = true;
         m1212.hidden = true;
-        m1313.hidden = false;
+        m1313.hidden = true;
     }
         if ( l == "رزروشن") {
         m1.hidden = false;
