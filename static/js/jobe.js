@@ -11,7 +11,9 @@ var selectjob = document.getElementById('selectjob');
 var deletworkmessage = document.getElementById('deletworkmessage');
 var addetebar = document.getElementById('addetebar');
 var    j = ( lenjob.innerHTML  * 19 ) + 100 ;
-    console.log(addetebar);
+var lmablagh = document.getElementById("lmablagh");
+var mablagh = document.getElementById("mablagh");
+console.log(addetebar);
 
     if ( newjobetebar.innerHTML == 'ok' ){
         Swal.fire({
@@ -361,4 +363,9 @@ function citylist()
         f = document.getElementById("face");
         f.click()
 }
+    function mablaghcheng(){
+        b = ((mablagh.value - (mablagh.value % 10 )) / 10);
+
+    lmablagh.innerHTML = (b).num2persian() + " " + "تومان";
+    }
 

@@ -128,7 +128,12 @@
                     <p>
                         هزینه انجام خدمت را به ریال وارد کنید :
                     </p>
-                    <input type="number" size="1" class="inputclass" name="cast">
+                    <input type="number" size="1" class="inputclass" name="cast" id="mablagh" oninput="mablaghcheng()">
+                    <br>
+                    <br>
+                    <label id="lmablagh"></label>
+                    <br>
+                    <br>
                 </div>
                 <div class="newjob" hidden >
                     <p class=>
@@ -191,6 +196,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static "/js/jobe.js" %}">    </script>
+<script src="{% static "js/lib/num2persian-min.js" %}"></script>
 
 </body>
 </html>

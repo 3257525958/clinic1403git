@@ -49,7 +49,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m8.hidden = false;
         m9.hidden = false;
         m10.hidden = false;
-        m11.hidden = false;
+        m111.hidden = false;
         m12.hidden = false;
         m13.hidden = false;
         m14.hidden = false;
@@ -57,7 +57,9 @@ var l = document.getElementById("loglevel").innerHTML;
         m16.hidden = false;
         m17.hidden = false;
         m18.hidden = false;
-        m111.hidden = false;
+
+
+        m11.hidden = false;
         m22.hidden = false;
         m33.hidden = false;
         m44.hidden = false;

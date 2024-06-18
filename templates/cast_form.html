@@ -76,8 +76,14 @@
 
       <i class="center-align blick-shodan fas fa-cash-register fa-4x"></i>
 
-      <div class="input-field col s12">
-        <select  id="jobselect" name="select_job" onchange="chengh()">
+      <div class="input-field col s12 ">
+        <input type="number" name="melicodevarizande"  id="melicodevarizande" class="validate" autocomplete="off" oninput="melicodcheck()">
+        <label for="melicodevarizande">کد ملی :</label>
+      </div>
+
+
+      <div class="input-field col s12" id="job" hidden>
+        <select  id="jobselect" name="select_job" onchange="chengh()" >
             <option>{{ selectjob }}</option>
            {% for job in jobs %}
              <option value={{ forloop.counter0 }}>{{ job }}</option>
@@ -87,22 +93,23 @@
       </div>    
 
     
-      <div class="input-field col s6 ">
+      <div class="input-field col s4 " id="py" hidden>
         <input type="number" name="peyment" id="cast" class="validate" autocomplete="off" value="{{ cash }}" disabled>
         <label for="cast">مبلغ :</label>
       </div>
 
-      <div class="input-field col s6 ">
+      <div class="input-field col s4 " id="by" hidden>
+        <input type="number" name="beyane" id="beyane" class="validate" autocomplete="off"  value="{{ beyane }}" disabled>
+        <label for="cast">مبلغ بیعانه :</label>
+      </div>
+
+      <div class="input-field col s4 " id="off" hidden>
         <input type="number" name="off" id="cast" class="validate" autocomplete="off" >
         <label for="cast">مبلغ تخفیف :</label>
       </div>
 
-      <div class="input-field col s12 ">
-        <input type="number" name="melicodevarizande"  id="melicodevarizande" class="validate" autocomplete="off" >
-        <label for="melicodevarizande">کد ملی :</label>
-      </div>
 
-      <div class="input-field col s12">
+      <div class="input-field col s12" id="hesab" hidden>
         <select name="bankonvan">
            {% for hesab in hesabs %}
              <option value={{ forloop.counter0 }}>{{ hesab }}</option>
@@ -111,12 +118,7 @@
         <label class="teal-text text-darken-4">روش پرداخت :</label>
       </div>    
     
-      <div class="input-field col s12">
-{#        <select name="persone">#}
-{#           {% for person in persons %}#}
-{#             <option value={{ forloop.counter0 }}>{{ person }}</option>#}
-{#           {% endfor %}#}
-{#        </select>#}
+      <div class="input-field col s12" id="operator" hidden>
         <input type="text" name="persone" id="cast" class="validate" autocomplete="off" value="{{ person }}"disabled>
         <label class="teal-text text-darken-4">فرد انجام دهنده خدمت :</label>
       </div>    
@@ -161,7 +163,9 @@
   
   
     <label id="etebarmelicod"  hidden >{{ etebarmelicod }}</label>
+    <label id="codemeli"  hidden >{{ codemeli }}</label>
     <button id="face" name="facebutton" value="accept" hidden >اینتر</button>
+    <button id="faceb1" name="faceb1" value="accept" hidden >اینتر</button>
   </form>
 </main>
 

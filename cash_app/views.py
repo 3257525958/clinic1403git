@@ -23,13 +23,13 @@ ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
 ZIB_API_TOKEN = 'https://gateway.zibal.ir/v1/verify'
 
-# callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
-# merchanzibal = 'zibal'
-# ENDURL = "http://127.0.0.1:8000"
+callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
+merchanzibal = 'zibal'
+ENDURL = "http://127.0.0.1:8000"
 
-ENDURL = "https://drmahdiasadpour.ir"
-callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
-merchanzibal = '64c2047fcbbc270017f4c6b2'
+# ENDURL = "https://drmahdiasadpour.ir"
+# callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
+# merchanzibal = '64c2047fcbbc270017f4c6b2'
 
 def orderzibal(request):
     peyment = 50000
@@ -146,9 +146,15 @@ def callbackzibal(request):
                                                                 "houre":houre,
                                                                 })
         else:
+            a = reservemodeltest.objects.filter(mellicode=request.user.username)
+            a.delete()
+
             return redirect(ENDURL)
 
     else:
+        a = reservemodeltest.objects.filter(mellicode=request.user.username)
+        a.delete()
+
         return redirect(ENDURL)
 
 def end(request):
@@ -197,8 +203,17 @@ def cast(request):
     bankonvan = request.POST.get("bankonvan")
     savebottom =request.POST.get("savebottom")
     facebutton = request.POST.get("facebutton")
+    faceb1 = request.POST.get("faceb1")
     off = request.POST.get("off")
-                    # ------تولید لیست حسابهای بانکی در hesabs-و کار انتخاب شده رو میریزه توی b----
+    beyane = request.POST.get("beyane")
+    # ---- برسی بیعانه برای این خدمت---
+    beys = reservemodel.objects.all()
+    beyane = 0
+    for bey in beys:
+        if (bey.melicod ==  melicodevarizande) and (bey.checking == 'false'):
+            beyane = beyane + int(bey.pyment)
+
+    # ------تولید لیست حسابهای بانکی در hesabs-و کار انتخاب شده رو میریزه توی b----
     banks = bankmodel.objects.all()
     b = ""
     hesabs = [""]
@@ -268,7 +283,16 @@ def cast(request):
 
     cash = 0
     selectjob = "انتخاب کنید"
+    codemeli = ""
+    if faceb1 == "accept" :
+        etebarmelicod = "false"
+        for u in us:
+            if u.melicode == melicodevarizande:
+                etebarmelicod = "true"
+                codemeli = melicodevarizande
+
     if facebutton == "accept" :
+        codemeli = melicodevarizande
         cs = casttestmodel.objects.all()
         for j in cs:
             j.delete()
@@ -307,7 +331,15 @@ def cast(request):
                                          day=day,
                                          mounth=mounth,
                                          year=year,
-                                         off=str(off))
+                                         off=str(off),
+                                         beyane=beyane,
+                                         ghabelpardakht = str(int(j.p) - int(beyane) - int(off))
+                                         )
+                casts = castmodel.objects.all()
+                for cast in casts:
+                    if (peyment == j.p) and (melicodevarizande == melicodevarizande) and (selectjob == j.s) and (bankonvan == b) and (persone == mp) and (operatore == operatore) and (day == day) and (mounth == mounth) and (year == year) and (off == str(off)):
+                        a = reservemodel.objects.filter(melicod=melicodevarizande)
+                        a.update(checking= cast.id)
     # persone = "lidi"
 
     return render(request,'cast_form.html',context={
@@ -325,7 +357,9 @@ def cast(request):
                                                                  "marray":marrray,
                                                                  "hesabs":hesabs,
                                                                  "etebarmelicod":etebarmelicod,
-                                                                })
+                                                                 "beyane":beyane,
+                                                                 "codemeli":codemeli,
+                                                                    })
 
 def banksave(request):
     onvan = request.POST.get("onvan")

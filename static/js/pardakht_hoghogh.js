@@ -17,7 +17,7 @@ var tickoff = document.getElementById("tickoff");
     function melicodcheck(){
             table.hidden = true;
             f.hidden = true;
-        if ( m.value  > 999999999 )
+        if ( m.value.length  > 9 )
         {
             document.getElementById("face").click();
         }

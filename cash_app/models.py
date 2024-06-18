@@ -19,6 +19,8 @@ class castmodel(models.Model):
     day = models.CharField(max_length=100,default="0")
     mounth = models.CharField(max_length=100,default="0")
     year = models.CharField(max_length=100,default="0")
+    beyane = models.CharField(max_length=10,default="0")
+    ghabelpardakht = models.CharField(max_length=11,default="0")
     def __str__(self):
         return f"{self.melicodevarizande}"
 
@@ -28,4 +30,4 @@ class casttestmodel(models.Model):
     s = models.CharField(max_length=100,default="0")
     c = models.CharField(max_length=100,default="0")
     def __str__(self):
-        return f"{self.peyment}"
+        return f"{self.p}"

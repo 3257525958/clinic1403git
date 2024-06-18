@@ -124,6 +124,12 @@ def reservdef(request):
                 ferstname_user = user.firstname
                 lastname_user = user.lastname
                 mellicoduser[0] = user.melicode
+                # us = reservemodeltest.objects.all()
+                # for u in us:
+                #     if u.mellicode == request.user.username:
+                #         bb = reservemodeltest.objects.filter(mellicode=request.user.username)
+                #         bb.delete()
+
                 a = reservemodeltest.objects.filter(mellicode=request.user.username)
                 a.update(fiestname=user.firstname, lastname=user.lastname , phonnumber=user.phonnumber)
         filesendbutton = request.POST.get("filesendbutton")

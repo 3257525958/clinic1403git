@@ -17,6 +17,7 @@ class reservemodel(models.Model):
     pyment = models.CharField(max_length=20,default='0')
     trakingcod = models.CharField(max_length=20,default='0')
     bank = models.CharField(max_length=20,default='0')
+    checking = models.CharField(max_length=20,default='false')
     def __str__(self):
         return f"{self.personreserv}"
 
