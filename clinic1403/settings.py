@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'accountancy_app.apps.AccountancyAppConfig'
 ]
 
+
 JALALI_DATE_DEFAULTS = {
    'Strftime': {
         'date': '%y/%m/%d',
