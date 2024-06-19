@@ -8,7 +8,16 @@ var  by = document.getElementById("by");
 var  off = document.getElementById("off");
 var hesab = document.getElementById("hesab");
 var operator = document.getElementById("operator");
+var offer = document.getElementById("offer");
+var ca = document.getElementById("ca");
+var cast = document.getElementById("cast");
+var beyane = document.getElementById("beyane");
+var  pardakht = document.getElementById("pardakht");
+var klak = document.getElementById("klak");
 
+            v = ((ca.value - (ca.value % 10 )) / 10);
+            pardakht.value = cast.value - beyane.value - v*10 ;
+            // klak.innerHTML = (1000).num2persian() + " " + "تومان";
 
     function melicodcheck(){
         py.hidden = true;
@@ -39,22 +48,16 @@ var operator = document.getElementById("operator");
         melicodvarizande.value = codemeli.innerHTML;
 
     }
-
-    // if ( newjobetebar.innerHTML == 'ok' ){
-    //     Swal.fire({
-    //       position: 'top-end',
-    //       icon: 'success',
-    //       title: 'فعالیت مورد نظر با موفقیت ثبت شد',
-    //       showConfirmButton: false,
-    //       timer: 2000
-    //              });
-    //     setTimeout('redirectt()',1000);
-    // }
-
-
 function chengh(){
         melicodvarizande.value = codemeli.innerHTML;
         f = document.getElementById("face");
         f.click()
 
 }
+        function mablaghcheng(){
+            b = ((ca.value - (ca.value % 10 )) / 10);
+            lmablagh.innerHTML = (b).num2persian() + " " + "تومان";
+            pardakht.value = cast.value - beyane.value - b*10 ;
+            klak.innerHTML = (pardakht.value).num2persian() + " " + "تومان";
+
+    }

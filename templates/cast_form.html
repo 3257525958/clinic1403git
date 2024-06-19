@@ -93,20 +93,25 @@
       </div>    
 
     
-      <div class="input-field col s4 " id="py" hidden>
+      <div class="input-field col s6 " id="py" hidden>
         <input type="number" name="peyment" id="cast" class="validate" autocomplete="off" value="{{ cash }}" disabled>
         <label for="cast">مبلغ :</label>
       </div>
 
-      <div class="input-field col s4 " id="by" hidden>
+      <div class="input-field col s6 " id="by" hidden>
         <input type="number" name="beyane" id="beyane" class="validate" autocomplete="off"  value="{{ beyane }}" disabled>
         <label for="cast">مبلغ بیعانه :</label>
       </div>
 
-      <div class="input-field col s4 " id="off" hidden>
-        <input type="number" name="off" id="cast" class="validate" autocomplete="off" >
-        <label for="cast">مبلغ تخفیف :</label>
+      <div class="input-field col s12 " id="off" >
+        <input type="number" name="off" id="ca" class="validate" autocomplete="off" oninput="mablaghcheng()">
+        <label for="cast" id="lmablagh">مبلغ تخفیف :</label>
       </div>
+    
+{#      <div class="input-field col s6 " id="offer">#}
+{#        <input type="number" name="offer" id="cast" class="validate" autocomplete="off" >#}
+{#        <label for="offer">مبلغ :</label>#}
+{#      </div>#}
 
 
       <div class="input-field col s12" id="hesab" hidden>
@@ -122,6 +127,12 @@
         <input type="text" name="persone" id="cast" class="validate" autocomplete="off" value="{{ person }}"disabled>
         <label class="teal-text text-darken-4">فرد انجام دهنده خدمت :</label>
       </div>    
+
+      <div class="input-field col s12 " id="off" >
+        <input type="number" name="pardakht" id="pardakht" class="validate" autocomplete="off"  disabled>
+        <label for="cast" id="klak"></label>
+      </div>
+
 
       <div class="input-field col s4">
         <select name="day">
@@ -233,5 +244,6 @@
 <script src={% static "/js/addselect.js" %}></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static "/js/cast_form.js" %}">    </script>
+<script src="{% static "js/lib/num2persian-min.js" %}"></script>
 </body>
 </html>
