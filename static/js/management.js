@@ -16,6 +16,8 @@ var m15 = document.getElementById("m15");
 var m16 = document.getElementById("m16");
 var m17 = document.getElementById("m17");
 var m18 = document.getElementById("m18");
+var m19 = document.getElementById("m19");
+
 var m111 = document.getElementById("m111");
 var m22 = document.getElementById("m22");
 var m33 = document.getElementById("m33");
@@ -34,6 +36,7 @@ var m1515 = document.getElementById("m1515");
 var m1616 = document.getElementById("m1616");
 var m1717 = document.getElementById("m1717");
 var m1818 = document.getElementById("m1818");
+var m1919 = document.getElementById("m1919");
 
 
 var l = document.getElementById("loglevel").innerHTML;
@@ -57,14 +60,15 @@ var l = document.getElementById("loglevel").innerHTML;
         m16.hidden = false;
         m17.hidden = false;
         m18.hidden = false;
+        m19.hidden = false;
 
 
         m11.hidden = false;
         m22.hidden = false;
-        m33.hidden = false;
-        m44.hidden = false;
-        m55.hidden = false;
-        m66.hidden = false;
+        // m33.hidden = false;
+        // m44.hidden = false;
+        // m55.hidden = false;
+        // m66.hidden = false;
         m77.hidden = false;
         m88.hidden = false;
         m99.hidden = false;
@@ -77,6 +81,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m1616.hidden = false;
         m1717.hidden = false;
         m1818.hidden = false;
+        m1919.hidden = false;
     }
         if ( l == "تولید محتوا") {
         m1.hidden = false;
@@ -187,6 +192,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m16.hidden = true;
                         m17.hidden = true;
                         m18.hidden = true;
+                        m19.hidden = true;
 
 
                         m11.hidden = false;
@@ -207,6 +213,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m1616.hidden = true;
                         m1717.hidden = true;
                         m1818.hidden = true;
+                        m1919.hidden = true;
                     }
                 }
             }

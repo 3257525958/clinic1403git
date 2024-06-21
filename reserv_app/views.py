@@ -208,7 +208,7 @@ def reservdef(request):
                     a = reservemodeltest.objects.filter(mellicode=request.user.username)
                     a.update(
                              timereserv=sel,
-                             castreserv=str(int(f.cast) // 5),
+                             castreserv=f.cast,
                              )
 
                 c +=1
@@ -657,3 +657,31 @@ def leave(request):
         else:
             break
     return render(request,'leave.html',context={"leavearray":leavearray,})
+
+def reserverdef(request):
+    dayreserv = ['t']
+    dayreserv.clear()
+    t = datetime.datetime.now()
+    dayarr = ['t']
+    dayarr.clear()
+    dayarr.append(stradb(t))
+    for h in range(20):
+        dayarr.append('')
+    rs = reservemodel.objects.all()
+    for r in rs:
+        if r.datemiladireserv == t.strftime('%a %d %b %y') :
+            us = accuntmodel.objects.all()
+            for u in us:
+                if r.melicod == u.melicode :
+                    name = u.firstname + " " + u.lastname
+            dayarr[int(r.numbertime)] = name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv
+            i = 1
+            while i < int(r.timereserv):
+                dayarr[int(r.numbertime)+i] = "false"
+                i += 1
+
+    dayreserv.append(dayarr)
+
+    return render(request,'reserver.html', context={
+        'day': dayreserv,
+    })

@@ -127,10 +127,10 @@ WSGI_APPLICATION = 'clinic1403.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'd1403-5lfa_db',
+        'NAME': 'd1403-6qbg_db',
         'USER': 'root',
-        'PASSWORD': 'wCpVP1HnO1huXbl4byZh',
-        'HOST': 'd1403-5-vpf-service',
+        'PASSWORD': 'krOenXvXrTN8WwUpr57q',
+        'HOST': 'd1403-6-sjp-service',
 
     }
 }

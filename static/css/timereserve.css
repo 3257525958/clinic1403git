@@ -81,7 +81,7 @@ body {
 .effects__iteme {
     display: flex;
     flex-direction: column;
-    flex: 0 0 170px;
+    flex: 0 0 120px;
     margin: 0 10px;
     background: rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
     border: 2px solid rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));

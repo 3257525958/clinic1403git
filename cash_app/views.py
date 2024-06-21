@@ -38,7 +38,7 @@ def orderzibal(request):
         allmodel = reservemodeltest.objects.all()
         for oneobject in allmodel:
             if oneobject.mellicode == request.user.username :
-                peyment = int(oneobject.castreserv)
+                peyment = int(oneobject.castreserv) // 5
                 phonnumber = str(oneobject.phonnumber)
         data = {
             "merchant": merchanzibal,
@@ -107,7 +107,7 @@ def callbackzibal(request):
                                                         datemiladireserv=oneobj.datemiladireserv,
                                                         yearshamsi=oneobj.yearshamsi,
                                                         cardnumber=oneobj.cardnumber,
-                                                        pyment=oneobj.castreserv,
+                                                        pyment=str(int(oneobj.castreserv) // 5),
                                                         trakingcod = oneobj.rahgiricod,
                                                         bank= "zibal"
                                                         )
