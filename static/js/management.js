@@ -113,33 +113,33 @@ var l = document.getElementById("loglevel").innerHTML;
         m1313.hidden = true;
     }
         if ( l == "دسترسی معمولی") {
-        m1.hidden = false;
-        m2.hidden = false;
-        m3.hidden = true;
-        m4.hidden = true;
-        m5.hidden = true;
-        m6.hidden = true;
-        m7.hidden = true;
-        m8.hidden = true;
-        m9.hidden = true;
-        m10.hidden = true;
-        m111.hidden = true;
-        m12.hidden = true;
-        m13.hidden = true;
+        m1.hidden = true;
+        m2.hidden = true;
+        // m3.hidden = true;
+        // m4.hidden = true;
+        // m5.hidden = true;
+        // m6.hidden = true;
+        // m7.hidden = true;
+        // m8.hidden = true;
+        // m9.hidden = true;
+        // m10.hidden = true;
+        // m111.hidden = true;
+        // m12.hidden = true;
+        // m13.hidden = true;
 
         m11.hidden = true;
         m22.hidden = true;
-        m33.hidden = true;
-        m44.hidden = true;
-        m55.hidden = true;
-        m66.hidden = true;
-        m77.hidden = true;
-        m88.hidden = true;
-        m99.hidden = true;
-        m1010.hidden = true;
-        m1111.hidden = true;
-        m1212.hidden = true;
-        m1313.hidden = true;
+        // m33.hidden = true;
+        // m44.hidden = true;
+        // m55.hidden = true;
+        // m66.hidden = true;
+        // m77.hidden = true;
+        // m88.hidden = true;
+        // m99.hidden = true;
+        // m1010.hidden = true;
+        // m1111.hidden = true;
+        // m1212.hidden = true;
+        // m1313.hidden = true;
     }
         if ( l == "رزروشن") {
         m1.hidden = false;
