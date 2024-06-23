@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'cash_app.apps.CashAppConfig',
     'it_app.apps.ItAppConfig',
     'django_cleanup.apps.CleanupConfig',
-    'accountancy_app.apps.AccountancyAppConfig'
+    'accountancy_app.apps.AccountancyAppConfig',
+    'file_app.apps.FileAppConfig',
 ]
 JALALI_DATE_DEFAULTS = {
    'Strftime': {
@@ -118,8 +119,12 @@ WSGI_APPLICATION = 'clinic1403.wsgi.application'
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'd1403-6qbg_db',
+#         'USER': 'root',
+#         'PASSWORD': 'krOenXvXrTN8WwUpr57q',
+#         'HOST': 'd1403-6-sjp-service',
+#
 #     }
 # }
 

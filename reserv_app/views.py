@@ -7,6 +7,7 @@ from datetime import timedelta
 import matplotlib
 from reserv_app.models import reservemodel,leavemodel,reservemodeltest,filepage1model
 from cantact_app.models import accuntmodel
+from file_app.models import fpeseshktestmodel
 ww = ['t']
 shamsiarray = ['t']
 miladiarray = ['t']
@@ -685,3 +686,97 @@ def reserverdef(request):
     return render(request,'reserver.html', context={
         'day': dayreserv,
     })
+def dashborddef(request):
+    users = accuntmodel.objects.all()
+    namedashbord = ''
+    for user in users:
+        if user.melicode == request.user.username:
+            namedashbord = user.firstname + ' ' + user.lastname
+    dayreserv = ['t']
+    dayreserv.clear()
+    t = datetime.datetime.now()
+    dayarr = ['t']
+    dayarr.clear()
+    dayarr.append(stradb(t))
+    for h in range(20):
+        dayarr.append('')
+    rs = reservemodel.objects.all()
+    for r in rs:
+        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == namedashbord ) :
+            us = accuntmodel.objects.all()
+            for u in us:
+                if r.melicod == u.melicode :
+                    name = u.firstname + " " + u.lastname
+            dayarr[int(r.numbertime)] = name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment
+            i = 1
+            while i < int(r.timereserv):
+                dayarr[int(r.numbertime)+i] = "false"
+                i += 1
+
+    dayreserv.append(dayarr)
+
+    timeselect = request.POST.get('timeselect')
+    if ( timeselect != None ) and ( timeselect != '' ):
+        se = timeselect.split(",")
+        tt = int(se[1])
+        time = datetime.datetime.now()
+        while tt != 1 :
+            if tt < 1 :
+                time -= datetime.timedelta(days=1)
+                tt += 1
+            if tt > 1:
+                time += datetime.timedelta(days=1)
+                tt -= 1
+        reservs = reservemodel.objects.all()
+        reservselectid = 0
+        for reserv in reservs:
+            if (reserv.personreserv == namedashbord) and (reserv.datemiladireserv == time.strftime('%a %d %b %y')) and ( int(se[0]) == int(reserv.numbertime)) :
+                n = ''
+                qs = accuntmodel.objects.all()
+                for q in qs:
+                    if q.melicode == reserv.melicod:
+                        n = q.firstname + " " + q.lastname
+
+                return render(request,'f1_pezeshk.html',context={
+                    'name':n,
+                    'procedure':reserv.jobreserv + " " + reserv.detalereserv,
+                    'id':reserv.id,
+                                                                            })
+    reservid = request.POST.get("reservid")
+    fpezeshkibottom = request.POST.get("fpezeshkibottom")
+    vahedeobject = request.POST.get("vahedeobject")
+    vahedeobjectname = request.POST.get("vahedeobjectname")
+    if fpezeshkibottom == "accept" :
+        ws = reservemodel.objects.all()
+        for w in ws:
+            if int(w.id) == int(reservid) :
+                fpeseshktestmodel.objects.create(
+                    melicod=w.melicod,
+                    jobreserv =w.jobreserv,
+                    detalereserv =w.detalereserv,
+                    personreserv =w.personreserv,
+                    timereserv =w.timereserv,
+                    castreserv =w.castreserv,
+                    numbertime =w.numbertime,
+                    hourreserv =w.hourreserv,
+                    dateshamsireserv =w.dateshamsireserv,
+                    datemiladireserv =w.datemiladireserv,
+                    yearshamsi =w.yearshamsi,
+                    cardnumber =w.cardnumber,
+                    pyment =w.pyment,
+                    trakingcod =w.trakingcod,
+                    bank =w.bank,
+                    checking =w.checking,
+                    vahedeobject = vahedeobject,
+                    vahedeobjectname = vahedeobjectname,
+                    reservid = reservid,
+                )
+                return redirect('/')
+
+    return render(request,'dashbord.html',context={
+                                                                'day': dayreserv,
+                                                                })
+
+
+
+

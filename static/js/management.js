@@ -17,6 +17,7 @@ var m16 = document.getElementById("m16");
 var m17 = document.getElementById("m17");
 var m18 = document.getElementById("m18");
 var m19 = document.getElementById("m19");
+var m20 = document.getElementById("m20");
 
 var m111 = document.getElementById("m111");
 var m22 = document.getElementById("m22");
@@ -37,6 +38,7 @@ var m1616 = document.getElementById("m1616");
 var m1717 = document.getElementById("m1717");
 var m1818 = document.getElementById("m1818");
 var m1919 = document.getElementById("m1919");
+var m2020 = document.getElementById("m2020");
 
 
 var l = document.getElementById("loglevel").innerHTML;
@@ -61,6 +63,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m17.hidden = false;
         m18.hidden = false;
         m19.hidden = false;
+        m20.hidden = false;
 
 
         m11.hidden = false;
@@ -82,6 +85,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m1717.hidden = false;
         m1818.hidden = false;
         m1919.hidden = false;
+        m2020.hidden = false;
     }
     if ( l == "تولید محتوا") {
         m1.hidden = false;
@@ -132,6 +136,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m17.hidden = true;
         m18.hidden = true;
         m19.hidden = true;
+        m20.hidden = true;
 
         m11.hidden = false;
         m22.hidden = false;
@@ -152,6 +157,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m1717.hidden = true;
         m1818.hidden = true;
         m1919.hidden = true;
+        m2020.hidden = true;
     }
         if ( l == "رزروشن") {
         m1.hidden = false;
@@ -173,6 +179,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m17.hidden = true;
         m18.hidden = true;
         m19.hidden = false;
+        m20.hidden = true;
 
         m11.hidden = false;
         m22.hidden = false;
@@ -193,6 +200,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m1717.hidden = true;
         m1818.hidden = true;
         m1919.hidden = false;
+        m2020.hidden = true;
     }
         if (l != "دسترسی معمولی" ) {
             if (l != "تولید محتوا") {
@@ -217,6 +225,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m17.hidden = true;
                         m18.hidden = true;
                         m19.hidden = true;
+                        m20.hidden = true;
 
 
                         m11.hidden = false;
@@ -238,6 +247,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m1717.hidden = true;
                         m1818.hidden = true;
                         m1919.hidden = true;
+                        m2020.hidden = true;
                     }
                 }
             }

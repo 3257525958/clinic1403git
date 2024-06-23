@@ -206,6 +206,8 @@ def cast(request):
     faceb1 = request.POST.get("faceb1")
     off = request.POST.get("off")
     beyane = request.POST.get("beyane")
+    offer = request.POST.get("offer")
+    print(offer)
     # ---- برسی بیعانه برای این خدمت---
     beys = reservemodel.objects.all()
     beyane = 0
@@ -342,24 +344,73 @@ def cast(request):
                         a.update(checking= cast.id)
     # persone = "lidi"
 
-    return render(request,'cast_form.html',context={
-                                                                 "selectjob":selectjob,
-                                                                 # "listofperson": listofperson,
-                                                                 "jobs":jobs,
-                                                                 "person":persone,
-                                                                 # "detaleworks":detaleworks,
-                                                                 # "select_job":select_job,
-                                                                 # "jobselect":s,
-                                                                 # " melicode": mel,
-                                                                 "cash":cash,
-                                                                 "yarray":yarray,
-                                                                 "darrey":darrey,
-                                                                 "marray":marrray,
-                                                                 "hesabs":hesabs,
-                                                                 "etebarmelicod":etebarmelicod,
-                                                                 "beyane":beyane,
-                                                                 "codemeli":codemeli,
-                                                                    })
+    # return render(request,'cast_form.html',context={
+    #                                                              "selectjob":selectjob,
+    #                                                              # "listofperson": listofperson,
+    #                                                              "jobs":jobs,
+    #                                                              "person":persone,
+    #                                                              # "detaleworks":detaleworks,
+    #                                                              # "select_job":select_job,
+    #                                                              # "jobselect":s,
+    #                                                              # " melicode": mel,
+    #                                                              "cash":cash,
+    #                                                              "yarray":yarray,
+    #                                                              "darrey":darrey,
+    #                                                              "marray":marrray,
+    #                                                              "hesabs":hesabs,
+    #                                                              "etebarmelicod":etebarmelicod,
+    #                                                             "beyane":beyane,
+    #                                                              "codemeli":codemeli,
+    #                                                                 })
+    facesearchmelicode = request.POST.get("facesearchmelicode")
+    melicodsearch = request.POST.get("melicodsearch")
+    namesearch= request.POST.get("namesearch")
+    facebuttonsearchname = request.POST.get("facebuttonsearchname")
+    buttomteakclick = request.POST.get("buttomteakclick")
+    arrayname = ['']
+    arrayname.clear()
+    etebarname = "notr"
+    if buttomteakclick == "accept":
+        rs = reservemodel.objects.all()
+        reserv = ['']
+        reserv.clear()
+        for r in rs :
+            reserarray = ['']
+            reserarray.clear()
+            if melicodsearch == r.melicod :
+                reserarray.append(r.jobreserv + " " + r.detalereserv)
+                reserarray.append(r.dateshamsireserv)
+                reserarray.append(r.castreserv)
+                reserarray.append(r.pyment)
+                reserv.append(reserarray)
+        return render(request,'faktor.html',context={
+                                                                    "reserv":reserv,
+                                                                })
+
+
+
+
+    if facesearchmelicode == "accept":
+        etebarname = "false"
+        us = accuntmodel.objects.all()
+        for u in us:
+            ar = ['']
+            ar.clear()
+            if melicodsearch == u.melicode :
+                ar.append(u.firstname + " " + u.lastname)
+                ar.append(u.melicode)
+                arrayname.append(ar)
+                etebarname = "true"
+    inputsearchname = ''
+    if facebuttonsearchname == "accept" :
+        s = namesearch.split(",")
+        inputsearchname = namesearch
+    return render(request,'cast_searchname.html',context={
+                                                                        "inputsearchname":inputsearchname,
+                                                                        "melicode":melicodsearch,
+                                                                        "arrayname":arrayname,
+                                                                        "etebarname":etebarname,
+                                                                        })
 
 def banksave(request):
     onvan = request.POST.get("onvan")
