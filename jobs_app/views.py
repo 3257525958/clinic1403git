@@ -24,7 +24,9 @@ deletworkmessage = ['true']
 addetebar = ['t']
 def jobs(request):
     savejob = request.POST.get("savejob")
-    newjob = request.POST.get("newjob")
+    ne = request.POST.get("newjob")
+    if (ne != None) and (ne != ''):
+        newjob = ne.strip()
     newemployee = request.POST.get("newemployee")
     deletjob = request.POST.get("deletjob")
     buttondeletjob = request.POST.get("buttondeletjob")
@@ -222,11 +224,12 @@ def jobs(request):
                                 for user in users:
                                     if emp.melicod == user.melicode:
                                         emplist.append(user.firstname + ' ' + user.lastname)
-                workmodel.objects.create(work=sss,
+                workmodel.objects.create(work=ser.job,
                                          cast=cast,
                                          time=timename,
                                          person=emplist[int(employselector)],
                                          detalework=detalejob,
+                                         idjob=str(ser.id),
                                          )
                 addetebar[0] = 'succes'
                 savework.clear()

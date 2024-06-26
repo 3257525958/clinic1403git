@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from jobs_app.models import workmodel
+from jobs_app.models import *
 from cantact_app.models import accuntmodel
 import datetime
 from jalali_date import date2jalali,datetime2jalali
@@ -776,7 +776,75 @@ def dashborddef(request):
     return render(request,'dashbord.html',context={
                                                                 'day': dayreserv,
                                                                 })
+def reservdasti(request):
+    job = request.POST.get("job")
+    melicode = request.POST.get("melicode")
+    detalework = request.POST.get("detalework")
+    button_send = request.POST.get("button_send")
+    castreserv = request.POST.get("castreserv")
+    personreserv = request.POST.get("personreserv")
+    etebarmelicod = "notr"
+    if melicode == None:
+        melicode = ''
+    users = accuntmodel.objects.all()
+    name = ''
+    if (melicode != None) and (melicode != ''):
+        etebarmelicod = "false"
+        for user in users:
+            if user.melicode == melicode:
+                name = user.firstname + " " + user.lastname
+                etebarmelicod = "true"
+    js = jobsmodel.objects.all()
+    jobarray = ['']
+    jobarray.clear()
+    for j in js:
+        s = (j.job+","+str(j.id)).split(",")
+        jobarray.append(s)
+    detalarray = ['']
+    detalarray.clear()
+    if ( job != None ) and ( job != ''):
+        ws = workmodel.objects.all()
+        for w in ws:
+            if w.idjob == job :
+                p = (w.detalework+","+str(w.id)).split(",")
+                detalarray.append(p)
+    ws = workmodel.objects.all()
+    for w in ws:
+        if str(w.id) == str(detalework):
+            personreserv = w.person
+            castreserv =w.cast
+    timereserv = "today"
+    numbertime = '21'
+    hourreserv = 'timeout'
+    dateshamsireserv = stradby(datetime.datetime.now())
+    datemiladireserv = datetime.datetime.now().strftime('%a %d %b %y')
+    yearshamsi = stry(datetime.datetime.now())
+    if button_send == 'accept':
+        reservemodel.objects.create(
+            melicod= melicode,
+            jobreserv = job,
+            detalereserv = detalework,
+            personreserv = personreserv,
+            timereserv = timereserv,
+            castreserv = castreserv,
+            numbertime = numbertime,
+            hourreserv = hourreserv,
+            dateshamsireserv = dateshamsireserv,
+            datemiladireserv = datemiladireserv,
+            yearshamsi = yearshamsi,
+            pyment = "0",
+        )
 
+    return render(request,'reserv_dasti.html',context={
+        'jobs':jobarray,
+        'melicode':melicode,
+        'job':job,
+        'detalarray':detalarray,
+        'personreserv':personreserv,
+        'castreserv':castreserv,
+        'etebarmelicod':etebarmelicod,
+        'name':name,
+    })
 
 
 

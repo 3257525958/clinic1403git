@@ -7,4 +7,5 @@ urlpatterns = [
     path('leave/',views.leave),
     path('reserver/',views.reserverdef),
     path('dashbord/',views.dashborddef),
+    path('reservdasti/',views.reservdasti),
     ]

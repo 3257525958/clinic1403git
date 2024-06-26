@@ -19,6 +19,7 @@ class workmodel(models.Model):
     person = models.CharField(max_length=150,default='من')
     time = models.CharField(max_length=50, default='امروز')
     cast = models.CharField(max_length=150, default='0')
+    idjob = models.CharField(max_length=10,default="0")
     def __str__(self):
         return f"{self.work}"
 
