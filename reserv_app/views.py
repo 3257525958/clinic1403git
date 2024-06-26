@@ -698,15 +698,17 @@ def dashborddef(request):
     dayarr = ['t']
     dayarr.clear()
     dayarr.append(stradb(t))
-    for h in range(20):
+    for h in range(21):
         dayarr.append('')
     rs = reservemodel.objects.all()
+    name = ''
     for r in rs:
         if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == namedashbord ) :
             us = accuntmodel.objects.all()
             for u in us:
                 if r.melicod == u.melicode :
                     name = u.firstname + " " + u.lastname
+            print(r.numbertime)
             dayarr[int(r.numbertime)] = name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment
             i = 1
             while i < int(r.timereserv):
@@ -788,12 +790,16 @@ def reservdasti(request):
         melicode = ''
     users = accuntmodel.objects.all()
     name = ''
+
+
     if (melicode != None) and (melicode != ''):
         etebarmelicod = "false"
         for user in users:
             if user.melicode == melicode:
                 name = user.firstname + " " + user.lastname
                 etebarmelicod = "true"
+
+
     js = jobsmodel.objects.all()
     jobarray = ['']
     jobarray.clear()
@@ -808,12 +814,16 @@ def reservdasti(request):
             if w.idjob == job :
                 p = (w.detalework+","+str(w.id)).split(",")
                 detalarray.append(p)
+
+
     ws = workmodel.objects.all()
+    timereserv = "0"
     for w in ws:
         if str(w.id) == str(detalework):
             personreserv = w.person
             castreserv =w.cast
-    timereserv = "today"
+
+
     numbertime = '21'
     hourreserv = 'timeout'
     dateshamsireserv = stradby(datetime.datetime.now())
@@ -844,6 +854,7 @@ def reservdasti(request):
         'castreserv':castreserv,
         'etebarmelicod':etebarmelicod,
         'name':name,
+
     })
 
 

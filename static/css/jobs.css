@@ -139,7 +139,7 @@
 
 #regester{
     position: absolute;
-    height: 520px;
+    height: 600px;
     width: 290px;
     border: 3px solid rgba(var(--vred),var(--vgreen),var(--vblue),1);
     top: 10%;

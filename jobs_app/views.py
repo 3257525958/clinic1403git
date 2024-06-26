@@ -46,6 +46,7 @@ def jobs(request):
     servicdelet = request.POST.get("servicdelet")
     deletservicselect = request.POST.get("deletservicselect")
     detalejob = request.POST.get('detalejob')
+    vahed = request.POST.get('vahed')
 # ****************************************************اضافه کردن یک فعالیت********************************************************
     newjob_etebar[0] = 'true'
     newemploy_etebar[0] = 'true'
@@ -224,13 +225,14 @@ def jobs(request):
                                 for user in users:
                                     if emp.melicod == user.melicode:
                                         emplist.append(user.firstname + ' ' + user.lastname)
-                workmodel.objects.create(work=ser.job,
-                                         cast=cast,
-                                         time=timename,
-                                         person=emplist[int(employselector)],
-                                         detalework=detalejob,
-                                         idjob=str(ser.id),
-                                         )
+                        workmodel.objects.create(work=sss,
+                                                 cast=cast,
+                                                 time=timename,
+                                                 person=emplist[int(employselector)],
+                                                 detalework=detalejob,
+                                                 idjob=str(ser.id),
+                                                 vahed=vahed,
+                                                 )
                 addetebar[0] = 'succes'
                 savework.clear()
                 selectjob.clear()
