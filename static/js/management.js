@@ -141,6 +141,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m18.hidden = true;
         m19.hidden = true;
         m20.hidden = true;
+        m21.hidden = true;
 
         m11.hidden = false;
         m22.hidden = false;
@@ -162,6 +163,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m1818.hidden = true;
         m1919.hidden = true;
         m2020.hidden = true;
+        m2121.hidden = true;
     }
         if ( l == "رزروشن") {
         m1.hidden = false;
@@ -184,6 +186,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m18.hidden = true;
         m19.hidden = false;
         m20.hidden = true;
+        m21.hidden = false;
 
         m11.hidden = false;
         m22.hidden = false;
@@ -205,6 +208,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m1818.hidden = true;
         m1919.hidden = false;
         m2020.hidden = true;
+        m2121.hidden = false;
     }
         if (l != "دسترسی معمولی" ) {
             if (l != "تولید محتوا") {
