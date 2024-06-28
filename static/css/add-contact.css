@@ -71,6 +71,7 @@
     right: 35% !important;
 
 }
-/*.z-1{*/
-/*    z-index: 1; !important;*/
-/*}*/
+::-webkit-input-placeholder {color: black;}
+:-moz-placeholder {color: black;}
+::-moz-placeholder {color: black;}
+:-ms-input-placeholder {color: black;}

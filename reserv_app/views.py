@@ -185,6 +185,7 @@ def reservdef(request):
                     a.update(jobreserv=f.work,
                              detalereserv=f.detalework,
                              personreserv=f.person,
+                             vahed=f.vahed,
                              )
 
                     if f.time == "زمان کمی میبرد" :
@@ -692,6 +693,7 @@ def dashborddef(request):
     for user in users:
         if user.melicode == request.user.username:
             namedashbord = user.firstname + ' ' + user.lastname
+
     dayreserv = ['t']
     dayreserv.clear()
     t = datetime.datetime.now()
@@ -708,42 +710,69 @@ def dashborddef(request):
             for u in us:
                 if r.melicod == u.melicode :
                     name = u.firstname + " " + u.lastname
-            print(r.numbertime)
             dayarr[int(r.numbertime)] = name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment
             i = 1
             while i < int(r.timereserv):
                 dayarr[int(r.numbertime)+i] = "false"
                 i += 1
-
     dayreserv.append(dayarr)
+
+    dastiarray = ['']
+    dastiarray.clear()
+    rs = reservemodel.objects.all()
+    for r in rs:
+        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == namedashbord ) and (r.numbertime == "21"):
+            us = accuntmodel.objects.all()
+            for u in us:
+                if r.melicod == u.melicode :
+                    name = u.firstname + " " + u.lastname
+            dastiarray.append([(name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment),str(r.id)])
+
+
 
     timeselect = request.POST.get('timeselect')
     if ( timeselect != None ) and ( timeselect != '' ):
         se = timeselect.split(",")
         tt = int(se[1])
         time = datetime.datetime.now()
-        while tt != 1 :
-            if tt < 1 :
-                time -= datetime.timedelta(days=1)
-                tt += 1
-            if tt > 1:
-                time += datetime.timedelta(days=1)
-                tt -= 1
+        # while tt != 1 :
+        #     if tt < 1 :
+        #         time -= datetime.timedelta(days=1)
+        #         tt += 1
+        #     if tt > 1:
+        #         time += datetime.timedelta(days=1)
+        #         tt -= 1
         reservs = reservemodel.objects.all()
         reservselectid = 0
+        n = ''
         for reserv in reservs:
-            if (reserv.personreserv == namedashbord) and (reserv.datemiladireserv == time.strftime('%a %d %b %y')) and ( int(se[0]) == int(reserv.numbertime)) :
-                n = ''
-                qs = accuntmodel.objects.all()
-                for q in qs:
-                    if q.melicode == reserv.melicod:
-                        n = q.firstname + " " + q.lastname
-
-                return render(request,'f1_pezeshk.html',context={
-                    'name':n,
-                    'procedure':reserv.jobreserv + " " + reserv.detalereserv,
-                    'id':reserv.id,
+            if str(int(se[0])) == "21":
+                if str(reserv.id) == str(int(se[1])):
+                    n = ''
+                    qs = accuntmodel.objects.all()
+                    for q in qs:
+                        if q.melicode == reserv.melicod:
+                            n = q.firstname + " " + q.lastname
+                    return render(request,'f1_pezeshk.html',context={
+                        'name':n,
+                        'procedure':reserv.jobreserv + " " + reserv.detalereserv,
+                        'id':reserv.id,
+                        'vahed':reserv.vahed,
                                                                             })
+            else:
+                if (reserv.personreserv == namedashbord) and (reserv.datemiladireserv == time.strftime('%a %d %b %y')) and ( int(se[0]) == int(reserv.numbertime)) :
+                    n = ''
+                    qs = accuntmodel.objects.all()
+                    for q in qs:
+                        if q.melicode == reserv.melicod:
+                            n = q.firstname + " " + q.lastname
+
+                    return render(request,'f1_pezeshk.html',context={
+                        'name':n,
+                        'procedure':reserv.jobreserv + " " + reserv.detalereserv,
+                        'id':reserv.id,
+                        'vahed':reserv.vahed,
+                                                                                })
     reservid = request.POST.get("reservid")
     fpezeshkibottom = request.POST.get("fpezeshkibottom")
     vahedeobject = request.POST.get("vahedeobject")
@@ -776,6 +805,7 @@ def dashborddef(request):
                 return redirect('/')
 
     return render(request,'dashbord.html',context={
+                                                                'dastiarray':dastiarray,
                                                                 'day': dayreserv,
                                                                 })
 def reservdasti(request):
@@ -806,6 +836,7 @@ def reservdasti(request):
     for j in js:
         s = (j.job+","+str(j.id)).split(",")
         jobarray.append(s)
+
     detalarray = ['']
     detalarray.clear()
     if ( job != None ) and ( job != ''):
@@ -818,12 +849,17 @@ def reservdasti(request):
 
     ws = workmodel.objects.all()
     timereserv = "0"
+    d = '0'
     for w in ws:
         if str(w.id) == str(detalework):
             personreserv = w.person
             castreserv =w.cast
-
-
+            d = w.detalework
+    jj = '0'
+    jes = jobsmodel.objects.all()
+    for je in jes:
+        if str(je.id) == str(job):
+            jj = je.job
     numbertime = '21'
     hourreserv = 'timeout'
     dateshamsireserv = stradby(datetime.datetime.now())
@@ -832,8 +868,8 @@ def reservdasti(request):
     if button_send == 'accept':
         reservemodel.objects.create(
             melicod= melicode,
-            jobreserv = job,
-            detalereserv = detalework,
+            jobreserv = jj,
+            detalereserv = d,
             personreserv = personreserv,
             timereserv = timereserv,
             castreserv = castreserv,

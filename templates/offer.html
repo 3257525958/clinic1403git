@@ -75,47 +75,37 @@
     <div class="ghesmate_login col s12 m10 l6">
     
           <i class="center-align blick-shodan fas fa-cash-register fa-4x"></i>
-    
-          <div class="input-field col s12 ">
-            <label for="melicodsearch">{{ name }}</label>
-          </div>
-
-          <div class="input-field col s12 ">
-            <label for="namesearch" id="melilable" >{{ melicode }}</label>
-          </div>
-          
+         
           <div class="col s12 l12 m12">
               <table class="highlight responsive-table" id="table" >
                 <thead>
                   <tr>
-                      <th>حذف</th>
-                      <th>عنوان</th>
-                      <th>تاریخ</th>
+                      <th>نام و نام خانوادگی</th>
+                      <th>عنوان خدمت</th>
                       <th>مبلغ</th>
                       <th>بیعانه</th>
+                      <th>بیعانه به حروف</th>
                       <th>تخفیف</th>
-                      <th>ورود به پرونده</th>
+                      <th>تخفیف به حروف</th>
                   </tr>
                 </thead>
         
                 <tbody>
-                {% for r in reserv %}
                   <tr>
-                    <td> <label><input name="tickon" id="selectname" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange="clieak()"/><span></span></label></td>  
-                    <td>{{ r.0 }}</td>
-                    <td>{{ r.1 }}</td>
-                    <td>{{ r.2 }}</td>
-                    <td>{{ r.3 }}</td>
-                    <td>{{ r.4 }}</td>
-                    <td><input type="submit" name="offer"  id="offer" class="validate" autocomplete="off" value="{{ r.5 }}" ></td>
+                    <td>{{ name }}</td>  
+                    <td>{{ pracedure }}</td>
+                    <td>{{ cast }}</td>
+                    <td><input type="number" name="beyanemeghdar"  id="beyanemeghdar" class="validate" autocomplete="off" oninput="mablaghbeyane()" placeholder="{{ peyment }}"></td>
+                      <td><label id="lmablaghbeyane"></label></td>
+                    <td><input type="number" name="offermeghdar"  id="offermeghdar" class="validate" autocomplete="off" oninput="mablagh()"></td>
+                      <td><label id="lmablagh"></label></td>
                   </tr>
-                {% endfor %}
                 </tbody>
               </table>
           </div>  
     
           <div class="center-align dokmeye-vorood ">
-            <button class="w-100 btn waves-effect" name="savebottom" value="accept">ثبت اطلاعات </button>
+            <button class="w-100 btn waves-effect" name="offerbuttom" value="accept">ثبت تخفیف </button>
           </div>
 
       
@@ -124,13 +114,8 @@
     <div class="col m1 l3 "></div>
   
   
-    <label id="etebarname" hidden >{{ etebarname }}</label>
-    <label id="lablesearchname" hidden  >{{ inputsearchname }}</label>
-    <label id="codemeli" hidden  >{{ melicode }}</label>
-  <input type="text" name="meliinput" id="meliinput" hidden>
-  <input type="number" name="inputsearchmelicod" id="inputsearchmelicod" hidden>
-    <button id="facebuttonsearchname" name="facebuttonsearchname" value="accept" hidden >اینتر</button>
-    <button id="facesearchmelicode" name="facesearchmelicode" value="accept" hidden >اینتر</button>
+  <label id="lableid" >{{ id }}</label>
+  <input type="text" name="inputid" id="inputid" hidden>
     <button id="buttomteakclick" name="buttomteakclick" value="accept" hidden >اینتر</button>
   </form>
 </main>

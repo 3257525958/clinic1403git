@@ -79,13 +79,14 @@
         </p>
     </div>
 
-    <div class="main">
+    <div class="main row">
+         <div></div>
             <div class="textbox">
                 <p class="textobject">
                     {{ person }}
                 </p>
             </div>
-            <div class="effects">
+            <div class="effects col s12 l12 m12">
                 {% for t in day %}
                     {% if t.0 != "false" %}
                     <div  class="effects__item sizeefect_time">
@@ -191,6 +192,10 @@
                         {% else %}
                             <button class="boxxx"  name="timeselect" value="20,{{ forloop.counter}}" >19.5 تا 20{{ t.20 }}</button>
                         {% endif %}
+                        {% for d in dastiarray %}
+                            <button class="boxxx"  name="timeselect" value="21,{{ d.1 }}" >خارج از نوبت {{ d.0 }}</button>
+                        {% endfor %}
+
                     </div>
                     {% endif %}
                 {% endfor %}

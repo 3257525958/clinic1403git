@@ -8,10 +8,11 @@ var lablesearchname = document.getElementById("lablesearchname");
 var etebarname = document.getElementById("etebarname");
 var table = document.getElementById("table");
 var codemeli = document.getElementById("codemeli");
-
-
-    console.log(melicodsearch.value);
-    console.log("sssssssssssssssssssssss");
+var offermeghdar = document.getElementById("offermeghdar");
+var lmablaghbeyane = document.getElementById("lmablaghbeyane");
+var beyanemeghdar = document.getElementById("beyanemeghdar");
+var inputid = document.getElementById("inputid");
+var lableid = document.getElementById("lableid");
     if ( etebarname.innerHTML == 'false' ){
                 Swal.fire({
               icon: 'هشدار',
@@ -20,8 +21,6 @@ var codemeli = document.getElementById("codemeli");
               footer: '<a href="/cantact/addcontact/">ثبت نام </a>'
 });
     }
-
-        console.log(codemeli.innerHTML);
         melicodsearch.value = codemeli.innerHTML;
     if ( etebarname == "true" ){
         table.hidden = false;
@@ -36,3 +35,16 @@ var codemeli = document.getElementById("codemeli");
     function clickteak(){
         document.getElementById("buttomteakclick").click();
     }
+    document.getElementById("meliinput").value = document.getElementById("melilable").innerHTML;
+
+        function mablagh(){
+        b = ((offermeghdar.value - (offermeghdar.value % 10 )) / 10);
+        inputid.value = lableid.innerHTML;
+        lmablagh.innerHTML = (b).num2persian() + " " + "تومان";
+    }
+        function mablaghbeyane(){
+        b = ((beyanemeghdar.value - (beyanemeghdar.value % 10 )) / 10);
+
+    lmablaghbeyane.innerHTML = (b).num2persian() + " " + "تومان";
+    }
+

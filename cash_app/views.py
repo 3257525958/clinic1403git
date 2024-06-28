@@ -18,6 +18,7 @@ from reserv_app.models import reservemodeltest,reservemodel
 from jobs_app.models import jobsmodel,employeemodel,workmodel
 from cash_app.models import bankmodel,castmodel,casttestmodel
 from cantact_app.models import accuntmodel
+from file_app.models import fpeseshktestmodel
 ZIB_API_REQUEST = "https://gateway.zibal.ir/v1/request"
 ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
@@ -109,7 +110,8 @@ def callbackzibal(request):
                                                         cardnumber=oneobj.cardnumber,
                                                         pyment=str(int(oneobj.castreserv) // 5),
                                                         trakingcod = oneobj.rahgiricod,
-                                                        bank= "zibal"
+                                                        bank= "zibal",
+                                                        vahed=oneobj.vahed,
                                                         )
                     a = reservemodeltest.objects.filter(rahgiricod=rahgiricode)
                     a.delete()
@@ -207,7 +209,6 @@ def cast(request):
     off = request.POST.get("off")
     beyane = request.POST.get("beyane")
     offer = request.POST.get("offer")
-    print(offer)
     # ---- برسی بیعانه برای این خدمت---
     beys = reservemodel.objects.all()
     beyane = 0
@@ -370,8 +371,13 @@ def cast(request):
     arrayname = ['']
     arrayname.clear()
     etebarname = "notr"
+    name = ''
     if buttomteakclick == "accept":
-        rs = reservemodel.objects.all()
+        users = accuntmodel.objects.all()
+        for user in users:
+            if user.melicode == melicodsearch:
+                name = user.firstname + ' ' + user.lastname
+        rs = fpeseshktestmodel.objects.all()
         reserv = ['']
         reserv.clear()
         for r in rs :
@@ -382,14 +388,43 @@ def cast(request):
                 reserarray.append(r.dateshamsireserv)
                 reserarray.append(r.castreserv)
                 reserarray.append(r.pyment)
+                reserarray.append(r.offer)
+                reserarray.append(r.id)
                 reserv.append(reserarray)
         return render(request,'faktor.html',context={
                                                                     "reserv":reserv,
+                                                                    'melicode':melicodsearch,
+                                                                    'name':name,
                                                                 })
-
-
-
-
+    meliinput = request.POST.get("meliinput")
+    na = ''
+    if (offer != None) and (offer != ''):
+        qs = fpeseshktestmodel.objects.all()
+        for q in qs:
+            if str(q.id) == str(offer):
+                uses = accuntmodel.objects.all()
+                for use in uses:
+                    if use.melicode == q.melicod :
+                        na = use.firstname + ' ' + use.lastname
+                return render(request,'offer.html',context={
+                    'name':na,
+                    'pracedure':q.jobreserv + ' ' + q.detalereserv,
+                    'cast':q.castreserv,
+                    'peyment':q.pyment,
+                    'id':q.id,
+                })
+    offerbuttom = request.POST.get("offerbuttom")
+    inputid = request.POST.get("inputid")
+    offermeghdar =request.POST.get("offermeghdar")
+    beyanemeghdar= request.POST.get("beyanemeghdar")
+    print(inputid)
+    if offerbuttom == 'accept':
+        if (inputid != None) and ( inputid != ''):
+            a = fpeseshktestmodel.objects.filter(id=int(inputid))
+            if (offermeghdar != None) and (offermeghdar != ''):
+                a.update(offer=offermeghdar)
+            if (beyanemeghdar != None)  and (beyanemeghdar != ''):
+                a.update(peyment=beyanemeghdar)
     if facesearchmelicode == "accept":
         etebarname = "false"
         us = accuntmodel.objects.all()

@@ -24,7 +24,7 @@ class fpeseshktestmodel(models.Model):
     image = models.ImageField(upload_to='image/rlateralbad',null=True)
     coment = models.TextField(default='')
     vahedeobject = models.CharField(max_length=10, default='0')
-    vahedeobjectname = models.CharField(max_length=10, default='0')
+    vahedeobjectname = models.CharField(max_length=10, default='0',null=True)
     offer = models.CharField(max_length=20, default='0')
     reservid = models.CharField(max_length=10, default='0')
 
