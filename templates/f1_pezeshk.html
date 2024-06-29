@@ -87,7 +87,13 @@
 {#        <label class="teal-text text-darken-4 "></label>#}
 {#      </div>#}
 
-  
+{#        {% if vahed == '' %}#}
+{#        <div class="input-field col s4 ">#}
+{#            <input type="text" name="vahedeobjectname" id="vahedeobjectname" class="validate" autocomplete="off" value="{{ vahed }}" disabled>#}
+{#            <label for="cast">نام واحد :</label>#}
+{#        </div>#}
+{#        {% endif %}#}
+          {% if vahed != '' %}
         <div class="input-field col s4 ">
             <input type="text" name="vahedeobjectname" id="vahedeobjectname" class="validate" autocomplete="off" value="{{ vahed }}" disabled>
             <label for="cast">نام واحد :</label>
@@ -96,6 +102,10 @@
             <input type="text" name="vahedeobject" id="vahedeobject" class="validate" autocomplete="off">
             <label for="cast">مقدار واحد :</label>
         </div>
+          {% endif %}
+      <br><br>
+      <br><br>
+      <br><br>
         <div class="center-align dokmeye-vorood ">
           <button class="w-100 btn waves-effect" name="fpezeshkibottom" value="accept">ثبت اطلاعات </button>
         </div>

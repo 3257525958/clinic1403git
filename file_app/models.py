@@ -23,10 +23,10 @@ class fpeseshktestmodel(models.Model):
     image = models.ImageField(upload_to='image/llateralbad',null=True)
     image = models.ImageField(upload_to='image/rlateralbad',null=True)
     coment = models.TextField(default='')
-    vahedeobject = models.CharField(max_length=10, default='0')
-    vahedeobjectname = models.CharField(max_length=10, default='0',null=True)
+    vahedeobject = models.CharField(max_length=10, default='1')
+    vahedeobjectname = models.CharField(max_length=100, default='0',null=True)
     offer = models.CharField(max_length=20, default='0')
-    reservid = models.CharField(max_length=10, default='0')
+    reservid = models.CharField(max_length=50, default='0')
 
     def __str__(self):
         return f"{self.personreserv}"

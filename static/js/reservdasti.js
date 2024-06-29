@@ -28,10 +28,28 @@ function chengejob(){
 
     }
      if (etebarmelicod.innerHTML == 'true'){
-         console.log("eeeeeeeeeeee")
             document.getElementById("workhide").hidden = false ;
             document.getElementById("detalhiden").hidden = false ;
             melicode.value = melicodesave.innerHTML;
             job.value = jobsave.innerHTML;
      }
+         function redirectt()
+    {
+        window.location = "/";
+    }
+    console.log("hhhhhhhhhh");
+    if (document.getElementById("etebarreservdasti").innerHTML == 'true'){
+        console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'رزرو با موفقیت ثبت شد',
+          showConfirmButton: false,
+          timer: 2000
+                 });
+        setTimeout('redirectt()',900);
+
+    }
+
+
 

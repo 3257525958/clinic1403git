@@ -267,7 +267,6 @@ var l = document.getElementById("loglevel").innerHTML;
 var i=document.getElementById("ee");
 var f =document.getElementById("tab");
     if ( i.value != window.outerWidth) {
-        console.log("aaaaaaaaa");
         i.value = window.outerWidth;
         if (f.innerHTML == 0){
         e = document.getElementById("testes");

@@ -18,7 +18,7 @@ class reservemodel(models.Model):
     trakingcod = models.CharField(max_length=20,default='0')
     bank = models.CharField(max_length=20,default='0')
     checking = models.CharField(max_length=20,default='false')
-    vahed = models.CharField(max_length=100,default='0')
+    vahed = models.CharField(max_length=100,default='0', null=True)
     def __str__(self):
         return f"{self.personreserv}"
 
@@ -40,7 +40,7 @@ class reservemodeltest(models.Model):
     phonnumber = models.CharField(max_length=12,default='0')
     fiestname =models.CharField(max_length=150,default='0')
     lastname =models.CharField(max_length=150,default='0')
-    vahed = models.CharField(max_length=100,default='0')
+    vahed = models.CharField(max_length=100,default='')
     def __str__(self):
         return f"{self.personreserv}"
 

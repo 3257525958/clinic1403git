@@ -47,4 +47,14 @@ var lableid = document.getElementById("lableid");
 
     lmablaghbeyane.innerHTML = (b).num2persian() + " " + "تومان";
     }
-
+    function clk(){
+            console.log("tttttttttttt")
+            console.log(document.getElementById("mel").innerHTML);
+            document.getElementById("melifaktorinput").value = document.getElementById("mel").innerHTML;
+            document.getElementById("tik").click();
+    }
+    function load() {
+        j = document.getElementById("jamekol").value
+        bb = ((j - (j % 10)) / 10);
+        document.getElementById("ljamkol").innerHTML = (bb).num2persian() + " " + "تومان";
+    }

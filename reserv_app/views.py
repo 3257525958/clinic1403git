@@ -549,15 +549,6 @@ def reservdef(request):
         loginetebar[0] = "false"
         return render(request,'home.html',context={"loginetebar":loginetebar[0]})
 
-
-
-
-
-
-
-
-
-
 # _________________________اینجا کارمندان تایمهایی که قرار هست نیان سر کار رو مشخص میکن و در leavemodel.leave_ ذخیره میکنن_____________
 leaveshamsi = ['0']
 leavemiladi = ['0']
@@ -705,7 +696,7 @@ def dashborddef(request):
     rs = reservemodel.objects.all()
     name = ''
     for r in rs:
-        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == namedashbord ) :
+        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == namedashbord ) and (r.checking != 'true') :
             us = accuntmodel.objects.all()
             for u in us:
                 if r.melicod == u.melicode :
@@ -777,17 +768,24 @@ def dashborddef(request):
     fpezeshkibottom = request.POST.get("fpezeshkibottom")
     vahedeobject = request.POST.get("vahedeobject")
     vahedeobjectname = request.POST.get("vahedeobjectname")
+    cast = ''
     if fpezeshkibottom == "accept" :
         ws = reservemodel.objects.all()
         for w in ws:
+            cast = w.castreserv
             if int(w.id) == int(reservid) :
+                if (vahedeobject != None) and (vahedeobject != ''):
+                    cast = str(float(w.castreserv) * float(vahedeobject))
+                else:
+                    vahedeobject = '1'
+
                 fpeseshktestmodel.objects.create(
                     melicod=w.melicod,
                     jobreserv =w.jobreserv,
                     detalereserv =w.detalereserv,
                     personreserv =w.personreserv,
                     timereserv =w.timereserv,
-                    castreserv =w.castreserv,
+                    castreserv =cast,
                     numbertime =w.numbertime,
                     hourreserv =w.hourreserv,
                     dateshamsireserv =w.dateshamsireserv,
@@ -799,9 +797,11 @@ def dashborddef(request):
                     bank =w.bank,
                     checking =w.checking,
                     vahedeobject = vahedeobject,
-                    vahedeobjectname = vahedeobjectname,
+                    vahedeobjectname = w.vahed,
                     reservid = reservid,
                 )
+                a = reservemodel.objects.filter(id=int(reservid))
+                a.delete()
                 return redirect('/')
 
     return render(request,'dashbord.html',context={
@@ -849,12 +849,14 @@ def reservdasti(request):
 
     ws = workmodel.objects.all()
     timereserv = "0"
+    vahed = ''
     d = '0'
     for w in ws:
         if str(w.id) == str(detalework):
             personreserv = w.person
             castreserv =w.cast
             d = w.detalework
+            vahed = w.vahed
     jj = '0'
     jes = jobsmodel.objects.all()
     for je in jes:
@@ -865,7 +867,9 @@ def reservdasti(request):
     dateshamsireserv = stradby(datetime.datetime.now())
     datemiladireserv = datetime.datetime.now().strftime('%a %d %b %y')
     yearshamsi = stry(datetime.datetime.now())
+    etebarreservdasti = 'notr'
     if button_send == 'accept':
+        etebarreservdasti = 'true'
         reservemodel.objects.create(
             melicod= melicode,
             jobreserv = jj,
@@ -879,6 +883,7 @@ def reservdasti(request):
             datemiladireserv = datemiladireserv,
             yearshamsi = yearshamsi,
             pyment = "0",
+            vahed=vahed,
         )
 
     return render(request,'reserv_dasti.html',context={
@@ -890,6 +895,7 @@ def reservdasti(request):
         'castreserv':castreserv,
         'etebarmelicod':etebarmelicod,
         'name':name,
+        'etebarreservdasti':etebarreservdasti,
 
     })
 

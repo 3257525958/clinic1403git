@@ -9,20 +9,16 @@ class bankmodel(models.Model):
     def __str__(self):
         return f"{self.onvan}"
 class castmodel(models.Model):
-    peyment = models.CharField(max_length=20,default="0")
-    off = models.CharField(max_length=20,default="0")
-    melicodevarizande = models.CharField(max_length=11,default="0")
-    selectjob = models.CharField(max_length=100,default="0")
-    bankonvan = models.CharField(max_length=100,default="0")
-    persone = models.CharField(max_length=100,default="0")
-    operatore = models.CharField(max_length=11,default="0")
-    day = models.CharField(max_length=100,default="0")
-    mounth = models.CharField(max_length=100,default="0")
-    year = models.CharField(max_length=100,default="0")
-    beyane = models.CharField(max_length=10,default="0")
-    ghabelpardakht = models.CharField(max_length=11,default="0")
+    idf = models.CharField(max_length=20,default="0")
+    melicodvarizande = models.CharField(max_length=100,default='0')
+    dateshamsi = models.CharField(max_length=100,default='0')
+    datemiladi = models.CharField(max_length=100,default='0')
+    filenumber = models.CharField(max_length=100,default='0')
+    cashmethod = models.CharField(max_length=100,default='0')
+    melicodeoperatore = models.CharField(max_length=100,default='0')
+    mablagh = models.CharField(max_length=100,default='0')
     def __str__(self):
-        return f"{self.melicodevarizande}"
+        return f"{self.filenumber}"
 
 
 class casttestmodel(models.Model):
