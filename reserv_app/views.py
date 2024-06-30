@@ -678,6 +678,7 @@ def reserverdef(request):
     return render(request,'reserver.html', context={
         'day': dayreserv,
     })
+
 def dashborddef(request):
     users = accuntmodel.objects.all()
     namedashbord = ''
@@ -687,7 +688,29 @@ def dashborddef(request):
 
     dayreserv = ['t']
     dayreserv.clear()
+
+
     t = datetime.datetime.now()
+    dayconterstr = request.POST.get("dayconter")
+    if (dayconterstr == None) or (dayconterstr == ""):
+        dayconter = 0
+    else:
+        dayconter = int(dayconterstr)
+    button_next = request.POST.get("button_next")
+    if button_next == 'accept' :
+        dayconter += 1
+    button_back = request.POST.get("button_back")
+    if button_back == 'accept' :
+        dayconter -= 1
+    if dayconter < 0 :
+        dayconterm = dayconter * (-1)
+        for i in range(dayconterm):
+            t -= timedelta(days=1)
+    if dayconter > 0 :
+        for i in range(dayconter):
+            t += timedelta(days=1)
+
+
     dayarr = ['t']
     dayarr.clear()
     dayarr.append(stradb(t))
@@ -807,6 +830,7 @@ def dashborddef(request):
     return render(request,'dashbord.html',context={
                                                                 'dastiarray':dastiarray,
                                                                 'day': dayreserv,
+                                                                'dayconter':dayconter,
                                                                 })
 def reservdasti(request):
     job = request.POST.get("job")

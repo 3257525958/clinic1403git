@@ -86,6 +86,15 @@
                     {{ person }}
                 </p>
             </div>
+            <div class="col s12 m12 l12">
+            <div class="center-align dokmeye-vorood col s6 l6 m6">
+                <button class="w-100 btn waves-effect" name="button_back" value="accept" onclick="clic()">روز قبل</button>
+            </div>
+            <div class="center-align dokmeye-vorood col s6 l6 m6">
+                <button class="w-100 btn waves-effect" name="button_next" value="accept" onclick="clic()" >روز بعد</button>
+            </div>
+        </div>
+            
             <div class="effects col s12 l12 m12">
                 {% for t in day %}
                     {% if t.0 != "false" %}
@@ -200,7 +209,10 @@
                     {% endif %}
                 {% endfor %}
             </div>
-        </div>
+    
+    </div>
+  <label id="today" hidden="">{{ dayconter }}</label>
+  <input id="daysave" name="dayconter" hidden>
 {% csrf_token %}
 </form>
 </main>
@@ -257,7 +269,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static "/js/add_cantact.js" %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/reserv.js" %}"></script>
+<script src="{% static "/js/reserve.js" %}"></script>
 
 </body>
 </html>

@@ -25,6 +25,7 @@
 }
 .dokmeye-vorood .btn{
     background: rgba(255, 255, 255, 0.2);
+    color: black !important;
 }
 .blick-shodan{
     display: block !important;
