@@ -16,7 +16,7 @@ from jalali_date import date2jalali,datetime2jalali
 from cantact_app.views import strb,stry,strd
 from reserv_app.models import reservemodeltest,reservemodel
 from jobs_app.models import jobsmodel,employeemodel,workmodel
-from cash_app.models import bankmodel,castmodel,casttestmodel
+from cash_app.models import bankmodel,castmodel,casttestmodel,listmodeltest
 from cantact_app.models import accuntmodel
 from cantact_app.views import *
 from file_app.models import fpeseshktestmodel
@@ -213,7 +213,6 @@ def cast(request):
     inputsearchname = ''
     selectfile = request.POST.get("selectfile")
     melifaktorinput = request.POST.get("melifaktorinput")
-    print(melifaktorinput)
     jamkol = 0
 
     # ---- برسی بیعانه برای این خدمت---
@@ -321,6 +320,8 @@ def cast(request):
         )
 
     bankonvanfavtor = request.POST.get('bankonvanfavtor')
+    tickon = request.POST.get('tickon')
+    ia = request.POST.get("ia")
     jamekol = request.POST.get('jamekol')
     if pardakhtfaktor == "accept":
         a = fpeseshktestmodel.objects.filter(melicod=melifaktorinput)
@@ -349,38 +350,45 @@ def cast(request):
     etebarname = "notr"
     name = ''
     jamkol = 0
+    if (tickon != None) and (tickon != ''):
+        inttikon = int(tickon)
+    ls = listmodeltest.objects.all()
+    mtick = ''
+    nselect = ''
+    mselect = ''
+    reserv = ['']
+    reserv.clear()
     if buttomteakclick == "accept":
-        users = accuntmodel.objects.all()
-        for user in users:
-            if user.melicode == melicodsearch:
-                name = user.firstname + ' ' + user.lastname
-        rs = fpeseshktestmodel.objects.all()
-        reserv = ['']
-        reserv.clear()
-        for r in rs :
-            reserarray = ['']
-            reserarray.clear()
-            if melicodsearch == r.melicod :
-                reserarray.append(r.jobreserv + " " + r.detalereserv)
-                reserarray.append(r.dateshamsireserv)
-                reserarray.append(r.castreserv)
-                reserarray.append(r.pyment)
-                reserarray.append(r.offer)
-                reserarray.append(r.id)
-                jamkol = int(jamkol + float(r.castreserv) - float(r.pyment) -float(r.offer))
-                reserv.append(reserarray)
-        bs = bankmodel.objects.all()
-        methodpardakht = ['']
-        methodpardakht.clear()
-        for b in bs :
-            methodpardakht.append(b.onvan)
+        for l in ls :
+            if inttikon == 0 :
+                mtick = l.m
+                break
+            inttikon = inttikon - 1
+        us = accuntmodel.objects.all()
+        for u in us:
+            if int(u.melicode) == int(mtick) :
+                nselect = u.firstname + " " + u.lastname
+                mselect = u.melicode
+        fs = fpeseshktestmodel.objects.all()
+        for f in fs :
+            if int(f.melicod) == int(mtick):
+                r = ['']
+                r.clear()
+                r.append(f.jobreserv + ' '+ f.detalereserv)
+                r.append(f.dateshamsireserv)
+                r.append(f.castreserv)
+                r.append(f.pyment)
+                r.append(f.offer)
+                r.append(f.id)
+                jamkol = jamkol + float(f.castreserv) - float(f.pyment) - float(f.offer)
+                reserv.append(r)
         return render(request,'faktor.html',context={
-                                                                    "reserv":reserv,
-                                                                    'melicode':melicodsearch,
-                                                                    'name':name,
-                                                                    'bank':methodpardakht,
-                                                                    'jamkol': jamkol,
-                                                                })
+            'name': nselect,
+            'melicode':mselect,
+            'reserv':reserv,
+            'jamkol':int(jamkol),
+        })
+
     meliinput = request.POST.get("meliinput")
     na = ''
     if (offer != None) and (offer != ''):
@@ -413,11 +421,16 @@ def cast(request):
         etebarname = "false"
         us = accuntmodel.objects.all()
         for u in us:
+            ls = listmodeltest.objects.all()
+            for l in ls:
+                a = listmodeltest.objects.filter(m=l.m)
+                a.delete()
             ar = ['']
             ar.clear()
             if melicodsearch == u.melicode :
                 ar.append(u.firstname + " " + u.lastname)
                 ar.append(u.melicode)
+                listmodeltest.objects.create(m=a.melicode)
                 arrayname.append(ar)
                 etebarname = "true"
 
@@ -485,15 +498,40 @@ def cast(request):
                                                                     'bank':methodpardakht,
                                                                     'jamkol':jamkol,
                                                                 })
-
-    if facebuttonsearchname == "accept" :
-        s = namesearch.split(",")
-        inputsearchname = namesearch
+    namesearch = request.POST.get("namesearch")
+    if namesearch == None :
+        namesearch = ''
+    searchnamebottum = request.POST.get("searchnamebottum")
+    if searchnamebottum == 'accept':
+        ls = listmodeltest.objects.all()
+        for l in ls:
+            a = listmodeltest.objects.filter(m=l.m)
+            a.delete()
+        arrayname.clear()
+        auser = accuntmodel.objects.all()
+        for uss in auser:
+            if uss.firstname[0:3] == namesearch :
+                mm = ['']
+                mm.clear()
+                mm.append(uss.firstname + " " + uss.lastname)
+                mm.append(uss.melicode)
+                listmodeltest.objects.create(m=uss.melicode)
+                arrayname.append(mm)
+        for a in auser:
+            if a.lastname[0:3] == namesearch :
+                mm = ['']
+                mm.clear()
+                mm.append(a.firstname + " " + a.lastname)
+                mm.append(a.melicode)
+                listmodeltest.objects.create(m=a.melicode)
+                arrayname.append(mm)
     return render(request,'cast_searchname.html',context={
                                                                         "inputsearchname":inputsearchname,
                                                                         "melicode":melicodsearch,
                                                                         "arrayname":arrayname,
                                                                         "etebarname":etebarname,
+                                                                        'searchinput':namesearch,
+                                                                        's':ia,
                                                                         })
 
 def banksave(request):

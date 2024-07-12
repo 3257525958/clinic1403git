@@ -8,6 +8,9 @@ var lcastreserv = document.getElementById("lcastreserv");
 var personreserv = document.getElementById("personreserv");
 var castreserv = document.getElementById("castreserv");
 var etebarmelicod = document.getElementById("etebarmelicod");
+var namebuttom = document.getElementById("namebuttom");
+var names = document.getElementById("names");
+var  etebarreservdasti = document.getElementById("etebarreservdasti");
 function chengejob(){
     jobbuttom.click();
 }
@@ -37,9 +40,8 @@ function chengejob(){
     {
         window.location = "/";
     }
-    console.log("hhhhhhhhhh");
-    if (document.getElementById("etebarreservdasti").innerHTML == 'true'){
-        console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+     console.log(etebarreservdasti.innerHTML);
+    if ( etebarreservdasti.innerHTML == 'true' ){
         Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -49,6 +51,15 @@ function chengejob(){
                  });
         setTimeout('redirectt()',900);
 
+    }
+ function namecheck(){
+        if ( names.value.length > 2 ) {
+        document.getElementById("table").hidden = false;
+            namebuttom.click();
+        }
+ }
+        function clickteak(){
+        document.getElementById("buttomteakclick").click();
     }
 
 

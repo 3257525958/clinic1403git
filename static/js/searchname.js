@@ -13,6 +13,10 @@ var lmablaghbeyane = document.getElementById("lmablaghbeyane");
 var beyanemeghdar = document.getElementById("beyanemeghdar");
 var inputid = document.getElementById("inputid");
 var lableid = document.getElementById("lableid");
+var isearchname = document.getElementById("namesearch");
+var la = document.getElementById('la');
+var ia = document.getElementById('ia');
+
     if ( etebarname.innerHTML == 'false' ){
                 Swal.fire({
               icon: 'هشدار',
@@ -22,11 +26,13 @@ var lableid = document.getElementById("lableid");
 });
     }
         melicodsearch.value = codemeli.innerHTML;
+        ia.value = la.innerHTML;
+        // isearchname.value = lsearchname.innerHTML;
     if ( etebarname == "true" ){
         table.hidden = false;
     }
 
- function searchmelicodfun(){
+    function searchmelicodfun(){
         table.hidden = true;
      if ( melicodsearch.value.length > 9) {
          facesearchmelicode.click();
@@ -35,21 +41,17 @@ var lableid = document.getElementById("lableid");
     function clickteak(){
         document.getElementById("buttomteakclick").click();
     }
-    document.getElementById("meliinput").value = document.getElementById("melilable").innerHTML;
-
-        function mablagh(){
+    function mablagh(){
         b = ((offermeghdar.value - (offermeghdar.value % 10 )) / 10);
         inputid.value = lableid.innerHTML;
         lmablagh.innerHTML = (b).num2persian() + " " + "تومان";
     }
-        function mablaghbeyane(){
+    function mablaghbeyane(){
         b = ((beyanemeghdar.value - (beyanemeghdar.value % 10 )) / 10);
 
     lmablaghbeyane.innerHTML = (b).num2persian() + " " + "تومان";
     }
     function clk(){
-            console.log("tttttttttttt")
-            console.log(document.getElementById("mel").innerHTML);
             document.getElementById("melifaktorinput").value = document.getElementById("mel").innerHTML;
             document.getElementById("tik").click();
     }
@@ -58,3 +60,8 @@ var lableid = document.getElementById("lableid");
         bb = ((j - (j % 10)) / 10);
         document.getElementById("ljamkol").innerHTML = (bb).num2persian() + " " + "تومان";
     }
+    function searchnamefun(){
+        if ( isearchname.value.length > 2)
+            document.getElementById("searchnamebottum").click();
+
+}

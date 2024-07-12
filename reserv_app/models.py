@@ -76,3 +76,10 @@ class filepage1model(models.Model):
     satisfact = models.CharField(max_length=150,default='0')
     def __str__(self):
         return f"{self.mellicode}"
+
+class searchmodeltest(models.Model):
+    m = models.CharField(max_length=20, default="0")
+
+    def __str__(self):
+        return f"{self.m}"
+

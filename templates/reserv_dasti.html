@@ -81,7 +81,32 @@
         <input type="text" name="melicode"  id="melicode" class="validate" autocomplete="off" oninput="melicodcheck()">
         <label for="firstname">کد ملی :</label>
       </div>
-    <label>{{ name }}</label>
+      <div class="input-field col s12 ">
+        <input type="text" name="names"  id="names" class="validate" autocomplete="off" oninput="namecheck()">
+        <label for="names">نام یا نام خانوادگی:</label>
+      </div>
+          <div class="col s12">
+              <table class="highlight" id="table"  >
+                <thead>
+                  <tr>
+                      <th>انتخاب</th>
+                      <th>نام و نام خانوادگی</th>
+                      <th>کد ملی</th>
+                  </tr>
+                </thead>
+        
+                <tbody>
+                {% for name in arrayname %}
+                  <tr>
+                    <td> <label><input name="tickon" id="tickon" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange="clickteak()"/><span></span></label></td>  
+                    <td>{{ name.0 }}</td>
+                    <td>{{ name.1 }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>  
+    <label>{{ etebarreservdasti }}</label>
     <br><br>
       <div class="input-field col s6" id="workhide" hidden>
                     <select name="job" id="job"  onchange="chengejob()">
@@ -103,7 +128,7 @@
 
 
       <div class="center-align dokmeye-vorood ">
-        <button class="w-100 btn waves-effect" name="button_send" value="accept" onclick="move()">ثبت اطلاعات و ارسال پیامک</button>
+        <button class="w-100 btn waves-effect" name="button_send" value="accept" onclick="move()">ثبت اطلاعات </button>
       </div>
         
     </div>
@@ -117,7 +142,7 @@
   
     <label id="melicodesave"  hidden >{{ melicode }}</label>
     <label id="jobsave"  hidden >{{ job }}</label>
-    <label id="etebarreservdasti"  hidden >{{ etebarreservdasti }}</label>
+    <label id="etebarreservdasti" >{{ etebarreservdasti }}</label>
     <label id="etebarmelicod"hidden>{{ etebarmelicod }}</label>
 {#    <label id="lcastreserv"   >{{  castreserv}}</label>#}
     <input id="personreserv" name="personreserv"  hidden >
@@ -125,6 +150,8 @@
   <br>
   <br>
     <button id="jobbuttom" name="jobbuttom" value="accept" hidden >اینتر</button>
+    <button id="namebuttom" name="namebuttom" value="accept" hidden >اینتر</button>
+    <button id="buttomteakclick" name="buttomteakclick" value="accept" hidden >اینتر</button>
 
   {% csrf_token %}
   </form>

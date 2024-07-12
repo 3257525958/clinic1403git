@@ -1,6 +1,5 @@
 
     var etebar = document.getElementById("melicod_etebar");
-    console.log(etebar.innerHTML);
     if ( etebar.innerHTML == 'false' ){ mymessage()}
 
     function mymessage(){

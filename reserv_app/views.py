@@ -5,7 +5,7 @@ import datetime
 from jalali_date import date2jalali,datetime2jalali
 from datetime import timedelta
 import matplotlib
-from reserv_app.models import reservemodel,leavemodel,reservemodeltest,filepage1model
+from reserv_app.models import reservemodel,leavemodel,reservemodeltest,filepage1model,searchmodeltest
 from cantact_app.models import accuntmodel
 from file_app.models import fpeseshktestmodel
 ww = ['t']
@@ -839,6 +839,44 @@ def reservdasti(request):
     button_send = request.POST.get("button_send")
     castreserv = request.POST.get("castreserv")
     personreserv = request.POST.get("personreserv")
+    namebuttom = request.POST.get('namebuttom')
+    names =request.POST.get("names")
+    tickon = request.POST.get("tickon")
+
+    arrayname =['']
+    if namebuttom == 'accept':
+        ls = searchmodeltest.objects.all()
+        for l in ls:
+            a = searchmodeltest.objects.filter(m=l.m)
+            a.delete()
+        arrayname.clear()
+        us = accuntmodel.objects.all()
+        for u in us:
+            if u.firstname[0:3] == names :
+                mm = ['']
+                mm.clear()
+                mm.append(u.firstname + " " + u.lastname)
+                mm.append(u.melicode)
+                searchmodeltest.objects.create(m=u.melicode)
+                arrayname.append(mm)
+        return render(request,'reserv_dasti.html',context={
+            'arrayname':arrayname
+        })
+
+    ls = searchmodeltest.objects.all()
+    if (tickon != None) and (tickon != ''):
+        inttikon = int(tickon)
+        for l in ls :
+            if inttikon == 0 :
+                melicode = l.m
+                break
+            inttikon = inttikon - 1
+
+
+
+
+
+
     etebarmelicod = "notr"
     if melicode == None:
         melicode = ''

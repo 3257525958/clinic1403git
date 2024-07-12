@@ -27,3 +27,7 @@ class casttestmodel(models.Model):
     c = models.CharField(max_length=100,default="0")
     def __str__(self):
         return f"{self.p}"
+class listmodeltest(models.Model):
+    m = models.CharField(max_length=20,default="0")
+    def __str__(self):
+        return f"{self.m}"
