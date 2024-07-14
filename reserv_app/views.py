@@ -850,14 +850,23 @@ def reservdasti(request):
             a = searchmodeltest.objects.filter(m=l.m)
             a.delete()
         arrayname.clear()
-        us = accuntmodel.objects.all()
-        for u in us:
-            if u.firstname[0:3] == names :
+
+        auser = accuntmodel.objects.all()
+        for uss in auser:
+            if uss.firstname[0:3] == names :
                 mm = ['']
                 mm.clear()
-                mm.append(u.firstname + " " + u.lastname)
-                mm.append(u.melicode)
-                searchmodeltest.objects.create(m=u.melicode)
+                mm.append(uss.firstname + " " + uss.lastname)
+                mm.append(uss.melicode)
+                searchmodeltest.objects.create(m=uss.melicode)
+                arrayname.append(mm)
+        for aa in auser:
+            if aa.lastname[0:3] == names :
+                mm = ['']
+                mm.clear()
+                mm.append(aa.firstname + " " + aa.lastname)
+                mm.append(aa.melicode)
+                searchmodeltest.objects.create(m=aa.melicode)
                 arrayname.append(mm)
         return render(request,'reserv_dasti.html',context={
             'arrayname':arrayname

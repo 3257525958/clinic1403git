@@ -16,6 +16,20 @@ var lableid = document.getElementById("lableid");
 var isearchname = document.getElementById("namesearch");
 var la = document.getElementById('la');
 var ia = document.getElementById('ia');
+var etebarsabt = document.getElementById("etebarsabt");
+    if ( etebarsabt.innerHTML == 'true' ){
+        console.log("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'فعالیت مورد نظر با موفقیت ثبت شد',
+          showConfirmButton: false,
+          timer: 2000
+                 });
+        setTimeout('redirectt()',1000);
+    }
+    function redirectt() { window.location = "/"; }
+
 
     if ( etebarname.innerHTML == 'false' ){
                 Swal.fire({
@@ -53,7 +67,7 @@ var ia = document.getElementById('ia');
     }
     function clk(){
             document.getElementById("melifaktorinput").value = document.getElementById("mel").innerHTML;
-            document.getElementById("tik").click();
+            // document.getElementById("tik").click();
     }
     function load() {
         j = document.getElementById("jamekol").value
