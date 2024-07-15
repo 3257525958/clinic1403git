@@ -879,9 +879,10 @@ def reservdasti(request):
         ar.clear()
         for l in ls :
             ar.append(l.m)
-            print(l.id)
+        print(ar)
+        ar.reverse()
+        print(ar)
         melicode = ar[inttikon]
-        print(melicode)
 
 
 
