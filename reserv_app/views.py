@@ -875,12 +875,11 @@ def reservdasti(request):
     ls = searchmodeltest.objects.all()
     if (tickon != None) and (tickon != ''):
         inttikon = int(tickon)
-        print(inttikon)
         ar = ['']
         ar.clear()
         for l in ls :
             ar.append(l.m)
-        print(ar)
+            print(l.id)
         melicode = ar[inttikon]
         print(melicode)
 
