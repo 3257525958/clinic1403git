@@ -395,20 +395,21 @@ def cast(request):
     etebarname = "notr"
     name = ''
     jamkol = 0
-    if (tickon != None) and (tickon != ''):
-        inttikon = int(tickon)
-    ls = listmodeltest.objects.all()
     mtick = ''
     nselect = ''
     mselect = ''
     reserv = ['']
     reserv.clear()
-    if buttomteakclick == "accept":
+    ls = listmodeltest.objects.all()
+    if (tickon != None) and (tickon != ''):
+        inttikon = int(tickon)
+        ar = ['']
+        ar.clear()
         for l in ls :
-            if inttikon == 0 :
-                mtick = l.m
-                break
-            inttikon = inttikon - 1
+            ar.append(l.m)
+        ar.reverse()
+        mtick = ar[inttikon]
+    if buttomteakclick == "accept":
         us = accuntmodel.objects.all()
         for u in us:
             if int(u.melicode) == int(mtick) :
@@ -569,12 +570,17 @@ def cast(request):
                 arrayname.append(mm)
         for aa in auser:
             if aa.lastname[0:3] == namesearch :
-                mm = ['']
-                mm.clear()
-                mm.append(aa.firstname + " " + aa.lastname)
-                mm.append(aa.melicode)
-                listmodeltest.objects.create(m=aa.melicode)
-                arrayname.append(mm)
+                cheek = "true"
+                for archek in arrayname:
+                    if archek == aa.firstname + " " + aa.lastname :
+                        cheek = "false"
+                if cheek == "true" :
+                    mm = ['']
+                    mm.clear()
+                    mm.append(aa.firstname + " " + aa.lastname)
+                    mm.append(aa.melicode)
+                    listmodeltest.objects.create(m=aa.melicode)
+                    arrayname.append(mm)
     return render(request,'cast_searchname.html',context={
                                                                         "inputsearchname":inputsearchname,
                                                                         "melicode":melicodsearch,

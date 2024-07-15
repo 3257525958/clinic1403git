@@ -862,12 +862,17 @@ def reservdasti(request):
                 arrayname.append(mm)
         for aa in auser:
             if aa.lastname[0:3] == names :
-                mm = ['']
-                mm.clear()
-                mm.append(aa.firstname + " " + aa.lastname)
-                mm.append(aa.melicode)
-                searchmodeltest.objects.create(m=aa.melicode)
-                arrayname.append(mm)
+                cheek = "true"
+                for archek in arrayname:
+                    if archek == aa.firstname + " " + aa.lastname :
+                        cheek = "false"
+                if cheek == "true" :
+                    mm = ['']
+                    mm.clear()
+                    mm.append(aa.firstname + " " + aa.lastname)
+                    mm.append(aa.melicode)
+                    searchmodeltest.objects.create(m=aa.melicode)
+                    arrayname.append(mm)
         return render(request,'reserv_dasti.html',context={
             'arrayname':arrayname
         })
@@ -879,9 +884,7 @@ def reservdasti(request):
         ar.clear()
         for l in ls :
             ar.append(l.m)
-        print(ar)
         ar.reverse()
-        print(ar)
         melicode = ar[inttikon]
 
 
