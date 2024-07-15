@@ -887,6 +887,7 @@ def reservdasti(request):
         ar.clear()
         for l in ls :
             ar.append(l.m)
+                           # -- چون سرور بر عکس ترتیه ها رو میخونه ایمچا و در cash viwo . cast این کامنت هست-
         ar.reverse()
         melicode = ar[inttikon]
 

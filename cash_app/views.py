@@ -407,6 +407,7 @@ def cast(request):
         ar.clear()
         for l in ls :
             ar.append(l.m)
+        # -- چون سرور بر عکس ترتیه ها رو میخونه ایمچا و در reserv,view.reservdasti این کامنت هست-
         ar.reverse()
         mtick = ar[inttikon]
     if buttomteakclick == "accept":
