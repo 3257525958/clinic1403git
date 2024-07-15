@@ -560,19 +560,22 @@ def cast(request):
         arrayname.clear()
 
         auser = accuntmodel.objects.all()
+        amarray =['']
+        amarray.clear()
         for uss in auser:
             if uss.firstname[0:3] == namesearch :
                 mm = ['']
                 mm.clear()
                 mm.append(uss.firstname + " " + uss.lastname)
                 mm.append(uss.melicode)
+                amarray.append(uss.melicode)
                 listmodeltest.objects.create(m=uss.melicode)
                 arrayname.append(mm)
         for aa in auser:
             if aa.lastname[0:3] == namesearch :
                 cheek = "true"
-                for archek in arrayname:
-                    if archek == aa.firstname + " " + aa.lastname :
+                for archek in amarray:
+                    if archek == aa.melicode :
                         cheek = "false"
                 if cheek == "true" :
                     mm = ['']

@@ -852,19 +852,22 @@ def reservdasti(request):
         arrayname.clear()
 
         auser = accuntmodel.objects.all()
+        amaray = ['']
+        amaray.clear()
         for uss in auser:
             if uss.firstname[0:3] == names :
                 mm = ['']
                 mm.clear()
                 mm.append(uss.firstname + " " + uss.lastname)
                 mm.append(uss.melicode)
+                amaray.append(uss.melicode)
                 searchmodeltest.objects.create(m=uss.melicode)
                 arrayname.append(mm)
         for aa in auser:
             if aa.lastname[0:3] == names :
                 cheek = "true"
-                for archek in arrayname:
-                    if archek == aa.firstname + " " + aa.lastname :
+                for archek in amaray:
+                    if archek == aa.melicode :
                         cheek = "false"
                 if cheek == "true" :
                     mm = ['']
