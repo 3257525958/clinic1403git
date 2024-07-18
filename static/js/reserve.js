@@ -1,5 +1,8 @@
 var reservetebar = document.getElementById("reservetebar");
 var btn = document.getElementsByClassName("boxxx")[2];
+var jadval =document.getElementById("jadval");
+var operatoreselect = document.getElementById("operatoreselect");
+
         if ( reservetebar.innerHTML == 'false2') {
         Swal.fire({
             icon: 'warning',
@@ -9,3 +12,6 @@ var btn = document.getElementsByClassName("boxxx")[2];
 function clic(){
            document.getElementById("daysave").value = document.getElementById("today").innerHTML
 }
+        function operatoreclick(){
+            document.getElementById("operatorebuttom").click();
+        }

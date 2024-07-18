@@ -17,6 +17,7 @@ class workmodel(models.Model):
     work = models.CharField(max_length=150, default='تزریقات')
     detalework = models.CharField(max_length=150 , default='تزریقات')
     person = models.CharField(max_length=150,default='من')
+    melicodpersonel = models.CharField(max_length=10,default="0")
     time = models.CharField(max_length=50, default='امروز')
     cast = models.CharField(max_length=150, default='0')
     idjob = models.CharField(max_length=10,default="0")

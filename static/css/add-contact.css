@@ -51,6 +51,7 @@
 }
 .dropdown-content li>a, .dropdown-content li>span {
     background-color: #e040fb; !important;
+    color: black !important;
 }
 .row .col.m6{
     margin-top: 5rem;

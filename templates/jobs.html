@@ -108,9 +108,9 @@
                         نام کارمند برای انجام خدمت را انتخاب کنید :
                     </p>
                     <select id="sel" name="employselector" hidden>
-                        <option>{{ pers }}</option>
+{#                        <option>{{ pers }}</option>#}
                         {% for empj in emplist %}
-                            <option value= "{{ forloop.counter0 }}">{{ empj }}</option>
+                            <option value= "{{ empj.1 }}">{{ empj.0 }}</option>
                         {% endfor %}
                     </select>
                     <p>

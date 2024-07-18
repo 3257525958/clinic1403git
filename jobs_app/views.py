@@ -207,8 +207,16 @@ def jobs(request):
                         users = accuntmodel.objects.all()
                         for user in users :
                             if emp.melicod == user.melicode :
-                                emplist.append(user.firstname+' '+user.lastname)
+                                n = user.firstname+' '+user.lastname
+                                s = (n + "," + str(user.melicode)).split(",")
+                                emplist.append(s)
 
+    persenol = ''
+    users = accuntmodel.objects.all()
+    if (employselector != None) and (employselector != '') and (employselector != 'None'):
+        for user in users :
+            if int(user.melicode) == int(employselector):
+                personel = user.firstname + ' ' + user.lastname
     if servicsave == "accept" :
         if (cast != '') and (cast != None):
             if (detalejob != '') and (detalejob != None):
@@ -225,10 +233,12 @@ def jobs(request):
                                 for user in users:
                                     if emp.melicod == user.melicode:
                                         emplist.append(user.firstname + ' ' + user.lastname)
+                                        melicodpersonel = emp.melicod
                         workmodel.objects.create(work=sss,
                                                  cast=cast,
                                                  time=timename,
-                                                 person=emplist[int(employselector)],
+                                                 person=personel,
+                                                 melicodpersonel= employselector,
                                                  detalework=detalejob,
                                                  idjob=str(ser.id),
                                                  vahed=vahed,

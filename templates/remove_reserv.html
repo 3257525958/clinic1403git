@@ -75,71 +75,31 @@
     <div class="ghesmate_login col s12 m6 l4">
 
     
-      <i class="center-align blick-shodan fas fa-user-plus fa-2x"></i>
+      <i class="center-align blick-shodan fas fa-times fa-2x"></i>
 
       <div class="input-field col s12 ">
-        <input type="text" name="melicode"  id="melicode" class="validate" autocomplete="off" oninput="melicodcheck()">
-        <label for="firstname">کد ملی :</label>
+        <input type="text" name="names"  id="names" class="validate" autocomplete="off" value="{{ moraje }}" disabled>
+        <label for="names">مشخصات مراجع:</label>
       </div>
       <div class="input-field col s12 ">
-        <input type="text" name="names"  id="names" class="validate" autocomplete="off" oninput="namecheck()">
-        <label for="names">نام یا نام خانوادگی:</label>
+        <input type="text" name="names"  id="names" class="validate" autocomplete="off" value="{{ operat }}" disabled>
+        <label for="names">مشخصات اپراتور:</label>
       </div>
-          <div class="col s12">
-              <table class="highlight" id="table"  >
-                <thead>
-                  <tr>
-                      <th>انتخاب</th>
-                      <th>نام و نام خانوادگی</th>
-                      <th>کد ملی</th>
-                  </tr>
-                </thead>
-        
-                <tbody>
-                {% for name in arrayname %}
-                  <tr>
-                    <td> <label><input name="tickon" id="tickon" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange="clickteak()"/><span></span></label></td>  
-                    <td>{{ name.0 }}</td>
-                    <td>{{ name.1 }}</td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
-            </div>  
-    <label>{{ name }}</label>
-    <br><br>
-      <div class="input-field col s12 l4 m12" id="namepersonel" hidden>
-                    <select name="namepersonel" id="personel"  onchange="chengepersonel()">
-                            <option value={{ melipersonel }}>{{ personel }}</option>
-                        {% for n in namepersonal %}
-                            <option value={{ n.0 }}>{{ n.1 }}</option>
-                        {% endfor %}
-                    </select>
-        <label class="teal-text text-darken-4">اپراتور :</label>
+      <div class="input-field col s12 ">
+        <input type="text" name="names"  id="names" class="validate" autocomplete="off" value="{{ timereserv }}" disabled>
+        <label for="names">مشخصات خدمت رزرو شده:</label>
       </div>
+        <input id="" name="idreserv" value="{{ idreserv }}" hidden="">
     
-    
-      <div class="input-field col s12 l4 m12" id="workhide" hidden>
-                    <select name="job" id="job"  onchange="chengejob()">
-                        {% for j in jobs %}
-                            <option value={{ j.1 }}>{{ j.0 }}</option>
-                        {% endfor %}
-                    </select>
-        <label class="teal-text text-darken-4">عنوان اصلی خدمت :</label>
-      </div>
-      <div class="input-field col s12 l4 m12" id="detalhiden" hidden>
-                    <select name="detalework" id="detalework">
-                        {% for d in detalarray %}
-                            <option value={{ d.1 }}>{{ d.0 }}</option>
-                        {% endfor %}
-                    </select>
-        <label class="teal-text text-darken-4">جزئیات خدمت :</label>
-      </div>
 
 
 
       <div class="center-align dokmeye-vorood ">
-        <button class="w-100 btn waves-effect" name="button_send" value="accept" onclick="move()">ثبت اطلاعات </button>
+        <button class="w-100 btn waves-effect" name="buttondelet" value="accept" >تایم رزرو شده حذف شود </button>
+      </div>
+        <br> 
+      <div class="center-align dokmeye-vorood ">
+        <button class="w-100 btn waves-effect" name="buttoncancel" value="accept" >از حذف تایم پشیمان شدم </button>
       </div>
         
     </div>
@@ -150,21 +110,7 @@
     <div id="myBar" class="w3" hidden>0%</div>
     </div>
   
-   <input id="idjob" name="idjob" value="{{ idjob }}" hidden>
-    <label id="melicodesave"  hidden >{{ melicode }}</label>
-    <label id="jobsave"  hidden >{{ job }}</label>
-    <label id="etebarreservdasti" hidden >{{ etebarreservdasti }}</label>
-    <label id="etebarmelicod"hidden>{{ etebarmelicod }}</label>
-{#    <label id="lcastreserv"   >{{  castreserv}}</label>#}
-    <input id="personreserv" name="personreserv"  hidden >
-      <input id="castreserv" name="castreserv"  hidden>
-  <br>
-  <br>
-    <button id="personelbutton" name="personelbutton" value="accept" hidden >اینتر</button>
-    <button id="jobbuttom" name="jobbuttom" value="accept" hidden >اینتر</button>
-    <button id="namebuttom" name="namebuttom" value="accept" hidden >اینتر</button>
-    <button id="buttomteakclick" name="buttomteakclick" value="accept" hidden >اینتر</button>
-
+  
   {% csrf_token %}
   </form>
 </main>

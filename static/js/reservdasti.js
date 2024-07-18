@@ -11,17 +11,22 @@ var etebarmelicod = document.getElementById("etebarmelicod");
 var namebuttom = document.getElementById("namebuttom");
 var names = document.getElementById("names");
 var  etebarreservdasti = document.getElementById("etebarreservdasti");
-function chengejob(){
+var personelbutton = document.getElementById("personelbutton");
+        function chengejob(){
     jobbuttom.click();
 }
-    function melicodcheck(){
+        function chengepersonel(){
+            personelbutton.click()
+        }
+        function melicodcheck(){
+            document.getElementById("namepersonel").hidden = true;
             document.getElementById("workhide").hidden = true;
             document.getElementById("detalhiden").hidden = true ;
         if ( document.getElementById("melicode").value.length  > 9 ) {
             jobbuttom.click();
         }
  }
-    if ( etebarmelicod.innerHTML == 'false'){
+        if ( etebarmelicod.innerHTML == 'false'){
                 Swal.fire({
               icon: 'هشدار',
               title: 'این کد ملی تاکنون ثبت نام نکرده است',
@@ -30,18 +35,18 @@ function chengejob(){
 });
 
     }
-     if (etebarmelicod.innerHTML == 'true'){
+        if (etebarmelicod.innerHTML == 'true'){
+            document.getElementById("namepersonel").hidden = false;
             document.getElementById("workhide").hidden = false ;
             document.getElementById("detalhiden").hidden = false ;
             melicode.value = melicodesave.innerHTML;
             job.value = jobsave.innerHTML;
      }
-         function redirectt()
-    {
+        function redirectt() {
         window.location = "/";
     }
-     console.log(etebarreservdasti.innerHTML);
-    if ( etebarreservdasti.innerHTML == 'true' ){
+        console.log(etebarreservdasti.innerHTML);
+        if ( etebarreservdasti.innerHTML == 'true' ){
         Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -52,15 +57,29 @@ function chengejob(){
         setTimeout('redirectt()',900);
 
     }
- function namecheck(){
+        function namecheck(){
         if ( names.value.length > 2 ) {
         document.getElementById("table").hidden = false;
             namebuttom.click();
         }
  }
+        function move(){
+           Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'رزرو با موفقیت ثبت شد',
+              showConfirmButton: false,
+              timer: 2000
+                     });
+        setTimeout('redirectt()',900);
+        }
         function clickteak(){
         document.getElementById("buttomteakclick").click();
     }
+        function jobclick(){
+            console.log(document.getElementById("job").innerHTML);
+            document.getElementById("jobbuttom").click();
+        }
 
 
 

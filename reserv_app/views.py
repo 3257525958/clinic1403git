@@ -125,11 +125,6 @@ def reservdef(request):
                 ferstname_user = user.firstname
                 lastname_user = user.lastname
                 mellicoduser[0] = user.melicode
-                # us = reservemodeltest.objects.all()
-                # for u in us:
-                #     if u.mellicode == request.user.username:
-                #         bb = reservemodeltest.objects.filter(mellicode=request.user.username)
-                #         bb.delete()
 
                 a = reservemodeltest.objects.filter(mellicode=request.user.username)
                 a.update(fiestname=user.firstname, lastname=user.lastname , phonnumber=user.phonnumber)
@@ -218,12 +213,12 @@ def reservdef(request):
             shamsiarray.clear()
             miladiarray.clear()
             day.clear()
-            res = reservemodel.objects.all()
             reservmovaghats = reservemodeltest.objects.all()
             # ___________در این قسمت تعداد روزهایی که قرار هستش به مراجعه کننده نشون بدیم مشخص میشه____
             tedaderooz = 10
             # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
             t = datetime.datetime.now()
+            t += timedelta(days=1)
             for i in range(tedaderooz) :
                 shamsiarray.append(stradb(t))
                 miladiarray.append(t.strftime('%a %d %b %y'))
@@ -278,6 +273,7 @@ def reservdef(request):
                                 dayarr[int(reservmovaghat.numbertime) + 3] = "false"
                                 dayarr[int(reservmovaghat.numbertime) + 4] = "false"
         # -------------------------اینجا رزرو های قبلی رو چک میکنه---------
+                res = reservemodel.objects.all()
                 for r in res :
                     if r.personreserv == selectprocedure[2] :
                         if r.dateshamsireserv == stradb(t) :
@@ -301,7 +297,7 @@ def reservdef(request):
                                 dayarr[int(r.numbertime) + 2] = "false"
                                 dayarr[int(r.numbertime) + 3] = "false"
                                 dayarr[int(r.numbertime) + 4] = "false"
-# # ---------------------------------------------اگر کاری مه انتخاب شده بیش از نیم ساعت باشه یعنی دو تا نیم ساغت یا سه  یا پهارتا یا پنج تا نیم ساعت باشه-----------
+                # # ---------------------------------------------اگر کاری مه انتخاب شده بیش از نیم ساعت باشه یعنی دو تا نیم ساغت یا سه  یا پهارتا یا پنج تا نیم ساعت باشه-----------
 # # ------باید چک شود که تا تایم های اینده اش  به همون اندازه که وقت میخواد وقت باشه ---------------------------------------
 #
                 if selectprocedure[3] == "2" :
@@ -363,6 +359,7 @@ def reservdef(request):
             s = timeselect
             stime = s.split(",")
             ttime = datetime.datetime.now()
+            ttime += timedelta(days=1)
             for tt in range(int(stime[1])) :
                 ttime += timedelta(days=1)
             ttime -= timedelta(days=1)
@@ -652,17 +649,90 @@ def leave(request):
     return render(request,'leave.html',context={"leavearray":leavearray,})
 
 def reserverdef(request):
+    idreserv = request.POST.get("idreserv")
+    buttondelet = request.POST.get("buttondelet")
+    buttoncancel =request.POST.get("buttoncancel")
+    operatoreselect = request.POST.get("operatoreselect")
+    operatormelicod = request.POST.get("operatormelicod")
+    if (operatormelicod == None) or (operatormelicod == '') or (operatormelicod == 'None'):
+        operatormelicod = operatoreselect
+    timeselect = request.POST.get('timeselect')
+    timesel = request.POST.get('timesel')
+    namebuttom =request.POST.get('namebuttom')
+    names = request.POST.get('names')
+    tickon = request.POST.get('tickon')
+    melicode = request.POST.get('melicode')
+    etebarmelicod = request.POST.get('etebarmelicod')
+    job = request.POST.get('job')
+    jobbuttom = request.POST.get('jobbuttom')
+    button_send =request.POST.get("button_send")
+    detalework = request.POST.get("detalework")
+    dayconter = request.POST.get("dayconter")
+    if (dayconter == None) or (dayconter == 'None') or (dayconter == ''):
+        dayconter = 0
+
+    if buttondelet == 'accept' :
+        a = reservemodel.objects.filter(id=int(idreserv))
+        a.delete()
+# ----------------یه آرایه میسازه و همه کارمندان رو نیریزه توش تا اتنخاب کنند همچنین کنترل میکنه که اون
+    # کارمند انتخاب شده با زدن دکمه های روز بعد و روز قبل یا هر دکمه دیگه حفظ بشه ---
+    operatorarray = ['']
+    operatorarray.clear()
+    tekrarcheck = ['']
+    tekrarcheck.clear()
+    ws = workmodel.objects.all()
+    for w in ws:
+        c = "true"
+        for n in operatorarray:
+            if n[1] == w.melicodpersonel :
+                c = 'false'
+        if c == "true" :
+            p = (w.person + "," + str(w.melicodpersonel)).split(",")
+            operatorarray.append(p)
+    personel = ''
+    melicodperonel = ''
+    if (operatoreselect != "None") and (operatoreselect != None) and (operatoreselect != ''):
+        users = accuntmodel.objects.all()
+        for user in users:
+            if int(user.melicode) == int(operatoreselect) :
+                personel = user.firstname + " " + user.lastname
+                melicodperonel = user.melicode
+
+
+# - اینچا یه رایه میسازه و همون بیست تایم رو توش میذاره و بعد ار reservmodel رزرو ها و خارج از نوبت ها رو میاره بعد
+    # کلید روز بغد و روز قبل رو هدلیت میکنه و اینکه چند روز از امروز جلوتر رفتیم یا عقب تر رفتیم رو در dayconter میریزه---
+
+    t = datetime.datetime.now()
+    dayconterstr = request.POST.get("dayconter")
+    if (dayconterstr == None) or (dayconterstr == ""):
+        dayconter = 0
+    else:
+        dayconter = int(dayconterstr)
+    button_next = request.POST.get("button_next")
+    if button_next == 'accept' :
+        dayconter += 1
+    button_back = request.POST.get("button_back")
+    if button_back == 'accept' :
+        dayconter -= 1
+    if dayconter < 0 :
+        dayconterm = dayconter * (-1)
+        for i in range(dayconterm):
+            t -= timedelta(days=1)
+    if dayconter > 0 :
+        for i in range(dayconter):
+            t += timedelta(days=1)
+
     dayreserv = ['t']
     dayreserv.clear()
-    t = datetime.datetime.now()
     dayarr = ['t']
     dayarr.clear()
     dayarr.append(stradb(t))
-    for h in range(20):
+    for h in range(21):
         dayarr.append('')
     rs = reservemodel.objects.all()
+    name = ''
     for r in rs:
-        if r.datemiladireserv == t.strftime('%a %d %b %y') :
+        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == personel ) :
             us = accuntmodel.objects.all()
             for u in us:
                 if r.melicod == u.melicode :
@@ -672,20 +742,369 @@ def reserverdef(request):
             while i < int(r.timereserv):
                 dayarr[int(r.numbertime)+i] = "false"
                 i += 1
-
     dayreserv.append(dayarr)
 
+    dastiarray = ['']
+    dastiarray.clear()
+    rs = reservemodel.objects.all()
+    for r in rs:
+        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == personel ) and (r.numbertime == "21"):
+            us = accuntmodel.objects.all()
+            for u in us:
+                if r.melicod == u.melicode :
+                    name = u.firstname + " " + u.lastname
+            dastiarray.append([(name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment),str(r.id)])
+
+# ----------------------------------------------------------------------------------------------------------------------------------
+
+    if button_send == 'accept':
+        intdayconter = int(dayconter)
+        tm = datetime.datetime.now()
+        while intdayconter > 0:
+            tm += timedelta(days=1)
+            intdayconter -= 1
+        while intdayconter < 0:
+            tm -= timedelta(days=1)
+            intdayconter += 1
+        etebarreservdasti = 'true'
+        users = accuntmodel.objects.all()
+        for user in users:
+            if int(user.melicode) == int(operatormelicod):
+                personreserv = user.firstname + ' ' + user.lastname
+        ws = workmodel.objects.all()
+        jobreserv = ''
+        detalereserv = ''
+        castreserv = ''
+        vahed = ''
+        numbertime = ''
+        for w in ws:
+            if int(w.id) == int(detalework):
+                jobreserv = w.work
+                detalereserv = w.detalework
+                castreserv = w.cast
+                vahed =w.vahed
+                numbertime = w.time
+        stime = ['']
+        stime[0] = timesel
+        s =''
+        if 1==1 :
+            if stime[0] == "1":
+                s = "10"
+            if stime[0] == "2":
+                s = "10.5"
+            if stime[0] == "3":
+                s = "11"
+            if stime[0] == "4":
+                s = "11.5"
+            if stime[0] == "5":
+                s = "12"
+            if stime[0] == "6":
+                s = "12.5"
+            if stime[0] == "7":
+                s = "13"
+            if stime[0] == "8":
+                s = "13.5"
+            if stime[0] == "9":
+                s = "14"
+            if stime[0] == "10":
+                s = "14.5"
+            if stime[0] == "11":
+                s = "15"
+            if stime[0] == "12":
+                s = "15.5"
+            if stime[0] == "13":
+                s = "16"
+            if stime[0] == "14":
+                s = "16.5"
+            if stime[0] == "15":
+                s = "17"
+            if stime[0] == "16":
+                s = "17.5"
+            if stime[0] == "17":
+                s = "18"
+            if stime[0] == "18":
+                s = "18.5"
+            if stime[0] == "19":
+                s = "19"
+            if stime[0] == "20":
+                s = "19.5"
+
+
+        sel = ''
+        if 1==1:
+            if numbertime == "زمان کمی میبرد":
+                sel = "0"
+                selectprocedure.append("0")
+            if numbertime == "نیم ساعت":
+                sel = "1"
+                selectprocedure.append("1")
+            if numbertime == "یک ساعت":
+                sel = "2"
+                selectprocedure.append("2")
+            if numbertime == "یک و نیم ساعت":
+                sel = "3"
+                selectprocedure.append("3")
+            if numbertime == "دو ساعت":
+                sel = "4"
+                selectprocedure.append("4")
+            if numbertime == "دو نیم ساعت":
+                sel = "5"
+                selectprocedure.append("5")
+
+        reservemodel.objects.create(
+            melicod=melicode,
+            jobreserv = jobreserv,
+            detalereserv = detalereserv,
+            personreserv =personreserv,
+            timereserv = sel,
+            castreserv = castreserv,
+            numbertime = timesel,
+            hourreserv = s,
+            dateshamsireserv = stradb(tm),
+            datemiladireserv = tm.strftime('%a %d %b %y'),
+            yearshamsi = stry(datetime.datetime.now()),
+            vahed = vahed,
+        )
+
+
+# ------از جدول وقتها یکی انتخاب میشه سه حالت داره یا یه تایم قبلی هستش یا یه تایم حارج از وقت یا تایم خالی  ------
+    if ( timeselect != None ) and ( timeselect != '' ):
+        se = timeselect.split(",")
+        tt = int(se[1])
+        timesel = int(se[0])
+
+        intdayconter = int(dayconter)
+        time = datetime.datetime.now()
+        while intdayconter > 0:
+            time += timedelta(days=1)
+            intdayconter -= 1
+        while intdayconter < 0:
+            time -= timedelta(days=1)
+            intdayconter += 1
+
+        reservs = reservemodel.objects.all()
+        for reserv in reservs:
+            if str(int(se[0])) == "21":
+                if str(reserv.id) == str(int(se[1])):
+                    n = ''
+                    qs = accuntmodel.objects.all()
+                    for q in qs:
+                        if q.melicode == reserv.melicod:
+                            n = q.firstname + " " + q.lastname
+
+                    return render(request,'remove_reserv.html.',context={
+                        'moraje':n,
+                        'operat':reserv.personreserv,
+                        'timereserv':reserv.dateshamsireserv+ ' ' +reserv.hourreserv + ' ' + reserv.jobreserv + ' ' + reserv.detalereserv,
+                        'idreserv':reserv.id,
+                                                                            })
+            else:
+                if (reserv.personreserv == personel) and (reserv.datemiladireserv == time.strftime('%a %d %b %y')) and ( int(se[0]) == int(reserv.numbertime)) :
+                    n = ''
+                    qs = accuntmodel.objects.all()
+                    for q in qs:
+                        if q.melicode == reserv.melicod:
+                            n = q.firstname + " " + q.lastname
+
+                    return render(request,'remove_reserv.html.',context={
+                        'moraje':n,
+                        'operat':reserv.personreserv,
+                        'timereserv':reserv.dateshamsireserv+ ' ' +reserv.hourreserv + ' ' + reserv.jobreserv + ' ' + reserv.detalereserv,
+                        'idreserv':reserv.id,
+                                                                                })
+        return render(request,'reserv_reserver.html',context={
+            'operatormelicod':operatormelicod,
+            'dayconter':dayconter,
+            'timesel':timesel,
+            })
+# -------------------------------------------------------------------------------------------------------------------------------------
+# ------------میاد سه حرف اول اسم یا فامیل رو میگیره و بعد لبست اسامی
+    # رو تهیه میکنه و میریزه تو ارایه arraynameهمراه با این ارایه مد ملی اپراتور که از اول تو جدول تایمش بودیم رو میقرسته-------
+    arrayname =['']
+    if namebuttom == 'accept':
+        ls = searchmodeltest.objects.all()
+        for l in ls:
+            a = searchmodeltest.objects.filter(m=l.m)
+            a.delete()
+        arrayname.clear()
+
+        auser = accuntmodel.objects.all()
+        amaray = ['']
+        amaray.clear()
+        for uss in auser:
+            if uss.firstname[0:3] == names :
+                mm = ['']
+                mm.clear()
+                mm.append(uss.firstname + " " + uss.lastname)
+                mm.append(uss.melicode)
+                amaray.append(uss.melicode)
+                searchmodeltest.objects.create(m=uss.melicode)
+                arrayname.append(mm)
+        for aa in auser:
+            if aa.lastname[0:3] == names :
+                cheek = "true"
+                for archek in amaray:
+                    if archek == aa.melicode :
+                        cheek = "false"
+                if cheek == "true" :
+                    mm = ['']
+                    mm.clear()
+                    mm.append(aa.firstname + " " + aa.lastname)
+                    mm.append(aa.melicode)
+                    searchmodeltest.objects.create(m=aa.melicode)
+                    arrayname.append(mm)
+        return render(request,'reserv_reserver.html',context={
+            'operatormelicod': operatormelicod,
+            'dayconter': dayconter,
+            'arrayname':arrayname,
+            'timesel':timesel,
+        })
+# -------------------------------------------------------------------------------------------------------------------------------
+# -----در اینچا کد ملی اپراتور که از اول در تایمش بودیم رو میاره به عنوان اپراتور در صفحه ای که میخوای خدمت رو انتخاب کنی -----
+    ls = searchmodeltest.objects.all()
+    if (tickon != None) and (tickon != ''):
+        inttikon = int(tickon)
+        ar = ['']
+        ar.clear()
+        for l in ls :
+            ar.append(l.m)
+                           # -- چون سرور بر عکس ترتیه ها رو میخونه ایمچا و در cash viwo . cast این کامنت هست-
+        ar.reverse()
+        melicode = ar[inttikon]
+        users = accuntmodel.objects.all()
+        if (melicode != None) and (melicode != ''):
+            etebarmelicod = "false"
+            for user in users:
+                if user.melicode == melicode:
+                    name = user.firstname + " " + user.lastname
+                    etebarmelicod = "true"
+        personel = ''
+        for user in users:
+            if int(user.melicode) == int(operatormelicod):
+                personel = user.firstname + ' ' + user.lastname
+
+        jobarray = ['']
+        jobarray.clear()
+        ws = workmodel.objects.all()
+        for w in ws:
+            if int(w.melicodpersonel) == int(operatormelicod):
+                et = "true"
+                for ja in jobarray:
+                    if ja[0] == w.work:
+                        et = "false"
+                if et == "true":
+                    s = (w.work + "," + str(w.idjob)).split(",")
+                    jobarray.append(s)
+                    etebarmelicod = "true"
+        return render(request,'reserv_reserver.html',context={
+            'operatormelicod': operatormelicod,
+            'melicode':melicode,
+            'name':name,
+            'etebarmelicod':etebarmelicod,
+            'personel':personel,
+            'jobs': jobarray,
+            'dayconter': dayconter,
+            'timesel':timesel,
+        })
+
+# -------------------------------------------------------------------------------------------------------------------------------------
+# ----وقتی که کنار یک اسم تیک زدهه میشه وارد
+    # صفحه رزرو میبشه اینجا قبل از اینکه وارد این صفحه بشه فایل jobarray  رو میسازه و میفرسته تا انتخاب کنه------
+    if (melicode != None) and (melicode != 'None') and (melicode != '') and (jobbuttom != 'accept') :
+        jobarray = ['']
+        jobarray.clear()
+        ws = workmodel.objects.all()
+        for w in ws:
+            if int(w.melicodpersonel) == int(operatormelicod):
+                et = "true"
+                for ja in jobarray:
+                    if ja[0] == w.work:
+                        et = "false"
+                if et == "true":
+                    s = (w.work + "," + str(w.idjob)).split(",")
+                    jobarray.append(s)
+        return render(request, 'reserv_reserver.html', context={
+            'operatormelicod': operatormelicod,
+            'melicode': melicode,
+            'name': name,
+            'etebarmelicod': etebarmelicod,
+            'personel': personel,
+            'jobs':jobarray,
+            'dayconter': dayconter,
+            'timesel':timesel,
+
+        })
+# ----------------------------------------------------------------------------------------------------------------------------------
+    if (job != None) and (job != 'None') and (job != ''):
+        personel = ''
+        users = accuntmodel.objects.all()
+        for user in users:
+            if int(user.melicode) == int(operatormelicod):
+                personel = user.firstname + ' ' + user.lastname
+
+        jobarray = ['']
+        jobarray.clear()
+        ws = workmodel.objects.all()
+        for w in ws:
+            if int(w.melicodpersonel) == int(operatormelicod):
+                et = "true"
+                for ja in jobarray:
+                    if ja[0] == w.work:
+                        et = "false"
+                if et == "true":
+                    s = (w.work + "," + str(w.idjob)).split(",")
+                    jobarray.append(s)
+        detalarray = ['']
+        detalarray.clear()
+        jobs = ''
+        if (job != None) and (job != ''):
+            ws = workmodel.objects.all()
+            for w in ws:
+                if w.idjob == job:
+                    p = (w.detalework + "," + str(w.id)).split(",")
+                    detalarray.append(p)
+            js = jobsmodel.objects.all()
+            for j in js :
+                if int(j.id) == int(job):
+                    jobs = j.job
+        for user in users:
+            if user.melicode == melicode:
+                name = user.firstname + " " + user.lastname
+                etebarmelicod = "true"
+        return render(request, 'reserv_reserver.html', context={
+            'operatormelicod': operatormelicod,
+            'melicode': melicode,
+            'name': name,
+            'etebarmelicod': etebarmelicod,
+            'personel': personel,
+            'jobs':jobarray,
+            'detalarray':detalarray,
+            'dayconter': dayconter,
+            'jadid':jobs,
+            'jid':job,
+            'timesel':timesel,
+        })
+
     return render(request,'reserver.html', context={
+        'dastiarray': dastiarray,
         'day': dayreserv,
+        'operatorarray':operatorarray,
+        # 'selectoperator':selectoperator,
+        'operatoreselect':operatoreselect,
+        'dayconter': dayconter,
+        'personel':personel,
+        'melicodperonel':melicodperonel,
     })
 
 def dashborddef(request):
     users = accuntmodel.objects.all()
     namedashbord = ''
+    dastrasi = ''
     for user in users:
         if user.melicode == request.user.username:
             namedashbord = user.firstname + ' ' + user.lastname
-
+            dastrasi = user.level
+            
     dayreserv = ['t']
     dayreserv.clear()
 
@@ -749,13 +1168,6 @@ def dashborddef(request):
         se = timeselect.split(",")
         tt = int(se[1])
         time = datetime.datetime.now()
-        # while tt != 1 :
-        #     if tt < 1 :
-        #         time -= datetime.timedelta(days=1)
-        #         tt += 1
-        #     if tt > 1:
-        #         time += datetime.timedelta(days=1)
-        #         tt -= 1
         reservs = reservemodel.objects.all()
         reservselectid = 0
         n = ''
@@ -833,6 +1245,7 @@ def dashborddef(request):
                                                                 'dayconter':dayconter,
                                                                 })
 def reservdasti(request):
+    namepersonel = request.POST.get("namepersonel")
     job = request.POST.get("job")
     melicode = request.POST.get("melicode")
     detalework = request.POST.get("detalework")
@@ -842,6 +1255,7 @@ def reservdasti(request):
     namebuttom = request.POST.get('namebuttom')
     names =request.POST.get("names")
     tickon = request.POST.get("tickon")
+    detalework = request.POST.get("detalework")
 
     arrayname =['']
     if namebuttom == 'accept':
@@ -900,8 +1314,6 @@ def reservdasti(request):
         melicode = ''
     users = accuntmodel.objects.all()
     name = ''
-
-
     if (melicode != None) and (melicode != ''):
         etebarmelicod = "false"
         for user in users:
@@ -909,14 +1321,39 @@ def reservdasti(request):
                 name = user.firstname + " " + user.lastname
                 etebarmelicod = "true"
 
+    namepersonal = ['']
+    namepersonal.clear()
+    ws = workmodel.objects.all()
+    for w in ws:
+        t = "true"
+        for n in namepersonal:
+            if w.melicodpersonel == n[0]:
+                t = 'false'
+        if t == 'true' :
+            users = accuntmodel.objects.all()
+            for user in users:
+                if user.melicode == w.melicodpersonel :
+                    p = (w.melicodpersonel + "," + str(user.firstname + ' ' + user.lastname)).split(",")
+                    namepersonal.append(p)
 
-    js = jobsmodel.objects.all()
+
+    personel = ''
+    users = accuntmodel.objects.all()
+    for user in users:
+        if user.melicode == namepersonel:
+            personel = user.firstname + ' ' + user.lastname
     jobarray = ['']
     jobarray.clear()
-    for j in js:
-        s = (j.job+","+str(j.id)).split(",")
-        jobarray.append(s)
-
+    ws = workmodel.objects.all()
+    for w in ws:
+        if w.melicodpersonel == namepersonel:
+            et = "true"
+            for ja in jobarray:
+                if ja[0] == w.work:
+                    et = "false"
+            if et == "true":
+                s = (w.work + "," + str(w.idjob)).split(",")
+                jobarray.append(s)
     detalarray = ['']
     detalarray.clear()
     if ( job != None ) and ( job != ''):
@@ -926,29 +1363,25 @@ def reservdasti(request):
                 p = (w.detalework+","+str(w.id)).split(",")
                 detalarray.append(p)
 
-
-    ws = workmodel.objects.all()
-    timereserv = "0"
-    vahed = ''
-    d = '0'
-    for w in ws:
-        if str(w.id) == str(detalework):
-            personreserv = w.person
-            castreserv =w.cast
-            d = w.detalework
-            vahed = w.vahed
-    jj = '0'
-    jes = jobsmodel.objects.all()
-    for je in jes:
-        if str(je.id) == str(job):
-            jj = je.job
-    numbertime = '21'
-    hourreserv = 'timeout'
-    dateshamsireserv = stradby(datetime.datetime.now())
-    datemiladireserv = datetime.datetime.now().strftime('%a %d %b %y')
-    yearshamsi = stry(datetime.datetime.now())
     etebarreservdasti = 'notr'
     if button_send == 'accept':
+        numbertime = '21'
+        hourreserv = 'timeout'
+        dateshamsireserv = stradby(datetime.datetime.now())
+        datemiladireserv = datetime.datetime.now().strftime('%a %d %b %y')
+        yearshamsi = stry(datetime.datetime.now())
+        ws = workmodel.objects.all()
+        timereserv = "0"
+        vahed = ''
+        d = '0'
+        jj = ''
+        for w in ws:
+            if str(w.id) == str(detalework):
+                personreserv = w.person
+                castreserv = w.cast
+                d = w.detalework
+                vahed = w.vahed
+                jj = w.work
         etebarreservdasti = 'true'
         reservemodel.objects.create(
             melicod= melicode,
@@ -966,6 +1399,7 @@ def reservdasti(request):
             vahed=vahed,
         )
 
+
     return render(request,'reserv_dasti.html',context={
         'jobs':jobarray,
         'melicode':melicode,
@@ -976,6 +1410,9 @@ def reservdasti(request):
         'etebarmelicod':etebarmelicod,
         'name':name,
         'etebarreservdasti':etebarreservdasti,
+        'namepersonal':namepersonal,
+        'personel':personel,
+        'melipersonel':namepersonel,
 
     })
 

@@ -109,18 +109,16 @@
     <label>{{ name }}</label>
     <br><br>
       <div class="input-field col s12 l4 m12" id="namepersonel" hidden>
-                    <select name="namepersonel" id="personel"  onchange="chengepersonel()">
-                            <option value={{ melipersonel }}>{{ personel }}</option>
-                        {% for n in namepersonal %}
-                            <option value={{ n.0 }}>{{ n.1 }}</option>
-                        {% endfor %}
+                    <select name="namepersonel" id="personel"  onchange="chengepersonel()" disabled>
+                            <option value={{ operatormelicod }}>{{ personel }}</option>
                     </select>
         <label class="teal-text text-darken-4">اپراتور :</label>
       </div>
     
     
       <div class="input-field col s12 l4 m12" id="workhide" hidden>
-                    <select name="job" id="job"  onchange="chengejob()">
+                    <select name="job" id="jobll"  onchange="chengejob()">
+                            <option value={{ jid }}>{{ jadid }}</option>
                         {% for j in jobs %}
                             <option value={{ j.1 }}>{{ j.0 }}</option>
                         {% endfor %}
@@ -149,7 +147,6 @@
     <div id="w">
     <div id="myBar" class="w3" hidden>0%</div>
     </div>
-  
    <input id="idjob" name="idjob" value="{{ idjob }}" hidden>
     <label id="melicodesave"  hidden >{{ melicode }}</label>
     <label id="jobsave"  hidden >{{ job }}</label>
@@ -158,9 +155,16 @@
 {#    <label id="lcastreserv"   >{{  castreserv}}</label>#}
     <input id="personreserv" name="personreserv"  hidden >
       <input id="castreserv" name="castreserv"  hidden>
-  <br>
-  <br>
+  
+  
+  
+    <input id="" name="timesel" value="{{ timesel }}"hidden >
+    <input id="" name="dayconter" value="{{ dayconter }}"hidden>
+    <input id="etebarmelicod" name="melicode" value="{{ etebarmelicod }}" hidden>
+    <input id="melicode" name="melicode" value="{{ melicode }}" hidden>
+    <input id="operatormelicod" name="operatormelicod" value="{{ operatormelicod }}" hidden>
     <button id="personelbutton" name="personelbutton" value="accept" hidden >اینتر</button>
+    <button id="jobbuttom" name="jobbuttom" value="accept" hidden >اینتر</button>
     <button id="jobbuttom" name="jobbuttom" value="accept" hidden >اینتر</button>
     <button id="namebuttom" name="namebuttom" value="accept" hidden >اینتر</button>
     <button id="buttomteakclick" name="buttomteakclick" value="accept" hidden >اینتر</button>
