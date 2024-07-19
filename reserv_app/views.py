@@ -742,6 +742,9 @@ def reserverdef(request):
             while i < int(r.timereserv):
                 dayarr[int(r.numbertime)+i] = "false"
                 i += 1
+
+
+
     dayreserv.append(dayarr)
 
     dastiarray = ['']
@@ -897,6 +900,7 @@ def reserverdef(request):
                         'operat':reserv.personreserv,
                         'timereserv':reserv.dateshamsireserv+ ' ' +reserv.hourreserv + ' ' + reserv.jobreserv + ' ' + reserv.detalereserv,
                         'idreserv':reserv.id,
+
                                                                             })
             else:
                 if (reserv.personreserv == personel) and (reserv.datemiladireserv == time.strftime('%a %d %b %y')) and ( int(se[0]) == int(reserv.numbertime)) :

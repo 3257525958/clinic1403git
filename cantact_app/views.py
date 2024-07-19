@@ -380,7 +380,7 @@ def addcantactdef(request):
     tyear = datetime.datetime.now()
     h = int(stry(tyear))+1400
     while 1300 <= h :
-        yearcant.append(h)
+        yearcant.append(str(h))
         h -= 1
     day = [1]
     hh = 1
