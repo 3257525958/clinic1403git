@@ -42,47 +42,56 @@ def itcontrol(request):
 
 
 def itdeletcontrol(request):
-    selectdelet =request.POST.get("selectdelet")
-    if selectdelet == None :
-        selectdelet = "انتخاب کنید"
+    sel =request.POST.get("sel")
+    if (sel == None) or (sel == '') or (sel == 'None'):
+        sel = '0'
     selectjlist =request.POST.get("selectjlist")
-    if selectjlist == None :
-        selectjlist = "انتخاب کنید"
+    print(selectjlist)
     savebottom =request.POST.get("savebottom")
     etebarit = "false"
     jlist = ['']
     jlist.clear()
+    p = ['']
 
-
-    if selectdelet =="عکس صفحه اصلی کامپیوتر" :
+    if int(sel) == 1 :
+        print("111111")
         os = homeimgmodel.objects.all()
         for o in os:
-            jlist.append(o)
-    if selectdelet =="عکس صفحه اصلی موبایل" :
+            s = (str(o.id) + "," + o.name).split(",")
+            jlist.append(s)
+        p = (sel + "," + "عکس صفحه اصلی کامپیوتر").split(",")
+
+    if sel =="2" :
         os = homemobilemodel.objects.all()
         for o in os:
-            jlist.append(o)
-    if selectdelet =="منوی سریع" :
+            s = (str(o.id) + "," + o.name).split(",")
+            jlist.append(s)
+        p = (sel + "," + "عکس صفحه اصلی موبایل").split(",")
+    if sel =="3" :
         os = homemenosarimodel.objects.all()
         for o in os:
-            jlist.append(o)
+            s = (str(o.id) + "," + o.name).split(",")
+            jlist.append(s)
+        p = (sel + "," + "منوی سریع").split(",")
 
     if savebottom == "accept":
-        if selectdelet == "عکس صفحه اصلی کامپیوتر":
-            a = homeimgmodel.objects.filter(name=selectjlist)
+        if sel == "1":
+            a = homeimgmodel.objects.filter(id=selectjlist)
             a.delete()
             etebarit = "true"
-        if selectdelet == "عکس صفحه اصلی موبایل":
-            a = homemobilemodel.objects.filter(name=selectjlist)
+        if sel == "2":
+            a = homemobilemodel.objects.filter(id=selectjlist)
             a.delete()
             etebarit = "true"
-        if selectdelet == "منوی سریع":
-            a = homemenosarimodel.objects.filter(name=selectjlist)
+        if sel == "3":
+            a = homemenosarimodel.objects.filter(id=selectjlist)
             a.delete()
             etebarit = "true"
     return render(request,'it-deletcontrol.html', context={
                                                                         'jlist':jlist,
-                                                                        'selectdelet':selectdelet,
                                                                         'selectj':selectjlist,
                                                                         'etebarit':etebarit,
+                                                                        'p':p,
                                                                         })
+
+

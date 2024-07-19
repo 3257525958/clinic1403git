@@ -77,11 +77,11 @@
       <i class="center-align blick-shodan fas fa-upload fa-3x"></i>
 
       <div class="input-field col s12">
-        <select name="selectdelet" onchange="chengh()">
-             <option value="{{ selectdelet }}">{{ selectdelet}}</option>
-             <option value="عکس صفحه اصلی کامپیوتر">عکس صفحه اصلی کامپیوتر</option>
-             <option value="عکس صفحه اصلی موبایل">عکس صفحه اصلی موبایل</option>
-             <option value="منوی سریع">منوی سریع</option>
+        <select name="sel" onchange="chengh()">
+             <option value="{{ p.0 }}">{{ p.1}}</option>
+             <option value="1">عکس صفحه اصلی کامپیوتر</option>
+             <option value="2">عکس صفحه اصلی موبایل</option>
+             <option value="3">منوی سریع</option>
         </select>
         <label class="teal-text text-darken-4">محل کنترل</label>
       </div>
@@ -89,7 +89,7 @@
         <select name="selectjlist">
             <option>{{ selectj }}</option>
            {% for j in jlist %}
-             <option value={{ j.name }}>{{ j.name }}</option>
+             <option value={{ j.0 }}>{{ j.1 }}</option>
            {% endfor %}
         </select>
         <label class="teal-text text-darken-4">انتخاب محتوا برای حذف</label>

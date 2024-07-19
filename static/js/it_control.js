@@ -1,7 +1,6 @@
 var etebarit = document.getElementById('etebarit');
-    console.log(etebarit.innerHTML)
-    // function itetebar() {
-    //     console.log("1")
+var        f = document.getElementById("face");
+
         if (etebarit.innerHTML == "true") {
             Swal.fire({
                 position: 'top-end',
@@ -19,7 +18,6 @@ var etebarit = document.getElementById('etebarit');
 
 
         function chengh(){
-        f = document.getElementById("face");
         f.click()
 
 }

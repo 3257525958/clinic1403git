@@ -31,7 +31,8 @@ nav ul li a:hover{
     background: transparent;
 }
 #mobile-demo{
-    background: url(/static/img/sun.jpg);
+    /*background: url(/static/img/sun.jpg);*/
+    background-color: #f3e5f5;
     display: flex;
     background-size: cover;
     background-position: center;
