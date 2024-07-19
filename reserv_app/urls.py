@@ -3,9 +3,9 @@ from django.urls import path
 from reserv_app import views
 
 urlpatterns = [
-    path('reserv/',views.reservdef),
+    path('sabt/',views.reservdef),
     path('leave/',views.leave),
-    path('reserver/',views.reserverdef),
+    path('reservtion/',views.reserverdef),
     path('dashbord/',views.dashborddef),
     path('reservdasti/',views.reservdasti),
     ]
