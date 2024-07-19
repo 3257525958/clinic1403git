@@ -1193,6 +1193,8 @@ def dashborddef(request):
                 print("1111111111")
                 if reserv.personreserv == namedashbord:
                     print("22222222")
+                    print(reserv.datemiladireserv)
+                    print(time.strftime('%a %d %b %y'))
                     if reserv.datemiladireserv == time.strftime('%a %d %b %y'):
                         print("3333333")
                         if int(se[0]) == int(reserv.numbertime) :
