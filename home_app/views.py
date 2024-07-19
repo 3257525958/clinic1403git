@@ -53,6 +53,7 @@ def home(request):
     us =homemobilemodel.objects.all()
     for u in us:
         imgmobile.append(u)
+
     btsize = request.POST.get('btsize')
     b = request.POST.get('na')
     d = 0

@@ -46,7 +46,6 @@ def itdeletcontrol(request):
     if (sel == None) or (sel == '') or (sel == 'None'):
         sel = '0'
     selectjlist =request.POST.get("selectjlist")
-    print(selectjlist)
     savebottom =request.POST.get("savebottom")
     etebarit = "false"
     jlist = ['']
@@ -54,7 +53,6 @@ def itdeletcontrol(request):
     p = ['']
 
     if int(sel) == 1 :
-        print("111111")
         os = homeimgmodel.objects.all()
         for o in os:
             s = (str(o.id) + "," + o.name).split(",")
