@@ -1101,6 +1101,12 @@ def reserverdef(request):
     })
 
 def dashborddef(request):
+    timeselect = request.POST.get('timeselect')
+    dayconterstr = request.POST.get("dayconter")
+    button_next = request.POST.get("button_next")
+    button_back = request.POST.get("button_back")
+    tres =request.POST.get("tres")
+
     users = accuntmodel.objects.all()
     namedashbord = ''
     dastrasi = ''
@@ -1114,17 +1120,12 @@ def dashborddef(request):
 
 
     t = datetime.datetime.now()
-    print(t)
-    print("ssssssss")
-    dayconterstr = request.POST.get("dayconter")
     if (dayconterstr == None) or (dayconterstr == ""):
         dayconter = 0
     else:
         dayconter = int(dayconterstr)
-    button_next = request.POST.get("button_next")
     if button_next == 'accept' :
         dayconter += 1
-    button_back = request.POST.get("button_back")
     if button_back == 'accept' :
         dayconter -= 1
     if dayconter < 0 :
@@ -1134,8 +1135,6 @@ def dashborddef(request):
     if dayconter > 0 :
         for i in range(dayconter):
             t += timedelta(days=1)
-    print(t)
-    print("zzzzzzzzzzzzzzzzzzzzzzzzzzaaaaaaaa")
 
     dayarr = ['t']
     dayarr.clear()
@@ -1170,7 +1169,6 @@ def dashborddef(request):
 
 
 
-    timeselect = request.POST.get('timeselect')
     if ( timeselect != None ) and ( timeselect != '' ):
         se = timeselect.split(",")
         tt = int(se[1])
@@ -1193,15 +1191,9 @@ def dashborddef(request):
                         'vahed':reserv.vahed,
                                                                             })
             else:
-                print("1111111111")
                 if reserv.personreserv == namedashbord:
-                    print("22222222")
-                    print(reserv.datemiladireserv)
-                    print(time.strftime('%a %d %b %y'))
-                    if reserv.datemiladireserv == time.strftime('%a %d %b %y'):
-                        print("3333333")
+                    if reserv.datemiladireserv == tres:
                         if int(se[0]) == int(reserv.numbertime) :
-                            print("4444444")
                             n = ''
                             qs = accuntmodel.objects.all()
                             for q in qs:
@@ -1258,6 +1250,7 @@ def dashborddef(request):
                                                                 'dastiarray':dastiarray,
                                                                 'day': dayreserv,
                                                                 'dayconter':dayconter,
+                                                                't':t.strftime('%a %d %b %y')
                                                                 })
 def reservdasti(request):
     namepersonel = request.POST.get("namepersonel")
