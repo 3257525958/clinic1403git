@@ -1171,7 +1171,7 @@ def dashborddef(request):
     if ( timeselect != None ) and ( timeselect != '' ):
         se = timeselect.split(",")
         tt = int(se[1])
-        time = datetime.datetime.now()
+        time = t
         reservs = reservemodel.objects.all()
         reservselectid = 0
         n = ''
