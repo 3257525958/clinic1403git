@@ -910,7 +910,7 @@ def reserverdef(request):
                         if q.melicode == reserv.melicod:
                             n = q.firstname + " " + q.lastname
 
-                    return render(request,'remove_reserv.html.',context={
+                    return render(request,'remove_reserv.html',context={
                         'moraje':n,
                         'operat':reserv.personreserv,
                         'timereserv':reserv.dateshamsireserv+ ' ' +reserv.hourreserv + ' ' + reserv.jobreserv + ' ' + reserv.detalereserv,
@@ -1306,7 +1306,7 @@ def reservdasti(request):
         for l in ls :
             ar.append(l.m)
                            # -- چون سرور بر عکس ترتیه ها رو میخونه ایمچا و در cash viwo . cast این کامنت هست-
-        ar.reverse()
+        # ar.reverse()
         melicode = ar[inttikon]
 
 
