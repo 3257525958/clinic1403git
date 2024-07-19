@@ -1190,19 +1190,25 @@ def dashborddef(request):
                         'vahed':reserv.vahed,
                                                                             })
             else:
-                if (reserv.personreserv == namedashbord) and (reserv.datemiladireserv == time.strftime('%a %d %b %y')) and ( int(se[0]) == int(reserv.numbertime)) :
-                    n = ''
-                    qs = accuntmodel.objects.all()
-                    for q in qs:
-                        if q.melicode == reserv.melicod:
-                            n = q.firstname + " " + q.lastname
+                print("1111111111")
+                if reserv.personreserv == namedashbord:
+                    print("22222222")
+                    if reserv.datemiladireserv == time.strftime('%a %d %b %y'):
+                        print("3333333")
+                        if int(se[0]) == int(reserv.numbertime) :
+                            print("4444444")
+                            n = ''
+                            qs = accuntmodel.objects.all()
+                            for q in qs:
+                                if q.melicode == reserv.melicod:
+                                    n = q.firstname + " " + q.lastname
 
-                    return render(request,'f1_pezeshk.html',context={
-                        'name':n,
-                        'procedure':reserv.jobreserv + " " + reserv.detalereserv,
-                        'id':reserv.id,
-                        'vahed':reserv.vahed,
-                                                                                })
+                            return render(request,'f1_pezeshk.html',context={
+                                'name':n,
+                                'procedure':reserv.jobreserv + " " + reserv.detalereserv,
+                                'id':reserv.id,
+                                'vahed':reserv.vahed,
+                                                                                        })
     reservid = request.POST.get("reservid")
     fpezeshkibottom = request.POST.get("fpezeshkibottom")
     vahedeobject = request.POST.get("vahedeobject")
