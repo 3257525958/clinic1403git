@@ -1114,6 +1114,8 @@ def dashborddef(request):
 
 
     t = datetime.datetime.now()
+    print(t)
+    print("ssssssss")
     dayconterstr = request.POST.get("dayconter")
     if (dayconterstr == None) or (dayconterstr == ""):
         dayconter = 0
@@ -1132,7 +1134,8 @@ def dashborddef(request):
     if dayconter > 0 :
         for i in range(dayconter):
             t += timedelta(days=1)
-
+    print(t)
+    print("zzzzzzzzzzzzzzzzzzzzzzzzzzaaaaaaaa")
 
     dayarr = ['t']
     dayarr.clear()
