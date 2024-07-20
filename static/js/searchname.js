@@ -66,8 +66,7 @@ var etebarsabt = document.getElementById("etebarsabt");
     lmablaghbeyane.innerHTML = (b).num2persian() + " " + "تومان";
     }
     function clk(){
-            document.getElementById("melifaktorinput").value = document.getElementById("mel").innerHTML;
-            // document.getElementById("tik").click();
+            document.getElementById("tik").click();
     }
     function load() {
         j = document.getElementById("jamekol").value

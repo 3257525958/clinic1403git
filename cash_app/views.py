@@ -16,7 +16,7 @@ from jalali_date import date2jalali,datetime2jalali
 from cantact_app.views import strb,stry,strd
 from reserv_app.models import reservemodeltest,reservemodel
 from jobs_app.models import jobsmodel,employeemodel,workmodel
-from cash_app.models import bankmodel,castmodel,casttestmodel,listmodeltest
+from cash_app.models import *
 from cantact_app.models import accuntmodel
 from cantact_app.views import *
 from file_app.models import fpeseshktestmodel
@@ -228,7 +228,8 @@ def cast(request):
     meliinput = request.POST.get("meliinput")
     selectjob = request.POST.get("select_job")
     searchnamebottum = request.POST.get("searchnamebottum")
-    pardakhtfaktor = request.POST.get("pardakhtfaktor")
+    # pardakhtfaktor = request.POST.get("pardakhtfaktor")
+    melicodvarizande =request.POST.get("melicodvarizande")
     jamkol = 0
 
 
@@ -344,9 +345,6 @@ def cast(request):
             if u.melicode == melicodevarizande:
                 etebarmelicod = "true"
                 codemeli = melicodevarizande
-
-
-
     if facebutton == "accept" :
         codemeli = melicodevarizande
         cs = casttestmodel.objects.all()
@@ -364,32 +362,30 @@ def cast(request):
             s=selectjob,
             c=persone,
         )
-
-
-
-
-
     etebarsabt = "notr"
     if pardakhtfaktor == "accept":
-        a = fpeseshktestmodel.objects.filter(melicod=melifaktorinput)
-        a.update(checking='true')
         rs = fpeseshktestmodel.objects.all()
         for r in rs :
-            if melifaktorinput == r.melicod :
-                castmodel.objects.create(
-                idf = r.id,
-                melicodvarizande = r.melicod,
-                dateshamsi = stradby(datetime.datetime.now()),
-                datemiladi = datetime.datetime.now().strftime('%a %d %b %y'),
-                filenumber = datetime.datetime.now().strftime('%a %d %b %y') + ',' +melifaktorinput,
-                cashmethod = b,
-                melicodeoperatore = request.user.username,
-                mablagh = str(jamekol),
-                )
-                etebarsabt = 'true'
-
-
-
+            cs = ctmodel.objects.all()
+            if (int(melicodvarizande) == int(r.melicod)) and (r.checking != 'true') :
+                et = "true"
+                for c in cs:
+                    if int(r.id) == int(c.idf) :
+                        et = "false"
+                if et == 'true':
+                    a =fpeseshktestmodel.objects.filter(id=int(r.id))
+                    a.update(checking='true')
+                    castmodel.objects.create(
+                    idf = r.id,
+                    melicodvarizande = r.melicod,
+                    dateshamsi = stradby(datetime.datetime.now()),
+                    datemiladi = datetime.datetime.now().strftime('%a %d %b %y'),
+                    filenumber = datetime.datetime.now().strftime('%a %d %b %y') + ',' +melifaktorinput,
+                    cashmethod = b,
+                    melicodeoperatore = request.user.username,
+                    mablagh = str(jamekol),
+                    )
+        etebarsabt = 'true'
     arrayname = ['']
     arrayname.clear()
     etebarname = "notr"
@@ -410,6 +406,8 @@ def cast(request):
         # -- چون سرور بر عکس ترتیه ها رو میخونه ایمچا و در reserv,view.reservdasti این کامنت هست-
         ar.reverse()
         mtick = ar[inttikon]
+        a = ctmodel.objects.filter(melicod=str(mtick))
+        a.delete()
     if buttomteakclick == "accept":
         us = accuntmodel.objects.all()
         for u in us:
@@ -441,11 +439,8 @@ def cast(request):
             'reserv':reserv,
             'jamkol':int(jamkol),
             'bank':methodpardakht,
+            'melicodvarizande':mtick,
         })
-
-
-
-
     na = ''
     if (offer != None) and (offer != ''):
         qs = fpeseshktestmodel.objects.all()
@@ -461,9 +456,8 @@ def cast(request):
                     'cast':q.castreserv,
                     'peyment':q.pyment,
                     'id':q.id,
+                    'melicodvarizande':melicodvarizande,
                 })
-
-
     if offerbuttom == 'accept':
         if (inputid != None) and ( inputid != ''):
             a = fpeseshktestmodel.objects.filter(id=int(inputid))
@@ -471,10 +465,37 @@ def cast(request):
                 a.update(offer=offermeghdar)
             if (beyanemeghdar != None)  and (beyanemeghdar != ''):
                 a.update(pyment=beyanemeghdar)
-
-
-
-
+        us = accuntmodel.objects.all()
+        for u in us:
+            if int(u.melicode) == int(melicodvarizande) :
+                nselect = u.firstname + " " + u.lastname
+                mselect = u.melicode
+        fs = fpeseshktestmodel.objects.all()
+        for f in fs :
+            if (int(f.melicod) == int(melicodvarizande)) and (f.checking != 'true'):
+                r = ['']
+                r.clear()
+                r.append(f.jobreserv + ' '+ f.detalereserv)
+                r.append(f.dateshamsireserv)
+                r.append(f.castreserv)
+                r.append(f.pyment)
+                r.append(f.offer)
+                r.append(f.id)
+                jamkol = jamkol + float(f.castreserv) - float(f.pyment) - float(f.offer)
+                reserv.append(r)
+        bs = bankmodel.objects.all()
+        methodpardakht = ['']
+        methodpardakht.clear()
+        for b in bs :
+            methodpardakht.append(b.onvan)
+        return render(request,'faktor.html',context={
+            'name': nselect,
+            'melicode':mselect,
+            'reserv':reserv,
+            'jamkol':int(jamkol),
+            'bank':methodpardakht,
+            'melicodvarizande':melicodvarizande,
+        })
     if facesearchmelicode == "accept":
         etebarname = "false"
         us = accuntmodel.objects.all()
@@ -491,13 +512,11 @@ def cast(request):
                 listmodeltest.objects.create(m=a.melicode)
                 arrayname.append(ar)
                 etebarname = "true"
-
-
     if (selectfile != None) and (selectfile != ''):
         jamkol = 0
         users = accuntmodel.objects.all()
         for user in users:
-            if user.melicode == melifaktorinput:
+            if user.melicode == int(melicodvarizande):
                 name = user.firstname + ' ' + user.lastname
         rs = fpeseshktestmodel.objects.all()
         reserv = ['']
@@ -505,44 +524,25 @@ def cast(request):
         for r in rs :
             reserarray = ['']
             reserarray.clear()
+            cs = ctmodel.objects.all()
             if (melifaktorinput == r.melicod) and (r.checking != 'true') :
-                reserarray.append(r.jobreserv + " " + r.detalereserv)
-                reserarray.append(r.dateshamsireserv)
-                reserarray.append(r.castreserv)
-                reserarray.append(r.pyment)
-                reserarray.append(r.offer)
-                reserarray.append(r.id)
-                jm = float(jamkol) + float(r.castreserv) - float(r.pyment) - float(r.offer)
-                jamkol =int(jm)
-                reserv.append(reserarray)
-
-        idw = reserv[int(selectfile)][5]
-        fs = fpeseshktestmodel.objects.all()
-        for f in fs :
-            if int(f.id) == int(idw):
-                reservemodel.objects.create(
-                    melicod=f.melicod,
-                    jobreserv = f.jobreserv,
-                    detalereserv = f.detalereserv,
-                    personreserv = f.personreserv,
-                    timereserv = f.timereserv,
-                    castreserv = f.castreserv,
-                    numbertime = f.numbertime,
-                    hourreserv = f.hourreserv,
-                    dateshamsireserv = f.dateshamsireserv,
-                    datemiladireserv = f.datemiladireserv,
-                    yearshamsi = f.yearshamsi,
-                    cardnumber = f.cardnumber,
-                    pyment = f.pyment,
-                    trakingcod = f.trakingcod,
-                    bank = f.bank,
-                    checking = f.checking,
-                    vahed = f.vahedeobjectname,
-                                                )
-                a = fpeseshktestmodel.objects.filter(id=int(idw))
-                a.delete()
+                et = "true"
+                for c in cs:
+                    if int(r.id) == int(c.idf) :
+                        et = "false"
+                if et == 'true':
+                    reserarray.append(r.jobreserv + " " + r.detalereserv)
+                    reserarray.append(r.dateshamsireserv)
+                    reserarray.append(r.castreserv)
+                    reserarray.append(r.pyment)
+                    reserarray.append(r.offer)
+                    reserarray.append(r.id)
+                    jm = float(jamkol) + float(r.castreserv) - float(r.pyment) - float(r.offer)
+                    jamkol =int(jm)
+                    reserv.append(reserarray)
         jjm = float(jamkol) - float(reserv[int(selectfile)][2]) + float(reserv[int(selectfile)][3]) + float(reserv[int(selectfile)][4])
         jamkol = int(jjm)
+        ctmodel.objects.create(idf=reserv[int(selectfile)][5],melicod=str(melicodvarizande))
         reserv.pop(int(selectfile))
         return render(request,'faktor.html',context={
                                                                     "reserv":reserv,
@@ -550,6 +550,7 @@ def cast(request):
                                                                     'name':name,
                                                                     'bank':methodpardakht,
                                                                     'jamkol':jamkol,
+                                                                    'melicodvarizande':melicodvarizande,
                                                                })
     if namesearch == None :
         namesearch = ''
