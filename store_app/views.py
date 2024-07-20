@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def reservdef(request):
+    return render(request,'show_reserv.html',context={})

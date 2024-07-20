@@ -121,9 +121,9 @@
       </div>
     
       <div class="input-field col s6 l6 m6" id="hesab">
-        <select name="bankonvanfavtor">
+        <select name="bankonvanfactor">
            {% for hesab in bank %}
-             <option value={{ forloop.counter0 }}>{{ hesab }}</option>
+             <option value={{ hesab.0 }}>{{ hesab.1 }}</option>
            {% endfor %}
         </select>
         <label class="teal-text text-darken-4">روش پرداخت :</label>
@@ -139,6 +139,7 @@
     </div>
 
     <div class="col m1 l3 "></div>
+    <input name="jamekolinput" value="{{ jamkol }}" hidden>
     <input name="melicodvarizande" value="{{ melicodvarizande }}" hidden>  
   <input name="res" value="{{ reserv }}" hidden>
     <label id="etebarname" hidden >{{ etebarname }}</label>

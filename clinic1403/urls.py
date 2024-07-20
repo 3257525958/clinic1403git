@@ -32,6 +32,7 @@ urlpatterns = [
     path('it/', include('it_app.urls')),
     path('accountanc/', include('accountancy_app.urls')),
     path('sana/',include('accountancy_app.urls')),
+    path('stor/', include('store_app.urls')),
 ]
 
 USE_X_FORWARDED_HOST = True

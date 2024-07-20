@@ -230,6 +230,8 @@ def cast(request):
     searchnamebottum = request.POST.get("searchnamebottum")
     # pardakhtfaktor = request.POST.get("pardakhtfaktor")
     melicodvarizande =request.POST.get("melicodvarizande")
+    jamekolinput = request.POST.get('jamekolinput')
+    bankonvanfactor = request.POST.get("bankonvanfactor")
     jamkol = 0
 
 
@@ -256,20 +258,16 @@ def cast(request):
 
     # ------تولید لیست حسابهای بانکی در hesabs-و کار انتخاب شده رو میریزه توی b----
     banks = bankmodel.objects.all()
-    b = ""
     hesabs = [""]
     hesabs.clear()
     for bank in banks:
         r = 0
         for hesab in hesabs :
-            if hesab ==  bank.onvan :
+            if hesab[1] ==  bank.onvan :
                 r = 1
-                break
         if r == 0 :
-            hesabs.append(bank.onvan)
-    if (bankonvan != None) and (bankonvan != ""):
-        b = hesabs[int(bankonvan)]
-
+            s = (str(bank.id )+ "," + str(bank.onvan)).split(",")
+            hesabs.append(s)
 
 
 
@@ -380,10 +378,10 @@ def cast(request):
                     melicodvarizande = r.melicod,
                     dateshamsi = stradby(datetime.datetime.now()),
                     datemiladi = datetime.datetime.now().strftime('%a %d %b %y'),
-                    filenumber = datetime.datetime.now().strftime('%a %d %b %y') + ',' +melifaktorinput,
-                    cashmethod = b,
+                    filenumber = datetime.datetime.now().strftime('%a %d %b %y') + ',' +str(melicodvarizande),
+                    cashmethod = hesabs,
                     melicodeoperatore = request.user.username,
-                    mablagh = str(jamekol),
+                    mablagh = str(jamekolinput),
                     )
         etebarsabt = 'true'
     arrayname = ['']
@@ -438,7 +436,7 @@ def cast(request):
             'melicode':mselect,
             'reserv':reserv,
             'jamkol':int(jamkol),
-            'bank':methodpardakht,
+            'bank':hesabs,
             'melicodvarizande':mtick,
         })
     na = ''
@@ -493,7 +491,7 @@ def cast(request):
             'melicode':mselect,
             'reserv':reserv,
             'jamkol':int(jamkol),
-            'bank':methodpardakht,
+            'bank':hesabs,
             'melicodvarizande':melicodvarizande,
         })
     if facesearchmelicode == "accept":
@@ -525,7 +523,7 @@ def cast(request):
             reserarray = ['']
             reserarray.clear()
             cs = ctmodel.objects.all()
-            if (melifaktorinput == r.melicod) and (r.checking != 'true') :
+            if (int(melicodvarizande) == int(r.melicod)) and (r.checking != 'true') :
                 et = "true"
                 for c in cs:
                     if int(r.id) == int(c.idf) :
@@ -548,7 +546,7 @@ def cast(request):
                                                                     "reserv":reserv,
                                                                     'melicode':melifaktorinput,
                                                                     'name':name,
-                                                                    'bank':methodpardakht,
+                                                                    'bank':hesabs,
                                                                     'jamkol':jamkol,
                                                                     'melicodvarizande':melicodvarizande,
                                                                })
