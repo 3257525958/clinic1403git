@@ -75,10 +75,10 @@
   
       <div class="ghesmate_login col s12 m6 l4">
   
-        <i class="center-align blick-shodan fas fa-cash-register fa-4x"></i>
+        <i class="center-align blick-shodan fas "></i>
 
       <div class="input-field col s4">
-        <label class="teal-text text-darken-4 ">{{ name }}</label>
+{#        <label class="teal-text text-darken-4 ">{{ name }}</label>#}
       </div>
       <div class="input-field col s4">
         <label class="teal-text text-darken-4 ">{{ procedure }}</label>
@@ -93,6 +93,13 @@
 {#            <label for="cast">نام واحد :</label>#}
 {#        </div>#}
 {#        {% endif %}#}
+      <div class="col s6">
+          <div class="input-field col s12 ">
+            {{ form.apghablimage }}
+            <label  for="img" class="loadlabel">{{ form.apghablimage.label }}</label>
+          </div>
+      </div>
+    
           {% if vahed != '' %}
         <div class="input-field col s4 ">
             <input type="text" name="vahedeobjectname" id="vahedeobjectname" class="validate" autocomplete="off" value="{{ vahed }}" disabled>

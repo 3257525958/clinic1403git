@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from jobs_app.models import *
 from cantact_app.models import accuntmodel
+from file_app.form import peseshkform
 import datetime
 from jalali_date import date2jalali,datetime2jalali
 from datetime import timedelta
@@ -1038,7 +1039,7 @@ def reserverdef(request):
             'timesel':timesel,
 
         })
-# ----------------------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------------------------
     if (job != None) and (job != 'None') and (job != ''):
         personel = ''
         users = accuntmodel.objects.all()
@@ -1106,6 +1107,9 @@ def dashborddef(request):
     button_next = request.POST.get("button_next")
     button_back = request.POST.get("button_back")
     tres =request.POST.get("tres")
+
+    form = peseshkform(request.POST, request.FILES)
+
 
     users = accuntmodel.objects.all()
     namedashbord = ''
@@ -1189,7 +1193,8 @@ def dashborddef(request):
                         'procedure':reserv.jobreserv + " " + reserv.detalereserv,
                         'id':reserv.id,
                         'vahed':reserv.vahed,
-                                                                            })
+                        'form': form,
+                    })
             else:
                 if reserv.personreserv == namedashbord:
                     if reserv.datemiladireserv == tres:
@@ -1205,6 +1210,7 @@ def dashborddef(request):
                                 'procedure':reserv.jobreserv + " " + reserv.detalereserv,
                                 'id':reserv.id,
                                 'vahed':reserv.vahed,
+                                'form':form,
                                                                                         })
     reservid = request.POST.get("reservid")
     fpezeshkibottom = request.POST.get("fpezeshkibottom")
@@ -1310,7 +1316,7 @@ def reservdasti(request):
         for l in ls :
             ar.append(l.m)
                            # -- چون سرور بر عکس ترتیه ها رو میخونه ایمچا و در cash viwo . cast این کامنت هست-
-        # ar.reverse()
+        ar.reverse()
         melicode = ar[inttikon]
 
 
