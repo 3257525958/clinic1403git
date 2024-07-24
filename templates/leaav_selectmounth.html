@@ -69,68 +69,55 @@
 </ul>
 <!-- ----------پایان ناوبار------------ -->
 <main>
-  <form class="row w-100 login dakhel_loginsec" method="POST" action="">
-    {% csrf_token %}
-      <div class="col m3 l4 hide-on-small-and-down"></div>
-  
-      <div class="ghesmate_login col s12 m6 l4">
-  
-        <i class="center-align blick-shodan fas "></i>
+  <form class="row w-100 login dakhel_loginsec" method="POST">
+    <div class="col m3 l4 hide-on-small-and-down"></div>
 
-      <div class="input-field col s4">
-{#        <label class="teal-text text-darken-4 ">{{ name }}</label>#}
-      </div>
-      <div class="input-field col s4">
-        <label class="teal-text text-darken-4 ">{{ procedure }}</label>
-      </div>
-{#      <div class="input-field col s4">#}
-{#        <label class="teal-text text-darken-4 "></label>#}
-{#      </div>#}
+    <div class="ghesmate_login col s12 m6 l4">
 
-{#        {% if vahed == '' %}#}
-{#        <div class="input-field col s4 ">#}
-{#            <input type="text" name="vahedeobjectname" id="vahedeobjectname" class="validate" autocomplete="off" value="{{ vahed }}" disabled>#}
-{#            <label for="cast">نام واحد :</label>#}
-{#        </div>#}
-{#        {% endif %}#}
-      <div class="col s6">
-          <div class="input-field col s12 ">
-            {{ form.apghablimage }}
-            <label  for="img" class="loadlabel">{{ form.apghablimage.label }}</label>
-          </div>
-      </div>
     
-          {% if vahed != '' %}
-        <div class="input-field col s4 ">
-            <input type="text" name="vahedeobjectname" id="vahedeobjectname" class="validate" autocomplete="off" value="{{ vahed }}" disabled>
-            <label for="cast">نام واحد :</label>
-        </div>
-        <div class="input-field col s4 ">
-        {{ form.vahedeobject }}
-{#            <input type="text" name="vahedeobject" id="vahedeobject" class="validate" autocomplete="off">#}
-            <label for="cast">{{ form.vahedeobject.label}}</label>
-        </div>
-          {% endif %}
-      <br><br>
-      <br><br>
-      <br><br>
-        <div class="center-align dokmeye-vorood ">
-          <button class="w-100 btn waves-effect" name="fpezeshkibottom" value="accept">ثبت اطلاعات </button>
-        </div>
-  
-        
-      </div>
-  
-      <div class="col m3 l4 hide-on-small-and-down"></div>
-      <input id="reservid" name="reservid" value="{{ id }}" hidden>
-      <input id="sel" name="sel" hidden>
-      <label id="jam"  hidden >{{ jam }}</label>
-      <label id="mounthselect"  hidden >{{ mounthselect }}</label>
-      <label id="melicodvalue"  hidden >{{ melicod }}</label>
-      <label id="etebarmelicod"  hidden >{{ etebarmelicod }}</label>
-      <button id="face" name="facebutton" value="accept" hidden >اینتر</button>
-  
+      <i class="center-align blick-shodan fas fa-user-plus fa-2x"></i>
 
+
+
+      <div class="input-field col s4">
+                    <select  name="mounth" >
+                        <option value="فروردین">فروردین</option>
+                        <option value="اردیبهشت">اردیبهشت</option>
+                        <option value="خرداد">خرداد</option>
+                        <option value="تیر">تیر</option>
+                        <option value="مرداد">مرداد</option>
+                        <option value="شهریور">شهریور</option>
+                        <option value="مهر">مهر</option>
+                        <option value="آبان">آبان</option>
+                        <option value="آذر">آذر</option>
+                        <option value="دی">دی</option>
+                        <option value="بهمن">بهمن</option>
+                        <option value="اسفند">اسفند</option>
+                    </select>
+        <label class="teal-text text-darken-4 ">ماه تولد :</label>
+      </div>
+      <div class="input-field col s4">
+                    <select name="year">
+                        {% for i in yearcant %}
+                            <option value={{ i }}>{{ i }}</option>
+                        {% endfor %}
+                    </select>
+        <label class="teal-text text-darken-4">سال تولد</label>
+      </div>
+
+
+      <div class="center-align dokmeye-vorood ">
+        <button class="w-100 btn waves-effect" name="button_send" value="accept" onclick="move()">ثبت اطلاعات و ارسال پیامک</button>
+      </div>
+        
+    </div>
+
+    <div class="col m3 l4 hide-on-small-and-down"></div>
+                  <label id="melicod_etebar" hidden >{{ melicod_etebar }}</label>
+                {% csrf_token %}
+                <div id="w">
+                    <div id="myBar" class="w3" hidden>0%</div>
+                </div>
 
   </form>
 </main>
@@ -185,7 +172,7 @@
 <script src="/static/js/home.js"></script>
 <script src="/static/js/addselect.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/pardakht_hoghogh.js" %}"></script>
+<script src="{% static "/js/add_cantact.js" %}"></script>
 
 </body>
 </html>
