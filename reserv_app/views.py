@@ -1139,7 +1139,7 @@ def dashborddef(request):
     button_back = request.POST.get("button_back")
     tres =request.POST.get("tres")
 
-    form = peseshkform(request.POST, request.FILES)
+    # form = peseshkform(request.POST, request.FILES)
 
 
     users = accuntmodel.objects.all()
@@ -1224,7 +1224,7 @@ def dashborddef(request):
                         'procedure':reserv.jobreserv + " " + reserv.detalereserv,
                         'id':reserv.id,
                         'vahed':reserv.vahed,
-                        'form': form,
+                        # 'form': form,
                     })
             else:
                 if reserv.personreserv == namedashbord:
@@ -1241,7 +1241,7 @@ def dashborddef(request):
                                 'procedure':reserv.jobreserv + " " + reserv.detalereserv,
                                 'id':reserv.id,
                                 'vahed':reserv.vahed,
-                                'form':form,
+                                # 'form':form,
                                                                                         })
     reservid = request.POST.get("reservid")
     fpezeshkibottom = request.POST.get("fpezeshkibottom")

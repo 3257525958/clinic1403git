@@ -86,19 +86,18 @@
 {#      <div class="input-field col s4">#}
 {#        <label class="teal-text text-darken-4 "></label>#}
 {#      </div>#}
-
-{#        {% if vahed == '' %}#}
+{#      {% if vahed == '' %}#}
 {#        <div class="input-field col s4 ">#}
 {#            <input type="text" name="vahedeobjectname" id="vahedeobjectname" class="validate" autocomplete="off" value="{{ vahed }}" disabled>#}
 {#            <label for="cast">نام واحد :</label>#}
 {#        </div>#}
-{#        {% endif %}#}
-      <div class="col s6">
-          <div class="input-field col s12 ">
-            {{ form.apghablimage }}
-            <label  for="img" class="loadlabel">{{ form.apghablimage.label }}</label>
-          </div>
-      </div>
+{#      {% endif %}#}
+{#      <div class="col s6">#}
+{#          <div class="input-field col s12 ">#}
+{#            {{ form.apghablimage }}#}
+{#            <label  for="img" class="loadlabel">{{ form.apghablimage.label }}</label>#}
+{#          </div>#}
+{#      </div>#}
     
           {% if vahed != '' %}
         <div class="input-field col s4 ">
@@ -106,9 +105,9 @@
             <label for="cast">نام واحد :</label>
         </div>
         <div class="input-field col s4 ">
-        {{ form.vahedeobject }}
-{#            <input type="text" name="vahedeobject" id="vahedeobject" class="validate" autocomplete="off">#}
-            <label for="cast">{{ form.vahedeobject.label}}</label>
+{#        {{ form.vahedeobject }}#}
+            <input type="text" name="vahedeobject" id="vahedeobject" class="validate" autocomplete="off">
+            <label for="cast">مقدار واحد :</label>
         </div>
           {% endif %}
       <br><br>

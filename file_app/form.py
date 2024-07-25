@@ -3,7 +3,7 @@ from file_app.models import fpeseshktestmodel
 class peseshkform(forms.ModelForm):
     class Meta:
         model = fpeseshktestmodel
-        fields = ('apghablimage','vahedeobject',
+        fields = ('vahedeobject',
                   )
         labels = {'apghablimage':'آپلود عکس',
                   'vahedeobject':'مقدار واحد :',
