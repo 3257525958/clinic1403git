@@ -370,6 +370,11 @@ def cast(request):
                 for c in cs:
                     if int(r.id) == int(c.idf) :
                         et = "false"
+                zz = ''
+                banks = bankmodel.objects.all()
+                for bb in banks :
+                    if int(bb.id) == int(bankonvanfactor) :
+                        zz = bb.onvan
                 if et == 'true':
                     a =fpeseshktestmodel.objects.filter(id=int(r.id))
                     a.update(checking='true')
@@ -380,7 +385,7 @@ def cast(request):
                     datemiladi = datetime.datetime.now().strftime('%a %d %b %y'),
                     filenumber = datetime.datetime.now().strftime('%a %d %b %y') + ',' +str(melicodvarizande),
                     cashmethodid = str(bankonvanfactor),
-                    cashmethodname = hesabs[int(bankonvanfactor)],
+                    cashmethodname = zz,
                     melicodeoperatore = request.user.username,
                     mablagh = str(jamekolinput),
                     )
