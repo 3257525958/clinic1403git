@@ -14,7 +14,8 @@ class castmodel(models.Model):
     dateshamsi = models.CharField(max_length=100,default='0')
     datemiladi = models.CharField(max_length=100,default='0')
     filenumber = models.CharField(max_length=100,default='0')
-    cashmethod = models.CharField(max_length=100,default='0')
+    cashmethodname = models.CharField(max_length=100,default='0')
+    cashmethodid = models.CharField(max_length=100,default='0')
     melicodeoperatore = models.CharField(max_length=100,default='0')
     mablagh = models.CharField(max_length=100,default='0')
     def __str__(self):
