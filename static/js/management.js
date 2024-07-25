@@ -44,9 +44,7 @@ var m2121 = document.getElementById("m2121");
 var m2323 = document.getElementById("m2323");
 
 var l = document.getElementById("loglevel").innerHTML;
-    console.log(l)
-    if ( l == "مدیر");
-       {
+    if ( l == "مدیر");{
         m1.hidden = false;
         m2.hidden = false;
         // m3.hidden = true;
@@ -234,7 +232,7 @@ var l = document.getElementById("loglevel").innerHTML;
                 if (l != "مدیر") {
                     if (l != "رزروشن") {
                         m1.hidden = false;
-                        m2.hidden = false;
+                        m2.hidden = true;
                         // m3.hidden = true;
                         // m4.hidden = true;
                         // m5.hidden = true;
@@ -282,8 +280,6 @@ var l = document.getElementById("loglevel").innerHTML;
                 }
             }
         }
-
-// var e=document.getElementById("tes");
 var i=document.getElementById("ee");
 var f =document.getElementById("tab");
     if ( i.value != window.outerWidth) {
@@ -291,5 +287,4 @@ var f =document.getElementById("tab");
         if (f.innerHTML == 0){
         e = document.getElementById("testes");
         e.click();
-        console.log("qqqqqqqqq");}
     }
