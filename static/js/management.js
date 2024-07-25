@@ -41,7 +41,7 @@ var m1818 = document.getElementById("m1818");
 var m1919 = document.getElementById("m1919");
 var m2020 = document.getElementById("m2020");
 var m2121 = document.getElementById("m2121");
-
+var m2323 = document.getElementById("m2323");
 
 var l = document.getElementById("loglevel").innerHTML;
     console.log(l)
@@ -277,6 +277,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m1919.hidden = true;
                         m2020.hidden = true;
                         m2121.hidden = true;
+                        m2323.hidden = true;
                     }
                 }
             }
