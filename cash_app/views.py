@@ -379,7 +379,8 @@ def cast(request):
                     dateshamsi = stradby(datetime.datetime.now()),
                     datemiladi = datetime.datetime.now().strftime('%a %d %b %y'),
                     filenumber = datetime.datetime.now().strftime('%a %d %b %y') + ',' +str(melicodvarizande),
-                    cashmethod = hesabs,
+                    cashmethodid = str(bankonvanfactor),
+                    cashmethodname = hesabs[int(bankonvanfactor)],
                     melicodeoperatore = request.user.username,
                     mablagh = str(jamekolinput),
                     )
