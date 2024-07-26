@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static  "/css/materialize-rtl.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "/fontawesome/css/all.css" %}">
-    <link rel="stylesheet" type="text/css" href= "{% static "/css/reser.css" %}">
+    <link rel="stylesheet" type="text/css" href= "{% static "/css/leave.css" %}">
     <title>Document</title>
 </head>
 <body>
@@ -28,7 +28,7 @@
             </div>
             <div class="effects">
                 {% for t in leavearray%}
-                    <div  class="effects__item ">
+                    <div  class="effects__item sizeefect_time">
                         <p class="textboxxx">{{ t.0}}
                         <br>
                         {% if t.1 == "false" %}
