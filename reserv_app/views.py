@@ -237,9 +237,7 @@ def reservdef(request):
                 ls = leavemodel.objects.all()
                 for l in ls :
                     if int(l.personelmelicod) == int(personelmelicode):
-                        print("4444444444")
                         if l.muont == strb(t) :
-                            print("8888888888")
                             s = l.leave.split(",")
                             a = 2
                             for iii in range(int(len(s))):
@@ -552,29 +550,42 @@ leaveshamsi = ['0']
 leavemiladi = ['0']
 leavearray = ['0']
 def leave(request):
-    yearcant = [0]
-    yearcant.clear()
-    tyear = datetime.datetime.now()
-    h = int(stry(tyear))+1400
-    while 1300 <= h :
-        yearcant.append(str(h))
-        h -= 1
-
+    mounthchek ='true'
     mounth =request.POST.get('mounth')
-    year =request.POST.get('year')
-    if (mounth != None) and (year != None) and (mounth != '') and (year != '') and (mounth != None) and (year != None) :
-        timeleave = request.POST.get("timeleave")
+    sabt = request.POST.get('sabt')
+    etebar = 'false'
+    m = ''
+    tnowe = ''
+    if sabt == 'accept' :
+        etebar ='true'
+        return render(request, 'leave.html', context={
+            'mounthchek': mounthchek,
+            'etebar':etebar})
 
+    if (mounth != None)  and (mounth != '') and (mounth != None) :
+        timeleave = request.POST.get("timeleave")
+        t = datetime.datetime.now()
+        i = 0
+        while strb(t) != mounth:
+            t += timedelta(days=1)
+            i = i + 1
+            if i > 32:
+                mounthchek = 'false'
+                return render(request, 'leaav_selectmounth.html', context={
+                    'mounthchek': mounthchek,
+                    ' etebar': etebar,
+                })
+        tnowe = t
         # ***************با زدن هر تاریخ اون به فایل مرخصی**************
         if (timeleave != None) and (timeleave != ''):
-            t = datetime.datetime.now()
+
             leavepersonals = leavemodel.objects.all()
             e = 0
     #*************************************************اگر e=0 باشه  یعنی تا به حال این فرد تایم کاری نداده یا برای این ماه نداده و پس میره پایین براش یه object ساخته میشه*****
     # ******************************اگر قبلا تایم داده یا در حال تایم دادن هستش دو تا اتفاق ممکنه اینکه بخواد تایم داده شده رو حذف کنه یا تایم جدید بده**
     # *****اول چک میشه که اون تایمی که انتخاب شده آیا در لیست تایم های ثبت شده در leave هستش   یا نه اگر بود میره اونو حذف میکنه و leave جدید میسازه*******
             for personel in leavepersonals:
-                if (personel.personelmelicod == request.user.username) and (personel.muont == strb(datetime.datetime.now())):
+                if (personel.personelmelicod == request.user.username) and (personel.muont == mounth):
                     e = 1
              # ________________شروع چک برای اینکه ببینه تکراریه یا نه_____اگه تکراری باشه e =2 میشه____________________
                     leave = personel.leave
@@ -618,16 +629,16 @@ def leave(request):
             # ________________اگر e=2 و e=1 نباشه و همون صفر باقی مانده باشه یعنی ماه جدیده یا فرد جدیده___________
             if e == 0:
                 leavemodel.objects.create(personelmelicod=str(request.user.username),
-                                          dateshamsi=stradby(datetime.datetime.now()),
+                                          dateshamsi=stradby(tnowe),
                                           datemiladi=datetime.datetime.now().strftime('%a %d %b %y'),
-                                          muont = strb(datetime.datetime.now()),
+                                          muont = strb(tnowe),
                                           leave='0' + ',' + timeleave)
 
             s = timeleave
             stime = s.split(",")
 
         # ***********ماه رو میسازه و یه آرایه درست میکنه شامل روز و بیست تاtrue ***********
-        t = datetime.datetime.now()
+        # t = datetime.datetime.now()
         m = strb(t)
         leavearray.clear()
         for i in range(31) :
@@ -650,8 +661,10 @@ def leave(request):
         leavepersonals = leavemodel.objects.all()
         s = ""
         for personel in leavepersonals :
-            if (personel.personelmelicod == request.user.username) and (personel.muont == strb(datetime.datetime.now())):
-                s = personel.leave.split(",")
+            if personel.personelmelicod == request.user.username:
+                m = mounth
+                if personel.muont == mounth:
+                    s = personel.leave.split(",")
         a = 2
         for i in range(int(len(s))) :
             if a <= len(s):
@@ -659,12 +672,18 @@ def leave(request):
                 a += 2
             else:
                 break
-        return render(request, 'leave.html', context={"leavearray": leavearray })
+        return render(request, 'leave.html', context={
+                                                      "leavearray": leavearray,
+                                                      'mounth': mounth,
+                                                        ' etebar': etebar,
+                                                        'mounthchek': mounthchek,
+                                                    })
 
-    return render(request,'leaav_selectmounth.html',context={'yearcant':yearcant,
-                                                                           'year':year,
+    return render(request,'leaav_selectmounth.html',context={
                                                                             'mounth':mounth,
-                                                                                                })
+                                                                            'mounthchek': mounthchek,
+                                                                            ' etebar': etebar,
+                                                                        })
 
 def reserverdef(request):
     idreserv = request.POST.get("idreserv")
@@ -708,7 +727,7 @@ def reserverdef(request):
             p = (w.person + "," + str(w.melicodpersonel)).split(",")
             operatorarray.append(p)
     personel = ''
-    melicodperonel = ''
+    melicodperonel = '1'
     if (operatoreselect != "None") and (operatoreselect != None) and (operatoreselect != ''):
         users = accuntmodel.objects.all()
         for user in users:
@@ -749,6 +768,20 @@ def reserverdef(request):
         dayarr.append('')
     rs = reservemodel.objects.all()
     name = ''
+    ls = leavemodel.objects.all()
+    for l in ls:
+        if int(l.personelmelicod) == int(melicodperonel):
+            if l.muont == strb(t):
+                s = l.leave.split(",")
+                a = 2
+                for iii in range(int(len(s))):
+                    if a <= len(s):
+                        if s[a] == strd(t):
+                            dayarr[int(s[a - 1])] = "false"
+                        a += 2
+                    else:
+                        break
+
     for r in rs:
         if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == personel ) :
             us = accuntmodel.objects.all()

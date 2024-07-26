@@ -5,17 +5,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static  "/css/materialize-rtl.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "/fontawesome/css/all.css" %}">
     <link rel="stylesheet" type="text/css" href= "{% static "/css/reser.css" %}">
     <title>Document</title>
 </head>
 <body>
 <form method="POST">
 {% csrf_token %}
-    <div >
-        <p id="titr">
-            رزرو آنلاین
-        </p>
-    </div>
+{#    <div >#}
+{#        <p id="titr">#}
+{#            رزرو آنلاین#}
+{#        </p>#}
+{#    </div>#}
 
     <div class="main">
             <div class="textbox">
@@ -131,14 +134,19 @@
                     </div>
                 {% endfor %}
             </div>
+            <div>
+                <button class="w-100 btn waves-effect" name="sabt" value="accept">ثبت</button>
+            </div>
     </div>
-    <input name="mounth" value="{{ mounth }}" >
-    <input name="year" value="{{ year }}" >
+    <label>{{ m }}</label>
+    <input name="mounth" value="{{ mounth }}" hidden>
+{#    <input name="year" value="{{ year }}" hidden>#}
+    <label id="etebar" hidden>{{ etebar }}</label>
 {% csrf_token %}
 </form>
 <label id="reservetebar" >{{  reservetebar }}</label>
 
-
+<script src="/static/js/materialize.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static "/js/reserve.js" %}">    </script>
 

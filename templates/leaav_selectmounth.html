@@ -96,14 +96,14 @@
                     </select>
         <label class="teal-text text-darken-4 ">ماه تولد :</label>
       </div>
-      <div class="input-field col s4">
-                    <select name="year">
-                        {% for i in yearcant %}
-                            <option value={{ i }}>{{ i }}</option>
-                        {% endfor %}
-                    </select>
-        <label class="teal-text text-darken-4">سال تولد</label>
-      </div>
+{#      <div class="input-field col s4">#}
+{#                    <select name="year">#}
+{#                        {% for i in yearcant %}#}
+{#                            <option value={{ i }}>{{ i }}</option>#}
+{#                        {% endfor %}#}
+{#                    </select>#}
+{#        <label class="teal-text text-darken-4">سال تولد</label>#}
+{#      </div>#}
 
 
       <div class="center-align dokmeye-vorood ">
@@ -118,7 +118,7 @@
                 <div id="w">
                     <div id="myBar" class="w3" hidden>0%</div>
                 </div>
-
+    <label id="mounthchek" hidden>{{ mounthchek }}</label>
   </form>
 </main>
 
