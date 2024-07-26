@@ -128,12 +128,12 @@ body {
   border: 3px unset rgb(var(--vred), var(--vgreen), var(--vblue),var(--ekhtelaf));
   transition: .3s color;
   /*width: 94% !important;*/
-  width: 100px;
-  height: 35px;
+  width: 50px;
+  height: 20px;
   border-radius: 5px;
   font-family: "B Yekan";
   font-size: 15px;
-  margin: 7px;
+  margin: 2px;
 }
 .boxxxf{
   position: relative;
@@ -239,7 +239,7 @@ body {
     margin: 1rem !important;
 }
 .sizeefect_time{
-   flex-basis: 7% !important;
+   flex-basis: 13% !important;
     height: 31rem !important ;
     margin: 2px !important;
 
