@@ -104,7 +104,8 @@
                 <button class="w-100 btn waves-effect" name="button_next" value="accept" onclick="clic()" >روز بعد</button>
             </div>
         </div>
-            {% if melicodperonel != '' %}
+            {% if melicodperonel != '1' %}
+                
             <div class="effects col s12 l12 m12 " >
                 {% for t in day %}
                     {% if t.0 != "false" %}

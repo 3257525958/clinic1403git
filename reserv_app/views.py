@@ -1154,6 +1154,7 @@ def reserverdef(request):
             'timesel':timesel,
         })
 
+
     return render(request,'reserver.html', context={
         'dastiarray': dastiarray,
         'day': dayreserv,

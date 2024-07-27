@@ -19,9 +19,12 @@ var m18 = document.getElementById("m18");
 var m19 = document.getElementById("m19");
 var m20 = document.getElementById("m20");
 var m21 = document.getElementById("m21");
-var m111 = document.getElementById("m111");
-var m22 = document.getElementById("m22");
+var m222 = document.getElementById("m222");
 var  m23 = document.getElementById("m23")
+var m111 = document.getElementById("m111");
+
+var m22 = document.getElementById("m22");
+
 // var m33 = document.getElementById("m33");
 // var m44 = document.getElementById("m44");
 // var m55 = document.getElementById("m55");
@@ -269,7 +272,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m19.hidden = true;
                         m20.hidden = true;
                         m21.hidden = true;
-                        m22.hidden = true;
+                        m222.hidden = true;
                         m23.hidden = true;
 
 

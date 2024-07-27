@@ -132,7 +132,7 @@ body {
   height: 20px;
   border-radius: 5px;
   font-family: "B Yekan";
-  font-size: 15px;
+  font-size: 9px;
   margin: 2px;
 }
 .boxxxf{
@@ -239,7 +239,7 @@ body {
     margin: 1rem !important;
 }
 .sizeefect_time{
-   flex-basis: 13% !important;
+   flex-basis: 60px !important;
     height: 31rem !important ;
     margin: 2px !important;
 
