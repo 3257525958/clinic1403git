@@ -330,6 +330,7 @@ function servic() {
     document.getElementById('regesterbuttoncancel').style.top = "430px";
     document.getElementById('te').hidden = true;
     document.getElementById("textemployname").hidden =false;
+    document.getElementById("berand").hidden = false;
     document.getElementById("sel").hidden = false;
     document.getElementById("time").hidden = false;
 }

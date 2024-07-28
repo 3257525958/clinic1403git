@@ -183,5 +183,7 @@ def pardakhthoghogh(request):
 
 def sana(request):
     esmekala =request.POST.get('esmekala')
-
+    bottunesmekala =request.POST.get('bottunesmekala')
+    if (esmekala != None) and (esmekala != '') and (bottunesmekala == 'accept'):
+        esmekalamodel.objects.create(esmekala=esmekala)
     return render(request,'sana.html')

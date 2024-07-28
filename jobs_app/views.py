@@ -2,6 +2,7 @@ from django.shortcuts import render
 from jobs_app.models import jobsmodel , employeemodel , workmodel,jobselectormodel
 from cantact_app.models import accuntmodel
 from store_app.models import storemodel
+from accountancy_app.models import *
 
 newjob_etebar = ['true']
 newemploy_etebar = ['true']
@@ -23,6 +24,7 @@ savework[0] = 'e'
 deletworkmessage = ['true']
 addetebar = ['t']
 def jobs(request):
+    berand = request.POST.get('berand')
     savejob = request.POST.get("savejob")
     ne = request.POST.get("newjob")
     if (ne != None) and (ne != ''):
@@ -268,7 +270,12 @@ def jobs(request):
             a.delete()
             deletworkmessage[0] = 'false'
     # ***********************************************************************************************************
-
+    brs = esmekalamodel.objects.all()
+    ps = ['']
+    ps.clear()
+    for br in brs :
+        p = (str(br.id) + "," + str(br.esmekala)).split(",")
+        ps.append(p)
     js = jobsmodel.objects.all()
     return render(request,"jobs.html",context={'newjob_etebar':newjob_etebar[0],
                                                'newemploy_etebar':newemploy_etebar[0],
@@ -292,5 +299,6 @@ def jobs(request):
                                                'deletservics':deletservics,
                                                'deletworkmessage':deletworkmessage[0],
                                                'addetebar':addetebar[0],
+                                               'ps':ps,
                                                })
 

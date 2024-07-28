@@ -6,5 +6,5 @@ urlpatterns = [
     path('aghd/',views.aghdgharardad),
     path('laghv/',views.laghvgharardad),
     path('pardakhthoghogh/',views.pardakhthoghogh),
-    path('baba/',views.sana),
+    path('sana/',views.sana),
     ]

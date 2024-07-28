@@ -104,11 +104,20 @@
                         جزئیات خدمت
                     </p>
                     <input type="text" size="1" class="inputclass" name="detalejob">
+                
+                    <p id=textemployname>
+                        برند مصرفی :
+                    </p>
+                    <select id="berand" name="berand" hidden>
+                        {% for p in ps %}
+                            <option value= "{{ p.0 }}">{{ p.1 }}</option>
+                        {% endfor %}
+                    </select>
+                
                     <p id=textemployname>
                         نام کارمند برای انجام خدمت را انتخاب کنید :
                     </p>
                     <select id="sel" name="employselector" hidden>
-{#                        <option>{{ pers }}</option>#}
                         {% for empj in emplist %}
                             <option value= "{{ empj.1 }}">{{ empj.0 }}</option>
                         {% endfor %}
