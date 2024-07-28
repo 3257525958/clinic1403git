@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href={%  static "/css/materialize.min.css" %}>
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">                 #}
+    <link rel="stylesheet" type="text/css" href="{% static "/css/materialize.min.css" %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{% static "/css/materialize-rtl.css" %}">
-    <link rel="stylesheet" href={%  static "/fontawesome/css/all.css" %}>
-    <link rel="stylesheet" href={% static "/css/home.css" %}>
-    <link rel="stylesheet" href={% static "/css/add-contact.css" %}>
+    <link rel="stylesheet" type="text/css" href="{% static  "/css/materialize-rtl.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "/fontawesome/css/all.css" %}">
+    <link rel="stylesheet" type="text/css" href= "{% static "/css/home.css" %}">
+    <link rel="stylesheet" type="text/css" href= "{% static "/css/add-contact.css" %}">
     <title>مرکز زیبایی دکتر اسدپور</title>
 </head>
 <body dir="rtl" class="body">
@@ -30,7 +31,7 @@
     
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo">
-        <img src="/static/img/logo.jpg" alt="">
+        <img src={% static "/img/logo.jpg" %} alt="menu">
       </a>
 
 {#      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>#}
@@ -68,9 +69,33 @@
 </ul>
 <!-- ----------پایان ناوبار------------ -->
 <main>
-  <form class="row w-100 login dakhel_loginsec" method="POST" action="">
-  {% csrf_token %}
-      <label>ثنا خوش آمدی</label>
+  <form class="row w-100 login dakhel_loginsec" method="POST">
+    <div class="col m3 l4 hide-on-small-and-down"></div>
+
+    <div class="ghesmate_login col s12 m6 l4">
+
+    
+      <i class="center-align blick-shodan fas fa-user-plus fa-2x"></i>
+
+      <div class="input-field col s12 ">
+        <input type="text" name="esmekala"  id="esmekala" class="validate" autocomplete="off">
+        <label for="esmekala">نام :</label>
+      </div>
+
+
+      <div class="center-align dokmeye-vorood ">
+        <button class="w-100 btn waves-effect" name="button_send" value="accept">ثبت عنوان اقلام </button>
+      </div>
+        
+    </div>
+
+    <div class="col m3 l4 hide-on-small-and-down"></div>
+                  <label id="melicod_etebar" hidden >{{ melicod_etebar }}</label>
+                {% csrf_token %}
+                <div id="w">
+                    <div id="myBar" class="w3" hidden>0%</div>
+                </div>
+
   </form>
 </main>
 
@@ -119,24 +144,12 @@
   </div>
 
 </footer> 
-{#<label id="newjobetebar"  hidden >{{ newjob_etebar }}</label>#}
-{#<label id="newemployetebar"  hidden >{{ newemploy_etebar }}</label>#}
-{#<label id="deletjob"  hidden >{{ delet_etebar }}</label>#}
-{#<label id="lenjob"  hidden >{{ actcount }}</label>#}
-{#<label id="useretebar"  hidden >{{ useretebar }}</label>#}
-{#<label id="employeeetebar"  hidden >{{ employeeetebar }}</label>#}
-{#<label id="employeemessage"  hidden >{{ employeemessage }}</label>#}
-{#<label id="deletemployetebar"  hidden >{{ deletemployetebar }}</label>#}
-{#<label id="selectjob"  hidden >{{ selectjob }}</label>#}
-{#<label id="allservic" hidden>{{  allservicforjava }}</label>#}
-{#<label id="deletworkmessage"  hidden >{{ deletworkmessage }}</label>#}
-{#<label id="addetebar" hidden>{{  addetebar }}</label>#}
-{#<label id="succes" hidden>{{  succes }}</label>#}
 
-<script src={%  static "/js/materialize.min.js" %}></script>
-<script src={% static "/js/home.js" %}></script>
-<script src={% static "/js/addselect.js" %}></script>
+<script src="/static/js/materialize.min.js"></script>
+<script src="/static/js/home.js"></script>
+<script src="/static/js/addselect.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/cast_form.js" %}">    </script>
+<script src="{% static "/js/add_cantact.js" %}"></script>
+
 </body>
 </html>

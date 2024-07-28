@@ -182,4 +182,6 @@ def pardakhthoghogh(request):
 
 
 def sana(request):
+    esmekala =request.POST.get('esmekala')
+
     return render(request,'sana.html')

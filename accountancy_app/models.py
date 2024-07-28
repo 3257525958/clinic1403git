@@ -33,4 +33,9 @@ class savemovaghat(models.Model):
     def __str__(self):
         return f"{self.idcod}"
 
+class esmekalamodel(models.Model):
+    esmekala = models.CharField(max_length=11,default="0")
+
+    def __str__(self):
+        return f"{self.esmekala}"
 
