@@ -77,3 +77,8 @@
 :-moz-placeholder {color: black;}
 ::-moz-placeholder {color: black;}
 :-ms-input-placeholder {color: black;}
+ select {
+     -webkit-appearance: none;
+     -moz-appearance: none;
+     appearance: none;
+ }
