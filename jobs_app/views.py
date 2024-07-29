@@ -225,6 +225,9 @@ def jobs(request):
         for br in brs :
             if int(br.id) == int(berand):
                 es = br.esmekala
+    es = ''
+    sss = ''
+    personel =''
     if servicsave == "accept" :
 
         if (cast != '') and (cast != None):
