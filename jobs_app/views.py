@@ -49,6 +49,7 @@ def jobs(request):
     deletservicselect = request.POST.get("deletservicselect")
     detalejob = request.POST.get('detalejob')
     vahed = request.POST.get('vahed')
+    berand = request.POST.get('berand')
 # ****************************************************اضافه کردن یک فعالیت********************************************************
     newjob_etebar[0] = 'true'
     newemploy_etebar[0] = 'true'
@@ -219,7 +220,13 @@ def jobs(request):
         for user in users :
             if int(user.melicode) == int(employselector):
                 personel = user.firstname + ' ' + user.lastname
+    brs = esmekalamodel.objects.all()
+    if (berand != ' ') and (berand != None):
+        for br in brs :
+            if int(br.id) == int(berand):
+                es = br.esmekala
     if servicsave == "accept" :
+
         if (cast != '') and (cast != None):
             if (detalejob != '') and (detalejob != None):
                 sjs = jobselectormodel.objects.all()
@@ -241,8 +248,9 @@ def jobs(request):
                                                  time=timename,
                                                  person=personel,
                                                  melicodpersonel= employselector,
-                                                 detalework=detalejob,
+                                                 detalework=str(detalejob+' '+es),
                                                  idjob=str(ser.id),
+                                                 berand=es,
                                                  vahed=vahed,
                                                  )
                 addetebar[0] = 'succes'
