@@ -49,7 +49,7 @@ class leavemodel(models.Model):
     dateshamsi = models.CharField(max_length=50,default='0')
     datemiladi = models.CharField(max_length=50,default='0')
     muont = models.CharField(max_length=50,default='0')
-    leave = models.CharField (max_length=10000,default='0')
+    leave = models.TextField (max_length=10000000000,default='0')
 
 
 class neursemodel(models.Model):
