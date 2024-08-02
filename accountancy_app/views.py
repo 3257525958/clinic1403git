@@ -182,8 +182,16 @@ def pardakhthoghogh(request):
 
 
 def sana(request):
+    job = request.POST.get('job')
+    berand = request.POST.get("berand")
     esmekala =request.POST.get('esmekala')
     bottunesmekala =request.POST.get('bottunesmekala')
+    js = jobsmodel.objects.all()
+    jobsarray = ['']
+    jobsarray.clear()
+    for j in js:
+        p = (str(j.id) + "," + str(j.job)).split(",")
+        jobsarray.append(p)
     if (esmekala != None) and (esmekala != '') and (bottunesmekala == 'accept'):
-        esmekalamodel.objects.create(esmekala=esmekala)
-    return render(request,'sana.html')
+        esmekalamodel.objects.create(esmekala=esmekala, berand=berand , jobid=job)
+    return render(request,'sana.html',context={'jobsarray':jobsarray})

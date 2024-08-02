@@ -109,7 +109,7 @@
                         برند مصرفی :
                     </p>
                     <select id="berand" name="berand" hidden>
-                        {% for p in ps %}
+                        {% for p in jobarray %}
                             <option value= "{{ p.0 }}">{{ p.1 }}</option>
                         {% endfor %}
                     </select>

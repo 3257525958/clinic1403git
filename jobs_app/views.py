@@ -24,6 +24,7 @@ savework[0] = 'e'
 deletworkmessage = ['true']
 addetebar = ['t']
 def jobs(request):
+    jobarray = ['']
     es = ''
     sss = ''
     berand = request.POST.get('berand')
@@ -198,14 +199,22 @@ def jobs(request):
         sjs = jobselectormodel.objects.all()
         for sj in sjs :
             sj.delete()
+
         emplist.clear()
         savework.clear()
         selectjob[0] = 'true'
         servi= joblist[int(servicselector)]
         jobselectormodel.objects.create(w=joblist[int(servicselector)])
         allservic = jobsmodel.objects.all()
+
         for ser in allservic :
             if ser.job == joblist[int(servicselector)] :
+                bs = esmekalamodel.objects.all()
+                jobarray.clear()
+                for b in bs :
+                    if int(b.jobid) == int(ser.id):
+                        p = (str(b.id) + "," + str(b.esmekala + ' ' + b.berand)).split(",")
+                        jobarray.append(p)
                 emps = employeemodel.objects.all()
                 for emp in emps :
                     if ser.employee == emp.employee :
@@ -222,14 +231,13 @@ def jobs(request):
         for user in users :
             if int(user.melicode) == int(employselector):
                 personel = user.firstname + ' ' + user.lastname
-    brs = esmekalamodel.objects.all()
-    if (berand != ' ') and (berand != None):
-        for br in brs :
-            if int(br.id) == int(berand):
-                es = br.esmekala
+    # brs = esmekalamodel.objects.all()
+    # if (berand != ' ') and (berand != None):
+    #     for br in brs :
+    #         if int(br.id) == int(berand):
+    #             es = br.esmekala
     personel =''
     if servicsave == "accept" :
-
         if (cast != '') and (cast != None):
             if (detalejob != '') and (detalejob != None):
                 sjs = jobselectormodel.objects.all()
@@ -253,7 +261,7 @@ def jobs(request):
                                                  melicodpersonel= employselector,
                                                  detalework=str(detalejob+' '+es),
                                                  idjob=str(ser.id),
-                                                 berand=es,
+                                                 esmekala=es,
                                                  vahed=vahed,
                                                  )
                 addetebar[0] = 'succes'
@@ -281,12 +289,12 @@ def jobs(request):
             a.delete()
             deletworkmessage[0] = 'false'
     # ***********************************************************************************************************
-    brs = esmekalamodel.objects.all()
-    ps = ['']
-    ps.clear()
-    for br in brs :
-        p = (str(br.id) + "," + str(br.esmekala)).split(",")
-        ps.append(p)
+    # brs = esmekalamodel.objects.all()
+    # ps = ['']
+    # ps.clear()
+    # for br in brs :
+    #     p = (str(br.id) + "," + str(br.esmekala)).split(",")
+    #     ps.append(p)
     js = jobsmodel.objects.all()
     return render(request,"jobs.html",context={'newjob_etebar':newjob_etebar[0],
                                                'newemploy_etebar':newemploy_etebar[0],
@@ -310,6 +318,7 @@ def jobs(request):
                                                'deletservics':deletservics,
                                                'deletworkmessage':deletworkmessage[0],
                                                'addetebar':addetebar[0],
-                                               'ps':ps,
+                                               # 'ps':ps,
+                                               'jobarray':jobarray,
                                                })
 

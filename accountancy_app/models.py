@@ -34,8 +34,9 @@ class savemovaghat(models.Model):
         return f"{self.idcod}"
 
 class esmekalamodel(models.Model):
-    esmekala = models.CharField(max_length=10000,default="0")
-    berand = models.CharField(max_length=10000,default="0")
+    jobid = models.CharField(max_length=50,default="0")
+    esmekala = models.CharField(max_length=1000,default="0")
+    berand = models.CharField(max_length=1000,default="0")
 
     def __str__(self):
         return f"{self.esmekala}"

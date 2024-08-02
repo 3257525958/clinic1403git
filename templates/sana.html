@@ -76,10 +76,23 @@
 
     
       <i class="center-align blick-shodan fas fa-user-plus fa-2x"></i>
+        
+      <div class="input-field col s12 l4 m4">
+                    <select name="job">
+                        {% for j in jobsarray %}
+                            <option value={{ j.0 }}>{{ j.1 }}</option>
+                        {% endfor %}
+                    </select>
+        <label class="teal-text text-darken-4">سال تولد</label>
+      </div>
 
-      <div class="input-field col s12 ">
+      <div class="input-field col s12 l4 m4 ">
         <input type="text" name="esmekala"  id="esmekala" class="validate" autocomplete="off">
-        <label for="esmekala">نام :</label>
+        <label for="esmekala">نام کالا:</label>
+      </div>
+      <div class="input-field col s12 l4 m4 ">
+        <input type="text" name="berand"  id="berand" class="validate" autocomplete="off">
+        <label for="berand">نام برند:</label>
       </div>
 
 
@@ -90,8 +103,11 @@
     </div>
 
     <div class="col m3 l4 hide-on-small-and-down"></div>
+      
+      
                   <label id="melicod_etebar" hidden >{{ melicod_etebar }}</label>
                 {% csrf_token %}
+      
                 <div id="w">
                     <div id="myBar" class="w3" hidden>0%</div>
                 </div>
