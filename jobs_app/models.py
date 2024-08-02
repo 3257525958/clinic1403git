@@ -20,6 +20,7 @@ class workmodel(models.Model):
     melicodpersonel = models.CharField(max_length=10,default="0")
     esmekala = models.CharField(max_length=1000,default="0")
     berand = models.CharField(max_length=1000,default="0")
+    idbrand = models.CharField(max_length=100,default="0")
     time = models.CharField(max_length=50, default='امروز')
     cast = models.CharField(max_length=150, default='0')
     idjob = models.CharField(max_length=10,default="0")
