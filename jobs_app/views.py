@@ -24,6 +24,8 @@ savework[0] = 'e'
 deletworkmessage = ['true']
 addetebar = ['t']
 def jobs(request):
+    es = ''
+    sss = ''
     berand = request.POST.get('berand')
     savejob = request.POST.get("savejob")
     ne = request.POST.get("newjob")
@@ -225,8 +227,6 @@ def jobs(request):
         for br in brs :
             if int(br.id) == int(berand):
                 es = br.esmekala
-    es = ''
-    sss = ''
     personel =''
     if servicsave == "accept" :
 

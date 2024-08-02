@@ -35,6 +35,7 @@ class savemovaghat(models.Model):
 
 class esmekalamodel(models.Model):
     esmekala = models.CharField(max_length=10000,default="0")
+    berand = models.CharField(max_length=10000,default="0")
 
     def __str__(self):
         return f"{self.esmekala}"
