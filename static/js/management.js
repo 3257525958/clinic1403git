@@ -129,6 +129,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m11.hidden = false;
                         m22.hidden = false;
                         m23.hidden = false;
+                        m24.hidden = true;
                         // m33.hidden = false;
                         // m44.hidden = false;
                         // m55.hidden = false;
@@ -150,6 +151,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m2121.hidden = true;
                         m2222.hidden = false;
                         m2323.hidden = false;
+                        m2424.hidden = true;
     }
     if ( l == "دسترسی معمولی") {
         m1.hidden = false;
@@ -175,6 +177,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m21.hidden = true;
         m22.hidden= true;
         m23.hidden = true;
+        m24.hidden = true;
 
         m11.hidden = false;
         m22.hidden = false;
@@ -199,6 +202,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m2121.hidden = true;
         m2222.hidden = true;
         m2323.hidden = true;
+        m2424.hidden = true;
     }
         if ( l == "رزروشن") {
                         m1.hidden = false;
@@ -224,6 +228,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m21.hidden = true;
                         m22.hidden= false;
                         m23.hidden = false;
+                        m24.hidden = true;
 
 
                         m11.hidden = false;
@@ -249,6 +254,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m2121.hidden = true;
                         m2222.hidden= false;
                         m2323.hidden = false;
+                        m2424.hidden = true;
 
     }
         if (l != "دسترسی معمولی" ) {
@@ -279,7 +285,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m222.hidden = true;
                         m23.hidden = true;
                         m22.hidden = true;
-
+                        m24.hidden = true;
 
                         m11.hidden = false;
                         m22.hidden = true;
