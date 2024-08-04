@@ -96,7 +96,7 @@
       </div>
 
       <div class="input-field col s4">
-                    <select class="inputclass" name="day" >
+                    <select class="custom-select" name="day" >
                             <option value= "1" >1</option>
                             <option value= "2" >2</option>
                             <option value= "3" >3</option>
@@ -135,7 +135,7 @@
         <label class="teal-text text-darken-4">روز تولد :</label>
       </div>
       <div class="input-field col s4">
-                    <select  name="mounth" >
+                    <select class="custom-select"  name="mounth" >
                         <option value="فروردین">فروردین</option>
                         <option value="اردیبهشت">اردیبهشت</option>
                         <option value="خرداد">خرداد</option>
@@ -152,7 +152,7 @@
         <label class="teal-text text-darken-4 ">ماه تولد :</label>
       </div>
       <div class="input-field col s4">
-                    <select name="year">
+                    <select class="custom-select" name="year">
                         {% for i in yearcant %}
                             <option value={{ i }}>{{ i }}</option>
                         {% endfor %}

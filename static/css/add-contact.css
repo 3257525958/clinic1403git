@@ -77,8 +77,32 @@
 :-moz-placeholder {color: black;}
 ::-moz-placeholder {color: black;}
 :-ms-input-placeholder {color: black;}
- select {
-     -webkit-appearance: none;
-     -moz-appearance: none;
-     appearance: none;
- }
+
+.custom-select {
+    position: relative;
+    display: inline-block;
+}
+.custom-select select{
+    display: none;
+}
+.select-selected{
+    background-color: #0f9d58;
+}
+.select-items div , .select-selected {
+    color: black;
+    padding:  8px 16px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.select-items {
+    position: absolute;
+    background-color: #0f9d58;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+}
+select-hide {
+    display: none;
+}
