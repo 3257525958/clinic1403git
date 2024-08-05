@@ -98,7 +98,7 @@
                 {% for d in works %}
                     {% if d.work == w %}
                         <button type="submit" class="effects__iteme " name="inputwork" value="{{ forloop.counter0 }}">
-                            <p class="effects__name" >{{ d.work }} {{ d.detalework }}</p>
+                            <p class="effects__name" >{{ d.work }} {{ d.detalework }} برند {{ d.berand }}</p>
                             <p class="effects__name" >{{ d.person }}</p>
                             <p class="effects__name" >{{ d.cast }}</p>
                             <p class="effects__name" >زمان: {{ d.time }}</p>

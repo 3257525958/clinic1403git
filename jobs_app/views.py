@@ -256,6 +256,10 @@ def jobs(request):
                             if int(b.id) == int(berand):
                                 workesmekala = b.esmekala
                                 workberand = b.berand
+                        users = accuntmodel.objects.all()
+                        for user in users :
+                            if int(user.melicode) == int(employselector):
+                                personel = user.firstname + ' ' + user.lastname
                         workmodel.objects.create(work=sss,
                                                  cast=cast,
                                                  time=timename,

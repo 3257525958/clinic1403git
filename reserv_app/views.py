@@ -170,6 +170,7 @@ def reservdef(request):
 #**********************انتخاب کاربر به صورت یک عدد از forloop  از وب میاد و در اینجا اون عدد تبدیل میشه به انتخاب اصلی و در  f  ریخته میشه**************
         c = 0
         personelmelicode = '0'
+        berand = ''
         if inputwork != None:
             reservposition[0] = "1"
             for f in works :
@@ -178,12 +179,14 @@ def reservdef(request):
                     selectprocedure.append(f.work)
                     selectprocedure.append(f.detalework)
                     selectprocedure.append(f.person)
+                    berand = f.berand
                     personelmelicode = f.melicodpersonel
                     a = reservemodeltest.objects.filter(mellicode=request.user.username)
                     a.update(jobreserv=f.work,
                              detalereserv=f.detalework,
                              personreserv=f.person,
                              vahed=f.vahed,
+                             idwork=f.id
                              )
 
                     if f.time == "زمان کمی میبرد" :
@@ -350,7 +353,7 @@ def reservdef(request):
             # day.pop(0)
             return render(request,'timereserv.html',context={
                                                              'day':day,
-                                                             'person':" رزرو وقت برای " + selectprocedure[0] +" "+ selectprocedure[1] + "(" + selectprocedure[2] + ")",
+                                                             'person':" رزرو وقت برای " + selectprocedure[0] +" "+ selectprocedure[1] + ' '+ berand +' '+ "(" + selectprocedure[2] + ")",
                                                              })
 # _______انتخاب یه تایم برای خدمت مورد نظر__________
         if (timeselect != None) and (timeselect != '') :
@@ -516,9 +519,15 @@ def reservdef(request):
                 image_show = image_show,
                 satisfact = satisfact,
                                            )
+
+            b = ''
             rtotal = reservemodeltest.objects.all()
             for r in rtotal:
                 if r.mellicode == request.user.username:
+                    wo = workmodel.objects.all()
+                    for woo in wo:
+                        if int(r.idwork) == woo.id:
+                            b = woo.berand
                     work = r.jobreserv
                     detalework = r.detalereserv
                     personwork = r.personreserv
@@ -526,6 +535,7 @@ def reservdef(request):
                     hoursreserv = r.hourreserv
                     firstname = r.fiestname
                     lastname = r.lastname
+
 
             return render(request, 'reserv_end.html', context={
                                                                             "work": work,
@@ -536,6 +546,7 @@ def reservdef(request):
                                                                             "firstname": firstname,
                                                                             "firstname": firstname,
                                                                             "lastname": lastname,
+                                                                            "berand":b,
                                                                         })
         return render(request,'reserv.html',context={'works':works,
                                                  'job':ww,
@@ -932,6 +943,7 @@ def reserverdef(request):
             datemiladireserv = tm.strftime('%a %d %b %y'),
             yearshamsi = stry(datetime.datetime.now()),
             vahed = vahed,
+            idwork=detalework,
         )
 
 
@@ -1130,7 +1142,7 @@ def reserverdef(request):
             ws = workmodel.objects.all()
             for w in ws:
                 if w.idjob == job:
-                    p = (w.detalework + "," + str(w.id)).split(",")
+                    p = ((w.detalework + ' ' + w.berand) + "," + str(w.id)).split(",")
                     detalarray.append(p)
             js = jobsmodel.objects.all()
             for j in js :
@@ -1439,7 +1451,7 @@ def reservdasti(request):
         ws = workmodel.objects.all()
         for w in ws:
             if w.idjob == job :
-                p = (w.detalework+","+str(w.id)).split(",")
+                p = ((w.detalework + ' ' + w.berand)+","+str(w.id)).split(",")
                 detalarray.append(p)
 
     etebarreservdasti = 'notr'
@@ -1476,6 +1488,7 @@ def reservdasti(request):
             yearshamsi = yearshamsi,
             pyment = "0",
             vahed=vahed,
+            idwork=detalework,
         )
 
 

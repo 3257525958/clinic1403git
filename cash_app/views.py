@@ -113,7 +113,8 @@ def callbackzibal(request):
                                                         trakingcod = oneobj.rahgiricod,
                                                         bank= "zibal",
                                                         vahed=oneobj.vahed,
-                                                        )
+                                                        idwork=oneobj.idwork,
+                    )
                     a = reservemodeltest.objects.filter(rahgiricod=rahgiricode)
                     a.delete()
                     message = f"دکتر_اسدپور_"
