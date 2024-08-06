@@ -697,6 +697,7 @@ def leave(request):
                                                                         })
 
 def reserverdef(request):
+    etebarbuttonsend = 'false'
     idreserv = request.POST.get("idreserv")
     buttondelet = request.POST.get("buttondelet")
     buttoncancel =request.POST.get("buttoncancel")
@@ -1152,6 +1153,7 @@ def reserverdef(request):
             if user.melicode == melicode:
                 name = user.firstname + " " + user.lastname
                 etebarmelicod = "true"
+        etebarbuttonsend = 'true'
         return render(request, 'reserv_reserver.html', context={
             'operatormelicod': operatormelicod,
             'melicode': melicode,
@@ -1164,6 +1166,7 @@ def reserverdef(request):
             'jadid':jobs,
             'jid':job,
             'timesel':timesel,
+            'etebarbuttonsend':etebarbuttonsend,
         })
 
 

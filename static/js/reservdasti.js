@@ -12,6 +12,7 @@ var namebuttom = document.getElementById("namebuttom");
 var names = document.getElementById("names");
 var  etebarreservdasti = document.getElementById("etebarreservdasti");
 var personelbutton = document.getElementById("personelbutton");
+var etebarbuttonsend = document.getElementById('etebarbutton_send');
         function chengejob(){
     jobbuttom.click();
 }
@@ -82,4 +83,13 @@ var personelbutton = document.getElementById("personelbutton");
         }
 
 
-
+    if ( etebarbuttonsend.innerHTML == 'addmployee' ){
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: m + 'با موفقیت ثبت شد',
+          showConfirmButton: false,
+          timer: 2000
+                 });
+        setTimeout('redirectt()',1000);
+    }
