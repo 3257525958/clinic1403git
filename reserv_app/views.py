@@ -698,6 +698,13 @@ def leave(request):
 
 def reserverdef(request):
     etebarbuttonsend = 'false'
+    dayselect = request.POST.get('day')
+    mounthselect = request.POST.get('mounth')
+    if dayselect == None :
+        dayselect = '0'
+    if mounthselect == None :
+        mounthselect = '0'
+
     idreserv = request.POST.get("idreserv")
     buttondelet = request.POST.get("buttondelet")
     buttoncancel =request.POST.get("buttoncancel")
@@ -752,16 +759,22 @@ def reserverdef(request):
     # کلید روز بغد و روز قبل رو هدلیت میکنه و اینکه چند روز از امروز جلوتر رفتیم یا عقب تر رفتیم رو در dayconter میریزه---
 
     t = datetime.datetime.now()
+    a = 0
     dayconterstr = request.POST.get("dayconter")
     if (dayconterstr == None) or (dayconterstr == ""):
         dayconter = 0
     else:
         dayconter = int(dayconterstr)
+
+
+
     button_next = request.POST.get("button_next")
     if button_next == 'accept' :
+        a = 1
         dayconter += 1
     button_back = request.POST.get("button_back")
     if button_back == 'accept' :
+        a = 1
         dayconter -= 1
     if dayconter < 0 :
         dayconterm = dayconter * (-1)
@@ -770,6 +783,29 @@ def reserverdef(request):
     if dayconter > 0 :
         for i in range(dayconter):
             t += timedelta(days=1)
+    y = stry(t)
+    e = ''
+    if a == 0 :
+        if (dayselect != '0') and (mounthselect != '0') :
+            if (int(strd(t)) >= int(dayselect)) and (strb(t) == mounthselect):
+                while strb(t) == mounthselect:
+                    print(dayconter)
+                    t -= timedelta(days=1)
+                    dayconter -= 1
+
+            while strb(t) != mounthselect:
+                t += timedelta(days=1)
+                print(dayconter)
+                dayconter += 1
+                if int(y) != int(stry(t)):
+                    e = 'false'
+                    break
+            while int(strd(t)) != int(dayselect):
+                t += timedelta(days=1)
+                print(dayconter)
+                dayconter += 1
+
+
 
     dayreserv = ['t']
     dayreserv.clear()
@@ -952,6 +988,7 @@ def reserverdef(request):
     if ( timeselect != None ) and ( timeselect != '' ):
         se = timeselect.split(",")
         tt = int(se[1])
+
         timesel = int(se[0])
 
         intdayconter = int(dayconter)
@@ -1174,11 +1211,13 @@ def reserverdef(request):
         'dastiarray': dastiarray,
         'day': dayreserv,
         'operatorarray':operatorarray,
-        # 'selectoperator':selectoperator,
         'operatoreselect':operatoreselect,
         'dayconter': dayconter,
         'personel':personel,
         'melicodperonel':melicodperonel,
+        'dayselect':dayselect,
+        'mounthselect':mounthselect,
+        'e':e,
     })
 
 def dashborddef(request):

@@ -4,6 +4,7 @@ var jadval =document.getElementById("jadval");
 var operatoreselect = document.getElementById("operatoreselect");
 var  etebar = document.getElementById("etebar");
 var mounthchek = document.getElementById("mounthchek");
+var yer = document.getElementById("yer");
     //     if (mounthchek.innerHTML == 'false'){
     //     Swal.fire({
     //       position: 'top-end',
@@ -14,6 +15,16 @@ var mounthchek = document.getElementById("mounthchek");
     //              });
     // setTimeout('redirectt()',2000);
     //     }
+        if ( yer.innerHTML == 'false'){
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'تاریخ وارد شده گذشته است',
+          showConfirmButton: false,
+          timer: 4000
+                 });
+    setTimeout('redirectt()',2000);
+        }
         if ( etebar.innerHTML == 'true'){
         Swal.fire({
           position: 'top-end',
@@ -43,3 +54,6 @@ function clic(){
     {
         window.location = "/";
     }
+        function cli(){
+            document.getElementById("cl").click();
+        }
