@@ -4,7 +4,7 @@ from django.db import models
 class accuntmodel(models.Model):
     firstname = models.CharField(max_length=100 )
     lastname = models.CharField(max_length=100 )
-    melicode = models.CharField(max_length=10 , default='0')
+    melicode = models.CharField(max_length=15 , default='0')
     phonnumber = models.CharField(max_length=11 )
     berthday = models.CharField(max_length=100)
     pasword = models.CharField(max_length=100)
