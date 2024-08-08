@@ -697,7 +697,7 @@ def leave(request):
                                                                         })
 
 def reserverdef(request):
-    etebarbuttonsend = 'false'
+    etebarreservdasti = 'false'
     dayselect = request.POST.get('day')
     mounthselect = request.POST.get('mounth')
     if dayselect == None :
@@ -982,9 +982,20 @@ def reserverdef(request):
             vahed = vahed,
             idwork=detalework,
         )
+        return render(request, 'reserver.html', context={
+            'dastiarray': dastiarray,
+            'day': dayreserv,
+            'operatorarray': operatorarray,
+            'operatoreselect': operatoreselect,
+            'dayconter': dayconter,
+            'personel': personel,
+            'melicodperonel': melicodperonel,
+            'dayselect': dayselect,
+            'mounthselect': mounthselect,
+            'e': e,
+        })
 
-
-# ------از جدول وقتها یکی انتخاب میشه سه حالت داره یا یه تایم قبلی هستش یا یه تایم حارج از وقت یا تایم خالی  ------
+    # ------از جدول وقتها یکی انتخاب میشه سه حالت داره یا یه تایم قبلی هستش یا یه تایم حارج از وقت یا تایم خالی  ------
     if ( timeselect != None ) and ( timeselect != '' ):
         se = timeselect.split(",")
         tt = int(se[1])
@@ -1203,7 +1214,6 @@ def reserverdef(request):
             'jadid':jobs,
             'jid':job,
             'timesel':timesel,
-            'etebarbuttonsend':etebarbuttonsend,
         })
 
 

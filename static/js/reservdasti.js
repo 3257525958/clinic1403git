@@ -3,8 +3,6 @@ var melicode = document.getElementById("melicode");
 var jobbuttom =document.getElementById("jobbuttom");
 var melicodesave= document.getElementById("melicodesave");
 var jobsave = document.getElementById("jobsave");
-var lpersonreserv = document.getElementById("lpersonreserv");
-var lcastreserv = document.getElementById("lcastreserv");
 var personreserv = document.getElementById("personreserv");
 var castreserv = document.getElementById("castreserv");
 var etebarmelicod = document.getElementById("etebarmelicod");
@@ -12,7 +10,6 @@ var namebuttom = document.getElementById("namebuttom");
 var names = document.getElementById("names");
 var  etebarreservdasti = document.getElementById("etebarreservdasti");
 var personelbutton = document.getElementById("personelbutton");
-var etebarbuttonsend = document.getElementById('etebarbutton_send');
         function chengejob(){
     jobbuttom.click();
 }
@@ -20,6 +17,7 @@ var etebarbuttonsend = document.getElementById('etebarbutton_send');
             personelbutton.click()
         }
         function melicodcheck(){
+            document.getElementById("sendbtn").hidden = true;
             document.getElementById("namepersonel").hidden = true;
             document.getElementById("workhide").hidden = true;
             document.getElementById("detalhiden").hidden = true ;
@@ -37,6 +35,7 @@ var etebarbuttonsend = document.getElementById('etebarbutton_send');
 
     }
         if (etebarmelicod.innerHTML == 'true'){
+            document.getElementById("sendbtn").hidden = false;
             document.getElementById("namepersonel").hidden = false;
             document.getElementById("workhide").hidden = false ;
             document.getElementById("detalhiden").hidden = false ;
@@ -83,13 +82,3 @@ var etebarbuttonsend = document.getElementById('etebarbutton_send');
         }
 
 
-    if ( etebarbuttonsend.innerHTML == 'addmployee' ){
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: m + 'با موفقیت ثبت شد',
-          showConfirmButton: false,
-          timer: 2000
-                 });
-        setTimeout('redirectt()',1000);
-    }

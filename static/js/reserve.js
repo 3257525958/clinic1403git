@@ -56,4 +56,4 @@ function clic(){
     }
         function cli(){
             document.getElementById("cl").click();
-        }
+        }ظ
