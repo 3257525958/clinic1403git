@@ -22,7 +22,7 @@ class fpeseshktestmodel(models.Model):
     apbadimage = models.ImageField(upload_to='image/apbad',null=True)
     llateralbadimage = models.ImageField(upload_to='image/llateralbad',null=True)
     rlateralbadimage = models.ImageField(upload_to='image/rlateralbad',null=True)
-    coment = models.TextField(default='')
+    coment = models.TextField (max_length=10000000000,default='0')
     vahedeobject = models.CharField(max_length=10, default='1')
     vahedeobjectname = models.CharField(max_length=100, default='0',null=True)
     offer = models.CharField(max_length=20, default='0')

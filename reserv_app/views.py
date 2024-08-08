@@ -1345,6 +1345,7 @@ def dashborddef(request):
     fpezeshkibottom = request.POST.get("fpezeshkibottom")
     vahedeobject = request.POST.get("vahedeobject")
     vahedeobjectname = request.POST.get("vahedeobjectname")
+    description = request.POST.get("description")
     cast = ''
     if fpezeshkibottom == "accept" :
         ws = reservemodel.objects.all()
@@ -1376,6 +1377,7 @@ def dashborddef(request):
                     vahedeobject = vahedeobject,
                     vahedeobjectname = w.vahed,
                     reservid = reservid,
+                    coment=description,
                 )
                 a = reservemodel.objects.filter(id=int(reservid))
                 a.delete()

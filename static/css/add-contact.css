@@ -106,3 +106,6 @@
 select-hide {
     display: none;
 }
+.sizetextarea {
+    height: 300px;
+}
