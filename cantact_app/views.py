@@ -566,3 +566,23 @@ def addphone(request):
     return render(request,'add_phon.html',context={"repeat":repeat})
 
 
+def saveaccantdef(request):
+    firstname = request.POST.get("firstname")
+    lastname = request.POST.get("lastname")
+    phonnumber = request.POST.get("phonnumber")
+    button_send =request.POST.get("button_send")
+    etebar = 'false'
+    if button_send == 'accept':
+        etebar = 'true'
+        accuntmodel.objects.create( firstname = firstname,
+                                    lastname = lastname,
+                                    melicode = '1122334455',
+                                    phonnumber = phonnumber,
+                                    berthday = "1",
+                                    pasword = "1",
+                                    level = "1",
+                                    dayb = "1",
+                                    mountb = '1',
+                                    yearb = '1',
+                                    )
+    return render(request,'addreserv_cantact.html',context={'etebar': etebar, })
