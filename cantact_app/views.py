@@ -580,7 +580,7 @@ def saveaccantdef(request):
         etebar = 'true'
         accuntmodel.objects.create( firstname = firstname,
                                     lastname = lastname,
-                                    melicode = '1122334455',
+                                    melicode = phonnumber,
                                     phonnumber = phonnumber,
                                     berthday = "1",
                                     pasword = "1",
