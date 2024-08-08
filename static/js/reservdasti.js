@@ -8,7 +8,7 @@ var castreserv = document.getElementById("castreserv");
 var etebarmelicod = document.getElementById("etebarmelicod");
 var namebuttom = document.getElementById("namebuttom");
 var names = document.getElementById("names");
-var  etebarreservdasti = document.getElementById("etebarreservdasti");
+var etebarreservdasti = document.getElementById("etebarreservdasti");
 var personelbutton = document.getElementById("personelbutton");
         function chengejob(){
     jobbuttom.click();
