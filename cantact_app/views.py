@@ -568,7 +568,11 @@ def addphone(request):
 
 def saveaccantdef(request):
     firstname = request.POST.get("firstname")
+    if firstname == None :
+        firstname = ''
     lastname = request.POST.get("lastname")
+    if lastname == None :
+        lastname = ''
     phonnumber = request.POST.get("phonnumber")
     button_send =request.POST.get("button_send")
     etebar = 'false'

@@ -2,10 +2,10 @@ from django.db import models
 
 
 class accuntmodel(models.Model):
-    firstname = models.CharField(max_length=100 , default='')
-    lastname = models.CharField(max_length=100 , default='')
+    firstname = models.CharField(max_length=100 )
+    lastname = models.CharField(max_length=100 )
     melicode = models.CharField(max_length=10 , default='0')
-    phonnumber = models.CharField(max_length=11 , default='0')
+    phonnumber = models.CharField(max_length=11 )
     berthday = models.CharField(max_length=100)
     pasword = models.CharField(max_length=100)
     level = models.CharField(max_length=50,default='دسترسی معمولی')
