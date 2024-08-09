@@ -1346,6 +1346,7 @@ def dashborddef(request):
     vahedeobject = request.POST.get("vahedeobject")
     vahedeobjectname = request.POST.get("vahedeobjectname")
     description = request.POST.get("description")
+    # img1 = request.FILES.get("img1")
     cast = ''
     if fpezeshkibottom == "accept" :
         ws = reservemodel.objects.all()
@@ -1356,7 +1357,6 @@ def dashborddef(request):
                     cast = str(float(w.castreserv) * float(vahedeobject))
                 else:
                     vahedeobject = '1'
-
                 fpeseshktestmodel.objects.create(
                     melicod=w.melicod,
                     jobreserv =w.jobreserv,
@@ -1378,6 +1378,7 @@ def dashborddef(request):
                     vahedeobjectname = w.vahed,
                     reservid = reservid,
                     coment=description,
+                    # apghablimage= img1,
                 )
                 a = reservemodel.objects.filter(id=int(reservid))
                 a.delete()
