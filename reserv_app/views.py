@@ -761,10 +761,11 @@ def reserverdef(request):
     t = datetime.datetime.now()
     a = 0
     dayconterstr = request.POST.get("dayconter")
+    print(dayconterstr)
     if (dayconterstr == None) or (dayconterstr == "") or (dayconterstr == 'None'):
         dayconter = 0
-    else:
-        dayconter = int(dayconterstr)
+    # else:
+    #     dayconter = int(dayconterstr)
 
 
 
