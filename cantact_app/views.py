@@ -567,6 +567,7 @@ def addphone(request):
 
 
 def saveaccantdef(request):
+    etebar = 'false'
     firstname = request.POST.get("firstname")
     if firstname == None :
         firstname = ''
@@ -575,8 +576,11 @@ def saveaccantdef(request):
         lastname = ''
     phonnumber = request.POST.get("phonnumber")
     button_send =request.POST.get("button_send")
-    etebar = 'false'
-    if button_send == 'accept':
+    users = accuntmodel.objects.all()
+    for user in users:
+        if int(user.melicode) == int(phonnumber):
+            etebar = "repeat"
+    if (button_send == 'accept') and ( etebar != "repeat" ):
         etebar = 'true'
         accuntmodel.objects.create( firstname = firstname,
                                     lastname = lastname,
