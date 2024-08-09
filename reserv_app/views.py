@@ -764,11 +764,11 @@ def reserverdef(request):
     print(dayconterstr)
     if (dayconterstr == None) or (dayconterstr == "") or (dayconterstr == 'None'):
         dayconter = 0
-    # else:
-    #     dayconter = int(dayconterstr)
+    else:
+        dayconter = int(dayconterstr)
 
 
-
+    print(dayconter)
     button_next = request.POST.get("button_next")
     if button_next == 'accept' :
         a = 1
@@ -777,10 +777,12 @@ def reserverdef(request):
     if button_back == 'accept' :
         a = 1
         dayconter -= 1
+
     if dayconter < 0 :
         dayconterm = dayconter * (-1)
         for i in range(dayconterm):
             t -= timedelta(days=1)
+
     if dayconter > 0 :
         for i in range(dayconter):
             t += timedelta(days=1)
@@ -1340,15 +1342,12 @@ def dashborddef(request):
                                 'procedure':reserv.jobreserv + " " + reserv.detalereserv,
                                 'id':reserv.id,
                                 'vahed':reserv.vahed,
-                                # 'form':form,
                                                                                         })
     reservid = request.POST.get("reservid")
     fpezeshkibottom = request.POST.get("fpezeshkibottom")
     vahedeobject = request.POST.get("vahedeobject")
     vahedeobjectname = request.POST.get("vahedeobjectname")
     description = request.POST.get("description")
-    # img1 = request.FILES.get("img1")
-    cast = ''
     if fpezeshkibottom == "accept" :
         ws = reservemodel.objects.all()
         for w in ws:
@@ -1379,7 +1378,6 @@ def dashborddef(request):
                     vahedeobjectname = w.vahed,
                     reservid = reservid,
                     coment=description,
-                    # apghablimage= img1,
                 )
                 a = reservemodel.objects.filter(id=int(reservid))
                 a.delete()

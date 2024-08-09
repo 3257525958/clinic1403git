@@ -12,5 +12,5 @@ class peseshkform(forms.ModelForm):
             'apghablimage':forms.FileInput(attrs={'class':'w-100 btn waves-effect col s6 mt-5', 'name':'img'}),
             'vahedeobject': forms.FileInput(attrs={'class': 'validate', 'name': 'vahedeobject'}),
         }
-class testform(forms.Form):
-    img = forms.ImageField()
+# class testform(forms.Form):
+#     img = forms.ImageField()
