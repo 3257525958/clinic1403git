@@ -761,14 +761,11 @@ def reserverdef(request):
     t = datetime.datetime.now()
     a = 0
     dayconterstr = request.POST.get("dayconter")
-    print(dayconterstr)
     if (dayconterstr == None) or (dayconterstr == "") or (dayconterstr == 'None'):
         dayconter = 0
     else:
         dayconter = int(dayconterstr)
 
-
-    print(dayconter)
     button_next = request.POST.get("button_next")
     if button_next == 'accept' :
         a = 1
