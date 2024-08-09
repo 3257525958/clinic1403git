@@ -24,6 +24,7 @@ savework[0] = 'e'
 deletworkmessage = ['true']
 addetebar = ['t']
 def jobs(request):
+    etesave = 'true'
     jobarray = ['']
     es = ''
     sss = ''
@@ -260,19 +261,25 @@ def jobs(request):
                         for user in users :
                             if int(user.melicode) == int(employselector):
                                 personel = user.firstname + ' ' + user.lastname
-                        workmodel.objects.create(work=sss,
-                                                 cast=cast,
-                                                 time=timename,
-                                                 person=personel,
-                                                 melicodpersonel= employselector,
-                                                 detalework=str(detalejob+' '+es),
-                                                 idjob=str(ser.id),
-                                                 vahed=vahed,
-                                                 esmekala = workesmekala,
-                                                 berand = workberand,
-                                                 idbrand = berand,
 
-                        )
+                        works = workmodel.objects.all()
+                        for work in works :
+                            if (work.work == sss) and ( work.detalework == str(detalejob+' '+es) ) and (int(work.melicodpersonel) == int(employselector)) and ( work.esmekala == workesmekala) and (work.berand == workberand):
+                                etesave = "false"
+                        if etesave != "false":
+                            workmodel.objects.create(work=sss,
+                                                         cast=cast,
+                                                         time=timename,
+                                                         person=personel,
+                                                         melicodpersonel= employselector,
+                                                         detalework=str(detalejob+' '+es),
+                                                         idjob=str(ser.id),
+                                                         vahed=vahed,
+                                                         esmekala = workesmekala,
+                                                         berand = workberand,
+                                                         idbrand = berand,
+                                )
+                print(etesave)
                 addetebar[0] = 'succes'
                 savework.clear()
                 selectjob.clear()
@@ -281,6 +288,7 @@ def jobs(request):
                 selectjob.clear()
                 return render(request, "jobs.html", context={
                                                          'addetebar': addetebar[0],
+                                                         'etesave':etesave,
                                                          })
 
             else:

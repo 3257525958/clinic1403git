@@ -13,9 +13,12 @@ var addetebar = document.getElementById('addetebar');
 var    j = ( lenjob.innerHTML  * 19 ) + 100 ;
 var lmablagh = document.getElementById("lmablagh");
 var mablagh = document.getElementById("mablagh");
+var etesave = document.getElementById("etesave");
 console.log(addetebar);
 
     if ( newjobetebar.innerHTML == 'ok' ){
+        if ( etesave.innerHTML == 'false' ){
+
         Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -25,7 +28,7 @@ console.log(addetebar);
                  });
         setTimeout('redirectt()',1000);
     }
-
+        }
     if ( newjobetebar.innerHTML == 'false') {
         Swal.fire({
             icon: 'warning',
@@ -53,6 +56,16 @@ console.log(addetebar);
           position: 'top-end',
           icon: 'success',
           title: 'فعالیت مورد نظر با موفقیت حذف گردید',
+          showConfirmButton: false,
+          timer: 2000
+                 });
+        setTimeout('redirectt()',1000);
+    }
+    if ( etesave.innerHTML == 'false' ){
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'فعالیت مورد نظر تکراری است',
           showConfirmButton: false,
           timer: 2000
                  });
