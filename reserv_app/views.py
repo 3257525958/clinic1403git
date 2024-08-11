@@ -1395,7 +1395,7 @@ def dashborddef(request):
                     vahedeobjectname = w.vahed,
                     reservid = reservid,
                     coment=description,
-                    material=idkalaarray,
+                    # materialll=idkalaarray,
                 )
                 a = reservemodel.objects.filter(id=int(reservid))
                 a.delete()

@@ -27,7 +27,7 @@ class fpeseshktestmodel(models.Model):
     vahedeobjectname = models.CharField(max_length=100, default='0',null=True)
     offer = models.CharField(max_length=20, default='0')
     reservid = models.CharField(max_length=50, default='0')
-    material = models.CharField(max_length=9999, default='0')
+    # materialll = models.CharField(max_length=9999, default='0')
 
     def __str__(self):
         return f"{self.personreserv}"
