@@ -105,6 +105,32 @@
         </div>
       <br><br>
       <br><br>
+      
+      
+      <div class="col s12">
+         <table class="highlight" id="table"  >
+         
+                <thead>
+                      <tr>
+                          <th>انتخاب</th>
+                          <th>نام و نام خانوادگی</th>
+                          <th>کد ملی</th>
+                      </tr>
+                </thead>
+        
+                <tbody>
+                    {% for k in kalaarray %}
+                      <tr>
+                        <td> <label><input name="tickkala{{ forloop.counter0 }}" id="tickkala" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange=""/><span></span></label></td>  
+                        <td>{{ k.0 }}</td>
+                        <td>{{ k.1 }}</td>
+                      </tr>
+                    {% endfor %}
+                </tbody>
+         </table>
+      </div>  
+
+      
       <br><br>
         <div class="center-align dokmeye-vorood ">
           <button class="w-100 btn waves-effect" name="fpezeshkibottom" value="accept">ثبت اطلاعات </button>
@@ -114,6 +140,8 @@
       </div>
   
       <div class="col m3 l4 hide-on-small-and-down"></div>
+      <input name="timeselect" value="{{ timeselect }}" hidden>
+      <input name="tres" value="{{ tres }}" hidden>
       <input id="reservid" name="reservid" value="{{ id }}" hidden>
       <input id="sel" name="sel" hidden>
       <label id="jam"  hidden >{{ jam }}</label>
@@ -121,6 +149,7 @@
       <label id="melicodvalue"  hidden >{{ melicod }}</label>
       <label id="etebarmelicod"  hidden >{{ etebarmelicod }}</label>
       <button id="face" name="facebutton" value="accept" hidden >اینتر</button>
+      <button id="timeselectbtn" name="timeselectbtn" value="accept" hidden >اینتر</button>
   
 
 

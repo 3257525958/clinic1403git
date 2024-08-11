@@ -575,6 +575,8 @@ def saveaccantdef(request):
     if lastname == None :
         lastname = ''
     phonnumber = request.POST.get("phonnumber")
+    if (phonnumber == None ) or (phonnumber == '') or (phonnumber == "None") :
+        phonnumber = 0
     button_send =request.POST.get("button_send")
     users = accuntmodel.objects.all()
     for user in users:

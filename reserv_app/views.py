@@ -8,7 +8,8 @@ from datetime import timedelta
 import matplotlib
 from reserv_app.models import reservemodel,leavemodel,reservemodeltest,filepage1model,searchmodeltest
 from cantact_app.models import accuntmodel
-from file_app.models import fpeseshktestmodel
+from file_app.models import *
+from accountancy_app.models import *
 ww = ['t']
 shamsiarray = ['t']
 miladiarray = ['t']
@@ -1231,23 +1232,81 @@ def reserverdef(request):
     })
 
 def dashborddef(request):
-    timeselect = request.POST.get('timeselect')
-    dayconterstr = request.POST.get("dayconter")
-    button_next = request.POST.get("button_next")
-    button_back = request.POST.get("button_back")
-    tres =request.POST.get("tres")
-
-    # form = peseshkform(request.POST, request.FILES)
-
-
     users = accuntmodel.objects.all()
     namedashbord = ''
     dastrasi = ''
+    idkalaarray = ['']
     for user in users:
         if user.melicode == request.user.username:
             namedashbord = user.firstname + ' ' + user.lastname
             dastrasi = user.level
-            
+    tres =request.POST.get("tres")
+    timeselect = request.POST.get('timeselect')
+    karray = ['']
+    berandkalaarray = ['']
+    idkalaarray = ['']
+    if ( timeselect != None ) and ( timeselect != '' ):
+        se = timeselect.split(",")
+        reservs = reservemodel.objects.all()
+        for reserv in reservs:
+            if str(int(se[0])) == "21":
+                if str(reserv.id) == str(int(se[1])):
+                    n = ''
+                    qs = accuntmodel.objects.all()
+                    for q in qs:
+                        if q.melicode == reserv.melicod:
+                            n = q.firstname + " " + q.lastname
+                    karray.clear()
+                    workse = workmodel.objects.all()
+                    for work in workse:
+                        if int(reserv.idwork) == int(work.id):
+                            jobs = jobsmodel.objects.all()
+                            for job in jobs:
+                                if int(work.idjob) == int(job.id):
+                                    esmes = esmekalamodel.objects.all()
+                                    for esme in esmes:
+                                        if int(esme.jobid) == int(job.id):
+                                            a = ['']
+                                            a.clear()
+                                            a.append(esme.esmekala)
+                                            a.append(esme.berand)
+                                            karray.append(a)
+
+
+            else:
+                if reserv.personreserv == namedashbord:
+                    if reserv.datemiladireserv == tres:
+                        if int(se[0]) == int(reserv.numbertime) :
+                            n = ''
+                            qs = accuntmodel.objects.all()
+                            for q in qs:
+                                if q.melicode == reserv.melicod:
+                                    n = q.firstname + " " + q.lastname
+                            karray.clear()
+                            workse = workmodel.objects.all()
+                            for work in workse:
+                                if int(reserv.idwork) == int(work.id):
+                                    jobs = jobsmodel.objects.all()
+                                    for job in jobs:
+                                        if int(work.idjob) == int(job.id):
+                                            esmes = esmekalamodel.objects.all()
+                                            for esme in esmes:
+                                                if int(esme.jobid) == int(job.id):
+                                                    karray.append(esme.id)
+        arrayselect = ['']
+        arrayselect.clear()
+        idkalaarray.clear()
+        for i in range(int(len(karray))):
+            s = "tickkala"+str(i)
+            tickkala = request.POST.get(s)
+            if (tickkala != None) and (tickkala != ''):
+                idkalaarray.append(karray[int(tickkala)])
+
+    tickkala = request.POST.get("tickkala")
+    dayconterstr = request.POST.get("dayconter")
+    button_next = request.POST.get("button_next")
+    button_back = request.POST.get("button_back")
+
     dayreserv = ['t']
     dayreserv.clear()
 
@@ -1301,45 +1360,6 @@ def dashborddef(request):
             dastiarray.append([(name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment),str(r.id)])
 
 
-
-    if ( timeselect != None ) and ( timeselect != '' ):
-        se = timeselect.split(",")
-        tt = int(se[1])
-        time = t
-        reservs = reservemodel.objects.all()
-        reservselectid = 0
-        n = ''
-        for reserv in reservs:
-            if str(int(se[0])) == "21":
-                if str(reserv.id) == str(int(se[1])):
-                    n = ''
-                    qs = accuntmodel.objects.all()
-                    for q in qs:
-                        if q.melicode == reserv.melicod:
-                            n = q.firstname + " " + q.lastname
-                    return render(request,'f1_pezeshk.html',context={
-                        'name':n,
-                        'procedure':reserv.jobreserv + " " + reserv.detalereserv,
-                        'id':reserv.id,
-                        'vahed':reserv.vahed,
-                        # 'form': form,
-                    })
-            else:
-                if reserv.personreserv == namedashbord:
-                    if reserv.datemiladireserv == tres:
-                        if int(se[0]) == int(reserv.numbertime) :
-                            n = ''
-                            qs = accuntmodel.objects.all()
-                            for q in qs:
-                                if q.melicode == reserv.melicod:
-                                    n = q.firstname + " " + q.lastname
-
-                            return render(request,'f1_pezeshk.html',context={
-                                'name':n,
-                                'procedure':reserv.jobreserv + " " + reserv.detalereserv,
-                                'id':reserv.id,
-                                'vahed':reserv.vahed,
-                                                                                        })
     reservid = request.POST.get("reservid")
     fpezeshkibottom = request.POST.get("fpezeshkibottom")
     vahedeobject = request.POST.get("vahedeobject")
@@ -1375,10 +1395,86 @@ def dashborddef(request):
                     vahedeobjectname = w.vahed,
                     reservid = reservid,
                     coment=description,
+                    material=idkalaarray,
                 )
                 a = reservemodel.objects.filter(id=int(reservid))
                 a.delete()
                 return redirect('/')
+
+    if ( timeselect != None ) and ( timeselect != '' ):
+        se = timeselect.split(",")
+        reservs = reservemodel.objects.all()
+        for reserv in reservs:
+            if str(int(se[0])) == "21":
+                if str(reserv.id) == str(int(se[1])):
+                    n = ''
+                    qs = accuntmodel.objects.all()
+                    for q in qs:
+                        if q.melicode == reserv.melicod:
+                            n = q.firstname + " " + q.lastname
+                    kalaarray = ['']
+                    kalaarray.clear()
+                    workse = workmodel.objects.all()
+                    for work in workse:
+                        if int(reserv.idwork) == int(work.id):
+                            jobs = jobsmodel.objects.all()
+                            for job in jobs:
+                                if int(work.idjob) == int(job.id):
+                                    esmes = esmekalamodel.objects.all()
+                                    for esme in esmes:
+                                        if int(esme.jobid) == int(job.id):
+                                            a = ['']
+                                            a.clear()
+                                            a.append(esme.esmekala)
+                                            a.append(esme.berand)
+                                            kalaarray.append(a)
+
+                    return render(request,'f1_pezeshk.html',context={
+                        'name':n,
+                        'procedure':reserv.jobreserv + " " + reserv.detalereserv,
+                        'id':reserv.id,
+                        'vahed':reserv.vahed,
+                        'kalaarray': kalaarray,
+                        'tres':tres,
+                    })
+            else:
+                if reserv.personreserv == namedashbord:
+                    if reserv.datemiladireserv == tres:
+                        if int(se[0]) == int(reserv.numbertime) :
+                            n = ''
+                            qs = accuntmodel.objects.all()
+                            for q in qs:
+                                if q.melicode == reserv.melicod:
+                                    n = q.firstname + " " + q.lastname
+                            kalaarray = ['']
+                            kalaarray.clear()
+                            workse = workmodel.objects.all()
+                            for work in workse:
+                                if int(reserv.idwork) == int(work.id):
+                                    jobs = jobsmodel.objects.all()
+                                    for job in jobs:
+                                        if int(work.idjob) == int(job.id):
+                                            esmes = esmekalamodel.objects.all()
+                                            for esme in esmes:
+                                                if int(esme.jobid) == int(job.id):
+                                                    a = ['']
+                                                    a.clear()
+                                                    a.append(esme.esmekala)
+                                                    a.append(esme.berand)
+                                                    a.append(esme.id)
+                                                    kalaarray.append(a)
+                                                    lenkalaarray = len(kalaarray)
+
+                            return render(request,'f1_pezeshk.html',context={
+                                'name':n,
+                                'procedure':reserv.jobreserv + " " + reserv.detalereserv,
+                                'id':reserv.id,
+                                'vahed':reserv.vahed,
+                                'kalaarray': kalaarray,
+                                # 'lenkalaarray':lenkalaarray,
+                                'timeselect':timeselect,
+                                'tres': tres,
+                            })
 
     return render(request,'dashbord.html',context={
                                                                 'dastiarray':dastiarray,

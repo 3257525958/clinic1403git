@@ -45,3 +45,6 @@ var tickoff = document.getElementById("tickoff");
         document.getElementById("face").click();
     }
     function redirectt() { window.location = "/"; }
+function timeselectclick(){
+        document.getElementById("timeselectbtn").click()
+}
