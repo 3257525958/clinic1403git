@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from jobs_app.models import *
 from cantact_app.models import accuntmodel
-from file_app.form import peseshkform
+from file_app.form import *
 import datetime
 from jalali_date import date2jalali,datetime2jalali
 from datetime import timedelta
 import matplotlib
-from reserv_app.models import reservemodel,leavemodel,reservemodeltest,filepage1model,searchmodeltest
+from reserv_app.models import *
 from cantact_app.models import accuntmodel
 from file_app.models import *
 from accountancy_app.models import *
@@ -1395,7 +1395,7 @@ def dashborddef(request):
                     vahedeobjectname = w.vahed,
                     reservid = reservid,
                     coment=description,
-                    # materialll=idkalaarray,
+                    materiyal=idkalaarray,
                 )
                 a = reservemodel.objects.filter(id=int(reservid))
                 a.delete()

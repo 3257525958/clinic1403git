@@ -14,12 +14,12 @@ import datetime
 from datetime import timedelta
 from jalali_date import date2jalali,datetime2jalali
 from cantact_app.views import strb,stry,strd
-from reserv_app.models import reservemodeltest,reservemodel
+from reserv_app.models import *
 from jobs_app.models import jobsmodel,employeemodel,workmodel
 from cash_app.models import *
 from cantact_app.models import accuntmodel
 from cantact_app.views import *
-from file_app.models import fpeseshktestmodel
+from file_app.models import *
 ZIB_API_REQUEST = "https://gateway.zibal.ir/v1/request"
 ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
