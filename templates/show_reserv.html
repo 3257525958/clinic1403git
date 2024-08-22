@@ -1,10 +1,199 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">                 #}
+    <link rel="stylesheet" type="text/css" href="{% static "/css/materialize.min.css" %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static  "/css/materialize-rtl.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "/fontawesome/css/all.css" %}">
+    <link rel="stylesheet" type="text/css" href= "{% static "/css/home.css" %}">
+    <link rel="stylesheet" type="text/css" href= "{% static "/css/add-contact.css" %}">
+    <title>مرکز زیبایی دکتر اسدپور</title>
 </head>
-<body>
+<body dir="rtl" class="body">
+  <!-- <div class="container">
+      <div></div>
+  </div> -->
+  <!-- -----------------ناو بار ----شروع---------------- -->
+<div class="navbar-fixed">
+  <nav class="purple darken-3 nav nav_container">
+    <svg id="nav-svg" 
+    xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1440 320">
+     <path fill="#6a1b9a" 
+     fill-opacity="1" 
+     d="M0,96L120,85.3C240,75,480,53,720,58.7C960,64,1200,96,1320,112L1440,128L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z">  
+    </path>
+    </svg>
+    
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo">
+        <img src={% static "/img/logo.jpg" %} alt="menu">
+      </a>
+
+{#      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>#}
+      <a href="/" class=" right sidenav-trigger ">بازگشت</a>
+
+      <ul class="right hide-on-med-and-down ul_s">
+{#        <li><a class="menu_links_desktop" href="/">بازگشت به صفحه اصلی</a></li>#}
+{#        <li><a class="menu_links_desktop" href="sass.html ">ورود و ثبت نام</a></li>#}
+{#        <li><a class="menu_links_desktop" href="badges.html">رزرو آنلاین</a></li>#}
+{#        <li><a class="menu_links_desktop" href="collapsible.html">آموزش مجازی</a></li>#}
+{#        <li><a class="menu_links_desktop" href="mobile.html">گالری</a></li>#}
+{#        <li><a class="menu_links_desktop" href="mobile.html">ارتباط با ما</a></li>#}
+{#        <li><a class="menu_links_desktop" href="mobile.html">راهنما</a></li>#}
+      </ul>
+      <ul class="left hide-on-med-and-down ul_s esme_morajee">
+        <li><a class="menu_links_desktop" href="/">بازگشت به صفحه اصلی</a></li>
+{#        <li> مهدی اسدپور موبایل</li>#}
+      </ul>
+
+    </div>
+
+  </nav>
+</div>
+<ul class="sidenav" id="mobile-demo">
+{#  <li><a href="sass.html">ور نام</a></li>#}
+{#  <li><a href="badges.html">رزرو آنلاین</a></li>#}
+{#  <li><a href="collapsible.html">آموزش مجازی</a></li>#}
+{#  <li><a href="mobile.html">گالری</a></li>#}
+{#  <li><a href="mobile.html">ارتباط با ما</a></li>#}
+{#  <li><a href="mobile.html">راهنما</a></li>#}
+{#  <li><a href="sass.html">مهدی اسدپور</a></li>#}
+</ul>
+<ul class="sidenav" id="mobile-demo">
+  <li><a href="/">مرکز زیبایی دکتر اسدپور</a></li>
+</ul>
+<!-- ----------پایان ناوبار------------ -->
+<main>
+  <form class="row w-100 login dakhel_loginsec" method="POST" action="">
+    {% csrf_token %}
+      <div class="col m3 l4 hide-on-small-and-down"></div>
+  
+      <div class="ghesmate_login col s12 m6 l4">
+  
+        <i class="center-align blick-shodan fas "></i>
+
+      <div class="input-field col s12 l12 m12">
+{#        <label class="teal-text text-darken-4 ">{{ name }}</label>#}
+      </div>
+      <div class="input-field col s4 l12 m12">
+        <label class="teal-text text-darken-4 ">{{ procedure }}</label>
+      </div>
+    <br>
+      <br>
+      <br>
+    <br>
+      <br>
+      <br>
+          {% if vahed != '' %}
+        <div class="input-field col s12 l12 m12">
+            <input type="text" name="vahedeobjectname" id="vahedeobjectname" class="validate" autocomplete="off" value="{{ vahed }}" disabled>
+            <label for="cast">نام واحد :</label>
+        </div>
+        <div class="input-field col s12 l12 m12">
+            <input type="text" name="vahedeobject" id="vahedeobject" class="validate" autocomplete="off">
+            <label for="cast">مقدار واحد :</label>
+        </div>
+          {% endif %}
+        <div class="input-field col s12 l12 m12">
+            <textarea type="text" name="description" id="vahedeobject" class="validate sizetextarea" autocomplete="off"></textarea>
+            <label for="cast">توضیحات :</label>
+        </div>
+      <br><br>
+      <br><br>
+      
+      
+      <div class="col s12">
+         <table class="highlight" id="table"  >
+         
+                <thead>
+                      <tr>
+                          <th>انتخاب</th>
+                          <th>نام و نام خانوادگی</th>
+                          <th>کد ملی</th>
+                      </tr>
+                </thead>
+        
+                <tbody>
+                    {% for k in kalaarray %}
+                      <tr>
+                        <td> <label><input name="tickkala{{ forloop.counter0 }}" id="tickkala" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange=""/><span></span></label></td>  
+                        <td>{{ k.0 }}</td>
+                        <td>{{ k.1 }}</td>
+                      </tr>
+                    {% endfor %}
+                </tbody>
+         </table>
+      </div>  
+
+      
+      <br><br>
+        <div class="center-align dokmeye-vorood ">
+          <button class="w-100 btn waves-effect" name="fpezeshkibottom" value="accept">ثبت اطلاعات </button>
+        </div>
+  
+        
+      </div>
+  
+      <div class="col m3 l4 hide-on-small-and-down"></div>
+  </form>
+</main>
+
+
+<!-- -----footer------------------------------------------------------------------------------------- -->
+  <footer class="clum ">
+
+  <svg id="footer-svg"  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1440 320">
+    <path fill="#6a1b9a" fill-opacity="1" d="M0,160L120,186.7C240,213,480,267,720,266.7C960,267,1200,213,1320,186.7L1440,160L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
+  </svg>
+  
+  <div class="purple darken-3 w-100">
+
+    <div class="row">
+      
+      <div class="col l6 s12">
+        <h5 class="white-text">ارتباط با ما</h5>
+        <p class="grey-text text-lighten-4">مجموعه ما مجموعه خیلی باحالیه و دلسوز که سعی مبکنه بهترین کارهای تخصصی رو انجام بده</p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+
+        <h5 class="white-text">لینک های مرتبط</h5>
+        <ul>
+          <!-- <li><div class="s6 m3 l12 quick_item"><a href="#"><div class="image center-align "><img src="/static/img/pic1 (5).jpg" alt="photo"></div><h2 class="center-align">بوتاکس زیبا</h2></a></li></div> -->
+          <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+        </ul>
+
+      </div>
+      <!-- <div class="col l2 s12">
+        <a referrerpolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=361568&amp;Code=rfRJvt89x7WeFTvMVzE8">
+          <img referrerpolicy="origin" src="https://Trustseal.eNamad.ir/logo.aspx?id=361568&amp;Code=rfRJvt89x7WeFTvMVzE8" alt="" style="cursor:pointer" id="rfRJvt89x7WeFTvMVzE8">
+      </a>      
+      </div> -->
+
+    </div>
+    0
+  </div>
+
+  <div class="footer-copyright purple darken-2">
+    <div class="container">
+    © 2014 Copyright Text
+    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+    </div>
+  </div>
+
+</footer> 
+
+<script src="/static/js/materialize.min.js"></script>
+<script src="/static/js/home.js"></script>
+<script src="/static/js/addselect.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static "/js/pardakht_hoghogh.js" %}"></script>
 
 </body>
 </html>
