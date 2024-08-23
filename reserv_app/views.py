@@ -724,9 +724,9 @@ def reserverdef(request):
     jobbuttom = request.POST.get('jobbuttom')
     button_send =request.POST.get("button_send")
     detalework = request.POST.get("detalework")
-    dayconter = request.POST.get("dayconter")
-    if (dayconter == None) or (dayconter == 'None') or (dayconter == ''):
-        dayconter = 0
+    # dayconter = request.POST.get("dayconter")
+    # if (dayconter == None) or (dayconter == 'None') or (dayconter == ''):
+    #     dayconter = 0
 
     if buttondelet == 'accept' :
         a = reservemodel.objects.filter(id=int(idreserv))
