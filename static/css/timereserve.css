@@ -1,3 +1,17 @@
+@font-face {
+    font-family: "BYekan";
+    src: url("../fonts/BYekan.eot") format("eot"),
+        url("../fonts//BYekan.woff") format("woff"),
+        url("../fonts/BYekan.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+    font-family: "BYekan";
+    direction: rtl;
+    text-align: right;
+}
+
 html {
     box-sizing: border-box;
   }
@@ -21,7 +35,7 @@ body {
     position: absolute;
     width: 100%;
     top: -2%;
-    font-family:Tahoma;
+    /*font-family:Tahoma;*/
     color: black;
     text-align: center;
     font-size: xx-large;
@@ -49,7 +63,7 @@ body {
     position: relative;
     /* top:5%; */
     /* left: 100px; */
-    font-family:Tahoma;
+    /*font-family:Tahoma;*/
     color: black;
     text-align: center;
     font-size:large ;
@@ -214,7 +228,7 @@ body {
     border-radius: 10px;
     margin-top: 0px;
     background-color: var(--vcolor);
-    font-family: Tahoma;
+    /*font-family: Tahoma;*/
     font-size: 90%;
     top: 400px;
     left: calc( 50% - 60px) ;
