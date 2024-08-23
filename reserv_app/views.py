@@ -1534,7 +1534,6 @@ def reservdasti(request):
 
     ls = searchmodeltest.objects.all()
     if (tickon != None) and (tickon != ''):
-        print("qqqqqqqqqqqqqqqqq")
         inttikon = int(tickon)
         ar = ['']
         ar.clear()
