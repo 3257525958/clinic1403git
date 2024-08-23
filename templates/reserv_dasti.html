@@ -108,7 +108,7 @@
             </div>  
     <label>{{ name }}</label>
     <br><br>
-      <div class="input-field col s12 l4 m12" id="namepersonel" hidden>
+      <div class="input-field col s12 l4 m12" id="namepersonel" hidden="">
                     <select name="namepersonel" id="personel"  onchange="chengepersonel()">
                             <option value={{ melipersonel }}>{{ personel }}</option>
                         {% for n in namepersonal %}
@@ -119,7 +119,7 @@
       </div>
     
     
-      <div class="input-field col s12 l4 m12" id="workhide" hidden>
+      <div class="input-field col s12 l4 m12" id="workhide" hidden >
                     <select name="job" id="job"  onchange="chengejob()">
                         {% for j in jobs %}
                             <option value={{ j.1 }}>{{ j.0 }}</option>
@@ -153,8 +153,9 @@
    <input id="idjob" name="idjob" value="{{ idjob }}" hidden>
     <label id="melicodesave"  hidden >{{ melicode }}</label>
     <label id="jobsave"  hidden >{{ job }}</label>
+    <label id="sendbtn"  hidden ></label>
     <label id="etebarreservdasti" hidden >{{ etebarreservdasti }}</label>
-    <label id="etebarmelicod"hidden>{{ etebarmelicod }}</label>
+    <label id="etebarmelicod"  >{{ etebarmelicod }}</label>
 {#    <label id="lcastreserv"   >{{  castreserv}}</label>#}
     <input id="personreserv" name="personreserv"  hidden >
       <input id="castreserv" name="castreserv"  hidden>

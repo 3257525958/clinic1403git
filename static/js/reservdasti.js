@@ -34,6 +34,7 @@ var personelbutton = document.getElementById("personelbutton");
 });
 
     }
+        console.log(etebarmelicod.innerHTML);
         if (etebarmelicod.innerHTML == 'true'){
             document.getElementById("sendbtn").hidden = false;
             document.getElementById("namepersonel").hidden = false;
@@ -45,7 +46,7 @@ var personelbutton = document.getElementById("personelbutton");
         function redirectt() {
         window.location = "/";
     }
-        console.log(etebarreservdasti.innerHTML);
+        // console.log(etebarreservdasti.innerHTML);
         if ( etebarreservdasti.innerHTML == 'true' ){
         Swal.fire({
           position: 'top-end',
