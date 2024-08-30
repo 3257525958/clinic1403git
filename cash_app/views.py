@@ -708,7 +708,7 @@ def closecashdef(request):
             bankarray.append(barray)
     del bankarray[0]
     if closecash == 'accept':
-        number = '09122852099'
+        number = ['09038495806']
         try:
             if len(bankarray) > 0:
                 for a in bankarray:
@@ -717,12 +717,12 @@ def closecashdef(request):
                     users = accuntmodel.objects.all()
                     for user in users:
                         if int(user.melicode) == int(a[3]) :
-                            number = str(user.phonnumber)
+                            number[0] = user.phonnumber
                             print(number)
                     api = KavenegarAPI(
                         '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
                     params = {
-                        'receptor': number,
+                        'receptor': number[0],
                         'template': 'chengpass',
                         'token20':a[0],
                         'token': a[1],
@@ -732,9 +732,11 @@ def closecashdef(request):
             return redirect('/')
         except APIException as e:
             m = 'tellerror'
+            print("tell")
             return render(request, 'closecash.html', context={'melicod_etebar': m})
         except HTTPException as e:
             m = 'neterror'
+            print("net")
             return render(request, 'closecash.html', context={'melicod_etebar': m}, )
 
     return render(request,'closecash.html',context={
