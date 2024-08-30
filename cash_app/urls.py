@@ -15,4 +15,5 @@ urlpatterns = [
     path('cast/', views.cast, name='cast'),
     path('bank/', views.banksave, name='banksave'),
     path('pardakht/', views.pardakht, name='pardakht'),
+    path('closecash/', views.closecashdef, name='closecash'),
 ]

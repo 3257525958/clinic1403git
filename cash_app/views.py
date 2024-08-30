@@ -615,3 +615,84 @@ def banksave(request):
 
 def pardakht(request):
     return render(request,'pardakht.html')
+
+def closecashdef(request):
+    day = request.POST.get("day")
+    daysave = request.POST.get("daysave")
+    if (day == None) or (day == '') or (day == "None") :
+        day = daysave
+    if day == None :
+        day = ''
+
+    mounth = request.POST.get("mounth")
+    mounthsave = request.POST.get("mounthsave")
+    if (mounth == None) or (mounth == '') or (mounth == "None") :
+        mounth = mounthsave
+    if mounth == None :
+        mounth = ''
+
+
+    t = datetime.datetime.now()
+    while strb(t) != 'فروردین' :
+        t -= timedelta(days=28)
+    while strd(t) != "1" :
+        t -= timedelta(days=1)
+    if (mounth != '') and (day != ''):
+        while strb(t) != mounth :
+            t += timedelta(days=1)
+        while strd(t) != day :
+            t += timedelta(days=1)
+
+
+    casts = castmodel.objects.all()
+    casharray = ['']
+    casharray.clear()
+    for cast in casts:
+        if cast.datemiladi == t.strftime('%a %d %b %y'):
+            namecast = ''
+            users = accuntmodel.objects.all()
+            for user in users:
+                if int(user.melicode) == int(cast.melicodvarizande):
+                    namecast = user.firstname + " " + user.lastname
+            jobcast = ''
+            datecast = ''
+            fs = fpeseshktestmodel.objects.all()
+            for f in fs:
+                if int(f.id) == int(cast.idf):
+                    jobcast = f.jobreserv + " " + f.detalereserv
+                    datecast= f.dateshamsireserv
+            carray = ['']
+            carray.clear()
+            carray.append(namecast)
+            carray.append(jobcast)
+            carray.append(datecast)
+            carray.append(cast.mablagh)
+            carray.append(cast.cashmethodname)
+            carray.append(cast.idf)
+            carray.append(cast.cashmethodid)
+            casharray.append(carray)
+
+    mablaghkol = 0
+    barray = ['']
+    barray.clear()
+    bankarray = ['']
+    bankarray.clear()
+    bankonvan = ''
+    for c in casharray:
+        for b in casharray :
+            if b[6] == c[6]:
+                mablaghkol = mablaghkol + int(b[3])
+
+        banks = bankmodel.objects.all()
+        for bank in banks:
+            if int(bank.id) == int(b[6]):
+                bankonvan = bank.onvan
+        barray.append(mablaghkol)
+        barray.append(bankonvan)
+    bankarray.append(barray)
+    return render(request,'closecash.html',context={
+        'day':day,
+        'mounth': mounth,
+        'rarray':casharray,
+        'bank':bankarray,
+    })

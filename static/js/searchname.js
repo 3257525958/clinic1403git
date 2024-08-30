@@ -78,3 +78,9 @@ var etebarsabt = document.getElementById("etebarsabt");
             document.getElementById("searchnamebottum").click();
 
 }
+    function btndayselectfun(){
+        document.getElementById("btndayselect").click();
+    }
+    function btnmounthselectfun(){
+        document.getElementById("btnmounthselect").click();
+    }
