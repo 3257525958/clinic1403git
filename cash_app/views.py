@@ -708,37 +708,56 @@ def closecashdef(request):
             bankarray.append(barray)
     del bankarray[0]
     if closecash == 'accept':
-        number = '09122852099'
-        try:
+        if 1==1:
             if len(bankarray) > 0:
                 for a in bankarray:
-                    print(a[3])
                     bs = bankmodel.objects.all()
                     users = accuntmodel.objects.all()
                     for user in users:
                         if int(user.melicode) == int(a[3]) :
-                            # number = user.phonnumber
-                            print(number)
-                            api = KavenegarAPI(
-                                '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-                            params = {
-                                'receptor': user.phonnumber,
-                                'template': 'chengpass',
-                                'token20':a[0],
-                                'token': a[1],
-                                'type': 'sms',
-                            }
-                            response = api.verify_lookup(params)
-            return redirect('/')
-        except APIException as e:
-            m = 'tellerror'
-            print("tell")
-            return render(request, 'closecash.html', context={'melicod_etebar': m})
-        except HTTPException as e:
-            m = 'neterror'
-            print("net")
-            return render(request, 'closecash.html', context={'melicod_etebar': m}, )
+                            try:
+                                api = KavenegarAPI(
+                                    '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                                params = {
+                                    'receptor': user.phonnumber,
+                                    'template': 'chengpass',
+                                    'token': a[0],
+                                    'token20': a[1],
+                                    'type': 'sms',
+                                }
+                                response = api.verify_lookup(params)
+                                return render(request, 'code_cantact.html')
+                            except APIException as e:
+                                m = 'tellerror'
+                                # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+                                return render(request, 'add_cantact.html', context={'melicod_etebar': m})
+                            except HTTPException as e:
+                                m = 'neterror'
+                                # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+                                # return render(request, 'add_cantact.html')
+                                return render(request, 'add_cantact.html', context={'melicod_etebar': m}, )
 
+        #                     try:
+        #                         api = KavenegarAPI(
+        #                             '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+        #                         params = {
+        #                             'receptor': user.phonnumber,
+        #                             'template': 'chengpass',
+        #                             'token20':a[0],
+        #                             'token': a[1],
+        #                             'type': 'sms',
+        #                         }
+        #                     response = api.verify_lookup(params)
+        #     return redirect('/')
+        # except APIException as e:
+        #     m = 'tellerror'
+        #     print("tell")
+        #     return render(request, 'closecash.html', context={'melicod_etebar': m})
+        # except HTTPException as e:
+        #     m = 'neterror'
+        #     print("net")
+        #     return render(request, 'closecash.html', context={'melicod_etebar': m}, )
+        #
     return render(request,'closecash.html',context={
         'day':day,
         'mounth': mounth,
