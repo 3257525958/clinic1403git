@@ -1371,7 +1371,7 @@ def dashborddef(request):
             cast = w.castreserv
             if int(w.id) == int(reservid) :
                 if (vahedeobject != None) and (vahedeobject != ''):
-                    cast = str(float(w.castreserv) * float(vahedeobject))
+                    cast = str(int(float(w.castreserv) * float(vahedeobject)))
                 else:
                     vahedeobject = '1'
                 fpeseshktestmodel.objects.create(

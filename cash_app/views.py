@@ -617,6 +617,7 @@ def pardakht(request):
     return render(request,'pardakht.html')
 
 def closecashdef(request):
+    closecash = request.POST.get("closecash")
     day = request.POST.get("day")
     daysave = request.POST.get("daysave")
     if (day == None) or (day == '') or (day == "None") :
@@ -662,7 +663,7 @@ def closecashdef(request):
                 if int(f.id) == int(cast.idf):
                     jobcast = f.jobreserv + " " + f.detalereserv
                     datecast= f.dateshamsireserv
-                    mablagh = int(f.castreserv) - int(f.pyment) - int(f.offer)
+                    mablagh = str(int(float(f.castreserv) - float(f.pyment) - float(f.offer)))
             carray = ['']
             carray.clear()
             carray.append(namecast)
@@ -703,6 +704,26 @@ def closecashdef(request):
             barray.append(idc)
             bankarray.append(barray)
     del bankarray[0]
+    if closecash == 'accept':
+        randomcode = "مائده"
+        try:
+            api = KavenegarAPI(
+                '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+            params = {
+                'receptor': "09122852099",
+                'template': 'login',
+                'token': randomcode,
+                'type': 'sms',
+            }
+            response = api.verify_lookup(params)
+            return redirect('/')
+        except APIException as e:
+            m = 'tellerror'
+            return render(request, 'closecash.html', context={'melicod_etebar': m})
+        except HTTPException as e:
+            m = 'neterror'
+            return render(request, 'closecash.html', context={'melicod_etebar': m}, )
+
     return render(request,'closecash.html',context={
         'day':day,
         'mounth': mounth,

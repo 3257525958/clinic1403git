@@ -17,6 +17,8 @@ var isearchname = document.getElementById("namesearch");
 var la = document.getElementById('la');
 var ia = document.getElementById('ia');
 var etebarsabt = document.getElementById("etebarsabt");
+var etebar = document.getElementById("melicod_etebar");
+
     if ( etebarsabt.innerHTML == 'true' ){
         console.log("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
         Swal.fire({
@@ -83,4 +85,20 @@ var etebarsabt = document.getElementById("etebarsabt");
     }
     function btnmounthselectfun(){
         document.getElementById("btnmounthselect").click();
+    }
+    if ( etebar.innerHTML == 'tellerror')
+    {
+        Swal.fire({
+            icon: 'warning',
+            title: 'شماره تلفن اشتباه وارد شده است'
+        })
+
+    }
+    if ( etebar.innerHTML == 'neterror')
+    {
+        Swal.fire({
+            icon: 'warning',
+            title: 'شبکه اینترنت شما متصل نمیشود'
+        })
+
     }
