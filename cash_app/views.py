@@ -726,38 +726,15 @@ def closecashdef(request):
                                     'type': 'sms',
                                 }
                                 response = api.verify_lookup(params)
-                                return render(request, 'code_cantact.html')
+                                # return render(request, 'code_cantact.html')
                             except APIException as e:
                                 m = 'tellerror'
-                                # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-                                return render(request, 'add_cantact.html', context={'melicod_etebar': m})
+                                print("tell")
+                                return render(request, 'closecash.html', context={'melicod_etebar': m})
                             except HTTPException as e:
                                 m = 'neterror'
-                                # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-                                # return render(request, 'add_cantact.html')
-                                return render(request, 'add_cantact.html', context={'melicod_etebar': m}, )
-
-        #                     try:
-        #                         api = KavenegarAPI(
-        #                             '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-        #                         params = {
-        #                             'receptor': user.phonnumber,
-        #                             'template': 'chengpass',
-        #                             'token20':a[0],
-        #                             'token': a[1],
-        #                             'type': 'sms',
-        #                         }
-        #                     response = api.verify_lookup(params)
-        #     return redirect('/')
-        # except APIException as e:
-        #     m = 'tellerror'
-        #     print("tell")
-        #     return render(request, 'closecash.html', context={'melicod_etebar': m})
-        # except HTTPException as e:
-        #     m = 'neterror'
-        #     print("net")
-        #     return render(request, 'closecash.html', context={'melicod_etebar': m}, )
-        #
+                                print("net")
+                                return render(request, 'closecash.html', context={'melicod_etebar': m}, )
     return render(request,'closecash.html',context={
         'day':day,
         'mounth': mounth,
