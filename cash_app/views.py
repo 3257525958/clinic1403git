@@ -657,16 +657,18 @@ def closecashdef(request):
             jobcast = ''
             datecast = ''
             fs = fpeseshktestmodel.objects.all()
+            mablagh = 0
             for f in fs:
                 if int(f.id) == int(cast.idf):
                     jobcast = f.jobreserv + " " + f.detalereserv
                     datecast= f.dateshamsireserv
+                    mablagh = int(f.castreserv) - int(f.pyment) - int(f.offer)
             carray = ['']
             carray.clear()
             carray.append(namecast)
             carray.append(jobcast)
             carray.append(datecast)
-            carray.append(cast.mablagh)
+            carray.append(mablagh)
             carray.append(cast.cashmethodname)
             carray.append(cast.idf)
             carray.append(cast.cashmethodid)
