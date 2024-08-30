@@ -708,7 +708,7 @@ def closecashdef(request):
             bankarray.append(barray)
     del bankarray[0]
     if closecash == 'accept':
-        number = ['09038495806']
+        number = ['']
         try:
             if len(bankarray) > 0:
                 for a in bankarray:
@@ -717,7 +717,7 @@ def closecashdef(request):
                     users = accuntmodel.objects.all()
                     for user in users:
                         if int(user.melicode) == int(a[3]) :
-                            number[0] = user.phonnumber
+                            number[0] = int(user.phonnumber)
                             print(number)
                     api = KavenegarAPI(
                         '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
