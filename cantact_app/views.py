@@ -580,7 +580,7 @@ def saveaccantdef(request):
     button_send =request.POST.get("button_send")
     users = accuntmodel.objects.all()
     for user in users:
-        if int(user.melicode) == int(phonnumber):
+        if int(user.melicode) == int(phonnumber) or (user.phonnumber == phonnumber):
             etebar = "repeat"
     if (button_send == 'accept') and ( etebar != "repeat" ):
         etebar = 'true'
