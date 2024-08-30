@@ -680,6 +680,7 @@ def closecashdef(request):
     bankarray.clear()
     bankarray.append(["a","b",0])
     bankonvan = ''
+    melicodbank =''
     for c in casharray:
         idc = int(c[6])
         ete = 'true'
@@ -693,6 +694,7 @@ def closecashdef(request):
             for bank in banks:
                 if int(bank.id) == idc:
                     bankonvan = bank.onvan
+                    melicodbank = bank.melicodebank
             mablaghkol = 0
             for b in casharray :
                 if int(b[6]) == idc:
@@ -702,20 +704,33 @@ def closecashdef(request):
             barray.append(mablaghkol)
             barray.append(bankonvan)
             barray.append(idc)
+            barray.append(melicodbank)
             bankarray.append(barray)
     del bankarray[0]
     if closecash == 'accept':
-        randomcode = "مائده"
+        number = ""
         try:
-            api = KavenegarAPI(
-                '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-            params = {
-                'receptor': "09122852099",
-                'template': 'login',
-                'token': randomcode,
-                'type': 'sms',
-            }
-            response = api.verify_lookup(params)
+            if len(bankarray) > 0:
+                for a in bankarray:
+                    bs = bankmodel.objects.all()
+                    print(a[3])
+                    users = accuntmodel.objects.all()
+                    for user in users:
+                        print('u')
+                        if int(user.melicode) == int(a[3]) :
+                            print(user.melicode)
+                            number = str(user.phonnumber)
+                    print(number)
+                    api = KavenegarAPI(
+                        '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                    params = {
+                        'receptor': number,
+                        'template': 'chengpass',
+                        'token20':a[0],
+                        'token': a[1],
+                        'type': 'sms',
+                    }
+                    response = api.verify_lookup(params)
             return redirect('/')
         except APIException as e:
             m = 'tellerror'
