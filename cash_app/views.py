@@ -712,6 +712,7 @@ def closecashdef(request):
         try:
             if len(bankarray) > 0:
                 for a in bankarray:
+                    print(a[3])
                     bs = bankmodel.objects.all()
                     users = accuntmodel.objects.all()
                     for user in users:
