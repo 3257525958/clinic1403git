@@ -735,6 +735,7 @@ def closecashdef(request):
                                 m = 'neterror'
                                 print("net")
                                 return render(request, 'closecash.html', context={'melicod_etebar': m}, )
+                return redirect('/')
     return render(request,'closecash.html',context={
         'day':day,
         'mounth': mounth,
