@@ -673,23 +673,34 @@ def closecashdef(request):
             casharray.append(carray)
 
     mablaghkol = 0
-    barray = ['']
-    barray.clear()
     bankarray = ['']
     bankarray.clear()
+    bankarray.append(["a","b",0])
     bankonvan = ''
     for c in casharray:
-        for b in casharray :
-            if b[6] == c[6]:
-                mablaghkol = mablaghkol + int(b[3])
+        idc = int(c[6])
+        ete = 'true'
 
-        banks = bankmodel.objects.all()
-        for bank in banks:
-            if int(bank.id) == int(b[6]):
-                bankonvan = bank.onvan
-        barray.append(mablaghkol)
-        barray.append(bankonvan)
-    bankarray.append(barray)
+        if len(bankarray) > 0 :
+            for a in bankarray :
+                if int(a[2]) == idc :
+                    ete = 'false'
+        if ete != 'false' :
+            banks = bankmodel.objects.all()
+            for bank in banks:
+                if int(bank.id) == idc:
+                    bankonvan = bank.onvan
+            mablaghkol = 0
+            for b in casharray :
+                if int(b[6]) == idc:
+                    mablaghkol = mablaghkol + int(b[3])
+            barray = ['']
+            barray.clear()
+            barray.append(mablaghkol)
+            barray.append(bankonvan)
+            barray.append(idc)
+            bankarray.append(barray)
+    del bankarray[0]
     return render(request,'closecash.html',context={
         'day':day,
         'mounth': mounth,
