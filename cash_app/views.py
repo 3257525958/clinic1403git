@@ -678,7 +678,7 @@ def closecashdef(request):
     mablaghkol = 0
     bankarray = ['']
     bankarray.clear()
-    bankarray.append(["a","b",0])
+    bankarray.append(["0","b",0])
     bankonvan = ''
     melicodbank =''
     for c in casharray:
@@ -706,6 +706,10 @@ def closecashdef(request):
             barray.append(idc)
             barray.append(melicodbank)
             bankarray.append(barray)
+    jam = 0
+    for q in bankarray:
+        jam = int(float(q[0]) + float(jam))
+    bankarray.append([jam,'جمع کل',0,'3257525958'])
     del bankarray[0]
     if closecash == 'accept':
         if 1==1:
