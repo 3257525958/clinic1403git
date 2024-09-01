@@ -719,17 +719,16 @@ def closecashdef(request):
                     users = accuntmodel.objects.all()
                     for user in users:
                         if int(user.melicode) == int(a[3]) :
+                            sms = "با سلام جمع صندوق تاریخ" + " " + strd(t) +strb(t) +' ' + "مبلغ" +' '+ str(a[0]) + " " + " واریز به حساب"+ " " + str(a[1])
                             try:
                                 api = KavenegarAPI(
                                     '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
                                 params = {
-                                    'receptor': user.phonnumber,
-                                    'template': 'chengpass',
-                                    'token': a[0],
-                                    'token20': a[1],
-                                    'type': 'sms',
+                                    'sender': '9982003178',  # optional
+                                    'receptor': user.phonnumber,  # multiple mobile number, split by comma
+                                    'message': sms,
                                 }
-                                response = api.verify_lookup(params)
+                                response = api.sms_send(params)
                                 # return render(request, 'code_cantact.html')
                             except APIException as e:
                                 m = 'tellerror'
