@@ -1069,6 +1069,7 @@ def reserverdef(request):
                 mm.append(uss.firstname + " " + uss.lastname)
                 mm.append(uss.melicode)
                 amaray.append(uss.melicode)
+                mm.append(uss.phonnumber)
                 searchmodeltest.objects.create(m=uss.melicode)
                 arrayname.append(mm)
         for aa in auser:
@@ -1082,6 +1083,9 @@ def reserverdef(request):
                     mm.clear()
                     mm.append(aa.firstname + " " + aa.lastname)
                     mm.append(aa.melicode)
+                    print(aa.melicode)
+                    print(aa.phonnumber)
+                    mm.append(aa.phonnumber)
                     searchmodeltest.objects.create(m=aa.melicode)
                     arrayname.append(mm)
         return render(request,'reserv_reserver.html',context={

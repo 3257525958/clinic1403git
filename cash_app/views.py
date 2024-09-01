@@ -732,11 +732,9 @@ def closecashdef(request):
                                 # return render(request, 'code_cantact.html')
                             except APIException as e:
                                 m = 'tellerror'
-                                print("tell")
                                 return render(request, 'closecash.html', context={'melicod_etebar': m})
                             except HTTPException as e:
                                 m = 'neterror'
-                                print("net")
                                 return render(request, 'closecash.html', context={'melicod_etebar': m}, )
                 return redirect('/')
     return render(request,'closecash.html',context={
