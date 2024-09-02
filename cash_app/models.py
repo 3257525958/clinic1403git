@@ -10,7 +10,7 @@ class bankmodel(models.Model):
         return f"{self.onvan}"
 class castmodel(models.Model):
     idf = models.CharField(max_length=20,default="0")
-    melicodvarizande = models.CharField(max_length=100,default='0')
+    melicodvarizande = models.CharField(max_length=10,default='0')
     dateshamsi = models.CharField(max_length=100,default='0')
     datemiladi = models.CharField(max_length=100,default='0')
     filenumber = models.CharField(max_length=100,default='0')
@@ -18,8 +18,11 @@ class castmodel(models.Model):
     cashmethodid = models.CharField(max_length=100,default='0')
     melicodeoperatore = models.CharField(max_length=100,default='0')
     mablagh = models.CharField(max_length=100,default='0')
+    dateshamsieditor = models.CharField(max_length=10,default='noedit')
+
+
     def __str__(self):
-        return f"{self.filenumber}"
+        return f"{self.melicodvarizande}"
 
 
 class casttestmodel(models.Model):

@@ -1083,8 +1083,6 @@ def reserverdef(request):
                     mm.clear()
                     mm.append(aa.firstname + " " + aa.lastname)
                     mm.append(aa.melicode)
-                    print(aa.melicode)
-                    print(aa.phonnumber)
                     mm.append(aa.phonnumber)
                     searchmodeltest.objects.create(m=aa.melicode)
                     arrayname.append(mm)

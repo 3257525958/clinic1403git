@@ -117,7 +117,7 @@ class fpeseshktestmodel(models.Model):
     materiyal = models.CharField(max_length=9999, default='0')
 
     def __str__(self):
-        return f"{self.personreserv}"
+        return f"{self.melicod}"
 
 
 

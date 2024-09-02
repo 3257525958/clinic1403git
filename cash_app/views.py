@@ -617,9 +617,28 @@ def pardakht(request):
     return render(request,'pardakht.html')
 
 def closecashdef(request):
+    castbeyane = request.POST.get("castbeyane")
+    castoffer = request.POST.get("castoffer")
+    bankonvanedit = request.POST.get("bankonvanedit")
+    dayedit = request.POST.get("dayedit")
+    mounthedit = request.POST.get("mounthedit")
+    idfpedit = request.POST.get("idfpedit")
+    idcedit = request.POST.get("idcedit")
+    buttonedit = request.POST.get("buttonedit")
+    buttondelet = request.POST.get("buttondelet")
+    cash = request.POST.get("cash")
     closecash = request.POST.get("closecash")
     day = request.POST.get("day")
     daysave = request.POST.get("daysave")
+
+    m = request.user.username
+    users = accuntmodel.objects.all()
+    level =''
+    for user in users:
+        if user.melicode == m :
+            level = user.level
+
+
     if (day == None) or (day == '') or (day == "None") :
         day = daysave
     if day == None :
@@ -648,6 +667,7 @@ def closecashdef(request):
     casts = castmodel.objects.all()
     casharray = ['']
     casharray.clear()
+    castid = 0
     for cast in casts:
         if cast.datemiladi == t.strftime('%a %d %b %y'):
             namecast = ''
@@ -661,6 +681,7 @@ def closecashdef(request):
             mablagh = 0
             for f in fs:
                 if int(f.id) == int(cast.idf):
+                    castid = cast.id
                     jobcast = f.jobreserv + " " + f.detalereserv
                     datecast= f.dateshamsireserv
                     mablagh = str(int(float(f.castreserv) - float(f.pyment) - float(f.offer)))
@@ -681,6 +702,7 @@ def closecashdef(request):
     bankarray.append(["0","b",0])
     bankonvan = ''
     melicodbank =''
+    idc = 0
     for c in casharray:
         idc = int(c[6])
         ete = 'true'
@@ -737,9 +759,97 @@ def closecashdef(request):
                                 m = 'neterror'
                                 return render(request, 'closecash.html', context={'melicod_etebar': m}, )
                 return redirect('/')
+    if (cash != '') and (cash != None) and (cash != 'None') :
+        fpeseshks = fpeseshktestmodel.objects.all()
+        name = ''
+        job = ''
+        castjob = ''
+        castbeyane =''
+        castoffer =''
+        idfp = 0
+        for fpeseshk in fpeseshks:
+            if int(fpeseshk.id) == int(cash):
+                idfp = fpeseshk.id
+                users = accuntmodel.objects.all()
+                for user in users:
+                    if int(user.melicode) == int(fpeseshk.melicod):
+                        name = user.firstname + " " + user.lastname
+                job = fpeseshk.jobreserv + ' ' + fpeseshk.detalereserv
+                castjob = fpeseshk.castreserv
+                castbeyane = fpeseshk.pyment
+                castoffer = fpeseshk.offer
+
+        banks = bankmodel.objects.all()
+        hesabs = [""]
+        hesabs.clear()
+        for bank in banks:
+            r = 0
+            for hesab in hesabs:
+                if hesab[1] == bank.onvan:
+                    r = 1
+            if r == 0:
+                s = (str(bank.id) + "," + str(bank.onvan)).split(",")
+                hesabs.append(s)
+
+        return render(request,'new_cash.html',context={
+            'name':name,
+            'job':job,
+            'castjob':castjob,
+            'castbeyane':castbeyane,
+            'castoffer':castoffer,
+            'hesabs':hesabs,
+            'idc':castid,
+            'idfp':idfp,
+        })
+    if buttondelet == 'accept' :
+        a=castmodel.objects.filter(id=int(idcedit))
+        b=fpeseshktestmodel.objects.filter(id=int(idfpedit))
+        a.delete()
+        b.update(checking='false',offer=0,pyment=0)
+    if buttonedit == 'accept':
+        tedit = datetime.datetime.now()
+        while strb(tedit) != 'فروردین':
+            tedit -= timedelta(days=28)
+        while strd(tedit) != "1":
+            tedit -= timedelta(days=1)
+        if (mounthedit != '') and (dayedit != '') and (mounthedit != None) and (dayedit != None) and (mounthedit != 'None') and (dayedit != 'None'):
+            while strb(tedit) != mounthedit:
+                tedit += timedelta(days=1)
+            while strd(tedit) != dayedit:
+                tedit += timedelta(days=1)
+        zz = ''
+        banks = bankmodel.objects.all()
+        for bb in banks:
+            print(bankonvanedit)
+            print("ffffffffffffffffffffffff")
+            if int(bb.id) == int(bankonvanedit):
+                zz = bb.onvan
+
+        a=castmodel.objects.filter(id=int(idcedit))
+        b=fpeseshktestmodel.objects.filter(id=int(idfpedit))
+        a.delete()
+        b.update(offer=castoffer,pyment=castbeyane)
+        fps = fpeseshktestmodel.objects.all()
+        for fp in fps:
+            if int(fp.id) == int(idfpedit):
+                j = str(int(float(fp.castreserv) - float(fp.offer) - float(fp.pyment)))
+                castmodel.objects.create(
+                    idf=fp.id,
+                    melicodvarizande=fp.melicod,
+                    dateshamsi=stradby(tedit),
+                    datemiladi= tedit.strftime('%a %d %b %y'),
+                    filenumber= tedit.strftime('%a %d %b %y') + ',' + str(fp.melicod),
+                    cashmethodid=str(bankonvanedit),
+                    cashmethodname=zz,
+                    melicodeoperatore=request.user.username,
+                    mablagh=j,
+                    dateshamsieditor=stradby(datetime.datetime.now()),
+                )
+
     return render(request,'closecash.html',context={
         'day':day,
         'mounth': mounth,
         'rarray':casharray,
         'bank':bankarray,
+        'level':level,
     })

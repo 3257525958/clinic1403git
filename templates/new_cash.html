@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href={%  static "/css/materialize.min.css" %}>
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">                 #}
+    <link rel="stylesheet" type="text/css" href="{% static "/css/materialize.min.css" %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{% static "/css/materialize-rtl.css" %}">
-    <link rel="stylesheet" href={%  static "/fontawesome/css/all.css" %}>
-    <link rel="stylesheet" href={% static "/css/home.css" %}>
-    <link rel="stylesheet" href={% static "/css/add-contact.css" %}>
+    <link rel="stylesheet" type="text/css" href="{% static  "/css/materialize-rtl.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "/fontawesome/css/all.css" %}">
+    <link rel="stylesheet" type="text/css" href= "{% static "/css/home.css" %}">
+    <link rel="stylesheet" type="text/css" href= "{% static "/css/add-contact.css" %}">
     <title>مرکز زیبایی دکتر اسدپور</title>
 </head>
 <body dir="rtl" class="body">
@@ -30,7 +31,7 @@
     
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo">
-        <img src="/static/img/logo.jpg" alt="">
+        <img src={% static "/img/logo.jpg" %} alt="menu">
       </a>
 
 {#      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>#}
@@ -68,16 +69,36 @@
 </ul>
 <!-- ----------پایان ناوبار------------ -->
 <main>
-  <form class="row w-100 login dakhel_loginsec" method="POST" action="">
-  {% csrf_token %}
-    <div class="col  "></div>
+  <form class="row w-100 login dakhel_loginsec" method="POST">
+    <div class="col m3 l4 hide-on-small-and-down"></div>
 
-    <div class="ghesmate_login col s12 m12 l12">
-          <i class="center-align blick-shodan fas fa-cash-register fa-4x"></i>
-          <div class="col s12 m12 l12">
-                <div class="input-field col s6">
-                        <select class="custom-select" name="day" onchange="btndayselectfun()">
-                                <option value={{ day }} >{{ day}}</option>
+    <div class="ghesmate_login col s12 m6 l4">
+
+    
+      <i class="center-align blick-shodan fas fa-times fa-2x"></i>
+
+      <div class="input-field col s12 ">
+        <input type="text" name="names"  id="names" class="validate" autocomplete="off" value="{{ name }}" disabled>
+        <label for="names">مشخصات مراجع:</label>
+      </div>
+      <div class="input-field col s12 ">
+        <input type="text" name="job"  id="job" class="validate" autocomplete="off" value="{{ job }}" disabled>
+        <label for="names">مشخصات خدمت رزرو شده:</label>
+      </div>
+      <div class="input-field col s12 ">
+        <input type="text" name="castjob"  id="castjob" class="validate" autocomplete="off" value="{{ castjob }}" disabled>
+        <label for="names">مبلغ خدمت :</label>
+      </div>
+      <div class="input-field col s12 ">
+        <input type="text" name="castbeyane"  id="castbeyane" class="validate" autocomplete="off" value="{{ castbeyane }}" >
+        <label for="names">مبلغ بیعانه :</label>
+      </div>
+      <div class="input-field col s12 ">
+        <input type="text" name="castoffer"  id="castoffer" class="validate" autocomplete="off" value="{{ castoffer }}" >
+        <label for="names">مبلغ تخفیف :</label>
+      </div>
+      <div class="input-field col s4">
+                        <select class="custom-select" name="dayedit">
                                 <option value= "1" >1</option>
                                 <option value= "2" >2</option>
                                 <option value= "3" >3</option>
@@ -112,9 +133,8 @@
                         </select>
             <label class="teal-text text-darken-4">روز:</label>
           </div>
-                <div class="input-field col s6">
-                        <select  class="custom-select" name="mounth" onchange="btnmounthselectfun()">
-                            <option value= {{ mounth }}>{{ mounth}}</option>
+      <div class="input-field col s4">
+                        <select  class="custom-select" name="mounthedit">
                             <option value="فروردین">فروردین</option>
                             <option value="اردیبهشت">اردیبهشت</option>
                             <option value="خرداد">خرداد</option>
@@ -130,58 +150,40 @@
                         </select>
             <label class="teal-text text-darken-4 ">ماه:</label>
           </div>
-                <div class="col s12 l12 m12">
-              <table class="highlight " id="table" >
-                <thead>
-                  <tr>
-                      <th>مراجع</th>
-                      <th>عنوان خدمت</th>
-                      <th>تاریخ انجام خدمت</th>
-                      <th>مبلغ</th>
-                      <th>حساب واریزی</th>
-                      <th>ویرایش</th>
-                  </tr>
-                </thead>
+      <div class="input-field col s4">
+                        <select class="custom-select" name="bankonvanedit">
+                           {% for hesab in hesabs %}
+                             <option value={{ hesab.0 }}>{{ hesab.1 }}{{ hesab.0 }}</option>
+                           {% endfor %}
+                        </select>
+                        <label class="teal-text text-darken-4">روش پرداخت :</label>
+          </div>
+
+        <input id="" name="idcedit" value="{{ idc }}" hidden="">
+        <input id="" name="idfpedit" value="{{ idfp }}" hidden="">
+    
+
+
+
+      <div class="center-align dokmeye-vorood ">
+        <button class="w-100 btn waves-effect" name="buttonedit" value="accept" >ویرایش سند پرداخت </button>
+      </div>
+        <br> 
+      <div class="center-align dokmeye-vorood ">
+        <button class="w-100 btn waves-effect" name="buttondelet" value="accept" >حذف سند پرداخت</button>
+      </div>
         
-                <tbody>
-                {% for r in rarray %}
-                  <tr>
-                    <td>{{ r.0 }}</td>
-                    <td>{{ r.1 }}</td>
-                    <td>{{ r.2 }}</td>
-                    <td>{{ r.3 }}</td>
-                    <td>{{ r.4 }}</td>
-                  {% if level == "مدیر" %}    
-                    <td><input type="submit" name="cash"  id="cash" class="validate" autocomplete="off" value="{{ r.5 }}"></td>
-                  {% endif %}
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
-          </div>
-                {% for b in bank %}
-                    <div class="input-field col s6 l6 m6 ">
-                        <input type="text" name="jamekol"  id="jamekol" class="validate" autocomplete="off" value="{{ b.0 }}" disabled onload="load()">
-                        <label for="phonnumber" id="ljamkol"></label>
-                    </div>
-                    <div class="input-field col s6 l6 m6 ">
-                        <input type="text" name="jamekol"  id="jamekol" class="validate" autocomplete="off" value="{{ b.1 }}" disabled onload="load()">
-                        <label for="phonnumber" id="ljamkol"></label>
-                    </div>
-                {% endfor %}
-                <div class="center-align dokmeye-vorood ">
-            <button class="w-100 btn waves-effect" name="closecash" value="accept" >بستن صندوق </button>
-          </div>
-          </div>
+    </div>
+
+    <div class="col m3 l4 hide-on-small-and-down"></div>
+    <label id="melicod_etebar" hidden >{{ melicod_etebar }}</label>
+    <div id="w">
+    <div id="myBar" class="w3" hidden>0%</div>
     </div>
   
   
-  <input name="daysave" id="daysave" value="{{ day }}" hidden>
-  <button name="btndayselect" id="btndayselect" hidden></button>
-  <input name="mounthsave" id="mounthsave" value="{{ mounth }}" hidden>
-  <button name="btnmounthselect" id="btnmounthselect" hidden></button>
-  <label id="melicod_etebar" hidden >{{ melicod_etebar }}</label>
- </form>
+  {% csrf_token %}
+  </form>
 </main>
 
 
@@ -229,26 +231,14 @@
   </div>
 
 </footer> 
-{#<label id="newjobetebar"  hidden >{{ newjob_etebar }}</label>#}
-{#<label id="newemployetebar"  hidden >{{ newemploy_etebar }}</label>#}
-{#<label id="deletjob"  hidden >{{ delet_etebar }}</label>#}
-{#<label id="lenjob"  hidden >{{ actcount }}</label>#}
-{#<label id="useretebar"  hidden >{{ useretebar }}</label>#}
-{#<label id="employeeetebar"  hidden >{{ employeeetebar }}</label>#}
-{#<label id="employeemessage"  hidden >{{ employeemessage }}</label>#}
-{#<label id="deletemployetebar"  hidden >{{ deletemployetebar }}</label>#}
-{#<label id="selectjob"  hidden >{{ selectjob }}</label>#}
-{#<label id="allservic" hidden>{{  allservicforjava }}</label>#}
-{#<label id="deletworkmessage"  hidden >{{ deletworkmessage }}</label>#}
-{#<label id="addetebar" hidden>{{  addetebar }}</label>#}
-{#<label id="succes" hidden>{{  succes }}</label>#}
 
-<script src={%  static "/js/materialize.min.js" %}></script>
-<script src={% static "/js/home.js" %}></script>
-<script src={% static "/js/addselect.js" %}></script>
+<script src="/static/js/materialize.min.js"></script>
+<script src="/static/js/home.js"></script>
+<script src="/static/js/addselect.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/cast_form.js" %}">    </script>
-<script src="{% static "js/lib/num2persian-min.js" %}"></script>
-<script src="{% static "js/searchname.js" %}">    </script>
+<script src="{% static "/js/add_cantact.js" %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static "/js/reservdasti.js" %}"></script>
+
 </body>
 </html>
