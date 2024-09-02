@@ -4,6 +4,7 @@ import datetime
 from cantact_app.views import stry,strd,strb,stra
 from it_app.form import homeimgform,homemenosariform,homemobileform
 def sendmesaage(request):
+
     return render(request,'mesage_send.html')
 def savemesaage(request):
     savebutton = request.POST.get('savebutton')

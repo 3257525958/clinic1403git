@@ -111,7 +111,13 @@
   <form class="row w-100 login dakhel_loginsec" method="POST" action="" enctype="multipart/form-data">
   {% csrf_token %}
         <button id="testes" name="btsize" value="accept"hidden="hidden">ثبت اطلاعات </button>
-      <input id="ee" name="na" hidden="hidden">
+    <input id="ee" name="na" hidden="hidden">
+    <input name="" id="date" hidden>
+    <input name="" id="thours" hidden>
+    <input name="" id="tminutes" >
+    <input name="" id="tseconds" >
+    <button name="btndate" id="btndate" class="w-100 btn waves-effect" value="accept"></button>
+
   </form>
         <div class="carousel carousel-slider cros-style" >
         <label id="tab" hidden="hidden">{{ bsize }}</label>
@@ -137,8 +143,6 @@
             {% endfor %}
         {% endif %}
         </div>
-
-
       </main>
     <!-- ---------------پایان عکس متحرک----- -->
       

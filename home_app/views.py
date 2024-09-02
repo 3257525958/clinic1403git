@@ -6,12 +6,34 @@ from django.shortcuts import redirect
 from reserv_app.models import reservemodeltest,reservemodel,neursemodel,filepage1model
 from jobs_app.models import workmodel
 from it_app.models import homeimgmodel,homemenosarimodel,homemobilemodel
+from kavenegar import *
 
 
 # Create your views here.
 profilestatus =['']
 loglevel = ['']
 def home(request):
+    btndate = request.POST.get('btndate')
+    print(btndate)
+    if btndate == 'accept':
+        print("kkkkkkkkkkkkkkkkkkkkkkkkkkk")
+        try:
+            api = KavenegarAPI(
+                '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+            params = {
+                'sender': '9982003178',  # optional
+                'receptor': '09122852099',  # multiple mobile number, split by comma
+                'message':" sms",
+            }
+            response = api.sms_send(params)
+            # return render(request, 'code_cantact.html')
+        except APIException as e:
+            m = 'tellerror'
+            return render(request, 'closecash.html', context={'melicod_etebar': m})
+        except HTTPException as e:
+            m = 'neterror'
+            return render(request, 'closecash.html', context={'melicod_etebar': m}, )
+
     r = request.GET.get("r")
     loglevel[0] = [""]
     profilestatus = ['']

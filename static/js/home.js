@@ -1,3 +1,21 @@
+
+
+function time() {
+var MyDate = new Date();
+var MyDateshamsi = new Date().toLocaleDateString('fa-IR');
+    document.getElementById("date").value = MyDateshamsi;
+    document.getElementById("thours").value = MyDate.getHours();
+    document.getElementById("tminutes").value = MyDate.getMinutes();
+    document.getElementById("tseconds").value = MyDate.getSeconds();
+    if (MyDate.getMinutes() == 45) {
+        if ( MyDate.getSeconds() == 2) {
+            document.getElementById("btndate").click();
+            console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+        }
+    }
+}
+
+setInterval(time, 1000);
 document.addEventListener('DOMContentLoaded', function() {
     if ( screen > 601){
         var  a = 5000} else { var a = 0}
@@ -27,3 +45,4 @@ document.addEventListener('DOMContentLoaded', function() {
       M.Carousel.getInstance(carouselElems[0]).next()
     }, 2000)
   })
+
