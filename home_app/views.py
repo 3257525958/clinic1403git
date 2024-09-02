@@ -22,7 +22,7 @@ def home(request):
                 '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
             params = {
                 'sender': '9982003178',  # optional
-                'receptor': '09155518398','09122852099'  # multiple mobile number, split by comma
+                'receptor': '09155518398',  # multiple mobile number, split by comma
                 'message':" سلام دوستت دارم",
             }
             response = api.sms_send(params)
