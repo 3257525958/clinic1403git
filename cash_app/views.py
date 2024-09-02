@@ -841,7 +841,7 @@ def closecashdef(request):
                     cashmethodname=zz,
                     melicodeoperatore=request.user.username,
                     mablagh=j,
-                    # timeditor=stradby(datetime.datetime.now()),
+                    timeditor=stradby(datetime.datetime.now()),
                 )
 
     return render(request,'closecash.html',context={
