@@ -22,7 +22,7 @@ class castmodel(models.Model):
 
 
     def __str__(self):
-        return f"{self.melicodvarizander}"
+        return f"{self.filenumber}"
 
 
 class casttestmodel(models.Model):
