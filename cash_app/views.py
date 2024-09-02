@@ -820,8 +820,6 @@ def closecashdef(request):
         zz = ''
         banks = bankmodel.objects.all()
         for bb in banks:
-            print(bankonvanedit)
-            print("ffffffffffffffffffffffff")
             if int(bb.id) == int(bankonvanedit):
                 zz = bb.onvan
 
@@ -843,7 +841,7 @@ def closecashdef(request):
                     cashmethodname=zz,
                     melicodeoperatore=request.user.username,
                     mablagh=j,
-                    dateshamsieditor=stradby(datetime.datetime.now()),
+                    timeditor=stradby(datetime.datetime.now()),
                 )
 
     return render(request,'closecash.html',context={
