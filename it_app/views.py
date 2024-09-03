@@ -3,7 +3,46 @@ from it_app.models import mesaagetextmodel,mesaagecuntermodel, homeimgmodel,home
 import datetime
 from cantact_app.views import stry,strd,strb,stra
 from it_app.form import homeimgform,homemenosariform,homemobileform
+import datetime
+from datetime import timedelta
+from kavenegar import *
+
 def sendmesaage(request):
+    message = request.POST.get('message')
+    sms = request.POST.get('smstext')
+    day = request.POST.get('day')
+    mounth = request.POST.get('mounth')
+    sendsms = request.POST.get('sendsms')
+    print(sendsms)
+    # t = datetime.datetime.now()
+    # while strb(t) != 'فروردین' :
+    #     t -= timedelta(days=28)
+    # while strd(t) != "1" :
+    #     t -= timedelta(days=1)
+    # if (mounth != '') and (day != ''):
+    #     while strb(t) != mounth :
+    #         t += timedelta(days=1)
+    #     while strd(t) != day :
+    #         t += timedelta(days=1)
+
+    if sendsms == "accept" :
+        print("sendsms")
+        try:
+            api = KavenegarAPI(
+                '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+            params = {
+                'sender': '9982003178',  # optional
+                'receptor': '09122852099',  # multiple mobile number, split by comma
+                'message':sms,
+            }
+            response = api.sms_send(params)
+            # return render(request, 'code_cantact.html')
+        except APIException as e:
+            m = 'tellerror'
+            return render(request, 'closecash.html', context={'melicod_etebar': m})
+        except HTTPException as e:
+            m = 'neterror'
+            return render(request, 'closecash.html', context={'melicod_etebar': m}, )
 
     return render(request,'mesage_send.html')
 def savemesaage(request):

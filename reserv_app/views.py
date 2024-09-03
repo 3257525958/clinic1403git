@@ -10,6 +10,7 @@ from reserv_app.models import *
 from cantact_app.models import accuntmodel
 from file_app.models import *
 from accountancy_app.models import *
+from kavenegar import *
 ww = ['t']
 shamsiarray = ['t']
 miladiarray = ['t']
@@ -790,20 +791,17 @@ def reserverdef(request):
         if (dayselect != '0') and (mounthselect != '0') :
             if (int(strd(t)) >= int(dayselect)) and (strb(t) == mounthselect):
                 while strb(t) == mounthselect:
-                    print(dayconter)
                     t -= timedelta(days=1)
                     dayconter -= 1
 
             while strb(t) != mounthselect:
                 t += timedelta(days=1)
-                print(dayconter)
                 dayconter += 1
                 if int(y) != int(stry(t)):
                     e = 'false'
                     break
             while int(strd(t)) != int(dayselect):
                 t += timedelta(days=1)
-                print(dayconter)
                 dayconter += 1
 
 
@@ -873,7 +871,7 @@ def reserverdef(request):
             dastiarray.append([(name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment),str(r.id)])
 
 # ----------------------------------------------------------------------------------------------------------------------------------
-
+    personreserv = ''
     if button_send == 'accept':
         intdayconter = int(dayconter)
         tm = datetime.datetime.now()
@@ -982,7 +980,36 @@ def reserverdef(request):
             yearshamsi = stry(datetime.datetime.now()),
             vahed = vahed,
             idwork=detalework,
+            timeditor='notedit',
         )
+        tcheck = datetime.datetime.now()
+        etebartime = 'false'
+        for i in range(400):
+            tcheck += timedelta(days=1)
+            if tm.strftime('%a %d %b %y') == tcheck.strftime('%a %d %b %y'):
+                etebartime = 'true'
+                break
+            
+        users = accuntmodel.objects.all()
+        for user in users:
+            if (int(user.melicode) == int(melicode)) and (etebartime == 'true') :
+                try:
+                    api = KavenegarAPI(
+                        '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                    params = {
+                        'sender': '9982003178',  # optional
+                        'receptor': user.phonnumber,  # multiple mobile number, split by comma
+                        'message':" سلام",
+                    }
+                    response = api.sms_send(params)
+                    # return render(request, 'code_cantact.html')
+                except APIException as e:
+                    m = 'tellerror'
+                    return render(request, 'closecash.html', context={'melicod_etebar': m})
+                except HTTPException as e:
+                    m = 'neterror'
+                    return render(request, 'closecash.html', context={'melicod_etebar': m}, )
+
         return render(request, 'reserver.html', context={
             'dastiarray': dastiarray,
             'day': dayreserv,

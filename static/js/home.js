@@ -7,7 +7,7 @@ var MyDateshamsi = new Date().toLocaleDateString('fa-IR');
     document.getElementById("thours").value = MyDate.getHours();
     document.getElementById("tminutes").value = MyDate.getMinutes();
     document.getElementById("tseconds").value = MyDate.getSeconds();
-    if (MyDate.getSeconds() == 25) {
+    if (MyDate.getSeconds() == 95) {
             document.getElementById("btndate").click();
     }
 }
