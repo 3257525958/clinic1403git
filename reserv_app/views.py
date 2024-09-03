@@ -980,7 +980,6 @@ def reserverdef(request):
             yearshamsi = stry(datetime.datetime.now()),
             vahed = vahed,
             idwork=detalework,
-            timeditor='notedit',
         )
         tcheck = datetime.datetime.now()
         etebartime = 'false'
