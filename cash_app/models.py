@@ -18,6 +18,7 @@ class castmodel(models.Model):
     cashmethodid = models.CharField(max_length=100,default='0',null=True)
     melicodeoperatore = models.CharField(max_length=100,default='0',null=True)
     mablagh = models.CharField(max_length=100,default='0',blank=True,null=True)
+    dateshamsieditor = models.CharField(max_length=100,default='0',null=True)
 
 
     def __str__(self):
