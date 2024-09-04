@@ -387,7 +387,6 @@ def cast(request):
                     cashmethodname = zz,
                     melicodeoperatore = request.user.username,
                     mablagh = str(jamekolinput),
-                    ditor='true',
                     )
                     a =fpeseshktestmodel.objects.filter(id=int(r.id))
                     a.update(checking='true')

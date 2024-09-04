@@ -9,16 +9,15 @@ class bankmodel(models.Model):
     def __str__(self):
         return f"{self.onvan}"
 class castmodel(models.Model):
-    idf = models.CharField(max_length=20,default="0",blank=True,null=True)
-    melicodvarizande = models.CharField(max_length=10,default='0',blank=True,null=True)
-    dateshamsi = models.CharField(max_length=100,default='0',blank=True,null=True)
-    datemiladi = models.CharField(max_length=100,default='0',blank=True,null=True)
-    filenumber = models.CharField(max_length=100,default='0',blank=True,null=True)
-    cashmethodname = models.CharField(max_length=100,default='0',blank=True,null=True)
-    cashmethodid = models.CharField(max_length=100,default='0',blank=True,null=True)
-    melicodeoperatore = models.CharField(max_length=100,default='0',blank=True,null=True)
+    idf = models.CharField(max_length=20,default="0",null=True)
+    melicodvarizande = models.CharField(max_length=10,default='0',null=True)
+    dateshamsi = models.CharField(max_length=100,default='0',null=True)
+    datemiladi = models.CharField(max_length=100,default='0',null=True)
+    filenumber = models.CharField(max_length=100,default='0',null=True)
+    cashmethodname = models.CharField(max_length=100,default='0',null=True)
+    cashmethodid = models.CharField(max_length=100,default='0',null=True)
+    melicodeoperatore = models.CharField(max_length=100,default='0',null=True)
     mablagh = models.CharField(max_length=100,default='0',blank=True,null=True)
-    ditor = models.CharField(max_length=100,default='noedit',blank=True,null=True)
 
 
     def __str__(self):
