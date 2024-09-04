@@ -37,6 +37,8 @@ class esmekalamodel(models.Model):
     jobid = models.CharField(max_length=50,default="0")
     esmekala = models.CharField(max_length=1000,default="0")
     berand = models.CharField(max_length=1000,default="0")
+    unit = models.CharField(max_length=1000,default="0")
+    value = models.CharField(max_length=1000,default="0")
 
     def __str__(self):
         return f"{self.esmekala}"

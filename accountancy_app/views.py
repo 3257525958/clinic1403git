@@ -186,6 +186,8 @@ def sana(request):
     berand = request.POST.get("berand")
     esmekala =request.POST.get('esmekala')
     bottunesmekala =request.POST.get('bottunesmekala')
+    value =request.POST.get('value')
+    unit =request.POST.get('unit')
     js = jobsmodel.objects.all()
     jobsarray = ['']
     jobsarray.clear()
@@ -193,5 +195,5 @@ def sana(request):
         p = (str(j.id) + "," + str(j.job)).split(",")
         jobsarray.append(p)
     if (esmekala != None) and (esmekala != '') and (bottunesmekala == 'accept'):
-        esmekalamodel.objects.create(esmekala=esmekala, berand=berand , jobid=job)
+        esmekalamodel.objects.create(esmekala=esmekala, berand=berand , jobid=job , unit=unit ,value=value)
     return render(request,'sana.html',context={'jobsarray':jobsarray})
