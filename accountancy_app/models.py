@@ -38,7 +38,7 @@ class esmekalamodel(models.Model):
     esmekala = models.CharField(max_length=1000,default="0")
     berand = models.CharField(max_length=1000,default="0")
     unit = models.CharField(max_length=1000,default="0")
-    value = models.CharField(max_length=1000,default="0")
+    value = models.CharField(max_length=1000,default='ندارد')
 
     def __str__(self):
         return f"{self.esmekala}"

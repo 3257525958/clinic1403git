@@ -52,7 +52,7 @@ def jobs(request):
     servicdelet = request.POST.get("servicdelet")
     deletservicselect = request.POST.get("deletservicselect")
     detalejob = request.POST.get('detalejob')
-    vahed = request.POST.get('vahed')
+    # vahed = request.POST.get('vahed')
     berand = request.POST.get('berand')
 # ****************************************************اضافه کردن یک فعالیت********************************************************
     newjob_etebar[0] = 'true'
@@ -253,10 +253,12 @@ def jobs(request):
                         bs = esmekalamodel.objects.all()
                         workberand = ''
                         workesmekala = ''
+                        vahed = ''
                         for b in bs :
                             if int(b.id) == int(berand):
                                 workesmekala = b.esmekala
                                 workberand = b.berand
+                                vahed = b.unit
                         users = accuntmodel.objects.all()
                         for user in users :
                             if int(user.melicode) == int(employselector):
