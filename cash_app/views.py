@@ -387,6 +387,7 @@ def cast(request):
                     cashmethodname = zz,
                     melicodeoperatore = request.user.username,
                     mablagh = str(jamekolinput),
+                    # dateshamsieditor = ,
                     )
                     a =fpeseshktestmodel.objects.filter(id=int(r.id))
                     a.update(checking='true')
@@ -842,7 +843,7 @@ def closecashdef(request):
                     cashmethodname=zz,
                     melicodeoperatore=request.user.username,
                     mablagh=j,
-                    timeditor=stradby(datetime.datetime.now()),
+                    dateshamsieditor=stradby(datetime.datetime.now()),
                 )
 
     return render(request,'closecash.html',context={

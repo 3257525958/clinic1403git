@@ -112,11 +112,11 @@ body {
   border: 3px unset rgb(var(--vred), var(--vgreen), var(--vblue),var(--ekhtelaf));
   transition: .3s color;
   width: 100px;
-  height: 35px;
+  height: 25px;
   border-radius: 5px;
   font-family: "B Yekan";
   font-size: 15px;
-  margin: 7px;
+  margin: 3px;
 }
 .boxxxf{
   position: relative;
@@ -140,7 +140,7 @@ body {
   font-family:  "B Yekan";
   color: black;
   text-align: center;
-  font-size:17px ;
+  font-size:13px ;
   font-weight: bold;
 }
 .effects {
@@ -166,7 +166,7 @@ body {
 .effects__item {
     /* display: flex; */
     flex-direction: column;
-    flex: 0 0 170px;
+    flex: 0 0 110px;
     margin: 0 10px;
     background: rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
     border: 2px solid rgb(var(--vred), var(--vgreen), var(--vblue),var(--contrast));
@@ -175,7 +175,7 @@ body {
     flex-flow: row nowrap;
     overflow: auto;
     padding-bottom: 10px;
-    margin: 10px;
+    margin: 5px;
     transition: .3s border;
     line-height: 5px;
   }
