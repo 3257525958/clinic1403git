@@ -383,10 +383,10 @@ def cast(request):
                     dateshamsi = stradby(datetime.datetime.now()),
                     datemiladi = datetime.datetime.now().strftime('%a %d %b %y'),
                     filenumber = datetime.datetime.now().strftime('%a %d %b %y') + ',' +str(melicodvarizande),
-                    # cashmethodid = str(bankonvanfactor),
-                    # cashmethodname = zz,
-                    # melicodeoperatore = request.user.username,
-                    # mablagh = str(jamekolinput),
+                    cashmethodid = str(bankonvanfactor),
+                    cashmethodname = zz,
+                    melicodeoperatore = request.user.username,
+                    mablagh = str(jamekolinput),
                     )
                     a =fpeseshktestmodel.objects.filter(id=int(r.id))
                     a.update(checking='true')
