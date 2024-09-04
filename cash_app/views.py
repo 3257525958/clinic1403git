@@ -377,8 +377,6 @@ def cast(request):
                     if int(bb.id) == int(bankonvanfactor) :
                         zz = bb.onvan
                 if et == 'true':
-                    a =fpeseshktestmodel.objects.filter(id=int(r.id))
-                    a.update(checking='true')
                     castmodel.objects.create(
                     idf = r.id,
                     melicodvarizande = r.melicod,
@@ -389,9 +387,10 @@ def cast(request):
                     cashmethodname = zz,
                     melicodeoperatore = request.user.username,
                     mablagh = str(jamekolinput),
-                    # timeditor='notedit',
-
                     )
+                    a =fpeseshktestmodel.objects.filter(id=int(r.id))
+                    a.update(checking='true')
+
         etebarsabt = 'true'
     arrayname = ['']
     arrayname.clear()
