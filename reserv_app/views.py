@@ -190,25 +190,28 @@ def reservdef(request):
                              vahed=f.vahed,
                              idwork=f.id
                              )
-
+                    sel = ''
                     if f.time == "زمان کمی میبرد" :
                         sel = "0"
                         selectprocedure.append("0")
-                    if f.time == "نیم ساعت" :
+                    if f.time == "پانزده دقیقه" :
                         sel = "1"
                         selectprocedure.append("1")
-                    if f.time == "یک ساعت" :
+                    if f.time == "سی دقیقه" :
                         sel = "2"
                         selectprocedure.append("2")
-                    if f.time =="یک و نیم ساعت" :
+                    if f.time =="چهل و پنج دقیقه" :
                         sel = "3"
                         selectprocedure.append("3")
-                    if f.time == "دو ساعت" :
+                    if f.time == "یک ساعت" :
                         sel = "4"
                         selectprocedure.append("4")
-                    if f.time == "دو نیم ساعت" :
+                    if f.time == "یک ساعت و پانزده دقیقه" :
                         sel = "5"
                         selectprocedure.append("5")
+                    if f.time == "یک ساعت و نیم" :
+                        sel = "6"
+                        selectprocedure.append("6")
                     selectprocedure.append(f.cast)
                     a = reservemodeltest.objects.filter(mellicode=request.user.username)
                     a.update(
@@ -236,7 +239,7 @@ def reservdef(request):
                 dayarr = ['t']
                 dayarr.clear()
                 dayarr.append(stradb(t))
-                for h in range(20):
+                for h in range(40):
                     dayarr.append('true')
 # _____برسی مرخصی ها و حضور اپراتوری که انتخاب شده_________
                 ls = leavemodel.objects.all()
@@ -276,6 +279,14 @@ def reservdef(request):
                                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
                                 dayarr[int(reservmovaghat.numbertime) + 3] = "false"
                                 dayarr[int(reservmovaghat.numbertime) + 4] = "false"
+                            if reservmovaghat.timereserv == '6':
+                                dayarr[int(reservmovaghat.numbertime)] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 4] = "false"
+                                dayarr[int(reservmovaghat.numbertime) + 5] = "false"
+
         # -------------------------اینجا رزرو های قبلی رو چک میکنه---------
                 res = reservemodel.objects.all()
                 for r in res :
@@ -301,6 +312,13 @@ def reservdef(request):
                                 dayarr[int(r.numbertime) + 2] = "false"
                                 dayarr[int(r.numbertime) + 3] = "false"
                                 dayarr[int(r.numbertime) + 4] = "false"
+                            if r.timereserv == '6':
+                                dayarr[int(r.numbertime)] = "false"
+                                dayarr[int(r.numbertime) + 1] = "false"
+                                dayarr[int(r.numbertime) + 2] = "false"
+                                dayarr[int(r.numbertime) + 3] = "false"
+                                dayarr[int(r.numbertime) + 4] = "false"
+                                dayarr[int(r.numbertime) + 5] = "false"
                 # # ---------------------------------------------اگر کاری مه انتخاب شده بیش از نیم ساعت باشه یعنی دو تا نیم ساغت یا سه  یا پهارتا یا پنج تا نیم ساعت باشه-----------
 # # ------باید چک شود که تا تایم های اینده اش  به همون اندازه که وقت میخواد وقت باشه ---------------------------------------
 #
@@ -346,6 +364,25 @@ def reservdef(request):
                     dayarr[18] = "false"
                     dayarr[19] = "false"
                     dayarr[20] = "false"
+                if selectprocedure[3] == "6" :
+                    for hh in range(15) :
+                        hh += 1
+                        if dayarr[int(hh) + 1] == "false" :
+                            dayarr[int(hh)] = "false"
+                        if dayarr[int(hh) + 2] == "false" :
+                            dayarr[int(hh)] = "false"
+                        if dayarr[int(hh) + 3] == "false" :
+                            dayarr[int(hh)] = "false"
+                        if dayarr[int(hh) + 4] == "false" :
+                            dayarr[int(hh)] = "false"
+                        if dayarr[int(hh) + 5] == "false":
+                            dayarr[int(hh)] = "false"
+                    dayarr[16] = "false"
+                    dayarr[17] = "false"
+                    dayarr[18] = "false"
+                    dayarr[19] = "false"
+                    dayarr[20] = "false"
+
 #
                 t += timedelta(days=1)
                 day.append(dayarr)
@@ -381,64 +418,124 @@ def reservdef(request):
             s = ""
             if stime[0] == "1"  :
                 s ="10"
-                selectprocedure.append("10")
+                selectprocedure.append("10:00")
             if stime[0] == "2"  :
-                s ="10.5"
-                selectprocedure.append("10.5")
+                s ="10:15"
+                selectprocedure.append("10:15")
             if stime[0] == "3"  :
-                s ="11"
-                selectprocedure.append("11")
+                s ="10:30"
+                selectprocedure.append("10:30")
             if stime[0] == "4"  :
-                s ="11.5"
-                selectprocedure.append("11.5")
+                s ="10:45"
+                selectprocedure.append("10:45")
             if stime[0] == "5"  :
-                s ="12"
-                selectprocedure.append("12")
+                s ="11"
+                selectprocedure.append("11:00")
             if stime[0] == "6"  :
-                s ="12.5"
-                selectprocedure.append("12.5")
+                s ="11:15"
+                selectprocedure.append("11:15")
             if stime[0] == "7"  :
-                s ="13"
-                selectprocedure.append("13")
+                s ="11:30"
+                selectprocedure.append("11:30")
             if stime[0] == "8"  :
-                s ="13.5"
-                selectprocedure.append("13.5")
+                s ="11:45"
+                selectprocedure.append("11:45")
             if stime[0] == "9"  :
-                s ="14"
-                selectprocedure.append("14")
+                s ="12"
+                selectprocedure.append("12:00")
             if stime[0] == "10"  :
-                s ="14.5"
-                selectprocedure.append("14.5")
+                s ="12:15"
+                selectprocedure.append("12:15")
             if stime[0] == "11"  :
-                s ="15"
-                selectprocedure.append("15")
+                s ="12:30"
+                selectprocedure.append("12:30")
             if stime[0] == "12"  :
-                s ="15.5"
-                selectprocedure.append("15.5")
+                s ="12:45"
+                selectprocedure.append("12:45")
             if stime[0] == "13"  :
-                s ="16"
-                selectprocedure.append("16")
+                s ="13"
+                selectprocedure.append("13:00")
             if stime[0] == "14"  :
-                s ="16.5"
-                selectprocedure.append("16.5")
+                s ="13:15"
+                selectprocedure.append("13:15")
             if stime[0] == "15"  :
-                s ="17"
-                selectprocedure.append("17")
+                s ="13:30"
+                selectprocedure.append("13:30")
             if stime[0] == "16"  :
-                s ="17.5"
-                selectprocedure.append("17.5")
+                s ="13:45"
+                selectprocedure.append("13:45")
             if stime[0] == "17"  :
-                s ="18"
-                selectprocedure.append("18")
+                s ="14"
+                selectprocedure.append("14:00")
             if stime[0] == "18"  :
-                s ="18.5"
-                selectprocedure.append("18.5")
+                s ="14:15"
+                selectprocedure.append("14:15")
             if stime[0] == "19"  :
-                s ="19"
-                selectprocedure.append("19")
+                s ="14:30"
+                selectprocedure.append("14:30")
             if stime[0] == "20"  :
-                s ="19.5"
-                selectprocedure.append("19.5")
+                s ="14:45"
+                selectprocedure.append("14:45")
+            if stime[0] == "21"  :
+                s ="15"
+                selectprocedure.append("15:00")
+            if stime[0] == "22"  :
+                s ="15:15"
+                selectprocedure.append("15:15")
+            if stime[0] == "23"  :
+                s ="15:30"
+                selectprocedure.append("15:30")
+            if stime[0] == "24"  :
+                s ="15:45"
+                selectprocedure.append("15:45")
+            if stime[0] == "25"  :
+                s ="16"
+                selectprocedure.append("16:00")
+            if stime[0] == "26"  :
+                s ="16:15"
+                selectprocedure.append("16:15")
+            if stime[0] == "27"  :
+                s ="16:30"
+                selectprocedure.append("16:30")
+            if stime[0] == "28"  :
+                s ="16:45"
+                selectprocedure.append("16:45")
+            if stime[0] == "29"  :
+                s ="17"
+                selectprocedure.append("17:00")
+            if stime[0] == "30"  :
+                s ="17:15"
+                selectprocedure.append("17:15")
+            if stime[0] == "31"  :
+                s ="17:30"
+                selectprocedure.append("17:30")
+            if stime[0] == "32"  :
+                s ="17:45"
+                selectprocedure.append("17:45")
+            if stime[0] == "33"  :
+                s ="18"
+                selectprocedure.append("18:00")
+            if stime[0] == "34"  :
+                s ="18:15"
+                selectprocedure.append("18:15")
+            if stime[0] == "35"  :
+                s ="18:30"
+                selectprocedure.append("18:30")
+            if stime[0] == "36"  :
+                s ="18:45"
+                selectprocedure.append("18:45")
+            if stime[0] == "37"  :
+                s ="19"
+                selectprocedure.append("19:00")
+            if stime[0] == "38"  :
+                s ="19:15"
+                selectprocedure.append("19:15")
+            if stime[0] == "39"  :
+                s ="19:30"
+                selectprocedure.append("19:30")
+            if stime[0] == "40"  :
+                s ="19:45"
+                selectprocedure.append("19:45")
             a = reservemodeltest.objects.filter(mellicode=request.user.username)
             a.update(hourreserv=s)
             reservs = reservemodel.objects.all()
@@ -664,7 +761,7 @@ def leave(request):
             dayleave = ['t']
             dayleave.clear()
             dayleave.append(stradb(t))
-            for h in range(20):
+            for h in range(40):
                 dayleave.append('true')
             leavearray.append(dayleave)
             t += timedelta(days=1)
@@ -811,7 +908,7 @@ def reserverdef(request):
     dayarr = ['t']
     dayarr.clear()
     dayarr.append(stradb(t))
-    for h in range(21):
+    for h in range(41):
         dayarr.append('')
     rs = reservemodel.objects.all()
     name = ''
@@ -863,7 +960,7 @@ def reserverdef(request):
     dastiarray.clear()
     rs = reservemodel.objects.all()
     for r in rs:
-        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == personel ) and (r.numbertime == "21"):
+        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == personel ) and (r.numbertime == "41"):
             us = accuntmodel.objects.all()
             for u in us:
                 if r.melicod == u.melicode :
@@ -904,67 +1001,111 @@ def reserverdef(request):
         s =''
         if 1==1 :
             if stime[0] == "1":
-                s = "10"
+                s = "10:00"
             if stime[0] == "2":
-                s = "10.5"
+                s = "10:15"
             if stime[0] == "3":
-                s = "11"
+                s = "10:30"
             if stime[0] == "4":
-                s = "11.5"
+                s = "10:45"
             if stime[0] == "5":
-                s = "12"
+                s = "11:00"
             if stime[0] == "6":
-                s = "12.5"
+                s = "11:15"
             if stime[0] == "7":
-                s = "13"
+                s = "11:30"
             if stime[0] == "8":
-                s = "13.5"
+                s = "11:45"
             if stime[0] == "9":
-                s = "14"
+                s = "12:00"
             if stime[0] == "10":
-                s = "14.5"
+                s = "12:15"
             if stime[0] == "11":
-                s = "15"
+                s = "12:30"
             if stime[0] == "12":
-                s = "15.5"
+                s = "12:45"
             if stime[0] == "13":
-                s = "16"
+                s = "13:00"
             if stime[0] == "14":
-                s = "16.5"
+                s = "13:15"
             if stime[0] == "15":
-                s = "17"
+                s = "13:30"
             if stime[0] == "16":
-                s = "17.5"
+                s = "13:45"
             if stime[0] == "17":
-                s = "18"
+                s = "14:00"
             if stime[0] == "18":
-                s = "18.5"
+                s = "14:15"
             if stime[0] == "19":
-                s = "19"
+                s = "14:30"
             if stime[0] == "20":
-                s = "19.5"
-
-
+                s = "14:45"
+            if stime[0] == "21":
+                s = "15:00"
+            if stime[0] == "22":
+                s = "15:15"
+            if stime[0] == "23":
+                s = "15:30"
+            if stime[0] == "24":
+                s = "15:45"
+            if stime[0] == "25":
+                s = "16:00"
+            if stime[0] == "26":
+                s = "16:15"
+            if stime[0] == "27":
+                s = "16:30"
+            if stime[0] == "28":
+                s = "16:45"
+            if stime[0] == "29":
+                s = "17:00"
+            if stime[0] == "30":
+                s = "17:15"
+            if stime[0] == "31":
+                s = "17:30"
+            if stime[0] == "32":
+                s = "17:45"
+            if stime[0] == "33":
+                s = "18:00"
+            if stime[0] == "34":
+                s = "18:15"
+            if stime[0] == "35":
+                s = "18:30"
+            if stime[0] == "36":
+                s = "18:45"
+            if stime[0] == "37":
+                s = "19:00"
+            if stime[0] == "38":
+                s = "19:15"
+            if stime[0] == "39":
+                s = "19:30"
+            if stime[0] == "40":
+                s = "19:45"
+            if stime[0] == "41":
+                s = "20"
         sel = ''
         if 1==1:
+            sel = ''
             if numbertime == "زمان کمی میبرد":
                 sel = "0"
                 selectprocedure.append("0")
-            if numbertime == "نیم ساعت":
+            if numbertime == "پانزده دقیقه":
                 sel = "1"
                 selectprocedure.append("1")
-            if numbertime == "یک ساعت":
+            if numbertime == "سی دقیقه":
                 sel = "2"
                 selectprocedure.append("2")
-            if numbertime == "یک و نیم ساعت":
+            if numbertime == "چهل و پنج دقیقه":
                 sel = "3"
                 selectprocedure.append("3")
-            if numbertime == "دو ساعت":
+            if numbertime == "یک ساعت":
                 sel = "4"
                 selectprocedure.append("4")
-            if numbertime == "دو نیم ساعت":
+            if numbertime == "یک ساعت و پانزده دقیقه":
                 sel = "5"
                 selectprocedure.append("5")
+            if numbertime == "یک ساعت و نیم":
+                sel = "6"
+                selectprocedure.append("6")
 
         reservemodel.objects.create(
             melicod=melicode,
@@ -1040,7 +1181,7 @@ def reserverdef(request):
 
         reservs = reservemodel.objects.all()
         for reserv in reservs:
-            if str(int(se[0])) == "21":
+            if str(int(se[0])) == "41":
                 if str(reserv.id) == str(int(se[1])):
                     n = ''
                     qs = accuntmodel.objects.all()
@@ -1277,7 +1418,7 @@ def dashborddef(request):
         se = timeselect.split(",")
         reservs = reservemodel.objects.all()
         for reserv in reservs:
-            if str(int(se[0])) == "21":
+            if str(int(se[0])) == "41":
                 if str(reserv.id) == str(int(se[1])):
                     n = ''
                     qs = accuntmodel.objects.all()
@@ -1359,7 +1500,7 @@ def dashborddef(request):
     dayarr = ['t']
     dayarr.clear()
     dayarr.append(stradb(t))
-    for h in range(21):
+    for h in range(41):
         dayarr.append('')
     rs = reservemodel.objects.all()
     name = ''
@@ -1380,7 +1521,7 @@ def dashborddef(request):
     dastiarray.clear()
     rs = reservemodel.objects.all()
     for r in rs:
-        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == namedashbord ) and (r.numbertime == "21"):
+        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == namedashbord ) and (r.numbertime == "41"):
             us = accuntmodel.objects.all()
             for u in us:
                 if r.melicod == u.melicode :
@@ -1433,7 +1574,7 @@ def dashborddef(request):
         se = timeselect.split(",")
         reservs = reservemodel.objects.all()
         for reserv in reservs:
-            if str(int(se[0])) == "21":
+            if str(int(se[0])) == "41":
                 if str(reserv.id) == str(int(se[1])):
                     n = ''
                     qs = accuntmodel.objects.all()
@@ -1631,7 +1772,7 @@ def reservdasti(request):
 
     etebarreservdasti = 'notr'
     if button_send == 'accept':
-        numbertime = '21'
+        numbertime = '41'
         hourreserv = 'timeout'
         dateshamsireserv = stradby(datetime.datetime.now())
         datemiladireserv = datetime.datetime.now().strftime('%a %d %b %y')
