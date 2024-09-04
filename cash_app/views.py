@@ -389,7 +389,7 @@ def cast(request):
                     cashmethodname = zz,
                     melicodeoperatore = request.user.username,
                     mablagh = str(jamekolinput),
-                    timeditor='notedit',
+                    # timeditor='notedit',
 
                     )
         etebarsabt = 'true'

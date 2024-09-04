@@ -18,7 +18,7 @@ class castmodel(models.Model):
     cashmethodid = models.CharField(max_length=100,default='0')
     melicodeoperatore = models.CharField(max_length=100,default='0')
     mablagh = models.CharField(max_length=100,default='0')
-    timeditor = models.CharField(max_length=100,default='noedit')
+    # timeditor = models.CharField(max_length=100,default='noedit')
 
 
     def __str__(self):
