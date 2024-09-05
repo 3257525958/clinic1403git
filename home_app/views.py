@@ -3,7 +3,7 @@ from cantact_app.models import accuntmodel
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
-from reserv_app.models import reservemodeltest,reservemodel,neursemodel,filepage1model
+# from reserv_app.models import reservemodeltest,reservemodel,neursemodel,filepage1model
 from jobs_app.models import workmodel
 from it_app.models import homeimgmodel,homemenosarimodel,homemobilemodel
 from kavenegar import *
