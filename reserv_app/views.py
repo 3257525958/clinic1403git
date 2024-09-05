@@ -1130,25 +1130,25 @@ def reserverdef(request):
                 etebartime = 'true'
                 break
             
-        users = accuntmodel.objects.all()
-        for user in users:
-            if (int(user.melicode) == int(melicode)) and (etebartime == 'true') :
-                try:
-                    api = KavenegarAPI(
-                        '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-                    params = {
-                        'sender': '9982003178',  # optional
-                        'receptor': user.phonnumber,  # multiple mobile number, split by comma
-                        'message':" سلام",
-                    }
-                    response = api.sms_send(params)
-                    # return render(request, 'code_cantact.html')
-                except APIException as e:
-                    m = 'tellerror'
-                    return render(request, 'closecash.html', context={'melicod_etebar': m})
-                except HTTPException as e:
-                    m = 'neterror'
-                    return render(request, 'closecash.html', context={'melicod_etebar': m}, )
+        # users = accuntmodel.objects.all()
+        # for user in users:
+        #     if (int(user.melicode) == int(melicode)) and (etebartime == 'true') :
+        #         try:
+        #             api = KavenegarAPI(
+        #                 '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+        #             params = {
+        #                 'sender': '9982003178',  # optional
+        #                 'receptor': user.phonnumber,  # multiple mobile number, split by comma
+        #                 'message':" سلام",
+        #             }
+        #             response = api.sms_send(params)
+        #             # return render(request, 'code_cantact.html')
+        #         except APIException as e:
+        #             m = 'tellerror'
+        #             return render(request, 'closecash.html', context={'melicod_etebar': m})
+        #         except HTTPException as e:
+        #             m = 'neterror'
+        #             return render(request, 'closecash.html', context={'melicod_etebar': m}, )
 
         return render(request, 'reserver.html', context={
             'dastiarray': dastiarray,
