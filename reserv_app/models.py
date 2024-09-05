@@ -68,14 +68,14 @@ class neursemodel(models.Model):
         return f"{self.mellicode}"
 class filepage1model(models.Model):
     mellicode = models.CharField(max_length=12, default="0")
-    inject_botax = models.CharField(max_length=150,default='0')
-    illnes = models.CharField(max_length=150,default='0')
-    drug = models.CharField(max_length=150,default='0')
-    sensivety = models.CharField(max_length=150,default='0')
-    pregnancy = models.CharField(max_length=150,default='0')
-    date_finaly = models.CharField(max_length=150,default='0')
-    image_show = models.CharField(max_length=150,default='0')
-    satisfact = models.CharField(max_length=150,default='0')
+    # inject_botax = models.CharField(max_length=150,default='0')
+    # illnes = models.CharField(max_length=150,default='0')
+    # drug = models.CharField(max_length=150,default='0')
+    # sensivety = models.CharField(max_length=150,default='0')
+    # pregnancy = models.CharField(max_length=150,default='0')
+    # date_finaly = models.CharField(max_length=150,default='0')
+    # image_show = models.CharField(max_length=150,default='0')
+    # satisfact = models.CharField(max_length=150,default='0')
     def __str__(self):
         return f"{self.mellicode}"
 
