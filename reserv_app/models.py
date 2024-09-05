@@ -88,8 +88,8 @@ class searchmodeltest(models.Model):
 
 class fpeseshktestmodel(models.Model):
     melicod =models.CharField(max_length=15,default='0')
-    jobreserv = models.CharField(max_length=15,default='0')
-    detalereserv = models.CharField(max_length=150,default='0')
+    # jobreserv = models.CharField(max_length=15,default='0')
+    # detalereserv = models.CharField(max_length=150,default='0')
     # personreserv = models.CharField(max_length=150,default='0')
     # timereserv = models.CharField(max_length=15,default='0')
     # castreserv = models.CharField(max_length=15,default='0')
