@@ -214,7 +214,7 @@ def jobs(request):
                 jobarray.clear()
                 for b in bs :
                     if int(b.jobid) == int(ser.id):
-                        p = (str(b.id) + "," + str(b.berand)).split(",")
+                        p = (str(b.id) + "," + str(b.berand+' '+b.esmekala)).split(",")
                         jobarray.append(p)
                 emps = employeemodel.objects.all()
                 for emp in emps :
