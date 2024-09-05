@@ -1553,9 +1553,9 @@ def dashborddef(request):
                     vahedeobject = '1'
                 fpeseshktestmodel.objects.create(
                     melicod=w.melicod,
-                    jobreserv =w.jobreserv,
-                    detalereserv =w.detalereserv,
-                    personreserv =w.personreserv,
+                    jobreserv = w.jobreserv,
+                    detalereserv = w.detalereserv,
+                    personreserv = w.personreserv,
                     timereserv =w.timereserv,
                     castreserv =cast,
                     numbertime =w.numbertime,
