@@ -103,7 +103,6 @@ class fpeseshktestmodel(models.Model):
     checking = models.CharField(max_length=20,default='false')
     apghablimage = models.ImageField(upload_to='image/apghabl',null=True)
     llateralghablimage = models.ImageField(upload_to='image/llateralghabl',null=True)
-    llateralghablimage = models.ImageField(upload_to='image/llateralghabl',null=True)
     apbadimage = models.ImageField(upload_to='image/apbad',null=True)
     llateralbadimage = models.ImageField(upload_to='image/llateralbad',null=True)
     rlateralbadimage = models.ImageField(upload_to='image/rlateralbad',null=True)
