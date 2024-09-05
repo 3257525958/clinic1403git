@@ -115,6 +115,7 @@ class fpeseshktestmodel(models.Model):
     offer = models.CharField(max_length=20, default='0')
     reservid = models.CharField(max_length=50, default='0')
     materiyal = models.CharField(max_length=9999, default='0')
+    valueunit = models.CharField(max_length=9999, default='0')
 
     def __str__(self):
         return f"{self.melicod}"

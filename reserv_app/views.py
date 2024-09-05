@@ -327,7 +327,7 @@ def reservdef(request):
                         hh += 1
                         if dayarr[int(hh) + 1] == "false" :
                             dayarr[int(hh)] = "false"
-                    dayarr[20] = "false"
+                    dayarr[40] = "false"
                 if selectprocedure[3] == "3" :
                     for hh in range(18) :
                         hh += 1
@@ -335,8 +335,8 @@ def reservdef(request):
                             dayarr[int(hh)] = "false"
                         if dayarr[int(hh) + 2] == "false":
                             dayarr[int(hh)] = "false"
-                    dayarr[19] = "false"
-                    dayarr[20] = "false"
+                    dayarr[39] = "false"
+                    dayarr[40] = "false"
                 if selectprocedure[3] == "4" :
                     for hh in range(17) :
                         hh += 1
@@ -346,9 +346,9 @@ def reservdef(request):
                             dayarr[int(hh)] = "false"
                         if dayarr[int(hh) + 3] == "false":
                             dayarr[int(hh)] = "false"
-                    dayarr[18] = "false"
-                    dayarr[19] = "false"
-                    dayarr[20] = "false"
+                    dayarr[38] = "false"
+                    dayarr[39] = "false"
+                    dayarr[40] = "false"
                 if selectprocedure[3] == "5" :
                     for hh in range(16) :
                         hh += 1
@@ -360,10 +360,10 @@ def reservdef(request):
                             dayarr[int(hh)] = "false"
                         if dayarr[int(hh) + 4] == "false" :
                             dayarr[int(hh)] = "false"
-                    dayarr[17] = "false"
-                    dayarr[18] = "false"
-                    dayarr[19] = "false"
-                    dayarr[20] = "false"
+                    dayarr[37] = "false"
+                    dayarr[38] = "false"
+                    dayarr[39] = "false"
+                    dayarr[40] = "false"
                 if selectprocedure[3] == "6" :
                     for hh in range(15) :
                         hh += 1
@@ -377,11 +377,11 @@ def reservdef(request):
                             dayarr[int(hh)] = "false"
                         if dayarr[int(hh) + 5] == "false":
                             dayarr[int(hh)] = "false"
-                    dayarr[16] = "false"
-                    dayarr[17] = "false"
-                    dayarr[18] = "false"
-                    dayarr[19] = "false"
-                    dayarr[20] = "false"
+                    dayarr[36] = "false"
+                    dayarr[37] = "false"
+                    dayarr[38] = "false"
+                    dayarr[39] = "false"
+                    dayarr[40] = "false"
 
 #
                 t += timedelta(days=1)
@@ -1412,8 +1412,9 @@ def dashborddef(request):
     tres =request.POST.get("tres")
     timeselect = request.POST.get('timeselect')
     karray = ['']
-    berandkalaarray = ['']
+    iunit = ['']
     idkalaarray = ['']
+    berandkalaarray = ['']
     if ( timeselect != None ) and ( timeselect != '' ):
         se = timeselect.split(",")
         reservs = reservemodel.objects.all()
@@ -1464,17 +1465,24 @@ def dashborddef(request):
                                                     karray.append(esme.id)
         arrayselect = ['']
         arrayselect.clear()
+        iunit = ['']
+        idkalaarray = ['']
+        iunit.clear()
         idkalaarray.clear()
         for i in range(int(len(karray))):
             s = "tickkala"+str(i)
+            d = "valueunit"+str(i)
             tickkala = request.POST.get(s)
+            valueunit = request.POST.get(d)
             if (tickkala != None) and (tickkala != ''):
+                iunit.append(valueunit)
                 idkalaarray.append(karray[int(tickkala)])
 
     tickkala = request.POST.get("tickkala")
     dayconterstr = request.POST.get("dayconter")
     button_next = request.POST.get("button_next")
     button_back = request.POST.get("button_back")
+    valueunit = request.POST.get("valueunit")
 
     dayreserv = ['t']
     dayreserv.clear()
@@ -1565,6 +1573,7 @@ def dashborddef(request):
                     reservid = reservid,
                     coment=description,
                     materiyal=idkalaarray,
+                    valueunit=iunit,
                 )
                 a = reservemodel.objects.filter(id=int(reservid))
                 a.delete()
@@ -1596,7 +1605,10 @@ def dashborddef(request):
                                             a.clear()
                                             a.append(esme.esmekala)
                                             a.append(esme.berand)
+                                            a.append(esme.unit)
+                                            a.append(esme.id)
                                             kalaarray.append(a)
+                                            lenkalaarray = len(kalaarray)
 
                     return render(request,'f1_pezeshk.html',context={
                         'name':n,
@@ -1630,6 +1642,7 @@ def dashborddef(request):
                                                     a.clear()
                                                     a.append(esme.esmekala)
                                                     a.append(esme.berand)
+                                                    a.append(esme.unit)
                                                     a.append(esme.id)
                                                     kalaarray.append(a)
                                                     lenkalaarray = len(kalaarray)
