@@ -69,7 +69,7 @@
 </ul>
 <!-- ----------پایان ناوبار------------ -->
 <main>
-  <form class="row w-100 login dakhel_loginsec" method="POST">
+  <form class="row w-100 login dakhel_loginsec" method="POST" action="" enctype="multipart/form-data">
     <div class="col m3 l4 hide-on-small-and-down"></div>
 
     <div class="ghesmate_login col s12 m6 l4">
@@ -78,29 +78,46 @@
       <i class="center-align blick-shodan fas fa-user-plus fa-2x"></i>
         
       <div class="input-field col s12 l4 m4">
-                    <select name="job">
+                    <select {{ form.jobid }}>
                         {% for j in jobsarray %}
                             <option value={{ j.0 }}>{{ j.1 }}</option>
                         {% endfor %}
                     </select>
-        <label class="teal-text text-darken-4">سال تولد</label>
+        <label class="teal-text text-darken-4">عنوان خدمت:</label>
       </div>
 
+{#      <div class="input-field col s12 l4 m4 ">#}
+{#          {{ form.jobid }}#}
+{#        <label for="jobid">{{ form.jobid.label }}</label>#}
+{#      </div>#}
       <div class="input-field col s12 l4 m4 ">
-        <input type="text" name="esmekala"  id="esmekala" class="validate" autocomplete="off">
-        <label for="esmekala">نام کالا:</label>
+          {{ form.esmekala }}
+        <label for="esmekala">{{ form.esmekala.label }}</label>
       </div>
+    
       <div class="input-field col s12 l4 m4 ">
-        <input type="text" name="berand"  id="berand" class="validate" autocomplete="off">
-        <label for="berand">نام برند:</label>
+          {{ form.berand }}
+{#        <input type="text" name="berand"  id="berand" class="validate" autocomplete="off">#}
+        <label for="berand">{{ form.berand.label }}</label>
       </div>
+    
       <div class="input-field col s12 l4 m4 ">
-        <input type="text" name="unit"  id="unit" class="validate" autocomplete="off">
-        <label for="berand"> واحد :</label>
+          {{ form.unit }}
+{#        <input type="text" name="unit"  id="unit" class="validate" autocomplete="off">#}
+        <label for="unit">{{ form.unit.label }}</label>
       </div>
+    
       <div class="input-field col s12 l4 m4 ">
-        <input type="text" name="value"  id="value" class="validate" autocomplete="off">
-        <label for="berand">مقدار واحد :</label>
+          {{ form.value }}
+{#        <input type="text" name="value"  id="value" class="validate" autocomplete="off">#}
+        <label for="value">{{ form.value.label }}</label>
+      </div>
+    
+      <div class="col s6">
+          <div class="input-field col s12 ">
+            {{ form.image }}
+            <label  for="img" class="loadlabel">{{ form.image.label }}</label>
+          </div>
       </div>
 
 

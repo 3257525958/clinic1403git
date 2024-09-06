@@ -169,6 +169,7 @@ def reservdef(request):
             if a == 0 :
                 ww.append(w.work)
         ww.pop(0)
+        bers = esmekalamodel.objects.all()
 #**********************انتخاب کاربر به صورت یک عدد از forloop  از وب میاد و در اینجا اون عدد تبدیل میشه به انتخاب اصلی و در  f  ریخته میشه**************
         c = 0
         personelmelicode = '0'
@@ -647,10 +648,12 @@ def reservdef(request):
                                                                             "lastname": lastname,
                                                                             "berand":b,
                                                                         })
-        return render(request,'reserv.html',context={'works':works,
-                                                 'job':ww,
-                                                 'shamsiarray':shamsiarray,
-                                                 })
+        return render(request,'reserv.html',context={
+            'works':works,
+            'job':ww,
+            'shamsiarray':shamsiarray,
+            'bers':bers,
+             })
     else:
         loginetebar[0] = "false"
         return render(request,'home.html',context={"loginetebar":loginetebar[0]})

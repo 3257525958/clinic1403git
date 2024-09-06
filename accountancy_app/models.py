@@ -35,7 +35,7 @@ class savemovaghat(models.Model):
 
 class esmekalamodel(models.Model):
     jobid = models.CharField(max_length=50,default="0")
-    image = models.ImageField(upload_to='image/homepc',null=True)
+    image = models.ImageField(upload_to='image/kala',null=True)
     esmekala = models.CharField(max_length=1000,default="0")
     berand = models.CharField(max_length=1000,default="0")
     unit = models.CharField(max_length=1000,default="0")

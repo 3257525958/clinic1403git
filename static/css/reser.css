@@ -238,3 +238,18 @@ body {
 .row .col.l4{
     margin: 1rem !important;
 }
+#img{
+    direction: ltr;
+    position: absolute;
+    width: 80px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 20%;
+    /*right: 20%;*/
+    top: 3rem;
+    margin-right: 190px;
+}
+.w-300{
+    /*position: relative;*/
+    top: 10rem;
+}

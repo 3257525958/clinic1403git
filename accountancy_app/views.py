@@ -5,6 +5,7 @@ from accountancy_app.models import *
 from cantact_app.views import *
 import datetime
 from cash_app.models import *
+from accountancy_app.form import *
 
 
 def aghdgharardad(request):
@@ -191,9 +192,15 @@ def sana(request):
     js = jobsmodel.objects.all()
     jobsarray = ['']
     jobsarray.clear()
+    form = esmekalaiform(request.POST, request.FILES)
     for j in js:
         p = (str(j.id) + "," + str(j.job)).split(",")
         jobsarray.append(p)
-    if (esmekala != None) and (esmekala != '') and (bottunesmekala == 'accept'):
-        esmekalamodel.objects.create(esmekala=esmekala, berand=berand , jobid=job , unit=unit ,value=value)
-    return render(request,'sana.html',context={'jobsarray':jobsarray})
+    if form.is_valid():
+        form.save()
+    # if (esmekala != None) and (esmekala != '') and (bottunesmekala == 'accept'):
+    #     esmekalamodel.objects.create(esmekala=esmekala, berand=berand , jobid=job , unit=unit ,value=value)
+    return render(request,'sana.html',context={
+        'jobsarray':jobsarray,
+        'form':form,
+        })
