@@ -763,15 +763,20 @@ def closecashdef(request):
                 return redirect('/')
     if (cash != '') and (cash != None) and (cash != 'None') :
         fpeseshks = fpeseshktestmodel.objects.all()
+        cas = castmodel.objects.all()
         name = ''
         job = ''
         castjob = ''
         castbeyane =''
         castoffer =''
+        idcast = 0
         idfp = 0
         for fpeseshk in fpeseshks:
             if int(fpeseshk.id) == int(cash):
                 idfp = fpeseshk.id
+                for ca in cas:
+                    if int(ca.idf) == int(fpeseshk.id) :
+                        idcast = ca.id
                 users = accuntmodel.objects.all()
                 for user in users:
                     if int(user.melicode) == int(fpeseshk.melicod):
@@ -800,7 +805,7 @@ def closecashdef(request):
             'castbeyane':castbeyane,
             'castoffer':castoffer,
             'hesabs':hesabs,
-            'idc':castid,
+            'idc':idcast,
             'idfp':idfp,
         })
     if buttondelet == 'accept' :
