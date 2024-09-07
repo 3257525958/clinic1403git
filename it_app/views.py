@@ -49,11 +49,19 @@ def savemesaage(request):
     savebutton = request.POST.get('savebutton')
     mesaagename = request.POST.get('mesaagename')
     mesaagetext = request.POST.get('mesaagetext')
-    if (savebutton == 'accept') and (mesaagename != '') and (mesaagetext != '') and (mesaagename != None) and (mesaagetext != None):
-        t = datetime.datetime.now()
-        p = request.user.username
-        mesaagetextmodel.objects.create(name=mesaagename,dateyear=stry(t),datemuonth=strb(t),dateday=strd(t),dateweek=stra(t),sender=p)
-    return render(request,'mesaage_save.html')
+    res = requests.post("https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json?linenumber=9982003178&isread=0")
+    r = res.json()
+    a = ['']
+    a.clear()
+    print(len(r["entries"]))
+    for i in range(len(r["entries"])):
+        a.append(str(r["entries"][i]['message']))
+
+    # if (savebutton == 'accept') and (mesaagename != '') and (mesaagetext != '') and (mesaagename != None) and (mesaagetext != None):
+    #     t = datetime.datetime.now()
+    #     p = request.user.username
+    #     mesaagetextmodel.objects.create(name=mesaagename,dateyear=stry(t),datemuonth=strb(t),dateday=strd(t),dateweek=stra(t),sender=p)
+    return render(request,'mesaage_save.html',context={'a':a})
 
 
 def itcontrol(request):
