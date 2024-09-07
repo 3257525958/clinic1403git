@@ -53,9 +53,10 @@ def savemesaage(request):
     r = res.json()
     a = ['']
     a.clear()
-    print(len(r["entries"]))
     for i in range(len(r["entries"])):
         a.append(str(r["entries"][i]['message']))
+        a.append(str(r["entries"][i]["sender"]))
+
 
     # if (savebutton == 'accept') and (mesaagename != '') and (mesaagetext != '') and (mesaagename != None) and (mesaagetext != None):
     #     t = datetime.datetime.now()
