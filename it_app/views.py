@@ -6,43 +6,41 @@ from it_app.form import homeimgform,homemenosariform,homemobileform
 import datetime
 from datetime import timedelta
 from kavenegar import *
+from reserv_app.models import reservemodel
+from cantact_app.models import accuntmodel
 
 def sendmesaage(request):
-    message = request.POST.get('message')
-    sms = request.POST.get('smstext')
-    day = request.POST.get('day')
-    mounth = request.POST.get('mounth')
+    sendmethod =request.POST.get('sendmethod')
     sendsms = request.POST.get('sendsms')
-    print(sendsms)
-    # t = datetime.datetime.now()
-    # while strb(t) != 'فروردین' :
-    #     t -= timedelta(days=28)
-    # while strd(t) != "1" :
-    #     t -= timedelta(days=1)
-    # if (mounth != '') and (day != ''):
-    #     while strb(t) != mounth :
-    #         t += timedelta(days=1)
-    #     while strd(t) != day :
-    #         t += timedelta(days=1)
-
+    smstext = ''
     if sendsms == "accept" :
-        print("sendsms")
-        try:
-            api = KavenegarAPI(
-                '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-            params = {
-                'sender': '9982003178',  # optional
-                'receptor': '09122852099',  # multiple mobile number, split by comma
-                'message':sms,
-            }
-            response = api.sms_send(params)
-            # return render(request, 'code_cantact.html')
-        except APIException as e:
-            m = 'tellerror'
-            return render(request, 'closecash.html', context={'melicod_etebar': m})
-        except HTTPException as e:
-            m = 'neterror'
-            return render(request, 'closecash.html', context={'melicod_etebar': m}, )
+        if sendmethod == "1" :
+            t = datetime.datetime.now()
+            t += timedelta(days=1)
+            rs = reservemodel.objects.all()
+            for r in rs:
+                if t.strftime('%a %d %b %y') == r.datemiladireserv :
+                    users = accuntmodel.objects.all()
+                    for user in users:
+                        if int(user.melicode) == int(r.melicod) :
+                            name = user.firstname + ' '+ user.lastname
+                            smstext = 'سلام'+' '+name+' '+'عزیز'+'\n'+'شما فردا'+' '+r.dateshamsireserv+' '+'ساعت'+' '+r.hourreserv+' '+'برای'+' '+r.jobreserv+' '+r.detalereserv+' '+'وقت رزرو شده دارید'+' '+' برای تایید عدد 1 و برای لغو وقتتان عدد 2 را به همین سامانه پیامک نمایید همچنین برای تغییر وقت یا موارد دیگر میتوانید در همین سامانه پیام دهید'+'\n'+'مطب دکتر اسدپور'+'\n'+'\n'+'\n'+'لغو ارسال پیامک 11'
+                            try:
+                                api = KavenegarAPI(
+                                    '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                                params = {
+                                    'sender': '9982003178',  # optional
+                                    'receptor': user.phonnumber,  # multiple mobile number, split by comma
+                                    'message':smstext,
+                                }
+                                response = api.sms_send(params)
+                                # return render(request, 'code_cantact.html')
+                            except APIException as e:
+                                m = 'tellerror'
+                                return render(request, 'closecash.html', context={'melicod_etebar': m})
+                            except HTTPException as e:
+                                m = 'neterror'
+                                return render(request, 'closecash.html', context={'melicod_etebar': m}, )
 
     return render(request,'mesage_send.html')
 def savemesaage(request):

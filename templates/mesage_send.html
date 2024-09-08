@@ -75,71 +75,71 @@
 
       <i class="center-align blick-shodan fas fa-address-card fa-5x"></i>
 
-      <div class="input-field col s4">
-        <select  name="message" class="custom-select">
+      <div class="input-field col s12">
+        <select  name="sendmethod" class="custom-select">
           <option value="1">ارسال پیامک یادآوری برای مشتریان</option>
         </select>
         <label class="teal-text text-darken-4 ">محتوای پیامک را انتخاب کنید:</label>
       </div>    
-      <div class="input-field col s4">
-                        <select class="custom-select" name="day" onchange="btndayselectfun()">
-                                <option value={{ day }} >{{ day}}</option>
-                                <option value= "1" >1</option>
-                                <option value= "2" >2</option>
-                                <option value= "3" >3</option>
-                                <option value= "4" >4</option>
-                                <option value= "5" >5</option>
-                                <option value= "6" >6</option>
-                                <option value= "7" >7</option>
-                                <option value= "8" >8</option>
-                                <option value= "9" >9</option>
-                                <option value= "10" >10</option>
-                                <option value= "11" >11</option>
-                                <option value= "12" >12</option>
-                                <option value= "13" >13</option>
-                                <option value= "14" >14</option>
-                                <option value= "15" >15</option>
-                                <option value= "16" >16</option>
-                                <option value= "17" >17</option>
-                                <option value= "18" >18</option>
-                                <option value= "19" >19</option>
-                                <option value= "20" >20</option>
-                                <option value= "21" >21</option>
-                                <option value= "22" >22</option>
-                                <option value= "23" >23</option>
-                                <option value= "24" >24</option>
-                                <option value= "25" >25</option>
-                                <option value= "26" >26</option>
-                                <option value= "27" >27</option>
-                                <option value= "28" >28</option>
-                                <option value= "29" >29</option>
-                                <option value= "30" >30</option>
-                                <option value= "31" >31</option>
-                        </select>
-            <label class="teal-text text-darken-4">روز:</label>
-          </div>
-      <div class="input-field col s4">
-                        <select  class="custom-select" name="mounth" onchange="btnmounthselectfun()">
-                            <option value= {{ mounth }}>{{ mounth}}</option>
-                            <option value="فروردین">فروردین</option>
-                            <option value="اردیبهشت">اردیبهشت</option>
-                            <option value="خرداد">خرداد</option>
-                            <option value="تیر">تیر</option>
-                            <option value="مرداد">مرداد</option>
-                            <option value="شهریور">شهریور</option>
-                            <option value="مهر">مهر</option>
-                            <option value="آبان">آبان</option>
-                            <option value="آذر">آذر</option>
-                            <option value="دی">دی</option>
-                            <option value="بهمن">بهمن</option>
-                            <option value="اسفند">اسفند</option>
-                        </select>
-            <label class="teal-text text-darken-4 ">ماه:</label>
-          </div>
-      <div class="input-field col s12 l12 m12">
-            <textarea type="text" name="smstext" id="vahedeobject" class="validate sizetextarea" autocomplete="off"></textarea>
-            <label for="cast">متن پیام:</label>
-      </div>
+{#      <div class="input-field col s4">#}
+{#                        <select class="custom-select" name="day" onchange="btndayselectfun()">#}
+{#                                <option value={{ day }} >{{ day}}</option>#}
+{#                                <option value= "1" >1</option>#}
+{#                                <option value= "2" >2</option>#}
+{#                                <option value= "3" >3</option>#}
+{#                                <option value= "4" >4</option>#}
+{#                                <option value= "5" >5</option>#}
+{#                                <option value= "6" >6</option>#}
+{#                                <option value= "7" >7</option>#}
+{#                                <option value= "8" >8</option>#}
+{#                                <option value= "9" >9</option>#}
+{#                                <option value= "10" >10</option>#}
+{#                                <option value= "11" >11</option>#}
+{#                                <option value= "12" >12</option>#}
+{#                                <option value= "13" >13</option>#}
+{#                                <option value= "14" >14</option>#}
+{#                                <option value= "15" >15</option>#}
+{#                                <option value= "16" >16</option>#}
+{#                                <option value= "17" >17</option>#}
+{#                                <option value= "18" >18</option>#}
+{#                                <option value= "19" >19</option>#}
+{#                                <option value= "20" >20</option>#}
+{#                                <option value= "21" >21</option>#}
+{#                                <option value= "22" >22</option>#}
+{#                                <option value= "23" >23</option>#}
+{#                                <option value= "24" >24</option>#}
+{#                                <option value= "25" >25</option>#}
+{#                                <option value= "26" >26</option>#}
+{#                                <option value= "27" >27</option>#}
+{#                                <option value= "28" >28</option>#}
+{#                                <option value= "29" >29</option>#}
+{#                                <option value= "30" >30</option>#}
+{#                                <option value= "31" >31</option>#}
+{#                        </select>#}
+{#            <label class="teal-text text-darken-4">روز:</label>#}
+{#          </div>#}
+{#      <div class="input-field col s4">#}
+{#                        <select  class="custom-select" name="mounth" onchange="btnmounthselectfun()">#}
+{#                            <option value= {{ mounth }}>{{ mounth}}</option>#}
+{#                            <option value="فروردین">فروردین</option>#}
+{#                            <option value="اردیبهشت">اردیبهشت</option>#}
+{#                            <option value="خرداد">خرداد</option>#}
+{#                            <option value="تیر">تیر</option>#}
+{#                            <option value="مرداد">مرداد</option>#}
+{#                            <option value="شهریور">شهریور</option>#}
+{#                            <option value="مهر">مهر</option>#}
+{#                            <option value="آبان">آبان</option>#}
+{#                            <option value="آذر">آذر</option>#}
+{#                            <option value="دی">دی</option>#}
+{#                            <option value="بهمن">بهمن</option>#}
+{#                            <option value="اسفند">اسفند</option>#}
+{#                        </select>#}
+{#            <label class="teal-text text-darken-4 ">ماه:</label>#}
+{#          </div>#}
+{#      <div class="input-field col s12 l12 m12">#}
+{#            <textarea type="text" name="smstext" id="vahedeobject" class="validate sizetextarea" autocomplete="off"></textarea>#}
+{#            <label for="cast">متن پیام:</label>#}
+{#      </div>#}
       <div class="center-align dokmeye-vorood">
             <button class="w-100 btn waves-effect" name="sendsms" id="sendsms" value="accept" >بستن  </button>
       </div>
