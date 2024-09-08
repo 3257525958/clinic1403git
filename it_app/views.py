@@ -169,7 +169,7 @@ def send_birthday_message():
         print("Error occurred:", e)
 
     # Schedule the message to be sent at midnight
-    schedule.every().day.at("12:35").do(send_birthday_message)
+    schedule.every().day.at("16:38").do(send_birthday_message)
 
     if __name__ == "__main__":
         while True:
