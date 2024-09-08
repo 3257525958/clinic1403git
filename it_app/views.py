@@ -144,35 +144,35 @@ def itdeletcontrol(request):
 
 
 
-def send_birthday_message():
-    api_key = "527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D"
-
-    receptor = "09122852099"
-    sender = "9982003178"
-    message = "Happy Birthday!"
-
-    url = f"https://api.kavenegar.com/v1/{api_key}/sms/send.json"
-
-    payload = {
-        "receptor": receptor,
-        "sender": sender,
-        "message": message
-    }
-
-    try:
-        response = requests.post(url, json=payload)
-        if response.status_code == 200:
-            print("Birthday message sent successfully!")
-        else:
-            print("Failed to send message:", response.status_code, response.text)
-    except Exception as e:
-        print("Error occurred:", e)
-
-    # Schedule the message to be sent at midnight
-    schedule.every().day.at("16:38").do(send_birthday_message)
-
-    if __name__ == "__main__":
-        while True:
-            schedule.run_pending()
-    time.sleep(1)
+# def send_birthday_message():
+#     api_key = "527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D"
+#
+#     receptor = "09122852099"
+#     sender = "9982003178"
+#     message = "Happy Birthday!"
+#
+#     url = f"https://api.kavenegar.com/v1/{api_key}/sms/send.json"
+#
+#     payload = {
+#         "receptor": receptor,
+#         "sender": sender,
+#         "message": message
+#     }
+#
+#     try:
+#         response = requests.post(url, json=payload)
+#         if response.status_code == 200:
+#             print("Birthday message sent successfully!")
+#         else:
+#             print("Failed to send message:", response.status_code, response.text)
+#     except Exception as e:
+#         print("Error occurred:", e)
+#
+#     # Schedule the message to be sent at midnight
+# schedule.every().minute.at("16:38").do(send_birthday_message)
+#
+#     if __name__ == "__main__":
+#         while True:
+#             schedule.run_pending()
+#     time.sleep(1)
 

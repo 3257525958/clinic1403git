@@ -7,10 +7,18 @@ from reserv_app.models import reservemodeltest,reservemodel,neursemodel,filepage
 from jobs_app.models import workmodel
 from it_app.models import homeimgmodel,homemenosarimodel,homemobilemodel
 from kavenegar import *
+import schedule
+import time
 
-
+def job():
+    print("ffffffffffffffffffffff")
+schedule.every().minute.do(job)
+while True:
+    schedule.run_pending()
+    time.sleep(1)
 # Create your views here.
 profilestatus =['']
+
 loglevel = ['']
 def home(request):
     btndate = request.POST.get('btndate')
