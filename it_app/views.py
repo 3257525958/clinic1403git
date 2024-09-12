@@ -152,7 +152,7 @@ def tim():
         for user in users:
             if (user.mountb == strb(t)) and (user.dayb == strd(t)):
                 name = user.firstname + ' ' + user.lastname
-                smstext = 'سلام' + ' ' + name + ' ' + 'عزیز' + '\n' + "تولدت مبارک"
+                smstext = 'سلام' + ' ' + name + ' ' + 'عزیز' + '\n' + "تولدت مبارک"+'\n'+'\n'+'\n'+'لغو 11'
                 try:
                     api = KavenegarAPI(
                         '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
@@ -177,3 +177,5 @@ def tim():
 
 t = Thread(target=tim)
 t.start()
+print("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+print(datetime.datetime.now())
