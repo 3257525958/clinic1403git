@@ -147,31 +147,32 @@ def itdeletcontrol(request):
 
 def tim():
     def sen():
-        print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-        # users = accuntmodel.objects.all()
-        # t = datetime.datetime.now()
-        # for user in users:
-        #     if (user.mountb == strb(t)) and (user.dayb == strd(t)):
-        #         name = user.firstname + ' ' + user.lastname
-        #         smstext = 'سلام' + ' ' + name + ' ' + 'عزیز' + '\n' + "زادروز تولدت مبارک"+'\n'+'مفتخریم تا با هدیه ای هر چند کوچک در این مناسبت فرخنده در کنار شما باشیم'+'\n'+'برای دریافت هدیه عدد 3 را به همین سامانه ارسال فرمایید'+'\n'+'مطب دکتر اسدپور'+'\n'+'لغو 11'
-        #         try:
-        #             api = KavenegarAPI(
-        #                 '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-        #             params = {
-        #                 'sender': '9982003178',  # optional
-        #                 'receptor': "09122852099",  # multiple mobile number, split by comma
-        #                 'message': smstext,
-        #             }
-        #             response = api.sms_send(params)
-        #             # return render(request, 'code_cantact.html')
-        #         except APIException as e:
-        #             m = 'tellerror'
-        #         except HTTPException as e:
-        #             m = 'neterror'
+        print('ppppppppppppppppppppllllllllllllllllloooooooooooooooookkkkkkkkkk')
+        users = accuntmodel.objects.all()
+        t = datetime.datetime.now()
+        for user in users:
+            if (user.mountb == strb(t)) and (user.dayb == strd(t)):
+                print(user.melicode)
+                name = user.firstname + ' ' + user.lastname
+                smstext = 'سلام' + ' ' + name + ' ' + 'عزیز' + '\n' + "زادروز تولدت مبارک"+'\n'+'مفتخریم تا با هدیه ای هر چند کوچک در این مناسبت فرخنده در کنار شما باشیم'+'\n'+'برای دریافت هدیه عدد 3 را به همین سامانه ارسال فرمایید'+'\n'+'مطب دکتر اسدپور'+'\n'+'لغو 11'
+                try:
+                    api = KavenegarAPI(
+                        '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                    params = {
+                        'sender': '9982003178',  # optional
+                        'receptor': '09122852099',  # multiple mobile number, split by comma
+                        'message': smstext,
+                    }
+                    response = api.sms_send(params)
+                    # return render(request, 'code_cantact.html')
+                except APIException as e:
+                    m = 'tellerror'
+                except HTTPException as e:
+                    m = 'neterror'
 
     # Schedule the message to be sent at midnight
-    # schedule.every().day.at("20:30").do(sen)
-    schedule.every(10).seconds.do(sen)
+    # schedule.every().day.at("03:28").do(sen)
+    schedule.every(60).seconds.do(sen)
     while True:
         schedule.run_pending()
         time.sleep(1)
