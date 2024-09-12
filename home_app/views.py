@@ -10,12 +10,6 @@ from kavenegar import *
 import schedule
 import time
 
-def job():
-    print("ffffffffffffffffffffff")
-schedule.every().minute.do(job)
-while True:
-    schedule.run_pending()
-    time.sleep(1)
 # Create your views here.
 profilestatus =['']
 
