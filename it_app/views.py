@@ -152,7 +152,7 @@ def tim():
         for user in users:
             if (user.mountb == strb(t)) and (user.dayb == strd(t)):
                 name = user.firstname + ' ' + user.lastname
-                smstext = 'سلام' + ' ' + name + ' ' + 'عزیز' + '\n' + "تولدت مبارک"+'\n'+'\n'+'\n'+'لغو 11'
+                smstext = 'سلام' + ' ' + name + ' ' + 'عزیز' + '\n' + "زادروز تولدت مبارک"+'\n'+''+'\n'+'\n'+'\n'+'لغو 11'
                 try:
                     api = KavenegarAPI(
                         '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
@@ -169,7 +169,7 @@ def tim():
                     m = 'neterror'
 
     # Schedule the message to be sent at midnight
-    schedule.every().day.at("03:00").do(sen)
+    schedule.every().day.at("23:40").do(sen)
     while True:
         schedule.run_pending()
         time.sleep(1)
