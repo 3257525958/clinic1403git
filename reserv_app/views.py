@@ -1190,7 +1190,7 @@ def reserverdef(request):
                     qs = accuntmodel.objects.all()
                     for q in qs:
                         if q.melicode == reserv.melicod:
-                            n = q.firstname + " " + q.lastname
+                            n = q.firstname + " " + q.lastname +'\n'+q.phonnumber
 
                     return render(request,'remove_reserv.html.',context={
                         'moraje':n,
@@ -1205,7 +1205,7 @@ def reserverdef(request):
                     qs = accuntmodel.objects.all()
                     for q in qs:
                         if q.melicode == reserv.melicod:
-                            n = q.firstname + " " + q.lastname
+                            n = q.firstname + " " + q.lastname+'\n'+q.phonnumber
 
                     return render(request,'remove_reserv.html',context={
                         'moraje':n,
