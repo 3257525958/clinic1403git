@@ -35,7 +35,7 @@ def sendmesaage(request):
                                     '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
                                 params = {
                                     'sender': '9982003178',  # optional
-                                    'receptor': '09122852099',  # multiple mobile number, split by comma
+                                    'receptor': user.phonnumber,  # multiple mobile number, split by comma
                                     'message':smstext,
                                 }
                                 response = api.sms_send(params)
@@ -46,24 +46,58 @@ def sendmesaage(request):
                             except HTTPException as e:
                                 m = 'neterror'
     return render(request,'mesage_send.html')
-def savemesaage(request):
-    savebutton = request.POST.get('savebutton')
-    mesaagename = request.POST.get('mesaagename')
-    mesaagetext = request.POST.get('mesaagetext')
-    res = requests.post("https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json?linenumber=9982003178&isread=1")
-    r = res.json()
-    a = ['']
-    a.clear()
-    for i in range(len(r["entries"])):
-        a.append(str(r["entries"][i]['message']))
-        a.append(str(r["entries"][i]["sender"]))
-
-
-    # if (savebutton == 'accept') and (mesaagename != '') and (mesaagetext != '') and (mesaagename != None) and (mesaagetext != None):
-    #     t = datetime.datetime.now()
-    #     p = request.user.username
-    #     mesaagetextmodel.objects.create(name=mesaagename,dateyear=stry(t),datemuonth=strb(t),dateday=strd(t),dateweek=stra(t),sender=p)
-    return render(request,'mesaage_save.html',context={'a':a})
+# def savemesaage():
+#     savebutton = request.POST.get('savebutton')
+#     mesaagename = request.POST.get('mesaagename')
+#     mesaagetext = request.POST.get('mesaagetext')
+#     res = requests.post("https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json?linenumber=9982003178&isread=0")
+#     r = res.json()
+#     a = ['']
+#     a.clear()
+#     for i in range(len(r["entries"])):
+#         ba = ['']
+#         ba.clear()
+#         ba.append(str(r["entries"][i]['message']))
+#         ba.append(str(r["entries"][i]["sender"]))
+#         ba.append((str(r["entries"][i]["date"])))
+#         a.append(ba)
+#     t = datetime.datetime.now()
+#     t += timedelta(days=1)
+#     for aaa in a :
+#         if aaa[0] == "1" :
+#             users = accuntmodel.objects.all()
+#             for user in users:
+#                 if user.phonnumber == aaa[1] :
+#                     rs = reservemodel.objects.all()
+#                     for r in rs:
+#                         if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.melicod == user.melicode):
+#                             name = user.firstname + ' ' + user.lastname
+#                             smstext =name + ' ' + 'عزیز' + '\n' + 'رزرو شما قطعی شد'+ '\n' +'با تشکر'+ 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+#                             try:
+#                                 api = KavenegarAPI(
+#                                     '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+#                                 params = {
+#                                     'sender': '9982003178',  # optional
+#                                     'receptor': user.phonnumber,  # multiple mobile number, split by comma
+#                                     'message': smstext,
+#                                 }
+#                                 response = api.sms_send(params)
+#                             except APIException as e:
+#                                 m = 'tellerror'
+#                             except HTTPException as e:
+#                                 m = 'neterror'
+#
+#     # if (savebutton == 'accept') and (mesaagename != '') and (mesaagetext != '') and (mesaagename != None) and (mesaagetext != None):
+#     #     t = datetime.datetime.now()
+#     #     p = request.user.username
+#     #     mesaagetextmodel.objects.create(name=mesaagename,dateyear=stry(t),datemuonth=strb(t),dateday=strd(t),dateweek=stra(t),sender=p)
+#     return render(request,'mesaage_save.html',context={'a':a})
+#
+#
+# schedule.every(10).minutes.do(savemesaage)
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)
 
 
 def itcontrol(request):
@@ -168,7 +202,7 @@ def tim(x):
                         m = 'neterror'
 
         # Schedule the message to be sent at midnight
-        schedule.every().day.at("20:31").do(tavalod_tabrik)
+        schedule.every().day.at("00:00").do(tavalod_tabrik)
         # schedule.every(5).seconds.do(tavalod_tabrik)
         while True:
             schedule.run_pending()
@@ -200,8 +234,50 @@ def tim(x):
                             except HTTPException as e:
                                 m = 'neterror'
         # Schedule the message to be sent at midnight
-        schedule.every().day.at("04:31").do(yadavari_vaghtfarda)
+        schedule.every().day.at("08:30").do(yadavari_vaghtfarda)
         # schedule.every(20).seconds.do(yadavari_vaghtfarda)
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+    if x == '3':
+        def savemesaage():
+            res = requests.post("https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json?linenumber=9982003178&isread=0")
+            r = res.json()
+            a = ['']
+            a.clear()
+            for i in range(len(r["entries"])):
+                ba = ['']
+                ba.clear()
+                ba.append(str(r["entries"][i]['message']))
+                ba.append(str(r["entries"][i]["sender"]))
+                ba.append((str(r["entries"][i]["date"])))
+                a.append(ba)
+            t = datetime.datetime.now()
+            t += timedelta(days=1)
+            for aaa in a :
+                if aaa[0] == "1" :
+                    users = accuntmodel.objects.all()
+                    for user in users:
+                        if user.phonnumber == aaa[1] :
+                            rs = reservemodel.objects.all()
+                            for r in rs:
+                                if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.melicod == user.melicode):
+                                    name = user.firstname + ' ' + user.lastname
+                                    smstext =name + ' ' + 'عزیز' + '\n' + 'رزرو شما قطعی شد'+ '\n' +'با تشکر'+ 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+                                    try:
+                                        api = KavenegarAPI(
+                                            '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                                        params = {
+                                            'sender': '9982003178',  # optional
+                                            'receptor': user.phonnumber,  # multiple mobile number, split by comma
+                                            'message': smstext,
+                                        }
+                                        response = api.sms_send(params)
+                                    except APIException as e:
+                                        m = 'tellerror'
+                                    except HTTPException as e:
+                                        m = 'neterror'
+        schedule.every(10).seconds.do(savemesaage)
         while True:
             schedule.run_pending()
             time.sleep(1)
@@ -209,5 +285,7 @@ def tim(x):
 
 t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
+t3 = Thread(target=tim,args="3")
 t1.start()
 t2.start()
+t3.start()
