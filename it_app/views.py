@@ -38,9 +38,6 @@ def sendmesaage(request):
                                     'receptor': user.phonnumber,  # multiple mobile number, split by comma
                                     'message':smstext,
                                 }
-                                response = api.sms_send(params)
-                                return redirect('/')
-                                # return render(request, 'code_cantact.html')
                             except APIException as e:
                                 m = 'tellerror'
                             except HTTPException as e:
@@ -234,7 +231,7 @@ def tim(x):
                             except HTTPException as e:
                                 m = 'neterror'
         # Schedule the message to be sent at midnight
-        schedule.every().day.at("08:30").do(yadavari_vaghtfarda)
+        schedule.every().day.at("18:03").do(yadavari_vaghtfarda)
         # schedule.every(20).seconds.do(yadavari_vaghtfarda)
         while True:
             schedule.run_pending()
@@ -281,8 +278,6 @@ def tim(x):
         while True:
             schedule.run_pending()
             time.sleep(1)
-
-
 t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
