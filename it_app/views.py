@@ -171,8 +171,8 @@ def tim():
                     m = 'neterror'
 
     # Schedule the message to be sent at midnight
-    # schedule.every().day.at("03:28").do(sen)
-    schedule.every(60).seconds.do(sen)
+    schedule.every().day.at("20:30").do(sen)
+    # schedule.every(60).seconds.do(sen)
     while True:
         schedule.run_pending()
         time.sleep(1)
