@@ -199,7 +199,7 @@ def tim(x):
                         m = 'neterror'
 
         # Schedule the message to be sent at midnight
-        schedule.every().day.at("00:00").do(tavalod_tabrik)
+        schedule.every().day.at("20:30").do(tavalod_tabrik)
         # schedule.every(5).seconds.do(tavalod_tabrik)
         while True:
             schedule.run_pending()
@@ -231,7 +231,7 @@ def tim(x):
                             except HTTPException as e:
                                 m = 'neterror'
         # Schedule the message to be sent at midnight
-        schedule.every().day.at("18:03").do(yadavari_vaghtfarda)
+        schedule.every().day.at("04:30").do(yadavari_vaghtfarda)
         # schedule.every(20).seconds.do(yadavari_vaghtfarda)
         while True:
             schedule.run_pending()
@@ -259,6 +259,8 @@ def tim(x):
                             rs = reservemodel.objects.all()
                             for r in rs:
                                 if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.melicod == user.melicode):
+                                    re =reservemodel.objects.filter(datemiladireserv=t.strftime('%a %d %b %y'),melicod=user.melicode)
+                                    re.update(vaziyatereserv='قطعی')
                                     name = user.firstname + ' ' + user.lastname
                                     smstext =name + ' ' + 'عزیز' + '\n' + 'رزرو شما قطعی شد'+ '\n' +'با تشکر'+ 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
                                     try:
@@ -274,6 +276,7 @@ def tim(x):
                                         m = 'tellerror'
                                     except HTTPException as e:
                                         m = 'neterror'
+                # if aaa[0] == "2" :
         schedule.every(10).seconds.do(savemesaage)
         while True:
             schedule.run_pending()
@@ -281,6 +284,6 @@ def tim(x):
 t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
-t1.start()
-t2.start()
-t3.start()
+# t1.start()
+# t2.start()
+# t3.start()
