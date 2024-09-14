@@ -930,7 +930,7 @@ def reserverdef(request):
                         break
 
     for r in rs:
-        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == personel ) :
+        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == personel ) and (r.vaziyatereserv == 'قطعی') and (r.vaziyatereserv == 'رزرو'):
             us = accuntmodel.objects.all()
             for u in us:
                 if r.melicod == u.melicode :
@@ -949,7 +949,7 @@ def reserverdef(request):
             for u in us:
                 if p.melicod == u.melicode :
                     name = u.firstname + " " + u.lastname
-            dayarr[int(p.numbertime)] ='قطعی'+'    '+name + " " + p.jobreserv + " " + p.detalereserv + " " + p.personreserv + " " + "بیعانه:" + " " + p.pyment
+            dayarr[int(p.numbertime)] ='قطعی'+'    '+name + " " + p.jobreserv + " " + p.detalereserv + " " + p.personreserv
             # dayarr[int(p.numbertime)] = "false"
             i = 1
             while i < int(p.timereserv):
@@ -968,7 +968,7 @@ def reserverdef(request):
             for u in us:
                 if r.melicod == u.melicode :
                     name = u.firstname + " " + u.lastname
-            dastiarray.append([(name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment),str(r.id)])
+            dastiarray.append([(name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv ),str(r.id)])
 
 # ----------------------------------------------------------------------------------------------------------------------------------
     personreserv = ''

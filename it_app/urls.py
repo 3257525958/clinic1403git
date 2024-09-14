@@ -4,7 +4,7 @@ from it_app import views
 
 urlpatterns = [
     path('sendmesaage/',views.sendmesaage),
-    # path('savemesaage/',views.savemesaage),
+    path('tiket/',views.tiketdef),
     path('control/',views.itcontrol),
     path('controldel/',views.itdeletcontrol),
     ]

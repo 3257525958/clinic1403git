@@ -8,14 +8,16 @@ class mesaagetextmodel(models.Model):
         return f"{self.name}"
 
 
-class mesaagecuntermodel(models.Model):
-    name = models.CharField(max_length=100,default="0")
+class mesaagemodel(models.Model):
+    melicod = models.CharField(max_length=11,default="0")
+    vaziyat = models.CharField(max_length=30,default="در انتظار پاسخ")
     dateyear = models.CharField(max_length=100,default="0")
     datemuonth = models.CharField(max_length=100,default="0")
     dateday = models.CharField(max_length=100,default="0")
-    dateweek = models.CharField(max_length=100,default="0")
-    sender = models.CharField(max_length=100,default="0")
-    cunt = models.CharField(max_length=100,default="0")
+    phonnumber = models.CharField(max_length=100,default="0")
+    sendermelicod = models.CharField(max_length=10,default="0")
+    textmessage = models.TextField(max_length=100,default="0")
+
     def __str__(self):
         return f"{self.name}"
 
