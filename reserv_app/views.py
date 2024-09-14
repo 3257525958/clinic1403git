@@ -935,7 +935,7 @@ def reserverdef(request):
             for u in us:
                 if r.melicod == u.melicode :
                     name = u.firstname + " " + u.lastname
-            dayarr[int(r.numbertime)] = ' '+r.vaziyatereserv+' ' +name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment
+            dayarr[int(r.numbertime)] =r.vaziyatereserv+'    ' +name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment
             i = 1
             while i < int(r.timereserv):
                 dayarr[int(r.numbertime)+i] = "false"
@@ -949,7 +949,7 @@ def reserverdef(request):
             for u in us:
                 if p.melicod == u.melicode :
                     name = u.firstname + " " + u.lastname
-            dayarr[int(p.numbertime)] =' '+'قطعی'+' '+ p.res+name + " " + p.jobreserv + " " + p.detalereserv + " " + p.personreserv + " " + "بیعانه:" + " " + p.pyment
+            dayarr[int(p.numbertime)] ='قطعی'+'    '+name + " " + p.jobreserv + " " + p.detalereserv + " " + p.personreserv + " " + "بیعانه:" + " " + p.pyment
             # dayarr[int(p.numbertime)] = "false"
             i = 1
             while i < int(p.timereserv):
