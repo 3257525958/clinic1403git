@@ -1,0 +1,70 @@
+        .main-box{
+            width: 350px;
+            height: 600px;
+            border:1px solid green;
+            margin: 0 auto;
+            border-radius: 15px;
+            background: linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)),url(/static/img/tiketimg.jpg);
+            background-position: center;
+            background-attachment: scroll;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+
+        .chat-item-recive{
+            background-color: rgb(95, 206, 132);
+            border-radius: 5px;
+            width: 200px;
+            height: 50px;
+            margin: 10px 10px;
+            position: relative;
+        }
+        .chat-item-recive p{
+            direction: rtl;
+            color: white;
+            padding: 5px;
+        }
+        .chat-item-recive::before{
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgb(95, 206, 132);
+            bottom: -3px;
+            left: 0px;
+            transform: rotateZ(120deg) skewX(50deg);
+        }
+
+
+        .chat-item-send{
+            background-color: rgb(95, 206, 132);
+            border-radius: 5px;
+            width: 200px;
+            height: 100px;
+            margin: 10px 10px;
+            position: relative;
+            left: 130px;
+        }
+        .chat-item-send p{
+            direction: rtl;
+            color: white;
+            padding: 5px;
+        }
+        .chat-item-send::before{
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgb(95, 206, 132);
+            bottom: -1px;
+            left: 193px;
+            transform: rotateZ(20deg) skewX(50deg);
+        }
+        p{
+            width: 90%;
+
+        }
+        p.break_text{
+            word-break: break-all;
+        }

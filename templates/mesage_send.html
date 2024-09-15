@@ -76,10 +76,12 @@
       <i class="center-align blick-shodan fas fa-address-card fa-5x"></i>
 
       <div class="input-field col s12">
-        <select  name="sendmethod" class="custom-select">
-          <option value="1">ارسال پیامک یادآوری برای مشتریان</option>
+        <select  name="selectmessage" class="custom-select">
+        {% for list in listnonread %}
+          <option value={{ list.0 }}>{{ list.1 }}</option>
+        {% endfor %}
         </select>
-        <label class="teal-text text-darken-4 ">محتوای پیامک را انتخاب کنید:</label>
+        <label class="teal-text text-darken-4 ">لیست تیکتهای پاسخ داده نشده</label>
       </div>    
 {#      <div class="input-field col s4">#}
 {#                        <select class="custom-select" name="day" onchange="btndayselectfun()">#}

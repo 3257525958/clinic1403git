@@ -44,7 +44,39 @@ def sendmesaage(request):
                                 m = 'neterror'
     return render(request,'mesage_send.html')
 def tiketdef(request):
-    return render(request,'mesage_send.html')
+    selectmessage = request.POST.get('selectmessage')
+    ms = mesaagemodel.objects.all()
+    namesender =''
+    textms=''
+
+    if (selectmessage != None) and (selectmessage != '') and (selectmessage != 'None'):
+        for n in ms:
+            if n.id == selectmessage:
+                m = mesaagemodel.objects.filter(id=n.id)
+                m.update(idtiket=n.id,vaziyat='پاسخ داده شده')
+                textms = n.textmessage
+                users = accuntmodel.objects.all()
+                for user in users:
+                    if int(user.melicode) == int(n.melicod):
+                        namesender = user.firstname + ' '+ user.lastname
+        return render(request, 'tiket.html', context={
+            'recivemessage': textms,
+            'namesender': namesender,
+        })
+
+    listmessage = ['']
+    listmessage.clear()
+    for m in ms :
+        if m.vaziyat == "در انتظار پاسخ":
+            users = accuntmodel.objects.all()
+            for user in users:
+                if int(user.melicode) == int(m.melicod):
+                    name = user.firstname + ' '+ user.lastname
+
+                    listmessage.append((str(m.id) + "," +name).split(","))
+    return render(request,'tiket.html',context={
+        # 'listnonread':listmessage,
+    })
 
 def itcontrol(request):
     savebottom = request.POST.get("savebottom")
@@ -124,6 +156,7 @@ def itdeletcontrol(request):
 
 
 def tim(x):
+    print(x)
     if x == '1' :
         def tavalod_tabrik():
             users = accuntmodel.objects.all()
@@ -187,6 +220,7 @@ def tim(x):
             time.sleep(1)
     if x == '3':
         def savemesaage():
+            print("rrrrr")
             res = requests.post("https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json?linenumber=9982003178&isread=0")
             r = res.json()
             a = ['']
@@ -270,6 +304,6 @@ def tim(x):
 t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
-t1.start()
-t2.start()
-t3.start()
+# t1.start()
+# t2.start()
+# t3.start()
