@@ -156,7 +156,6 @@ def itdeletcontrol(request):
 
 
 def tim(x):
-    print(x)
     if x == '1' :
         def tavalod_tabrik():
             users = accuntmodel.objects.all()
@@ -213,14 +212,13 @@ def tim(x):
                             except HTTPException as e:
                                 m = 'neterror'
         # Schedule the message to be sent at midnight
-        schedule.every().day.at("04:30").do(yadavari_vaghtfarda)
+        schedule.every().day.at("05:30").do(yadavari_vaghtfarda)
         # schedule.every(20).seconds.do(yadavari_vaghtfarda)
         while True:
             schedule.run_pending()
             time.sleep(1)
     if x == '3':
         def savemesaage():
-            print("rrrrr")
             res = requests.post("https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json?linenumber=9982003178&isread=0")
             r = res.json()
             a = ['']
