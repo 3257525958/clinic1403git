@@ -180,7 +180,7 @@ def tim(x):
                         m = 'neterror'
 
         # Schedule the message to be sent at midnight
-        schedule.every().day.at("20:30").do(tavalod_tabrik)
+        schedule.every().day.at("00:00").do(tavalod_tabrik)
         # schedule.every(5).seconds.do(tavalod_tabrik)
         while True:
             schedule.run_pending()
@@ -212,7 +212,7 @@ def tim(x):
                             except HTTPException as e:
                                 m = 'neterror'
         # Schedule the message to be sent at midnight
-        schedule.every().day.at("05:30").do(yadavari_vaghtfarda)
+        schedule.every().day.at("08:30").do(yadavari_vaghtfarda)
         # schedule.every(20).seconds.do(yadavari_vaghtfarda)
         while True:
             schedule.run_pending()
