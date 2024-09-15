@@ -930,7 +930,7 @@ def reserverdef(request):
                         break
 
     for r in rs:
-        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == personel ) and (r.vaziyatereserv == 'قطعی') and (r.vaziyatereserv == 'رزرو'):
+        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == personel ) and (r.vaziyatereserv != 'کنسل'):
             us = accuntmodel.objects.all()
             for u in us:
                 if r.melicod == u.melicode :
