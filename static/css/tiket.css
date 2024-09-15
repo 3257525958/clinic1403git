@@ -9,6 +9,7 @@
             background-attachment: scroll;
             background-size: cover;
             background-repeat: no-repeat;
+            overflow: auto;
         }
 
 
@@ -58,8 +59,19 @@
             height: 10px;
             background-color: rgb(95, 206, 132);
             bottom: -1px;
-            left: 193px;
+            left: 192px;
             transform: rotateZ(20deg) skewX(50deg);
+        }
+        .chat-item-name{
+            background-color: rgb(95, 206, 132);
+            border-radius: 10px;
+            width: 345px;
+            height: 50px;
+            /*margin: 10px 10px;*/
+            position: fixed;
+            margin: 0 auto;
+            top: 2px;
+
         }
         p{
             width: 90%;
