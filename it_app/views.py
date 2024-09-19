@@ -87,8 +87,8 @@ def tiketdef(request):
     nananswer = ['']
     nananswer.clear()
     ms = mesaagemodel.objects.all()
-    ms.reverse()
-    notphonnamberarray.reverse()
+    # ms.reverse()
+    # notphonnamberarray.reverse()
     print(notphonnamberarray)
     for meli in notphonnamberarray :
         name = ''
@@ -368,6 +368,6 @@ def tim(x):
 t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
-t1.start()
-t2.start()
-t3.start()
+# t1.start()
+# t2.start()
+# t3.start()
