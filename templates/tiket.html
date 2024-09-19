@@ -58,21 +58,23 @@
                 <div class="box chats">
                     <div class="chatList">
 {#                        اینجا لیست اغرادی که پیام دادن ساخته میشه#}
+                        {% for message in nananswer %}
                         <div class="chat unread open">
                             <div class="avatar">
                                 <img src={% static "/img/user.jpg" %} alt="">
                             </div>
                             <div class="details">
                                 <div class="chatHeader">
-                                    <h4>مهدی اسدپور</h4>
-                                    <p class="time">10:56</p>
+                                    <h4>{{ message.0 }}</h4>
+                                    <p class="time">{{ message.1 }}</p>
                                 </div>
                                 <div class="chatBody">
-                                    <p>سلام به دوستان امروز تلاش کردم تا بالاخره سیستم پیامرسان رو درست کنم</p>
-                                    <b>1</b>
+                                    <p>{{ message.2 }}</p>
+                                    <b>{{ message.3 }}</b>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                         <div class="chat">
                             <div class="avatar">
                                 <img src={% static "/img/user.jpg" %} alt="">
@@ -303,40 +305,40 @@
             </div>
             
 {#اینجا صفخه دوم رو میسازه           #}
-<div class="chatBox">
-    <div class="header">
-        <div class="imgContent">
-            <ion-icon name="arrow-back" class="back"></ion-icon>
-            <div class="imgBx">
-                <img src="img1.jpg">
-            </div>
-            <h3>Vahid Rahmanifard<br><span>Online</span></h3>
-        </div>
-        <div class="actionBtns">
-            <ion-icon name="videocam"></ion-icon>
-            <ion-icon name="call"></ion-icon>
-            <ion-icon name="ellipsis-vertical"></ion-icon>
-        </div>
-    </div>
-    <div class="messageBox">
-        <div class="message">How to make WhatsApp clone using html and css?<br><span class="time">10:19</span></div>
-        <div class="message">Please answer my question<br><span class="time">10:21</span></div>
-        <div class="otherMessage">It's so easy. You just need to follow this tutorial<br><span class="time">10:30</span></div>
-    </div>
-    <div class="messageInput">
-        <div class="input">
-            <ion-icon name="happy"></ion-icon>
-            <input type="text" placeholder="Message">
-            <ion-icon name="attach" class="deg45"></ion-icon>
-            <ion-icon name="camera"></ion-icon>
-
-        </div>
-        <div class="mic">
-            <ion-icon name="mic"></ion-icon>
-
-        </div>
-    </div>
-</div>
+{#<div class="chatBox">#}
+{#    <div class="header">#}
+{#        <div class="imgContent">#}
+{#            <ion-icon name="arrow-back" class="back"></ion-icon>#}
+{#            <div class="imgBx">#}
+{#                <img src="img1.jpg">#}
+{#            </div>#}
+{#            <h3>Vahid Rahmanifard<br><span>Online</span></h3>#}
+{#        </div>#}
+{#        <div class="actionBtns">#}
+{#            <ion-icon name="videocam"></ion-icon>#}
+{#            <ion-icon name="call"></ion-icon>#}
+{#            <ion-icon name="ellipsis-vertical"></ion-icon>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="messageBox">#}
+{#        <div class="message">How to make WhatsApp clone using html and css?<br><span class="time">10:19</span></div>#}
+{#        <div class="message">Please answer my question<br><span class="time">10:21</span></div>#}
+{#        <div class="otherMessage">It's so easy. You just need to follow this tutorial<br><span class="time">10:30</span></div>#}
+{#    </div>#}
+{#    <div class="messageInput">#}
+{#        <div class="input">#}
+{#            <ion-icon name="happy"></ion-icon>#}
+{#            <input type="text" placeholder="Message">#}
+{#            <ion-icon name="attach" class="deg45"></ion-icon>#}
+{#            <ion-icon name="camera"></ion-icon>#}
+{##}
+{#        </div>#}
+{#        <div class="mic">#}
+{#            <ion-icon name="mic"></ion-icon>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 
         </div>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

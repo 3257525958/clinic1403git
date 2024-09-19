@@ -48,37 +48,90 @@ def sendmesaage(request):
                                 m = 'neterror'
     return render(request,'mesage_send.html')
 def tiketdef(request):
-    selectmessage = request.POST.get('selectmessage')
+    notphonnamberarray = ['']
+    notphonnamberarray.clear()
     ms = mesaagemodel.objects.all()
-    namesender =''
-    textms=''
+    for mesaage in ms:
+        if mesaage.vaziyat == "در انتظار پاسخ":
+            a = 0
+            for namber in notphonnamberarray:
+                if namber == mesaage.melicod:
+                    a = 1
+            if a == 0 :
+                notphonnamberarray.append(mesaage.melicod)
+                print(notphonnamberarray)
+    ansphonnamberarray = ['']
+    ansphonnamberarray.clear()
+    ms = mesaagemodel.objects.all()
+    # m1 = ['']
+    # m1.clear()
+    # for m2 in ms :
+    #     m1.append(m2.id)
+    # print(m1)
+    # m1.reverse()
+    # print(m1)
+    # print("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu")
+    for mesaage in ms:
+        if mesaage.vaziyat == "پاسخ داده شده":
+            a = 0
+            for namber in ansphonnamberarray:
+                if namber == mesaage.melicod:
+                    a = 1
+            for n in notphonnamberarray :
+                if n == mesaage.melicod :
+                    a = 1
+            if a == 0 :
+                ansphonnamberarray.append(mesaage.melicod)
 
-    if (selectmessage != None) and (selectmessage != '') and (selectmessage != 'None'):
-        for n in ms:
-            if n.id == selectmessage:
-                m = mesaagemodel.objects.filter(id=n.id)
-                m.update(idtiket=n.id,vaziyat='پاسخ داده شده')
-                textms = n.textmessage
-                users = accuntmodel.objects.all()
-                for user in users:
-                    if int(user.melicode) == int(n.melicod):
-                        namesender = user.firstname + ' '+ user.lastname
-        return render(request, 'tiket.html', context={
-            'recivemessage': textms,
-            'namesender': namesender,
-        })
-
-    listmessage = ['']
-    listmessage.clear()
-    for m in ms :
-        if m.vaziyat == "در انتظار پاسخ":
-            users = accuntmodel.objects.all()
-            for user in users:
-                if int(user.melicode) == int(m.melicod):
-                    name = user.firstname + ' '+ user.lastname
-
-                    listmessage.append((str(m.id) + "," +name).split(","))
+    print(notphonnamberarray)
+    nananswer = ['']
+    nananswer.clear()
+    ms = mesaagemodel.objects.all()
+    ms.reverse()
+    notphonnamberarray.reverse()
+    print(notphonnamberarray)
+    for meli in notphonnamberarray :
+        name = ''
+        messagenamber = 0
+        mestext = ''
+        date = ''
+        meliarray = ['']
+        meliarray.clear()
+        users = accuntmodel.objects.all()
+        for user in users :
+            if user.melicode == meli :
+                name = user.firstname + ' ' + user.lastname
+        for mesage in ms :
+            if (mesage.vaziyat == "در انتظار پاسخ") and (mesage.melicod == meli) :
+                messagenamber += 1
+        for mes in ms :
+            if (mes.melicod == meli) and (mes.vaziyat == "در انتظار پاسخ") :
+                mestext = mes.textmessage
+                date = str(mes.hour) + ':' + str(mes.minute)
+                break
+        meliarray.append(name)
+        meliarray.append(date)
+        meliarray.append(mestext)
+        meliarray.append(messagenamber)
+        nananswer.append(meliarray)
+        nananswer.reverse()
+    #     return render(request, 'tiket.html', context={
+    #         'recivemessage': textms,
+    #         'namesender': namesender,
+    #     })
+    #
+    # listmessage = ['']
+    # listmessage.clear()
+    # for m in ms :
+    #     if m.vaziyat == "در انتظار پاسخ":
+    #         users = accuntmodel.objects.all()
+    #         for user in users:
+    #             if int(user.melicode) == int(m.melicod):
+    #                 name = user.firstname + ' '+ user.lastname
+    #
+    #                 listmessage.append((str(m.id) + "," +name).split(","))
     return render(request,'tiket.html',context={
+        'nananswer':nananswer,
         # 'listnonread':listmessage,
     })
 
