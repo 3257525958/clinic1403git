@@ -301,6 +301,7 @@ def tim(x):
                                             m = 'neterror'
                     if (aaa[0] != "2") and (aaa[0] != "1") and (aaa[0] != "11"):
                         print("zzzzzzzzzzzzzzzzzz")
+                        print(aaa[1])
                         users = accuntmodel.objects.all()
                         for user in users:
                             if user.phonnumber == aaa[1] :
