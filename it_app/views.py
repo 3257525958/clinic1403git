@@ -51,15 +51,6 @@ def tiketdef(request):
     notphonnamberarray = ['']
     notphonnamberarray.clear()
     ms = mesaagemodel.objects.all()
-    for mesaage in ms:
-        if mesaage.vaziyat == "در انتظار پاسخ":
-            a = 0
-            for namber in notphonnamberarray:
-                if namber == mesaage.melicod:
-                    a = 1
-            if a == 0 :
-                notphonnamberarray.append(mesaage.melicod)
-                print(notphonnamberarray)
     ansphonnamberarray = ['']
     ansphonnamberarray.clear()
     ms = mesaagemodel.objects.all()
@@ -67,29 +58,48 @@ def tiketdef(request):
     m1.clear()
     for m2 in ms :
         m1.append(m2.id)
-    print(m1)
     m1.reverse()
-    print(m1)
-    print("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu")
-    for mesaage in ms:
-        if mesaage.vaziyat == "پاسخ داده شده":
-            a = 0
-            for namber in ansphonnamberarray:
-                if namber == mesaage.melicod:
-                    a = 1
-            for n in notphonnamberarray :
-                if n == mesaage.melicod :
-                    a = 1
-            if a == 0 :
-                ansphonnamberarray.append(mesaage.melicod)
+    print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
+    for m2 in m1 :
+        print(m2)
+        for mesaage in ms:
+            if (mesaage.vaziyat == "در انتظار پاسخ") and (int(mesaage.id) == int(m2)):
+                a = 0
+                for namber in notphonnamberarray:
+                    if namber == mesaage.melicod:
+                        a = 1
+                if a == 0 :
+                    notphonnamberarray.append(mesaage.melicod)
+                    print(notphonnamberarray)
 
-    print(notphonnamberarray)
+
+
+    ansphonnamberarray = ['']
+    ansphonnamberarray.clear()
+    ms = mesaagemodel.objects.all()
+    m1 = ['']
+    m1.clear()
+    for m2 in ms :
+        m1.append(m2.id)
+    m1.reverse()
+    for m2 in m1 :
+        for mesaage in ms:
+            if (mesaage.vaziyat == "پاسخ داده شده") and (int(mesaage.id) == int(m2)):
+                a = 0
+                for namber in ansphonnamberarray:
+                    if namber == mesaage.melicod:
+                        a = 1
+                for n in notphonnamberarray :
+                    if n == mesaage.melicod :
+                        a = 1
+                if a == 0 :
+                    ansphonnamberarray.append(mesaage.melicod)
+
     nananswer = ['']
     nananswer.clear()
     ms = mesaagemodel.objects.all()
     # ms.reverse()
     # notphonnamberarray.reverse()
-    print(notphonnamberarray)
     for meli in notphonnamberarray :
         name = ''
         messagenamber = 0
