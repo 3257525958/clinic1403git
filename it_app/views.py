@@ -304,7 +304,9 @@ def tim(x):
                         print(aaa[1])
                         users = accuntmodel.objects.all()
                         for user in users:
+                            print(user.phonnumber)
                             if int(user.phonnumber) == int(aaa[1]) :
+                                print("nnmplkjhhgxfdsaagdgjvhvjhvjhvjhvhjvgvhgvhgvggggggggggggggggggggggggggggggggggggggggggggg")
                                 t = datetime.datetime.now()
                                 mesaagemodel.objects.create(
                                     melicod=user.melicode,
