@@ -14,6 +14,10 @@ import requests
 from multiprocessing import process
 from threading import Thread
 from cantact_app.views import strb,strd , stra,stry
+from django.contrib.auth import authenticate,login, logout
+from django.contrib.auth.models import User
+from django.shortcuts import redirect
+
 def sendmesaage(request):
     sendmethod =request.POST.get('sendmethod')
     sendsms = request.POST.get('sendsms')
@@ -221,7 +225,6 @@ def tim(x):
             time.sleep(1)
     if x == '3':
         def savemesaage():
-            print("ooooooooooooooooooooooooooooooooooooo")
             res = requests.post("https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json?linenumber=9982003178&isread=0")
             r = res.json()
             a = ['']
@@ -300,6 +303,10 @@ def tim(x):
                                     dateday =stra(t),
                                     phonnumber =user.phonnumber,
                                     textmessage = aaa[0],
+                                    dateweek= strd(t),
+                                    hour = t.strftime('%H'),
+                                    minute = t.strftime('%M'),
+                                    messagemethod =t.strftime('%S'),
                                 )
 
         schedule.every(10).seconds.do(savemesaage)

@@ -11,7 +11,7 @@ class mesaagetextmodel(models.Model):
 class mesaagemodel(models.Model):
     melicod = models.CharField(max_length=11,default="0")
     vaziyat = models.CharField(max_length=30,default="در انتظار پاسخ")
-    idtiket = models.CharField(max_length=11,default="0")
+    dateweek = models.CharField(max_length=11,default="0")
     dateyear = models.CharField(max_length=100,default="0")
     datemuonth = models.CharField(max_length=100,default="0")
     dateday = models.CharField(max_length=100,default="0")
