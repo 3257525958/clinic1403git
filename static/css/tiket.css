@@ -1,82 +1,532 @@
-        .main-box{
-            width: 350px;
-            height: 600px;
-            border:1px solid green;
-            margin: 0 auto;
-            border-radius: 15px;
-            background: linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)),url(/static/img/tiketimg.jpg);
-            background-position: center;
-            background-attachment: scroll;
-            background-size: cover;
-            background-repeat: no-repeat;
-            overflow: auto;
-        }
+@font-face {
+    font-family: "BYekan";
+    src: url("../fonts/BYekan.eot") format("eot"),
+        url("../fonts/BYekan.ttf") format("truetype");
+        url("../fonts//BYekan.woff") format("woff"),
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+    font-family: "BYekan";
+    direction: rtl;
+    text-align: right;
+}
+
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f2eadf;
+}
+
+.container{
+  position: relative;
+  width: 340px;
+  height: 480px;
+  background: #fff;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
+
+  overflow: hidden;
+}
+header{
+  position: relative;
+  background: #008069;
+  padding: 20px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header .logo{
+  color: #fff;
+  text-decoration: none;
+  font-weight: 100;
+  font-size: 0.7em;
+  font-family: "B Yekan";
+}
+
+header .action{
+  position: relative;
+  display: flex;
+  gap: 15px;
+}
+
+header .action a{
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+.tabs input[type="radio"]{
+  visibility: hidden;
+  display: none;
+}
+
+.buttons{
+  position: relative;
+  display: flex;
+  background: #008069;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  font-weight: 60;
+  font-size: 1em;
+  font-family: 'B Yekan';
+}
+
+.buttons label{
+  width: 33.33%;
+  color: #fff;
+  opacity: 0.75;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  cursor: pointer;
+  padding: 5px 0;
+
+}
+
+.tabs input:nth-child(1):checked ~ .buttons label:nth-child(1),
+.tabs input:nth-child(2):checked ~ .buttons label:nth-child(2),
+.tabs input:nth-child(3):checked ~ .buttons label:nth-child(3){
+  opacity: 1;
+}
+
+.underline{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 33.33%;
+  height: 3px;
+  background: #fff;
+  transition: 0.5s;
+}
+/* .tabs input:nth-child(1):checked ~ .buttons .underline{
+  left: 0;
+}
+.tabs input:nth-child(2):checked ~ .buttons .underline{
+  left: 33.33%;
+}
+.tabs input:nth-child(3):checked ~ .buttons .underline{
+  left: 66.66%;
+} */
+
+.content{
+  position: relative;
+  width: calc(3 * 340px);
+  display: flex;
+
+  transition: 0.5s;
+}
+
+.content .box{
+  position: relative;
+  width: 340px;
+}
+
+/* .tabs input:nth-child(1):checked ~ .content{
+  left: calc(340px * 0);
+}
+
+.tabs input:nth-child(2):checked ~ .content{
+  left: calc(340px * -1);
+}
+
+.tabs input:nth-child(3):checked ~ .content{
+  left: calc(340px * -2);
+} */
+
+.tabs input:checked ~ .content{
+  left: calc(-1 * var(--i) * 340px);
+}
+.tabs input:checked ~ .buttons .underline{
+  left: calc(var(--i) * 33.33%)
+}
+
+.chatList{
+  position: relative;
+  width: 100%;
+  height: 410px;
+  overflow-y: auto;
+}
+.chatList .chat{
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  cursor: pointer;
+  padding: 15px 10px;
+}
+
+.chatList .chat:hover{
+  background: #f5f5f5;
+}
+
+.chatList .chat .avatar{
+  position: relative;
+  min-width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.chatList .chat .avatar img{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chatList .chat .details{
+  position: relative;
+  width: 100%;
+}
+.chatList .chat .details .chatHeader{
+  display: flex;
+  justify-content: space-between;
+}
+
+.chatList .chat .details .chatHeader .time{
+  font-size: 0.75em;
+  color: #555;
+}
+
+.chatList .chat .details .chatBody{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatList .chat .details .chatBody p{
+  color: #555;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9em;
+}
+
+.chatList .chat.unread .details .chatHeader .time{
+  color: #06d755;
+}
+
+.chatList .chat.unread .details .chatBody p{
+  color: #111;
+  font-weight: 60 ;
+  font-size: 0.7em;
+}
+
+.chatList .chat.unread .details .chatBody b{
+  background: #06d755;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75em;
+}
+
+::-webkit-scrollbar{
+  width: 5px;
+}
+
+::-webkit-scrollbar-track{
+  background: transparent;
+}
+::-webkit-scrollbar-thumb{
+  background: #bbb;
+}
+
+.status .plus{
+  position: absolute;
+  top: 38px;
+  left: 40px;
+  width: 25px;
+  height: 25px;
+  background: #008069;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  direction: 1.2em;
+  font-weight: 700;
+}
+
+.box label{
+  padding: 0 15px;
+  font-weight: 600;
+  font-size: .85em;
+  color: #555;
+}
+
+.unseen .avatar
+{
+  box-shadow: 0 0 0 2px #fff,
+  0 0 0 4px #008069;
+}
+
+.seen .avatar
+{
+  box-shadow: 0 0 0 2px #fff,
+  0 0 0 4px #bbb;
+}
+
+.green{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #008069;
+  color: #fff;
+  font-size: 1.5em;
+  rotate: -45deg;
+}
+.incoming ion-icon{
+  color: #0f0;
+  rotate: 45deg;
+
+}
+.outgoing ion-icon{
+  color: #f00;
+  rotate: 45deg;
+}
+
+.call{
+  font-size: 1.5em;
+  color: #008069;
+
+}
+
+.quickBtn{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+.quickBtn .btn{
+  background: #008069;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.35em;
+  cursor: pointer;
+  display: none;
+}
+
+.tabs input:nth-child(1):checked ~ .quickBtn .btn:nth-child(1){
+  display: flex;
+}
+.tabs input:nth-child(2):checked ~ .quickBtn .btn:nth-child(2){
+  display: flex;
+}
+.tabs input:nth-child(3):checked ~ .quickBtn .btn:nth-child(3){
+  display: flex;
+}
+
+.quickBtn .btn .pencil{
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: -50px;
+  background: #ddd;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  font-size: 0.75em;
+}
+
+.chatBox{
+  position: absolute;
+  inset: 0;
+  background: #efe6dd;
+  z-index: 10000;
+}
+
+.chatBox::before{
+  content: '';
+  background: url(static/img/tiketimg.jpg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+
+}
 
 
-        .chat-item-recive{
-            background-color: rgb(95, 206, 132);
-            border-radius: 5px;
-            width: 200px;
-            height: 50px;
-            margin: 10px 10px;
-            position: relative;
-        }
-        .chat-item-recive p{
-            direction: rtl;
-            color: white;
-            padding: 5px;
-        }
-        .chat-item-recive::before{
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: rgb(95, 206, 132);
-            bottom: -3px;
-            left: 0px;
-            transform: rotateZ(120deg) skewX(50deg);
-        }
+.chatBox .header{
+  position: relative;
+  width: 100%;
+  background: #008069;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.chatBox .header .imgContent{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 
-        .chat-item-send{
-            background-color: rgb(95, 206, 132);
-            border-radius: 5px;
-            width: 200px;
-            height: 100px;
-            margin: 10px 10px;
-            position: relative;
-            left: 130px;
-        }
-        .chat-item-send p{
-            direction: rtl;
-            color: white;
-            padding: 5px;
-        }
-        .chat-item-send::before{
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: rgb(95, 206, 132);
-            bottom: -1px;
-            left: 192px;
-            transform: rotateZ(20deg) skewX(50deg);
-        }
-        .chat-item-name{
-            background-color: rgb(95, 206, 132);
-            border-radius: 10px;
-            width: 345px;
-            height: 50px;
-            /*margin: 10px 10px;*/
-            position: fixed;
-            margin: 0 auto;
-            top: 2px;
+.chatBox .header .imgContent ion-icon{
+  font-size: 1.25em;
+  color: #fff;
+}
 
-        }
-        p{
-            width: 90%;
+ion-icon{
+  cursor: pointer;
+}
 
-        }
-        p.break_text{
-            word-break: break-all;
-        }
+.chatBox .header .imgContent .imgBx{
+  position: relative;
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.chatBox .header .imgContent .imgBx img{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chatBox .header .imgContent h3{
+  color: #fff;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 1.1em;
+
+}
+.chatBox .header .imgContent h3 span{
+  font-size: 0.75em;
+  font-weight: 400;
+}
+
+.actionBtns{
+  color: #fff;
+  display: flex;
+  gap: 15px;
+  font-size: 1.25em;
+}
+
+.messageBox{
+  position: relative;
+  padding: 20px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.messageBox .message{
+  position: relative;
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.messageBox .otherMessage{
+  position: relative;
+  background: #06d755;
+  padding: 10px;
+  border-radius: 10px;
+  border-top-right-radius: 0;
+}
+.messageBox .otherMessage::after{
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10px;
+  border: 10px solid transparent;
+  border-top: 10px solid #06d755;
+}
+
+.messageBox .message:nth-child(1):before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -10px;
+  border: 10px solid transparent;
+  border-top: 10px solid #fff;
+}
+
+.time{
+  position: relative;
+  display: block;
+  font-size: 0.7em;
+  text-align: end;
+
+  color: #777;
+}
+
+.messageInput{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.messageInput .input{
+  position: relative;
+  background: #fff;
+  padding: 5px 10px;
+  width: 270px;
+  border-radius: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.messageInput .input ion-icon{
+  color: #777;
+  font-size: 1.4em;
+}
+.messageInput .input input{
+  border: none;
+  outline: none;
+  padding: 5px;
+}
+
+.mic{
+  position: relative;
+  width: 40px;;
+  height: 40px;
+  background: #008069;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.2em;
+  border-radius: 50%;
+}
+.deg45{
+  transform: rotate(45deg);
+}
+
+.chatBox.hide{
+  display: none;
+}

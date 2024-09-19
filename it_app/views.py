@@ -158,6 +158,7 @@ def itdeletcontrol(request):
 def tim(x):
     if x == '1' :
         def tavalod_tabrik():
+            print("mmmmmmmmmmmmmmmmm")
             users = accuntmodel.objects.all()
             t = datetime.datetime.now()
             for user in users:
@@ -187,6 +188,7 @@ def tim(x):
             time.sleep(1)
     if x == '2' :
         def yadavari_vaghtfarda():
+            print("ddddddddfffffffffttttttttttttttttt")
             t = datetime.datetime.now()
             t += timedelta(days=1)
             rs = reservemodel.objects.all()
@@ -219,6 +221,7 @@ def tim(x):
             time.sleep(1)
     if x == '3':
         def savemesaage():
+            print("ooooooooooooooooooooooooooooooooooooo")
             res = requests.post("https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json?linenumber=9982003178&isread=0")
             r = res.json()
             a = ['']
@@ -235,6 +238,7 @@ def tim(x):
                 t += timedelta(days=1)
                 for aaa in a :
                     if aaa[0] == "1" :
+                        print("qqqqqqqqqqqqqqqqqqqqqqqqqqq")
                         users = accuntmodel.objects.all()
                         for user in users:
                             if user.phonnumber == aaa[1] :
@@ -259,6 +263,7 @@ def tim(x):
                                         except HTTPException as e:
                                             m = 'neterror'
                     if aaa[0] == "2" :
+                        print("hhhhhhhhhhhhhhhhhhhh")
                         users = accuntmodel.objects.all()
                         for user in users:
                             if user.phonnumber == aaa[1] :
@@ -283,6 +288,7 @@ def tim(x):
                                         except HTTPException as e:
                                             m = 'neterror'
                     if (aaa[0] != "2") and (aaa[0] != "1") and (aaa[0] != "11"):
+                        print("zzzzzzzzzzzzzzzzzz")
                         users = accuntmodel.objects.all()
                         for user in users:
                             if user.phonnumber == aaa[1] :
@@ -303,6 +309,6 @@ def tim(x):
 t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
-t1.start()
-t2.start()
-t3.start()
+# t1.start()
+# t2.start()
+# t3.start()
