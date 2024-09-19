@@ -235,6 +235,8 @@ def tim(x):
             a = ['']
             a.clear()
             if r["entries"] != []:
+                print(len(r["entries"]))
+                print("lennnnnnnnnnnnnnnnnnnnnnnnnnnn")
                 for i in range(len(r["entries"])):
                     ba = ['']
                     ba.clear()
@@ -245,6 +247,8 @@ def tim(x):
                 t = datetime.datetime.now()
                 t += timedelta(days=1)
                 for aaa in a :
+                    print("aaaaaaaaaaaaaaaaaaaaaddddddddddddddddddddddddddddddddgggggggggggggggggggggggggggg")
+                    print(aaa[0])
                     if aaa[0] == "1" :
                         print("qqqqqqqqqqqqqqqqqqqqqqqqqqq")
                         users = accuntmodel.objects.all()
