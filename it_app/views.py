@@ -63,14 +63,14 @@ def tiketdef(request):
     ansphonnamberarray = ['']
     ansphonnamberarray.clear()
     ms = mesaagemodel.objects.all()
-    # m1 = ['']
-    # m1.clear()
-    # for m2 in ms :
-    #     m1.append(m2.id)
-    # print(m1)
-    # m1.reverse()
-    # print(m1)
-    # print("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu")
+    m1 = ['']
+    m1.clear()
+    for m2 in ms :
+        m1.append(m2.id)
+    print(m1)
+    m1.reverse()
+    print(m1)
+    print("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu")
     for mesaage in ms:
         if mesaage.vaziyat == "پاسخ داده شده":
             a = 0
