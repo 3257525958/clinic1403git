@@ -234,7 +234,7 @@ def tim(x):
             r = res.json()
             a = ['']
             a.clear()
-            if r["entries"] != []:
+            if 1 == 1:
                 print(len(r["entries"]))
                 print("lennnnnnnnnnnnnnnnnnnnnnnnnnnn")
                 for i in range(len(r["entries"])):
