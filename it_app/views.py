@@ -114,7 +114,6 @@ def tiketdef(request):
         meliarray.append(mestext)
         meliarray.append(messagenamber)
         nananswer.append(meliarray)
-        nananswer.reverse()
     #     return render(request, 'tiket.html', context={
     #         'recivemessage': textms,
     #         'namesender': namesender,
