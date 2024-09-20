@@ -53,6 +53,8 @@ def tiketdef(request):
     ms = mesaagemodel.objects.all()
     ansphonnamberarray = ['']
     ansphonnamberarray.clear()
+
+# -------------------ساخت ارایه پیامهای جدید
     ms = mesaagemodel.objects.all()
     m1 = ['']
     m1.clear()
@@ -68,14 +70,8 @@ def tiketdef(request):
             if m3 < m4 :
                 x+=1
         masli[x] = m3
-    print(masli)
-    print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
-    print(m1)
     for m2 in masli :
         for mesaage in ms:
-            print(m2)
-            print(mesaage.id)
-            print('helo')
             if (mesaage.vaziyat == "در انتظار پاسخ") and (int(mesaage.id) == int(m2)):
                 a = 0
                 for namber in notphonnamberarray:
@@ -83,36 +79,43 @@ def tiketdef(request):
                         a = 1
                 if a == 0 :
                     notphonnamberarray.append(mesaage.melicod)
-                    print(notphonnamberarray)
 
 
-
-    ansphonnamberarray = ['']
-    ansphonnamberarray.clear()
+# -----ساخت ارایه پیامهای قدیم--
     ms = mesaagemodel.objects.all()
     m1 = ['']
     m1.clear()
+    masli = ['']
+    masli.clear()
     for m2 in ms :
         m1.append(m2.id)
-    m1.reverse()
-    for m2 in m1 :
+        masli.append(0)
+    m5 = m1
+    for m3 in m1 :
+        x = 0
+        for m4 in m5:
+            if m3 < m4 :
+                x+=1
+        masli[x] = m3
+    for m2 in masli :
         for mesaage in ms:
             if (mesaage.vaziyat == "پاسخ داده شده") and (int(mesaage.id) == int(m2)):
                 a = 0
                 for namber in ansphonnamberarray:
                     if namber == mesaage.melicod:
                         a = 1
-                for n in notphonnamberarray :
-                    if n == mesaage.melicod :
-                        a = 1
                 if a == 0 :
                     ansphonnamberarray.append(mesaage.melicod)
 
+
+
     nananswer = ['']
     nananswer.clear()
+    answer =['']
+    answer.clear()
+
+ # -------ارایه کامل پیامهای جدید----
     ms = mesaagemodel.objects.all()
-    # ms.reverse()
-    # notphonnamberarray.reverse()
     for meli in notphonnamberarray :
         name = ''
         messagenamber = 0
@@ -137,25 +140,39 @@ def tiketdef(request):
         meliarray.append(mestext)
         meliarray.append(messagenamber)
         nananswer.append(meliarray)
-    #     return render(request, 'tiket.html', context={
-    #         'recivemessage': textms,
-    #         'namesender': namesender,
-    #     })
-    #
-    # listmessage = ['']
-    # listmessage.clear()
-    # for m in ms :
-    #     if m.vaziyat == "در انتظار پاسخ":
-    #         users = accuntmodel.objects.all()
-    #         for user in users:
-    #             if int(user.melicode) == int(m.melicod):
-    #                 name = user.firstname + ' '+ user.lastname
-    #
-    #                 listmessage.append((str(m.id) + "," +name).split(","))
+
+# -------ارایه کامل پیامهای قدیم----
+    ms = mesaagemodel.objects.all()
+    for meli in ansphonnamberarray:
+        name = ''
+        # messagenamber = 0
+        mestext = ''
+        date = ''
+        meliarray = ['']
+        meliarray.clear()
+        users = accuntmodel.objects.all()
+        for user in users:
+            if user.melicode == meli:
+                name = user.firstname + ' ' + user.lastname
+        # for mesage in ms:
+        #     if (mesage.vaziyat == "پاسخ داده شده") and (mesage.melicod == meli):
+        #         messagenamber += 1
+        for mes in ms:
+            if (mes.melicod == meli) and (mes.vaziyat == "پاسخ داده شده"):
+                mestext = mes.textmessage
+                date = str(mes.hour) + ':' + str(mes.minute)
+                break
+        meliarray.append(name)
+        meliarray.append(date)
+        meliarray.append(mestext)
+        # meliarray.append(messagenamber)
+        answer.append(meliarray)
+
+
     return render(request,'tiket.html',context={
-        'nananswer':nananswer,
-        # 'listnonread':listmessage,
-    })
+            'nananswer':nananswer,
+            # 'listnonread':listmessage,
+        })
 
 def itcontrol(request):
     savebottom = request.POST.get("savebottom")
