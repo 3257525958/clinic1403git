@@ -100,11 +100,15 @@ def tiketdef(request):
     for m2 in masli :
         for mesaage in ms:
             if (mesaage.vaziyat == "پاسخ داده شده") and (int(mesaage.id) == int(m2)):
+                b = 0
+                for r in notphonnamberarray:
+                    if r == mesaage.melicod :
+                        b = 1
                 a = 0
                 for namber in ansphonnamberarray:
                     if namber == mesaage.melicod:
                         a = 1
-                if a == 0 :
+                if (a == 0) and (b == 0) :
                     ansphonnamberarray.append(mesaage.melicod)
 
 
@@ -154,9 +158,6 @@ def tiketdef(request):
         for user in users:
             if user.melicode == meli:
                 name = user.firstname + ' ' + user.lastname
-        # for mesage in ms:
-        #     if (mesage.vaziyat == "پاسخ داده شده") and (mesage.melicod == meli):
-        #         messagenamber += 1
         for mes in ms:
             if (mes.melicod == meli) and (mes.vaziyat == "پاسخ داده شده"):
                 mestext = mes.textmessage
@@ -171,6 +172,7 @@ def tiketdef(request):
 
     return render(request,'tiket.html',context={
             'nananswer':nananswer,
+            'answer':answer,
             # 'listnonread':listmessage,
         })
 

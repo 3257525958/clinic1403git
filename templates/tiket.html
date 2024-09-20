@@ -75,20 +75,22 @@
                             </div>
                         </div>
                         {% endfor %}
+                        {% for message in answer %}
                         <div class="chat">
                             <div class="avatar">
                                 <img src={% static "/img/user.jpg" %} alt="">
                             </div>
                             <div class="details">
                                 <div class="chatHeader">
-                                    <h4>Sarah Shenzen</h4>
-                                    <p class="time">05:26</p>
+                                    <h4>{{ message.0 }}</h4>
+                                    <p class="time">{{ message.1 }}</p>
                                 </div>
                                 <div class="chatBody">
-                                    <p>Hello</p>
+                                    <p>{{ message.2 }}</p>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
 {#                        <div class="chat">#}
 {#                            <div class="avatar">#}
 {#                                <img src="img3.jpeg" alt="">#}
