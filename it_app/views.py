@@ -71,7 +71,7 @@ def tiketdef(request):
     print(masli)
     print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
     print(m1)
-    for m2 in m1 :
+    for m2 in masli :
         for mesaage in ms:
             print(m2)
             print(mesaage.id)
