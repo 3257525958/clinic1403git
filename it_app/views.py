@@ -56,10 +56,19 @@ def tiketdef(request):
     ms = mesaagemodel.objects.all()
     m1 = ['']
     m1.clear()
-    m1.append(-1)
+    masli = ['']
+    masli.clear()
     for m2 in ms :
         m1.append(m2.id)
-    # m1.reverse()
+        masli.append(0)
+    m5 = m1
+    for m3 in m1 :
+        x = 0
+        for m4 in m5:
+            if m3 < m4 :
+                x+=1
+        masli[x] = m3
+    print(masli)
     print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
     print(m1)
     for m2 in m1 :
