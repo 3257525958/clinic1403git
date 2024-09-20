@@ -60,10 +60,12 @@ def tiketdef(request):
         m1.append(m2.id)
     m1.reverse()
     print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
+    print(m1)
     for m2 in m1 :
         for mesaage in ms:
             print(m2)
             print(mesaage.id)
+            print('helo')
             if (mesaage.vaziyat == "در انتظار پاسخ") and (int(mesaage.id) == int(m2)):
                 a = 0
                 for namber in notphonnamberarray:
