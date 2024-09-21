@@ -181,7 +181,7 @@ def tiketdef(request):
                     chatlist.append(array)
                     f = '0'
                     e = '1'
-
+        chatlist.reverse()
         return render(request,'chatbox.html',context={
             'melicode':melicodselet,
             'name':name,
