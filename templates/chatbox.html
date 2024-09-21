@@ -61,18 +61,18 @@
     <div class="messageBox">
         {% for message in chatlist %}
             {%  if message.1 == "0" %}
-                {%  if message.4 == '0' %}
+                {%  if message.4 == '1' %}
                     <div class="onemessage">{{ message.2 }}<br><span class="time">{{ message.3}}</span></div>
                 {% endif %}    
-                {%  if message.4 == '1' %}
+                {%  if message.4 == '0' %}
                     <div class="message">{{ message.2 }}<br><span class="time">{{ message.3}}</span></div>
                 {% endif %}    
             {% endif %}
             {% if message.1 == "1"%}
-                {%  if message.4 == '0' %}
+                {%  if message.4 == '1' %}
                     <div class="oneotherMessage">{{ message.2 }}<br><span class="time">{{ message.3 }}</span></div>
                 {% endif %}    
-                {%  if message.4 == '1' %}
+                {%  if message.4 == '0' %}
                     <div class="otherMessage">{{ message.2 }}<br><span class="time">{{ message.3 }}</span></div>
                 {% endif %}    
             {% endif %}

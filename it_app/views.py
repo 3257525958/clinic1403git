@@ -51,6 +51,10 @@ def tiketdef(request):
     sendbtn = request.POST.get('sendbtn')
     textsend = request.POST.get('textsend')
     melicodanswer = request.POST.get('melicodanswer')
+    unreadbtn = request.POST.get('unreadbtn')
+    readbtn = request.POST.get('readbtn')
+
+    # ---وقتی پیامی در فضای مجازی پیام بدهیم اینجا با این کد ملی ثبت نام میشه----
     if (melicodanswer == None) or (melicodanswer == '') or ( melicodanswer == "None"):
         melicodanswer = '0'
     if (sendbtn != None) and (sendbtn != '') and (sendbtn != 'None')and (textsend != None) and (textsend != '') and (textsend != 'None') :
@@ -70,15 +74,14 @@ def tiketdef(request):
 
         )
 
-    unreadbtn = request.POST.get('unreadbtn')
-    readbtn = request.POST.get('readbtn')
+
+#در این ارایه ها درست میشن دز این ارایه ها بر اساس زمان از آخر به اول کد ملی ها ردف میشه -------------------ساخت ارایه پیامهای جدید
     notphonnamberarray = ['']
     notphonnamberarray.clear()
     ms = mesaagemodel.objects.all()
     ansphonnamberarray = ['']
     ansphonnamberarray.clear()
 
-# -------------------ساخت ارایه پیامهای جدید
     ms = mesaagemodel.objects.all()
     m1 = ['']
     m1.clear()
@@ -134,10 +137,9 @@ def tiketdef(request):
                         a = 1
                 if (a == 0) and (b == 0) :
                     ansphonnamberarray.append(mesaage.melicod)
-
-
+# ------------------------
     melicodselet = ''
-    if melicodanswer == "0":
+    if int(melicodanswer) == request.user.username:
         if (unreadbtn != None) and (unreadbtn != '') and (unreadbtn != 'None') :
             melicodselet = notphonnamberarray[int(unreadbtn)]
         if (readbtn != None) and (readbtn != '') and (readbtn != 'None') :
@@ -473,6 +475,7 @@ def tim(x):
                                     hour = t.strftime('%H'),
                                     minute = t.strftime('%M'),
                                     messagemethod =t.strftime('%S'),
+                                    sendermelicod=user.melicode,
                                 )
 
         schedule.every(10).seconds.do(savemesaage)
