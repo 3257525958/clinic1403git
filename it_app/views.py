@@ -142,7 +142,7 @@ def tiketdef(request):
     melicodselet = ''
     # if melicodanswer == "0":
     if melicodanswer == request.user.username:
-            if (unreadbtn != None) and (unreadbtn != '') and (unreadbtn != 'None') :
+        if (unreadbtn != None) and (unreadbtn != '') and (unreadbtn != 'None') :
             melicodselet = notphonnamberarray[int(unreadbtn)]
         if (readbtn != None) and (readbtn != '') and (readbtn != 'None') :
             melicodselet = ansphonnamberarray[int(readbtn)]
