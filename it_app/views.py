@@ -245,8 +245,7 @@ def tiketdef(request):
         # meliarray.append(messagenamber)
         answer.append(meliarray)
 
-    nananswer.reverse()
-    answer.reverse()
+
     return render(request,'tiket.html',context={
             'nananswer':nananswer,
             'answer':answer,
@@ -363,7 +362,6 @@ def tim(x):
             time.sleep(1)
     if x == '2' :
         def yadavari_vaghtfarda():
-            print("ddddddddfffffffffttttttttttttttttt")
             t = datetime.datetime.now()
             t += timedelta(days=1)
             rs = reservemodel.objects.all()
