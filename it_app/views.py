@@ -163,7 +163,8 @@ def tiketdef(request):
             if int(mes.melicod) == int(melicodselet):
                 a = mesaagemodel.objects.filter(id=mes.id)
                 a.update(vaziyat="پاسخ داده شده")
-                if (mes.sendermelicod == '0') or (int(mes.sendermelicod) == int(melicodselet)) :
+                # if (mes.sendermelicod == '0') or (int(mes.sendermelicod) == int(melicodselet)) :
+                if int(mes.sendermelicod) != int(request.user.username):
                     array = ['']
                     array.clear()
                     array.append(mes.messagemethod)
