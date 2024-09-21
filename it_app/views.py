@@ -56,7 +56,8 @@ def tiketdef(request):
 
     # ---وقتی پیامی در فضای مجازی پیام بدهیم اینجا با این کد ملی ثبت نام میشه----
     if (melicodanswer == None) or (melicodanswer == '') or ( melicodanswer == "None"):
-        melicodanswer = '0'
+        # melicodanswer = '0'
+        melicodanswer = request.user.username
     if (sendbtn != None) and (sendbtn != '') and (sendbtn != 'None')and (textsend != None) and (textsend != '') and (textsend != 'None') :
         t = datetime.datetime.now()
         mesaagemodel.objects.create(
@@ -139,8 +140,9 @@ def tiketdef(request):
                     ansphonnamberarray.append(mesaage.melicod)
 # ------------------------
     melicodselet = ''
-    if int(melicodanswer) == request.user.username:
-        if (unreadbtn != None) and (unreadbtn != '') and (unreadbtn != 'None') :
+    # if melicodanswer == "0":
+    if melicodanswer == request.user.username:
+            if (unreadbtn != None) and (unreadbtn != '') and (unreadbtn != 'None') :
             melicodselet = notphonnamberarray[int(unreadbtn)]
         if (readbtn != None) and (readbtn != '') and (readbtn != 'None') :
             melicodselet = ansphonnamberarray[int(readbtn)]
