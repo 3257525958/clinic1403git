@@ -48,6 +48,10 @@ def sendmesaage(request):
                                 m = 'neterror'
     return render(request,'mesage_send.html')
 def tiketdef(request):
+    unreadbtn = request.POST.get('unreadbtn')
+    print(unreadbtn)
+    readbtn = request.POST.get('readbtn')
+    print(readbtn)
     notphonnamberarray = ['']
     notphonnamberarray.clear()
     ms = mesaagemodel.objects.all()
@@ -409,6 +413,6 @@ def tim(x):
 t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
-t1.start()
-t2.start()
-t3.start()
+# t1.start()
+# t2.start()
+# t3.start()

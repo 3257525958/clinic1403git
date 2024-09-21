@@ -1,10 +1,87 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={% static "/css/tiket.css" %}>
+    <title>WhatsApp Clone</title>
 </head>
-<body>
 
+<body>
+<form action="" class="nametable" method="POST">
+{% csrf_token %}
+
+    <div class="container">
+        <header>
+            <a href="#" class="logo">پیام رسان مجازی مطب دکتر اسدپور</a>
+{#            عکس دوربین و سه نقطه و سرچ بالای صفحه0#}
+{#            <div class="action">#}
+{#                <a href="#">#}
+{#                    <ion-icon name="camera-outline"></ion-icon>#}
+{#                </a>#}
+{#                <a href="#">#}
+{#                    <ion-icon name="search-outline"></ion-icon>#}
+{#                </a>#}
+{#                <a href="#">#}
+{#                    <ion-icon name="ellipsis-vertical"></ion-icon>#}
+{#                </a>#}
+{#            </div>#}
+        </header>
+        <div class="tabs">
+            <input style="--i:0;" type="radio" name="group" id="chats" checked>
+{#            <input style="--i:1;" type="radio" name="group" id="status">#}
+{#            <input style="--i:2;" type="radio" name="group" id="calls">#}
+
+            <div class="buttons">
+                <label for="chats">گفتگو</label>
+{#                <label for="status">وضعیت</label>#}
+{#                <label for="calls">Calls</label>#}
+                <div class="underline"></div>
+            </div>
+        </div>    
+{#اینجا صفخه دوم رو میسازه           #}
+<div class="chatBox">
+    <div class="header">
+        <div class="imgContent">
+            <ion-icon name="arrow-back" class="back"></ion-icon>
+            <div class="imgBx">
+                <img src="img1.jpg">
+            </div>
+            <h3>Vahid Rahmanifard<br><span>Online</span></h3>
+        </div>
+        <div class="actionBtns">
+            <ion-icon name="videocam"></ion-icon>
+            <ion-icon name="call"></ion-icon>
+            <ion-icon name="ellipsis-vertical"></ion-icon>
+        </div>
+    </div>
+    <div class="messageBox">
+        <div class="message">How to make WhatsApp clone using html and css?<br><span class="time">10:19</span></div>
+        <div class="message">Please answer my question<br><span class="time">10:21</span></div>
+        <div class="otherMessage">It's so easy. You just need to follow this tutorial<br><span class="time">10:30</span></div>
+    </div>
+    <div class="messageInput">
+        <div class="input">
+            <ion-icon name="happy"></ion-icon>
+            <input type="text" placeholder="Message">
+            <ion-icon name="attach" class="deg45"></ion-icon>
+            <ion-icon name="camera"></ion-icon>
+
+        </div>
+        <div class="mic">
+            <ion-icon name="mic"></ion-icon>
+
+        </div>
+    </div>
+</div>
+</form>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <script src="{% static "/js/watsapp.js" %}"></script>
+        
 </body>
+
 </html>

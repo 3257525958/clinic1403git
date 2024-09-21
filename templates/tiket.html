@@ -11,21 +11,12 @@
 </head>
 
 <body>
+<form action=""  method="POST">
+{% csrf_token %}
+
     <div class="container">
         <header>
             <a href="#" class="logo">پیام رسان مجازی مطب دکتر اسدپور</a>
-{#            عکس دوربین و سه نقطه و سرچ بالای صفحه0#}
-{#            <div class="action">#}
-{#                <a href="#">#}
-{#                    <ion-icon name="camera-outline"></ion-icon>#}
-{#                </a>#}
-{#                <a href="#">#}
-{#                    <ion-icon name="search-outline"></ion-icon>#}
-{#                </a>#}
-{#                <a href="#">#}
-{#                    <ion-icon name="ellipsis-vertical"></ion-icon>#}
-{#                </a>#}
-{#            </div>#}
         </header>
         <div class="tabs">
             <input style="--i:0;" type="radio" name="group" id="chats" checked>
@@ -38,28 +29,11 @@
 {#                <label for="calls">Calls</label>#}
                 <div class="underline"></div>
             </div>
-{#دوربین وعکس زیر صفخه برای سرچ#}
-{#            <div class="quickBtn">#}
-{#                <div class="btn">#}
-{#                    <ion-icon name="chatbubble"></ion-icon>#}
-{#                </div>#}
-{#                <div class="btn">#}
-{#                    <div class="pencil">#}
-{#                        <ion-icon name="pencil"></ion-icon>#}
-{#                    </div>#}
-{#                    <ion-icon name="camera"></ion-icon>#}
-{#                </div>#}
-{#                <div class="btn">#}
-{#                    <ion-icon name="call"></ion-icon>#}
-{#                </div>#}
-{#            </div>#}
-{#ساخت لیست پیام های رد وبدل شده#}
             <div class="content">
                 <div class="box chats">
                     <div class="chatList">
-{#                        اینجا لیست اغرادی که پیام دادن ساخته میشه#}
                         {% for message in nananswer %}
-                        <div class="chat unread open">
+                        <button class="chat unread open" name="unreadbtn" id="unreadbtn" value="{{ forloop.counter0 }}">
                             <div class="avatar">
                                 <img src={% static "/img/user.jpg" %} alt="">
                             </div>
@@ -73,10 +47,10 @@
                                     <b>{{ message.3 }}</b>
                                 </div>
                             </div>
-                        </div>
+                        </button>
                         {% endfor %}
                         {% for message in answer %}
-                        <div class="chat">
+                        <button class="chat" name="readbtn" id="readbtn" value="{{ forloop.counter0 }}">
                             <div class="avatar">
                                 <img src={% static "/img/user.jpg" %} alt="">
                             </div>
@@ -89,291 +63,17 @@
                                     <p>{{ message.2 }}</p>
                                 </div>
                             </div>
-                        </div>
+                        </button>
                         {% endfor %}
-{#                        <div class="chat">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img3.jpeg" alt="">#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>John Doe</h4>#}
-{#                                    <p class="time">Yesterday</p>#}
-{#                                </div>#}
-{#                                <div class="chatBody">#}
-{#                                    <p>bye</p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="chat unread">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img4.jpeg" alt="">#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>Amin Rahmani</h4>#}
-{#                                    <p class="time">Yesterday</p>#}
-{#                                </div>#}
-{#                                <div class="chatBody">#}
-{#                                    <p>Send for processing</p>#}
-{#                                    <b>5</b>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="chat ">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img5.jpeg" alt="">#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>Paul McMorphy</h4>#}
-{#                                    <p class="time">06/17/2023</p>#}
-{#                                </div>#}
-{#                                <div class="chatBody">#}
-{#                                    <p>please wait...</p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="chat">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img6.jpeg" alt="">#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>Reza Miladi</h4>#}
-{#                                    <p class="time">06/01/2023</p>#}
-{#                                </div>#}
-{#                                <div class="chatBody">#}
-{#                                    <p>Hi, I fount it interesting</p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="chat">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img7.jpeg" alt="">#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>Mary Johnson</h4>#}
-{#                                    <p class="time">05/10/2023</p>#}
-{#                                </div>#}
-{#                                <div class="chatBody">#}
-{#                                    <p>Help me with this topic</p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="chat unread">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img8.jpeg" alt="">#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>Jane Viera</h4>#}
-{#                                    <p class="time">05/01/2023</p>#}
-{#                                </div>#}
-{#                                <div class="chatBody">#}
-{#                                    <p>I'm on my way</p>#}
-{#                                    <b>1</b>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
                     </div>
-
                 </div>
-{#                <div class="box status">#}
-{#                    <div class="chatList">#}
-{#                        <div class="chat">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img1.jpg" id="sample">#}
-{#                            </div>#}
-{#                            <div class="plus">+</div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>My Status</h4>#}
-{#                                </div>#}
-{#                                <div class="chatBody">#}
-{#                                    <p>Tap to add status update</p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <label>Recent Updates</label>#}
-{#                        <div class="chat unseen">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img2.jpeg" alt="">#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>Mary Johnson</h4>#}
-{#                                </div>#}
-{#                                <div class="chatBody">#}
-{#                                    <p>Just Now</p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="chat unseen">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img3.jpeg" alt="">#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>Joseph</h4>#}
-{#                                </div>#}
-{#                                <div class="chatBody">#}
-{#                                    <p>45 Minutes age</p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <label>Viewed Updates</label>#}
-{#                        <div class="chat seen">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img4.jpeg" alt="">#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>Paul</h4>#}
-{#                                </div>#}
-{#                                <div class="chatBody">#}
-{#                                    <p>Yesterday 21:16</p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="chat seen">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img5.jpeg" alt="">#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>Jane</h4>#}
-{#                                </div>#}
-{#                                <div class="chatBody">#}
-{#                                    <p>Yesterday 01:16</p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="box calls">#}
-{#                    <div class="chatList">#}
-{#                        <div class="chat">#}
-{#                            <div class="avatar green">#}
-{#                                <ion-icon name="link"></ion-icon>#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>Create call link</h4>#}
-{##}
-{#                                </div>#}
-{#                                <div class="chatBody">#}
-{#                                    <p>Share a link for your WhatsApp call</p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <label>Recents</label>#}
-{#                        <div class="chat">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img4.jpeg" alt="">#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>Paul Johnson</h4>#}
-{#                                </div>#}
-{#                                <div class="chatBody incoming">#}
-{#                                    <p>#}
-{#                                        <ion-icon name="arrow-down"></ion-icon>08/11/2023, 21:15#}
-{#                                    </p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <ion-icon name="call" class="call"></ion-icon>#}
-{#                        </div>#}
-{#                        <div class="chat">#}
-{#                            <div class="avatar">#}
-{#                                <img src="img2.jpeg" alt="">#}
-{#                            </div>#}
-{#                            <div class="details">#}
-{#                                <div class="chatHeader">#}
-{#                                    <h4>Sarah</h4>#}
-{#                                </div>#}
-{#                                <div class="chatBody outgoing">#}
-{#                                    <p>#}
-{#                                        <ion-icon name="arrow-up"></ion-icon>08/05/2023, 12:00#}
-{#                                    </p>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <ion-icon name="call" class="call"></ion-icon>#}
-{##}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-            </div>
-            
-{#اینجا صفخه دوم رو میسازه           #}
-{#<div class="chatBox">#}
-{#    <div class="header">#}
-{#        <div class="imgContent">#}
-{#            <ion-icon name="arrow-back" class="back"></ion-icon>#}
-{#            <div class="imgBx">#}
-{#                <img src="img1.jpg">#}
-{#            </div>#}
-{#            <h3>Vahid Rahmanifard<br><span>Online</span></h3>#}
-{#        </div>#}
-{#        <div class="actionBtns">#}
-{#            <ion-icon name="videocam"></ion-icon>#}
-{#            <ion-icon name="call"></ion-icon>#}
-{#            <ion-icon name="ellipsis-vertical"></ion-icon>#}
-{#        </div>#}
-{#    </div>#}
-{#    <div class="messageBox">#}
-{#        <div class="message">How to make WhatsApp clone using html and css?<br><span class="time">10:19</span></div>#}
-{#        <div class="message">Please answer my question<br><span class="time">10:21</span></div>#}
-{#        <div class="otherMessage">It's so easy. You just need to follow this tutorial<br><span class="time">10:30</span></div>#}
-{#    </div>#}
-{#    <div class="messageInput">#}
-{#        <div class="input">#}
-{#            <ion-icon name="happy"></ion-icon>#}
-{#            <input type="text" placeholder="Message">#}
-{#            <ion-icon name="attach" class="deg45"></ion-icon>#}
-{#            <ion-icon name="camera"></ion-icon>#}
-{##}
-{#        </div>#}
-{#        <div class="mic">#}
-{#            <ion-icon name="mic"></ion-icon>#}
-{##}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-
+            </div>         
         </div>
+    </div>
+</form>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-        <script>
-            let radioList = document.querySelectorAll('input');
-            let underLine = document.querySelector('.underline');
-            let content = document.querySelector('.content');
-
-            function setIndex() {
-                const i = this.style.getPropertyValue('--i');
-                underLine.style.setProperty('--i', i);
-                content.style.setProperty('--i', i);
-            }
-
-            radioList.forEach((item) =>
-                item.addEventListener('click', setIndex))
-
-            let back = document.querySelector('.back');
-            let chatBox = document.querySelector('.chatBox');
-            let open = document.querySelector('.open');
-
-            back.onclick = function() {
-                chatBox.classList.add('hide');
-            }
-
-            open.onclick = function() {
-                chatBox.classList.remove('hide');
-            }
-
-        </script>
-
-
+        <script src="{% static "/js/watsapp.js" %}"></script>
 </body>
 
 </html>

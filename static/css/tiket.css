@@ -104,16 +104,6 @@ header .action a{
   background: #fff;
   transition: 0.5s;
 }
-/* .tabs input:nth-child(1):checked ~ .buttons .underline{
-  left: 0;
-}
-.tabs input:nth-child(2):checked ~ .buttons .underline{
-  left: 33.33%;
-}
-.tabs input:nth-child(3):checked ~ .buttons .underline{
-  left: 66.66%;
-} */
-
 .content{
   position: relative;
   width: calc(3 * 340px);
@@ -127,17 +117,13 @@ header .action a{
   width: 340px;
 }
 
-/* .tabs input:nth-child(1):checked ~ .content{
-  left: calc(340px * 0);
-}
-
 .tabs input:nth-child(2):checked ~ .content{
   left: calc(340px * -1);
 }
 
 .tabs input:nth-child(3):checked ~ .content{
   left: calc(340px * -2);
-} */
+}
 
 .tabs input:checked ~ .content{
   left: calc(-1 * var(--i) * 340px);
@@ -160,6 +146,8 @@ header .action a{
   gap: 10px;
   cursor: pointer;
   padding: 15px 10px;
+  border: none;
+  background-color: #fff;
 }
 
 .chatList .chat:hover{
@@ -256,7 +244,6 @@ header .action a{
   justify-content: center;
   align-items: center;
   color: #fff;
-  direction: 1.2em;
   font-weight: 700;
 }
 
