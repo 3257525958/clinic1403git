@@ -48,35 +48,51 @@
         <div class="imgContent">
             <ion-icon name="arrow-back" class="back"></ion-icon>
             <div class="imgBx">
-                <img src="img1.jpg">
+                <img src={% static "/img/user.jpg" %}>
             </div>
-            <h3>Vahid Rahmanifard<br><span>Online</span></h3>
+            <h3>{{ name }}<br><span>Online</span></h3>
         </div>
-        <div class="actionBtns">
-            <ion-icon name="videocam"></ion-icon>
-            <ion-icon name="call"></ion-icon>
-            <ion-icon name="ellipsis-vertical"></ion-icon>
-        </div>
+{#        <div class="actionBtns">#}
+{#            <ion-icon name="videocam"></ion-icon>#}
+{#            <ion-icon name="call"></ion-icon>#}
+{#            <ion-icon name="ellipsis-vertical"></ion-icon>#}
+{#        </div>#}
     </div>
     <div class="messageBox">
-        <div class="message">How to make WhatsApp clone using html and css?<br><span class="time">10:19</span></div>
-        <div class="message">Please answer my question<br><span class="time">10:21</span></div>
-        <div class="otherMessage">It's so easy. You just need to follow this tutorial<br><span class="time">10:30</span></div>
+        {% for message in chatlist %}
+            {%  if message.1 == "0" %}
+                {%  if message.4 == '0' %}
+                    <div class="onemessage">{{ message.2 }}<br><span class="time">{{ message.3}}</span></div>
+                {% endif %}    
+                {%  if message.4 == '1' %}
+                    <div class="message">{{ message.2 }}<br><span class="time">{{ message.3}}</span></div>
+                {% endif %}    
+            {% endif %}
+            {% if message.1 == "1"%}
+                {%  if message.4 == '0' %}
+                    <div class="oneotherMessage">{{ message.2 }}<br><span class="time">{{ message.3 }}</span></div>
+                {% endif %}    
+                {%  if message.4 == '1' %}
+                    <div class="otherMessage">{{ message.2 }}<br><span class="time">{{ message.3 }}</span></div>
+                {% endif %}    
+            {% endif %}
+        {% endfor %}
     </div>
     <div class="messageInput">
-        <div class="input">
-            <ion-icon name="happy"></ion-icon>
-            <input type="text" placeholder="Message">
-            <ion-icon name="attach" class="deg45"></ion-icon>
-            <ion-icon name="camera"></ion-icon>
+        <button class="mic" name="sendbtn" value="{{ melicode }}">
+            <ion-icon name="send" ></ion-icon>
 
-        </div>
-        <div class="mic">
-            <ion-icon name="mic"></ion-icon>
+        </button>
+        <div class="input">
+{#            <ion-icon name="happy" ></ion-icon>#}
+            <input type="text" placeholder="Message" name="textsend">
+{#            <ion-icon name="attach" class="deg45"></ion-icon>#}
+{#            <ion-icon name="camera"></ion-icon>#}
 
         </div>
     </div>
 </div>
+    <input name="melicodanswer" value="{{ melicode }}">
 </form>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

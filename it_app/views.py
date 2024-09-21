@@ -48,10 +48,30 @@ def sendmesaage(request):
                                 m = 'neterror'
     return render(request,'mesage_send.html')
 def tiketdef(request):
+    sendbtn = request.POST.get('sendbtn')
+    textsend = request.POST.get('textsend')
+    melicodanswer = request.POST.get('melicodanswer')
+    if (melicodanswer == None) or (melicodanswer == '') or ( melicodanswer == "None"):
+        melicodanswer = '0'
+    if (sendbtn != None) and (sendbtn != '') and (sendbtn != 'None')and (textsend != None) and (textsend != '') and (textsend != 'None') :
+        t = datetime.datetime.now()
+        mesaagemodel.objects.create(
+            melicod=sendbtn,
+            vaziyat="در انتظار پاسخ",
+            dateyear = stry(t),
+            datemuonth = strb(t),
+            dateday = stra(t),
+            dateweek = strd(t),
+            hour = t.strftime('%H'),
+            minute = t.strftime('%M'),
+            messagemethod = "مجازی",
+            sendermelicod = request.user.username,
+            textmessage = textsend,
+
+        )
+
     unreadbtn = request.POST.get('unreadbtn')
-    print(unreadbtn)
     readbtn = request.POST.get('readbtn')
-    print(readbtn)
     notphonnamberarray = ['']
     notphonnamberarray.clear()
     ms = mesaagemodel.objects.all()
@@ -116,12 +136,64 @@ def tiketdef(request):
                     ansphonnamberarray.append(mesaage.melicod)
 
 
+    melicodselet = ''
+    if melicodanswer == "0":
+        if (unreadbtn != None) and (unreadbtn != '') and (unreadbtn != 'None') :
+            melicodselet = notphonnamberarray[int(unreadbtn)]
+        if (readbtn != None) and (readbtn != '') and (readbtn != 'None') :
+            melicodselet = ansphonnamberarray[int(readbtn)]
+    else:
+        melicodselet = melicodanswer
+    if melicodselet != '':
+        name =''
+        users = accuntmodel.objects.all()
+        for user in users :
+            if int(user.melicode) == int(melicodselet) :
+                name = user.firstname + ' ' + user.lastname
+        ms = mesaagemodel.objects.all()
+        chatlist = ['']
+        chatlist.clear()
+        f = '0'
+        e = '0'
+        for mes in ms :
+            if int(mes.melicod) == int(melicodselet):
+                a = mesaagemodel.objects.filter(id=mes.id)
+                a.update(vaziyat="پاسخ داده شده")
+                if (mes.sendermelicod == '0') or (int(mes.sendermelicod) == int(melicodselet)) :
+                    array = ['']
+                    array.clear()
+                    array.append(mes.messagemethod)
+                    array.append('0')
+                    array.append(mes.textmessage)
+                    array.append(str(mes.hour) + ':' + str(mes.minute))
+                    array.append(f)
+                    chatlist.append(array)
+                    f = '1'
+                    e = '0'
+                else:
+                    array = ['']
+                    array.clear()
+                    array.append(mes.messagemethod)
+                    array.append('1')
+                    array.append(mes.textmessage)
+                    array.append(str(mes.hour) + ':' + str(mes.minute))
+                    array.append(e)
+                    chatlist.append(array)
+                    f = '0'
+                    e = '1'
+
+        return render(request,'chatbox.html',context={
+            'melicode':melicodselet,
+            'name':name,
+            'chatlist':chatlist,
+        })
+
+
 
     nananswer = ['']
     nananswer.clear()
     answer =['']
     answer.clear()
-
  # -------ارایه کامل پیامهای جدید----
     ms = mesaagemodel.objects.all()
     for meli in notphonnamberarray :
@@ -340,7 +412,6 @@ def tim(x):
                 for aaa in a :
                     # print(aaa[0])
                     if aaa[0] == "1" :
-                        print("qqqqqqqqqqqqqqqqqqqqqqqqqqq")
                         users = accuntmodel.objects.all()
                         for user in users:
                             if user.phonnumber == aaa[1] :
@@ -365,7 +436,6 @@ def tim(x):
                                         except HTTPException as e:
                                             m = 'neterror'
                     if aaa[0] == "2" :
-                        print("hhhhhhhhhhhhhhhhhhhh")
                         users = accuntmodel.objects.all()
                         for user in users:
                             if user.phonnumber == aaa[1] :
@@ -413,6 +483,6 @@ def tim(x):
 t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
-# t1.start()
-# t2.start()
-# t3.start()
+t1.start()
+t2.start()
+t3.start()
