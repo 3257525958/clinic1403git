@@ -337,28 +337,30 @@ def itdeletcontrol(request):
 def tim(x):
     if x == '1' :
         def tavalod_tabrik():
-            users = accuntmodel.objects.all()
-            t = datetime.datetime.now()
-            for user in users:
-                if (user.mountb == strb(t)) and (user.dayb == strd(t)):
-                    name = user.firstname + ' ' + user.lastname
-                    smstext = 'سلام' + ' ' + name + ' ' + 'عزیز' + '\n' + "زادروز تولدتان مبارک"+'\n'+'مفتخریم تا با هدیه ای هر چند کوچک در این مناسبت فرخنده در کنار شما باشیم'+'\n'+'برای دریافت هدیه عدد 3 را به همین سامانه ارسال فرمایید'+'\n'+'مطب دکتر اسدپور'+'\n'+'لغو 11'
-                    try:
-                        api = KavenegarAPI(
-                            '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-                        params = {
-                            'sender': '9982003178',  # optional
-                            'receptor': user.phonnumber,  # multiple mobile number, split by comma
-                            'message': smstext,
-                        }
-                        response = api.sms_send(params)
-                        # return render(request, 'code_cantact.html')
-                    except APIException as e:
-                        m = 'tellerror'
-                    except HTTPException as e:
-                        m = 'neterror'
+            try:
+                users = accuntmodel.objects.all()
+                t = datetime.datetime.now()
+                for user in users:
+                    if (user.mountb == strb(t)) and (user.dayb == strd(t)):
+                        name = user.firstname + ' ' + user.lastname
+                        smstext = 'سلام' + ' ' + name + ' ' + 'عزیز' + '\n' + "زادروز تولدتان مبارک"+'\n'+'مفتخریم تا با هدیه ای هر چند کوچک در این مناسبت فرخنده در کنار شما باشیم'+'\n'+'برای دریافت هدیه عدد 3 را به همین سامانه ارسال فرمایید'+'\n'+'مطب دکتر اسدپور'+'\n'+'لغو 11'
+                        try:
+                            api = KavenegarAPI(
+                                '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                            params = {
+                                'sender': '9982003178',  # optional
+                                'receptor': user.phonnumber,  # multiple mobile number, split by comma
+                                'message': smstext,
+                            }
+                            response = api.sms_send(params)
+                            # return render(request, 'code_cantact.html')
+                        except APIException as e:
+                            m = 'tellerror'
+                        except HTTPException as e:
+                            m = 'neterror'
 
-
+            except:
+                print("not net")
         # Schedule the message to be sent at midnight
         schedule.every().day.at("00:00").do(tavalod_tabrik)
         # schedule.every(5).seconds.do(tavalod_tabrik)
@@ -367,30 +369,33 @@ def tim(x):
             time.sleep(1)
     if x == '2' :
         def yadavari_vaghtfarda():
-            t = datetime.datetime.now()
-            t += timedelta(days=1)
-            rs = reservemodel.objects.all()
-            for r in rs:
-                if t.strftime('%a %d %b %y') == r.datemiladireserv :
-                    users = accuntmodel.objects.all()
-                    for user in users:
-                        if int(user.melicode) == int(r.melicod) :
-                            name = user.firstname + ' '+ user.lastname
-                            smstext = 'سلام'+' '+name+' '+'عزیز'+'\n'+'شما فردا'+' '+r.dateshamsireserv+' '+'ساعت'+' '+r.hourreserv+' '+'برای'+' '+r.jobreserv+' '+r.detalereserv+' '+'وقت رزرو شده دارید'+' '+' برای تایید عدد 1 و برای لغو وقتتان عدد 2 را به همین سامانه پیامک نمایید همچنین برای تغییر وقت یا موارد دیگر میتوانید در همین سامانه پیام دهید'+'\n'+'مطب دکتر اسدپور'+'\n'+'\n'+'\n'+'لغو ارسال پیامک 11'
-                            try:
-                                api = KavenegarAPI(
-                                    '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-                                params = {
-                                    'sender': '9982003178',  # optional
-                                    'receptor': user.phonnumber,  # multiple mobile number, split by comma
-                                    'message':smstext,
-                                }
-                                response = api.sms_send(params)
-                                # return render(request, 'code_cantact.html')
-                            except APIException as e:
-                                m = 'tellerror'
-                            except HTTPException as e:
-                                m = 'neterror'
+            try:
+                t = datetime.datetime.now()
+                t += timedelta(days=1)
+                rs = reservemodel.objects.all()
+                for r in rs:
+                    if t.strftime('%a %d %b %y') == r.datemiladireserv :
+                        users = accuntmodel.objects.all()
+                        for user in users:
+                            if int(user.melicode) == int(r.melicod) :
+                                name = user.firstname + ' '+ user.lastname
+                                smstext = 'سلام'+' '+name+' '+'عزیز'+'\n'+'شما فردا'+' '+r.dateshamsireserv+' '+'ساعت'+' '+r.hourreserv+' '+'برای'+' '+r.jobreserv+' '+r.detalereserv+' '+'وقت رزرو شده دارید'+' '+' برای تایید عدد 1 و برای لغو وقتتان عدد 2 را به همین سامانه پیامک نمایید همچنین برای تغییر وقت یا موارد دیگر میتوانید در همین سامانه پیام دهید'+'\n'+'مطب دکتر اسدپور'+'\n'+'\n'+'\n'+'لغو ارسال پیامک 11'
+                                try:
+                                    api = KavenegarAPI(
+                                        '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                                    params = {
+                                        'sender': '9982003178',  # optional
+                                        'receptor': user.phonnumber,  # multiple mobile number, split by comma
+                                        'message':smstext,
+                                    }
+                                    response = api.sms_send(params)
+                                    # return render(request, 'code_cantact.html')
+                                except APIException as e:
+                                    m = 'tellerror'
+                                except HTTPException as e:
+                                    m = 'neterror'
+            except:
+                print("not net")
         # Schedule the message to be sent at midnight
         schedule.every().day.at("08:30").do(yadavari_vaghtfarda)
         # schedule.every(20).seconds.do(yadavari_vaghtfarda)
@@ -399,88 +404,90 @@ def tim(x):
             time.sleep(1)
     if x == '3':
         def savemesaage():
-            res = requests.post("https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json?linenumber=9982003178&isread=0")
-            r = res.json()
-            a = ['']
-            a.clear()
-            if 1 == 1:
-                for i in range(len(r["entries"])):
-                    ba = ['']
-                    ba.clear()
-                    ba.append(str(r["entries"][i]['message']))
-                    ba.append(str(r["entries"][i]["sender"]))
-                    ba.append((str(r["entries"][i]["date"])))
-                    a.append(ba)
-                t = datetime.datetime.now()
-                t += timedelta(days=1)
-                for aaa in a :
-                    # print(aaa[0])
-                    if aaa[0] == "1" :
-                        users = accuntmodel.objects.all()
-                        for user in users:
-                            if user.phonnumber == aaa[1] :
-                                rs = reservemodel.objects.all()
-                                for r in rs:
-                                    if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.melicod == user.melicode):
-                                        re =reservemodel.objects.filter(datemiladireserv=t.strftime('%a %d %b %y'),melicod=user.melicode)
-                                        re.update(vaziyatereserv='قطعی')
-                                        name = user.firstname + ' ' + user.lastname
-                                        smstext =name + ' ' + 'عزیز' + '\n' + 'رزرو شما قطعی شد'+ '\n' +'با تشکر'+ 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
-                                        try:
-                                            api = KavenegarAPI(
-                                                '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-                                            params = {
-                                                'sender': '9982003178',  # optional
-                                                'receptor': user.phonnumber,  # multiple mobile number, split by comma
-                                                'message': smstext,
-                                            }
-                                            response = api.sms_send(params)
-                                        except APIException as e:
-                                            m = 'tellerror'
-                                        except HTTPException as e:
-                                            m = 'neterror'
-                    if aaa[0] == "2" :
-                        users = accuntmodel.objects.all()
-                        for user in users:
-                            if user.phonnumber == aaa[1] :
-                                rs = reservemodel.objects.all()
-                                for r in rs:
-                                    if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.melicod == user.melicode):
-                                        re =reservemodel.objects.filter(datemiladireserv=t.strftime('%a %d %b %y'),melicod=user.melicode)
-                                        re.update(vaziyatereserv='کنسل')
-                                        name = user.firstname + ' ' + user.lastname
-                                        smstext =name + ' ' + 'عزیز' + '\n' + 'رزرو شما کنسل شد همکاران برای هماهنگی با شما تماس خواهند گرفت'+ '\n' +'با تشکر'+ 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
-                                        try:
-                                            api = KavenegarAPI(
-                                                '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-                                            params = {
-                                                'sender': '9982003178',  # optional
-                                                'receptor': user.phonnumber,  # multiple mobile number, split by comma
-                                                'message': smstext,
-                                            }
-                                            response = api.sms_send(params)
-                                        except APIException as e:
-                                            m = 'tellerror'
-                                        except HTTPException as e:
-                                            m = 'neterror'
-                    if (aaa[0] != "2") and (aaa[0] != "1") and (aaa[0] != "11"):
-                        users = accuntmodel.objects.all()
-                        for user in users:
-                            if int(user.phonnumber) == int(aaa[1]) :
-                                t = datetime.datetime.now()
-                                mesaagemodel.objects.create(
-                                    melicod=user.melicode,
-                                    dateyear =stry(t),
-                                    datemuonth =strb(t),
-                                    dateday =stra(t),
-                                    textmessage = aaa[0],
-                                    dateweek= strd(t),
-                                    hour = t.strftime('%H'),
-                                    minute = t.strftime('%M'),
-                                    messagemethod =t.strftime('%S'),
-                                    sendermelicod=user.melicode,
-                                )
-
+            try:
+                res = requests.post("https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json?linenumber=9982003178&isread=0")
+                r = res.json()
+                a = ['']
+                a.clear()
+                if 1 == 1:
+                    for i in range(len(r["entries"])):
+                        ba = ['']
+                        ba.clear()
+                        ba.append(str(r["entries"][i]['message']))
+                        ba.append(str(r["entries"][i]["sender"]))
+                        ba.append((str(r["entries"][i]["date"])))
+                        a.append(ba)
+                    t = datetime.datetime.now()
+                    t += timedelta(days=1)
+                    for aaa in a :
+                        # print(aaa[0])
+                        if aaa[0] == "1" :
+                            users = accuntmodel.objects.all()
+                            for user in users:
+                                if user.phonnumber == aaa[1] :
+                                    rs = reservemodel.objects.all()
+                                    for r in rs:
+                                        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.melicod == user.melicode):
+                                            re =reservemodel.objects.filter(datemiladireserv=t.strftime('%a %d %b %y'),melicod=user.melicode)
+                                            re.update(vaziyatereserv='قطعی')
+                                            name = user.firstname + ' ' + user.lastname
+                                            smstext =name + ' ' + 'عزیز' + '\n' + 'رزرو شما قطعی شد'+ '\n' +'با تشکر'+ 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+                                            try:
+                                                api = KavenegarAPI(
+                                                    '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                                                params = {
+                                                    'sender': '9982003178',  # optional
+                                                    'receptor': user.phonnumber,  # multiple mobile number, split by comma
+                                                    'message': smstext,
+                                                }
+                                                response = api.sms_send(params)
+                                            except APIException as e:
+                                                m = 'tellerror'
+                                            except HTTPException as e:
+                                                m = 'neterror'
+                        if aaa[0] == "2" :
+                            users = accuntmodel.objects.all()
+                            for user in users:
+                                if user.phonnumber == aaa[1] :
+                                    rs = reservemodel.objects.all()
+                                    for r in rs:
+                                        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.melicod == user.melicode):
+                                            re =reservemodel.objects.filter(datemiladireserv=t.strftime('%a %d %b %y'),melicod=user.melicode)
+                                            re.update(vaziyatereserv='کنسل')
+                                            name = user.firstname + ' ' + user.lastname
+                                            smstext =name + ' ' + 'عزیز' + '\n' + 'رزرو شما کنسل شد همکاران برای هماهنگی با شما تماس خواهند گرفت'+ '\n' +'با تشکر'+ 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+                                            try:
+                                                api = KavenegarAPI(
+                                                    '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                                                params = {
+                                                    'sender': '9982003178',  # optional
+                                                    'receptor': user.phonnumber,  # multiple mobile number, split by comma
+                                                    'message': smstext,
+                                                }
+                                                response = api.sms_send(params)
+                                            except APIException as e:
+                                                m = 'tellerror'
+                                            except HTTPException as e:
+                                                m = 'neterror'
+                        if (aaa[0] != "2") and (aaa[0] != "1") and (aaa[0] != "11"):
+                            users = accuntmodel.objects.all()
+                            for user in users:
+                                if int(user.phonnumber) == int(aaa[1]) :
+                                    t = datetime.datetime.now()
+                                    mesaagemodel.objects.create(
+                                        melicod=user.melicode,
+                                        dateyear =stry(t),
+                                        datemuonth =strb(t),
+                                        dateday =stra(t),
+                                        textmessage = aaa[0],
+                                        dateweek= strd(t),
+                                        hour = t.strftime('%H'),
+                                        minute = t.strftime('%M'),
+                                        messagemethod =t.strftime('%S'),
+                                        sendermelicod=user.melicode,
+                                    )
+            except:
+                print("not net")
         schedule.every(10).seconds.do(savemesaage)
         while True:
             schedule.run_pending()

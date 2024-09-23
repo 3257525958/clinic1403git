@@ -27,6 +27,7 @@ var m22 = document.getElementById("m22");
 var m24 = document.getElementById("m24");
 var m25 =document.getElementById("m25");
 var m26 =document.getElementById("m26");
+var m27 =document.getElementById("m26");
 
 // var m33 = document.getElementById("m33");
 // var m44 = document.getElementById("m44");
@@ -52,6 +53,7 @@ var m2323 = document.getElementById("m2323");
 var m2424 = document.getElementById('m2424');
 var m2525 = document.getElementById("m2525");
 var m2626 = document.getElementById("m2626");
+var m2727 = document.getElementById("m2626");
 
 var l = document.getElementById("loglevel").innerHTML;
     if ( l == "مدیر");{
@@ -81,6 +83,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m24.hidden = false;
         m25.hidden = false;
         m26.hidden = false;
+        m27.hidden = false;
 
 
         m11.hidden = false;
@@ -109,6 +112,7 @@ var l = document.getElementById("loglevel").innerHTML;
         m2424.hidden = false;
         m2525.hidden = false;
         m2626.hidden = false;
+        m2727.hidden = false;
     }
     if ( l == "تولید محتوا") {
                         m1.hidden = false;
@@ -308,6 +312,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m24.hidden = true;
                         m25.hidden = true;
                         m26.hidden = true;
+                        m27.hidden = true;
 
                         m11.hidden = false;
                         m22.hidden = true;
@@ -335,6 +340,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m2424.hidden = true;
                         m2525.hidden = true;
                         m2626.hidden = true;
+                        m2727.hidden = true;
                     }
                 }
             }

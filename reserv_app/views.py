@@ -11,6 +11,8 @@ from cantact_app.models import accuntmodel
 from file_app.models import *
 from accountancy_app.models import *
 from kavenegar import *
+import random
+
 ww = ['t']
 shamsiarray = ['t']
 miladiarray = ['t']
@@ -1125,6 +1127,27 @@ def reserverdef(request):
             vahed = vahed,
             idwork=detalework,
         )
+        nam = ''
+        users = accuntmodel.objects.all()
+        for user in users:
+            if int(user.melicode) == int(melicode) :
+                nam = user.firstname + ' ' + user.lastname
+                r = random.randint(1000, 9999)
+                smstext = nam + ' ' + 'عزیز' + '\n' + 'خدمت' +' ' + jobreserv + ' ' + detalereserv +' '+'در روز'+' ' +stradb(tm)+ ' ' + 'ساعت'+' '+s+' '+' برای شما رزرو گردید'+'\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n'+ 'کد ثبت دفتر:'+' '+str(r)+'\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+                try:
+                    api = KavenegarAPI(
+                        '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                    params = {
+                        'sender': '9982003178',  # optional
+                        'receptor': user.phonnumber,  # multiple mobile number, split by comma
+                        'message': smstext,
+                    }
+                    response = api.sms_send(params)
+                except APIException as e:
+                    m = 'tellerror'
+                except HTTPException as e:
+                    m = 'neterror'
+
         tcheck = datetime.datetime.now()
         etebartime = 'false'
         for i in range(400):
@@ -1822,7 +1845,6 @@ def reservdasti(request):
             vahed=vahed,
             idwork=detalework,
         )
-
 
     return render(request,'reserv_dasti.html',context={
         'jobs':jobarray,
