@@ -100,7 +100,7 @@ def tiketdef(request):
         masli[x] = m3
     for m2 in masli :
         for mesaage in ms:
-            if (mesaage.vaziyat == "در انتظار پاسخ") and (int(mesaage.id) == int(m2)):
+            if (mesaage.vaziyat == "در انتظار پاسخ") and (int(mesaage.id) == int(m2)) and (int(mesaage.melicod) != int(request.user.username)):
                 a = 0
                 for namber in notphonnamberarray:
                     if namber == mesaage.melicod:
@@ -127,7 +127,7 @@ def tiketdef(request):
         masli[x] = m3
     for m2 in masli :
         for mesaage in ms:
-            if (mesaage.vaziyat == "پاسخ داده شده") and (int(mesaage.id) == int(m2)):
+            if (mesaage.vaziyat == "پاسخ داده شده") and (int(mesaage.id) == int(m2)) and (int(mesaage.melicod) != int(request.user.username)) :
                 b = 0
                 for r in notphonnamberarray:
                     if r == mesaage.melicod :

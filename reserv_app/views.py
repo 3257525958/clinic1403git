@@ -12,7 +12,6 @@ from file_app.models import *
 from accountancy_app.models import *
 from kavenegar import *
 import random
-
 ww = ['t']
 shamsiarray = ['t']
 miladiarray = ['t']
