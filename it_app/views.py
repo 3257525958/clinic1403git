@@ -139,6 +139,22 @@ def tiketdef(request):
                 if (a == 0) and (b == 0) :
                     ansphonnamberarray.append(mesaage.melicod)
 # ------------------------
+    ms = mesaagemodel.objects.all()
+    m1 = ['']
+    m1.clear()
+    masli = ['']
+    masli.clear()
+    for m2 in ms :
+        m1.append(m2.id)
+        masli.append(0)
+    m5 = m1
+    for m3 in m1 :
+        x = 0
+        for m4 in m5:
+            if m3 < m4 :
+                x+=1
+        masli[x] = m3
+
     melicodselet = ''
     # if melicodanswer == "0":
     if melicodanswer == request.user.username:
@@ -154,38 +170,40 @@ def tiketdef(request):
         for user in users :
             if int(user.melicode) == int(melicodselet) :
                 name = user.firstname + ' ' + user.lastname
+
         ms = mesaagemodel.objects.all()
         chatlist = ['']
         chatlist.clear()
         f = '0'
         e = '0'
-        for mes in ms :
-            if int(mes.melicod) == int(melicodselet):
-                a = mesaagemodel.objects.filter(id=mes.id)
-                a.update(vaziyat="پاسخ داده شده")
-                # if (mes.sendermelicod == '0') or (int(mes.sendermelicod) == int(melicodselet)) :
-                if int(mes.sendermelicod) != int(request.user.username):
-                    array = ['']
-                    array.clear()
-                    array.append(mes.messagemethod)
-                    array.append('0')
-                    array.append(mes.textmessage)
-                    array.append(str(mes.hour) + ':' + str(mes.minute))
-                    array.append(f)
-                    chatlist.append(array)
-                    f = '1'
-                    e = '0'
-                else:
-                    array = ['']
-                    array.clear()
-                    array.append(mes.messagemethod)
-                    array.append('1')
-                    array.append(mes.textmessage)
-                    array.append(str(mes.hour) + ':' + str(mes.minute))
-                    array.append(e)
-                    chatlist.append(array)
-                    f = '0'
-                    e = '1'
+
+        for mm in masli:
+            for m in ms :
+                if int(m.id) == int(mm) :
+                    a = mesaagemodel.objects.filter(id=m.id)
+                    a.update(vaziyat="پاسخ داده شده")
+                    if int(m.sendermelicod) != int(request.user.username):
+                        array = ['']
+                        array.clear()
+                        array.append(m.messagemethod)
+                        array.append('0')
+                        array.append(m.textmessage)
+                        array.append(str(m.hour) + ':' + str(m.minute))
+                        array.append(f)
+                        chatlist.append(array)
+                        f = '1'
+                        e = '0'
+                    else:
+                        array = ['']
+                        array.clear()
+                        array.append(m.messagemethod)
+                        array.append('1')
+                        array.append(m.textmessage)
+                        array.append(str(m.hour) + ':' + str(m.minute))
+                        array.append(e)
+                        chatlist.append(array)
+                        f = '0'
+                        e = '1'
         chatlist.reverse()
         return render(request,'chatbox.html',context={
             'melicode':melicodselet,
@@ -484,7 +502,7 @@ def tim(x):
                                         hour = t.strftime('%H'),
                                         minute = t.strftime('%M'),
                                         messagemethod =t.strftime('%S'),
-                                        sendermelicod=user.melicode,
+                                        sendermelicod="2259640788",
                                     )
             except:
                 print("not net")
@@ -495,6 +513,6 @@ def tim(x):
 t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
-t1.start()
-t2.start()
-t3.start()
+# t1.start()
+# t2.start()
+# t3.start()

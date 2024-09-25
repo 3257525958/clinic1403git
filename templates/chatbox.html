@@ -13,8 +13,7 @@
 <body>
 <form action="" class="nametable" method="POST">
 {% csrf_token %}
-
-    <div class="container">
+<div class="container">
         <header>
             <a href="#" class="logo">پیام رسان مجازی مطب دکتر اسدپور</a>
 {#            عکس دوربین و سه نقطه و سرچ بالای صفحه0#}
@@ -81,7 +80,6 @@
     <div class="messageInput">
         <button class="mic" name="sendbtn" value="{{ melicode }}">
             <ion-icon name="send" ></ion-icon>
-
         </button>
         <div class="input">
 {#            <ion-icon name="happy" ></ion-icon>#}
@@ -92,7 +90,8 @@
         </div>
     </div>
 </div>
-    <input name="melicodanswer" value="{{ melicode }}">
+</div>
+    <input name="melicodanswer" value="{{ melicode }}"hidden="">
 </form>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
