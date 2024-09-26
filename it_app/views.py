@@ -61,7 +61,7 @@ def tiketdef(request):
     if (sendbtn != None) and (sendbtn != '') and (sendbtn != 'None')and (textsend != None) and (textsend != '') and (textsend != 'None') :
         t = datetime.datetime.now()
         mesaagemodel.objects.create(
-            melicod=sendbtn,
+            recivermelicod=sendbtn,
             vaziyat="در انتظار پاسخ",
             dateyear = stry(t),
             datemuonth = strb(t),
@@ -70,7 +70,7 @@ def tiketdef(request):
             hour = t.strftime('%H'),
             minute = t.strftime('%M'),
             messagemethod = "مجازی",
-            sendermelicod = request.user.username,
+            sendermelicod = melicodanswer,
             textmessage = textsend,
 
         )
@@ -100,13 +100,13 @@ def tiketdef(request):
         masli[x] = m3
     for m2 in masli :
         for mesaage in ms:
-            if (mesaage.vaziyat == "در انتظار پاسخ") and (int(mesaage.id) == int(m2)) and (int(mesaage.melicod) != int(request.user.username)):
+            if (mesaage.vaziyat == "در انتظار پاسخ") and (int(mesaage.id) == int(m2)) and (int(mesaage.sendermelicod) != int(request.user.username)):
                 a = 0
                 for namber in notphonnamberarray:
-                    if namber == mesaage.melicod:
+                    if namber == mesaage.sendermelicod:
                         a = 1
                 if a == 0 :
-                    notphonnamberarray.append(mesaage.melicod)
+                    notphonnamberarray.append(mesaage.sendermelicod)
 
 
 # -----ساخت ارایه پیامهای قدیم--
@@ -127,17 +127,17 @@ def tiketdef(request):
         masli[x] = m3
     for m2 in masli :
         for mesaage in ms:
-            if (mesaage.vaziyat == "پاسخ داده شده") and (int(mesaage.id) == int(m2)) and (int(mesaage.melicod) != int(request.user.username)) :
+            if (mesaage.vaziyat == "پاسخ داده شده") and (int(mesaage.id) == int(m2))  :
                 b = 0
                 for r in notphonnamberarray:
-                    if r == mesaage.melicod :
+                    if r == mesaage.sendermelicod :
                         b = 1
                 a = 0
                 for namber in ansphonnamberarray:
-                    if namber == mesaage.melicod:
+                    if namber == mesaage.sendermelicod:
                         a = 1
                 if (a == 0) and (b == 0) :
-                    ansphonnamberarray.append(mesaage.melicod)
+                    ansphonnamberarray.append(mesaage.sendermelicod)
 # ------------------------
     ms = mesaagemodel.objects.all()
     m1 = ['']
@@ -180,30 +180,31 @@ def tiketdef(request):
         for mm in masli:
             for m in ms :
                 if int(m.id) == int(mm) :
-                    a = mesaagemodel.objects.filter(id=m.id)
-                    a.update(vaziyat="پاسخ داده شده")
-                    if int(m.sendermelicod) != int(request.user.username):
-                        array = ['']
-                        array.clear()
-                        array.append(m.messagemethod)
-                        array.append('0')
-                        array.append(m.textmessage)
-                        array.append(str(m.hour) + ':' + str(m.minute))
-                        array.append(f)
-                        chatlist.append(array)
-                        f = '1'
-                        e = '0'
-                    else:
-                        array = ['']
-                        array.clear()
-                        array.append(m.messagemethod)
-                        array.append('1')
-                        array.append(m.textmessage)
-                        array.append(str(m.hour) + ':' + str(m.minute))
-                        array.append(e)
-                        chatlist.append(array)
-                        f = '0'
-                        e = '1'
+                    if (int(m.recivermelicod) == int(request.user.username) or int(m.sendermelicod) == int(request.user.username)) :
+                        a = mesaagemodel.objects.filter(id=m.id)
+                        a.update(vaziyat="پاسخ داده شده")
+                        if int(m.sendermelicod) == int(request.user.username):
+                            array = ['']
+                            array.clear()
+                            array.append(m.messagemethod)
+                            array.append('0')
+                            array.append(m.textmessage)
+                            array.append(str(m.hour) + ':' + str(m.minute))
+                            array.append(f)
+                            chatlist.append(array)
+                            f = '1'
+                            e = '0'
+                        if int(m.recivermelicod) == int(request.user.username) :
+                            array = ['']
+                            array.clear()
+                            array.append(m.messagemethod)
+                            array.append('1')
+                            array.append(m.textmessage)
+                            array.append(str(m.hour) + ':' + str(m.minute))
+                            array.append(e)
+                            chatlist.append(array)
+                            f = '0'
+                            e = '1'
         chatlist.reverse()
         return render(request,'chatbox.html',context={
             'melicode':melicodselet,
@@ -231,10 +232,10 @@ def tiketdef(request):
             if user.melicode == meli :
                 name = user.firstname + ' ' + user.lastname
         for mesage in ms :
-            if (mesage.vaziyat == "در انتظار پاسخ") and (mesage.melicod == meli) :
+            if (mesage.vaziyat == "در انتظار پاسخ") and (mesage.sendermelicod == meli) :
                 messagenamber += 1
         for mes in ms :
-            if (mes.melicod == meli) and (mes.vaziyat == "در انتظار پاسخ") :
+            if (mes.sendermelicod == meli) and (mes.vaziyat == "در انتظار پاسخ") :
                 mestext = mes.textmessage
                 date = str(mes.hour) + ':' + str(mes.minute)
                 break
@@ -258,7 +259,7 @@ def tiketdef(request):
             if user.melicode == meli:
                 name = user.firstname + ' ' + user.lastname
         for mes in ms:
-            if (mes.melicod == meli) and (mes.vaziyat == "پاسخ داده شده"):
+            if (mes.sendermelicod == meli) and (mes.vaziyat == "پاسخ داده شده"):
                 mestext = mes.textmessage
                 date = str(mes.hour) + ':' + str(mes.minute)
                 break
@@ -493,7 +494,7 @@ def tim(x):
                                 if int(user.phonnumber) == int(aaa[1]) :
                                     t = datetime.datetime.now()
                                     mesaagemodel.objects.create(
-                                        melicod=user.melicode,
+                                        recivermelicod='2259640788',
                                         dateyear =stry(t),
                                         datemuonth =strb(t),
                                         dateday =stra(t),
@@ -502,7 +503,7 @@ def tim(x):
                                         hour = t.strftime('%H'),
                                         minute = t.strftime('%M'),
                                         messagemethod =t.strftime('%S'),
-                                        sendermelicod="2259640788",
+                                        sendermelicod=user.melicode,
                                     )
             except:
                 print("not net")
@@ -513,6 +514,6 @@ def tim(x):
 t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
-t1.start()
-t2.start()
-t3.start()
+# t1.start()
+# t2.start()
+# t3.start()

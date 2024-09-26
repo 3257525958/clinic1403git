@@ -9,7 +9,7 @@ class mesaagetextmodel(models.Model):
 
 
 class mesaagemodel(models.Model):
-    melicod = models.CharField(max_length=11,default="0")
+    recivermelicod = models.CharField(max_length=11,default="0")
     vaziyat = models.CharField(max_length=30,default="در انتظار پاسخ")
     dateweek = models.CharField(max_length=11,default="0")
     dateyear = models.CharField(max_length=100,default="0")
@@ -22,7 +22,7 @@ class mesaagemodel(models.Model):
     textmessage = models.TextField(max_length=1000000,default="0")
 
     def __str__(self):
-        return f"{self.melicod}"
+        return f"{self.sendermelicod}"
 
 
 class homeimgmodel(models.Model):
