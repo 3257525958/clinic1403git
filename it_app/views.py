@@ -54,6 +54,7 @@ def tiketdef(request):
     unreadbtn = request.POST.get('unreadbtn')
     readbtn = request.POST.get('readbtn')
 
+
     # ---وقتی پیامی در فضای مجازی پیام بدهیم اینجا با این کد ملی ثبت نام میشه----
     if (melicodanswer == None) or (melicodanswer == '') or ( melicodanswer == "None"):
         # melicodanswer = '0'
@@ -75,14 +76,12 @@ def tiketdef(request):
 
         )
 
-
-#در این ارایه ها درست میشن دز این ارایه ها بر اساس زمان از آخر به اول کد ملی ها ردف میشه -------------------ساخت ارایه پیامهای جدید
     notphonnamberarray = ['']
     notphonnamberarray.clear()
-    ms = mesaagemodel.objects.all()
     ansphonnamberarray = ['']
     ansphonnamberarray.clear()
 
+    # --مرتب کردن پیامها به ترتیب ثبت----
     ms = mesaagemodel.objects.all()
     m1 = ['']
     m1.clear()
@@ -98,72 +97,52 @@ def tiketdef(request):
             if m3 < m4 :
                 x+=1
         masli[x] = m3
-    for m2 in masli :
+
+    # در این ارایه ها درست میشن دز این ارایه ها بر اساس زمان از آخر به اول کد ملی ها ردف میشه -------------------ساخت ارایه پیامهای جدید
+
+    for i in range(int(len(masli))):
         for mesaage in ms:
-            if (mesaage.vaziyat == "در انتظار پاسخ") and (int(mesaage.id) == int(m2)) and (int(mesaage.sendermelicod) != int(request.user.username)):
-                a = 0
-                for namber in notphonnamberarray:
-                    if namber == mesaage.sendermelicod:
-                        a = 1
-                if a == 0 :
-                    notphonnamberarray.append(mesaage.sendermelicod)
+            if int(mesaage.id) == int(masli[i]) :
+                rul = 'true'
+                if (int(mesaage.recivermelicod) != int(request.user.username)) and (int(mesaage.sendermelicod) != int(request.user.username)):
+                    rul = 'false'
+                if (mesaage.vaziyat == "در انتظار پاسخ") and (rul == 'true'):
+                    a = 0
+                    for namber in notphonnamberarray:
+                        if namber == mesaage.sendermelicod:
+                            a = 1
+                    if a == 0 :
+                        notphonnamberarray.append(mesaage.sendermelicod)
 
 
 # -----ساخت ارایه پیامهای قدیم--
-    ms = mesaagemodel.objects.all()
-    m1 = ['']
-    m1.clear()
-    masli = ['']
-    masli.clear()
-    for m2 in ms :
-        m1.append(m2.id)
-        masli.append(0)
-    m5 = m1
-    for m3 in m1 :
-        x = 0
-        for m4 in m5:
-            if m3 < m4 :
-                x+=1
-        masli[x] = m3
-    for m2 in masli :
+    for i in range(int(len(masli))):
         for mesaage in ms:
-            if (mesaage.vaziyat == "پاسخ داده شده") and (int(mesaage.id) == int(m2))  :
-                b = 0
-                for r in notphonnamberarray:
-                    if r == mesaage.sendermelicod :
-                        b = 1
-                a = 0
-                for namber in ansphonnamberarray:
-                    if namber == mesaage.sendermelicod:
-                        a = 1
-                if (a == 0) and (b == 0) :
-                    ansphonnamberarray.append(mesaage.sendermelicod)
+            if int(mesaage.id) == int(masli[i]) :
+                rul = 'true'
+                if (int(mesaage.recivermelicod) != int(request.user.username)) and (int(mesaage.sendermelicod) != int(request.user.username)):
+                    rul = 'false'
+                if (mesaage.vaziyat == "پاسخ داده شده") and (rul == 'true')  :
+                    b = 0
+                    for r in notphonnamberarray:
+                        if r == mesaage.sendermelicod :
+                            b = 1
+                    a = 0
+                    for namber in ansphonnamberarray:
+                        if namber == mesaage.sendermelicod:
+                            a = 1
+                    if (a == 0) and (b == 0) :
+                        ansphonnamberarray.append(mesaage.sendermelicod)
 # ------------------------
-    ms = mesaagemodel.objects.all()
-    m1 = ['']
-    m1.clear()
-    masli = ['']
-    masli.clear()
-    for m2 in ms :
-        m1.append(m2.id)
-        masli.append(0)
-    m5 = m1
-    for m3 in m1 :
-        x = 0
-        for m4 in m5:
-            if m3 < m4 :
-                x+=1
-        masli[x] = m3
 
     melicodselet = ''
     # if melicodanswer == "0":
-    if melicodanswer == request.user.username:
-        if (unreadbtn != None) and (unreadbtn != '') and (unreadbtn != 'None') :
-            melicodselet = notphonnamberarray[int(unreadbtn)]
-        if (readbtn != None) and (readbtn != '') and (readbtn != 'None') :
-            melicodselet = ansphonnamberarray[int(readbtn)]
-    else:
-        melicodselet = melicodanswer
+    if (unreadbtn != None) and (unreadbtn != '') and (unreadbtn != 'None') :
+        melicodselet = notphonnamberarray[int(unreadbtn)]
+    if (readbtn != None) and (readbtn != '') and (readbtn != 'None') :
+        melicodselet = ansphonnamberarray[int(readbtn)]
+
+    print(melicodselet)
     if melicodselet != '':
         name =''
         users = accuntmodel.objects.all()
@@ -177,13 +156,18 @@ def tiketdef(request):
         f = '0'
         e = '0'
 
-        for mm in masli:
+        for i in range(int(len(masli))):
             for m in ms :
-                if int(m.id) == int(mm) :
-                    if (int(m.recivermelicod) == int(request.user.username) or int(m.sendermelicod) == int(request.user.username)) :
+                if int(m.id) == int(masli[i]) :
+                    messagerul = ''
+                    if (int(m.recivermelicod) == int(request.user.username)) and (int(m.sendermelicod) == int(melicodselet)) :
+                        messagerul = 'reciver'
+                    if (int(m.sendermelicod) == int(request.user.username)) and (int(m.recivermelicod) == int(melicodselet)) :
+                        messagerul = 'sender'
+                    if messagerul != '':
                         a = mesaagemodel.objects.filter(id=m.id)
                         a.update(vaziyat="پاسخ داده شده")
-                        if int(m.sendermelicod) == int(request.user.username):
+                        if messagerul == 'reciver':
                             array = ['']
                             array.clear()
                             array.append(m.messagemethod)
@@ -194,7 +178,8 @@ def tiketdef(request):
                             chatlist.append(array)
                             f = '1'
                             e = '0'
-                        if int(m.recivermelicod) == int(request.user.username) :
+
+                        if messagerul == 'sender' :
                             array = ['']
                             array.clear()
                             array.append(m.messagemethod)
@@ -439,7 +424,6 @@ def tim(x):
                     t = datetime.datetime.now()
                     t += timedelta(days=1)
                     for aaa in a :
-                        # print(aaa[0])
                         if aaa[0] == "1" :
                             users = accuntmodel.objects.all()
                             for user in users:
@@ -488,7 +472,7 @@ def tim(x):
                                                 m = 'tellerror'
                                             except HTTPException as e:
                                                 m = 'neterror'
-                        if (aaa[0] != "2") and (aaa[0] != "1") and (aaa[0] != "11"):
+                        if (aaa[0] != "2") and (aaa[0] != "1") and (aaa[0] != "3"):
                             users = accuntmodel.objects.all()
                             for user in users:
                                 if int(user.phonnumber) == int(aaa[1]) :
