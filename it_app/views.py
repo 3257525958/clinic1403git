@@ -53,8 +53,10 @@ def tiketdef(request):
     melicodanswer = request.POST.get('melicodanswer')
     unreadbtn = request.POST.get('unreadbtn')
     readbtn = request.POST.get('readbtn')
-
-
+    if (melicodanswer != None) and (melicodanswer != ''):
+        melicodselet = melicodanswer
+    else:
+        melicodselet =''
     # ---وقتی پیامی در فضای مجازی پیام بدهیم اینجا با این کد ملی ثبت نام میشه----
     if (melicodanswer == None) or (melicodanswer == '') or ( melicodanswer == "None"):
         # melicodanswer = '0'
@@ -71,7 +73,7 @@ def tiketdef(request):
             hour = t.strftime('%H'),
             minute = t.strftime('%M'),
             messagemethod = "مجازی",
-            sendermelicod = melicodanswer,
+            sendermelicod = request.user.username,
             textmessage = textsend,
 
         )
@@ -99,30 +101,19 @@ def tiketdef(request):
         masli[x] = m3
 
     # در این ارایه ها درست میشن دز این ارایه ها بر اساس زمان از آخر به اول کد ملی ها ردف میشه -------------------ساخت ارایه پیامهای جدید
-
+    for i in range(int(len(masli))):
+        for mesaage in ms:
+            if int(mesaage.id) == int(masli[i]) :
+                if (mesaage.vaziyat == "در انتظار پاسخ") and (int(mesaage.recivermelicod) == int(request.user.username)):
+                    notphonnamberarray.append(mesaage.sendermelicod)
+    # -----------------------------------------------------ساخت ارایه پیامهای قدیم--
     for i in range(int(len(masli))):
         for mesaage in ms:
             if int(mesaage.id) == int(masli[i]) :
                 rul = 'true'
                 if (int(mesaage.recivermelicod) != int(request.user.username)) and (int(mesaage.sendermelicod) != int(request.user.username)):
                     rul = 'false'
-                if (mesaage.vaziyat == "در انتظار پاسخ") and (rul == 'true'):
-                    a = 0
-                    for namber in notphonnamberarray:
-                        if namber == mesaage.sendermelicod:
-                            a = 1
-                    if a == 0 :
-                        notphonnamberarray.append(mesaage.sendermelicod)
-
-
-# -----ساخت ارایه پیامهای قدیم--
-    for i in range(int(len(masli))):
-        for mesaage in ms:
-            if int(mesaage.id) == int(masli[i]) :
-                rul = 'true'
-                if (int(mesaage.recivermelicod) != int(request.user.username)) and (int(mesaage.sendermelicod) != int(request.user.username)):
-                    rul = 'false'
-                if (mesaage.vaziyat == "پاسخ داده شده") and (rul == 'true')  :
+                if (mesaage.vaziyat == "پاسخ داده شده") and (rul == 'true') :
                     b = 0
                     for r in notphonnamberarray:
                         if r == mesaage.sendermelicod :
@@ -131,18 +122,16 @@ def tiketdef(request):
                     for namber in ansphonnamberarray:
                         if namber == mesaage.sendermelicod:
                             a = 1
-                    if (a == 0) and (b == 0) :
+                    if (a == 0) and (b == 0) and (mesaage.sendermelicod != request.user.username):
                         ansphonnamberarray.append(mesaage.sendermelicod)
 # ------------------------
 
-    melicodselet = ''
     # if melicodanswer == "0":
     if (unreadbtn != None) and (unreadbtn != '') and (unreadbtn != 'None') :
         melicodselet = notphonnamberarray[int(unreadbtn)]
     if (readbtn != None) and (readbtn != '') and (readbtn != 'None') :
         melicodselet = ansphonnamberarray[int(readbtn)]
 
-    print(melicodselet)
     if melicodselet != '':
         name =''
         users = accuntmodel.objects.all()
@@ -254,7 +243,8 @@ def tiketdef(request):
         # meliarray.append(messagenamber)
         answer.append(meliarray)
 
-
+    # nananswer.reverse()
+    # answer.reverse()
     return render(request,'tiket.html',context={
             'nananswer':nananswer,
             'answer':answer,
@@ -498,6 +488,6 @@ def tim(x):
 t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
-# t1.start()
-# t2.start()
-# t3.start()
+t1.start()
+t2.start()
+t3.start()

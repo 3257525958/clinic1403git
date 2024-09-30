@@ -373,6 +373,7 @@ header .action a{
 .chatBox .header .imgContent ion-icon{
   font-size: 1.25em;
   color: #fff;
+  scale: -1;
 }
 
 ion-icon{
@@ -428,51 +429,71 @@ ion-icon{
 .messageBox .message{
   position: relative;
   background: #fff;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
   word-break: break-word;
+    font-size: 12px;
+    width: 80%;
+  right: 20%;
+
+
 }
 
 .messageBox .onemessage{
   position: relative;
   background: #fff;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
   word-break: break-word;
+    font-size: 12px;
+    width: 80%;
+  right: 20%;
+
+
 }
 .messageBox .onemessage::before{
   content: '';
   position: absolute;
-  top: 0;
-  left: -10px;
-  border: 10px solid transparent;
-  border-top: 10px solid #fff;
+  bottom: 0;
+  left: -15px;
+  border: 15px solid transparent;
+  border-bottom: 10px solid #fff;
 }
 .messageBox .otherMessage{
   position: relative;
   background: #06d755;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
   border-radius: 10px;
   word-break: break-word;
+   font-size: 12px;
+    width: 80%;
+
+
 }
 
 .messageBox .oneotherMessage{
   position: relative;
   background: #06d755;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
-  border-top-right-radius: 0;
+/*   border-bottom-right-radius: 0; */
   word-break: break-word;
+  font-size: 12px;
+    width: 80%;
+
 }
 .messageBox .oneotherMessage::after{
   content: '';
   position: absolute;
-  top: 0;
-  right: -10px;
-  border: 10px solid transparent;
-  border-top: 10px solid #06d755;
+  bottom: 0px;
+  right: -15px;
+  border: 15px solid transparent;
+  border-bottom: 10px solid #06d755;
+  font-size: 12px;
+
 }
+
 
 .time{
   position: relative;
