@@ -47,209 +47,219 @@ def sendmesaage(request):
                             except HTTPException as e:
                                 m = 'neterror'
     return render(request,'mesage_send.html')
-def tiketdef(request):
-    sendbtn = request.POST.get('sendbtn')
-    textsend = request.POST.get('textsend')
-    melicodanswer = request.POST.get('melicodanswer')
-    unreadbtn = request.POST.get('unreadbtn')
-    readbtn = request.POST.get('readbtn')
-    if (melicodanswer != None) and (melicodanswer != ''):
-        melicodselet = melicodanswer
-    else:
-        melicodselet =''
-    # ---وقتی پیامی در فضای مجازی پیام بدهیم اینجا با این کد ملی ثبت نام میشه----
-    if (melicodanswer == None) or (melicodanswer == '') or ( melicodanswer == "None"):
-        # melicodanswer = '0'
-        melicodanswer = request.user.username
-    if (sendbtn != None) and (sendbtn != '') and (sendbtn != 'None')and (textsend != None) and (textsend != '') and (textsend != 'None') :
-        t = datetime.datetime.now()
-        mesaagemodel.objects.create(
-            recivermelicod=sendbtn,
-            vaziyat="در انتظار پاسخ",
-            dateyear = stry(t),
-            datemuonth = strb(t),
-            dateday = stra(t),
-            dateweek = strd(t),
-            hour = t.strftime('%H'),
-            minute = t.strftime('%M'),
-            messagemethod = "مجازی",
-            sendermelicod = request.user.username,
-            textmessage = textsend,
 
-        )
+def chatdef(x):
+    def tiketdef(request):
+        try:
+            sendbtn = request.POST.get('sendbtn')
+            textsend = request.POST.get('textsend')
+            melicodanswer = request.POST.get('melicodanswer')
+            unreadbtn = request.POST.get('unreadbtn')
+            readbtn = request.POST.get('readbtn')
+            if (melicodanswer != None) and (melicodanswer != ''):
+                melicodselet = melicodanswer
+            else:
+                melicodselet =''
+            # ---وقتی پیامی در فضای مجازی پیام بدهیم اینجا با این کد ملی ثبت نام میشه----
+            if (melicodanswer == None) or (melicodanswer == '') or ( melicodanswer == "None"):
+                # melicodanswer = '0'
+                melicodanswer = request.user.username
+            if (sendbtn != None) and (sendbtn != '') and (sendbtn != 'None')and (textsend != None) and (textsend != '') and (textsend != 'None') :
+                t = datetime.datetime.now()
+                mesaagemodel.objects.create(
+                    recivermelicod=sendbtn,
+                    vaziyat="در انتظار پاسخ",
+                    dateyear = stry(t),
+                    datemuonth = strb(t),
+                    dateday = stra(t),
+                    dateweek = strd(t),
+                    hour = t.strftime('%H'),
+                    minute = t.strftime('%M'),
+                    messagemethod = "مجازی",
+                    sendermelicod = request.user.username,
+                    textmessage = textsend,
 
-    notphonnamberarray = ['']
-    notphonnamberarray.clear()
-    ansphonnamberarray = ['']
-    ansphonnamberarray.clear()
+                )
 
-    # --مرتب کردن پیامها به ترتیب ثبت----
-    ms = mesaagemodel.objects.all()
-    m1 = ['']
-    m1.clear()
-    masli = ['']
-    masli.clear()
-    for m2 in ms :
-        m1.append(m2.id)
-        masli.append(0)
-    m5 = m1
-    for m3 in m1 :
-        x = 0
-        for m4 in m5:
-            if m3 < m4 :
-                x+=1
-        masli[x] = m3
+            notphonnamberarray = ['']
+            notphonnamberarray.clear()
+            ansphonnamberarray = ['']
+            ansphonnamberarray.clear()
 
-    # در این ارایه ها درست میشن دز این ارایه ها بر اساس زمان از آخر به اول کد ملی ها ردف میشه -------------------ساخت ارایه پیامهای جدید
-    for i in range(int(len(masli))):
-        for mesaage in ms:
-            if int(mesaage.id) == int(masli[i]) :
-                if (mesaage.vaziyat == "در انتظار پاسخ") and (int(mesaage.recivermelicod) == int(request.user.username)):
-                    notphonnamberarray.append(mesaage.sendermelicod)
-    # -----------------------------------------------------ساخت ارایه پیامهای قدیم--
-    for i in range(int(len(masli))):
-        for mesaage in ms:
-            if int(mesaage.id) == int(masli[i]) :
-                rul = 'true'
-                if (int(mesaage.recivermelicod) != int(request.user.username)) and (int(mesaage.sendermelicod) != int(request.user.username)):
-                    rul = 'false'
-                if (mesaage.vaziyat == "پاسخ داده شده") and (rul == 'true') :
-                    b = 0
-                    for r in notphonnamberarray:
-                        if r == mesaage.sendermelicod :
-                            b = 1
-                    a = 0
-                    for namber in ansphonnamberarray:
-                        if namber == mesaage.sendermelicod:
-                            a = 1
-                    if (a == 0) and (b == 0) and (mesaage.sendermelicod != request.user.username):
-                        ansphonnamberarray.append(mesaage.sendermelicod)
-# ------------------------
+            # --مرتب کردن پیامها به ترتیب ثبت----
+            ms = mesaagemodel.objects.all()
+            m1 = ['']
+            m1.clear()
+            masli = ['']
+            masli.clear()
+            for m2 in ms :
+                m1.append(m2.id)
+                masli.append(0)
+            m5 = m1
+            for m3 in m1 :
+                x = 0
+                for m4 in m5:
+                    if m3 < m4 :
+                        x+=1
+                masli[x] = m3
 
-    # if melicodanswer == "0":
-    if (unreadbtn != None) and (unreadbtn != '') and (unreadbtn != 'None') :
-        melicodselet = notphonnamberarray[int(unreadbtn)]
-    if (readbtn != None) and (readbtn != '') and (readbtn != 'None') :
-        melicodselet = ansphonnamberarray[int(readbtn)]
+            # در این ارایه ها درست میشن دز این ارایه ها بر اساس زمان از آخر به اول کد ملی ها ردف میشه -------------------ساخت ارایه پیامهای جدید
+            for i in range(int(len(masli))):
+                for mesaage in ms:
+                    if int(mesaage.id) == int(masli[i]) :
+                        if mesaage.vaziyat == "در انتظار پاسخ":
+                             if int(mesaage.recivermelicod) == int(request.user.username):
+                                notphonnamberarray.append(mesaage.sendermelicod)
+            # -----------------------------------------------------ساخت ارایه پیامهای قدیم--
+            for i in range(int(len(masli))):
+                for mesaage in ms:
+                    if int(mesaage.id) == int(masli[i]) :
+                        rul = 'true'
+                        if (int(mesaage.recivermelicod) != int(request.user.username)) and (int(mesaage.sendermelicod) != int(request.user.username)):
+                            rul = 'false'
+                        if (mesaage.vaziyat == "پاسخ داده شده") and (rul == 'true') :
+                            b = 0
+                            for r in notphonnamberarray:
+                                if r == mesaage.sendermelicod :
+                                    b = 1
+                            a = 0
+                            for namber in ansphonnamberarray:
+                                if namber == mesaage.sendermelicod:
+                                    a = 1
+                            if (a == 0) and (b == 0) and (mesaage.sendermelicod != request.user.username):
+                                ansphonnamberarray.append(mesaage.sendermelicod)
+        # ------------------------
 
-    if melicodselet != '':
-        name =''
-        users = accuntmodel.objects.all()
-        for user in users :
-            if int(user.melicode) == int(melicodselet) :
-                name = user.firstname + ' ' + user.lastname
+            # if melicodanswer == "0":
+            if (unreadbtn != None) and (unreadbtn != '') and (unreadbtn != 'None') :
+                melicodselet = notphonnamberarray[int(unreadbtn)]
+            if (readbtn != None) and (readbtn != '') and (readbtn != 'None') :
+                melicodselet = ansphonnamberarray[int(readbtn)]
 
-        ms = mesaagemodel.objects.all()
-        chatlist = ['']
-        chatlist.clear()
-        f = '0'
-        e = '0'
+            if melicodselet != '':
+                name =''
+                users = accuntmodel.objects.all()
+                for user in users :
+                    if int(user.melicode) == int(melicodselet) :
+                        name = user.firstname + ' ' + user.lastname
 
-        for i in range(int(len(masli))):
-            for m in ms :
-                if int(m.id) == int(masli[i]) :
-                    messagerul = ''
-                    if (int(m.recivermelicod) == int(request.user.username)) and (int(m.sendermelicod) == int(melicodselet)) :
-                        messagerul = 'reciver'
-                    if (int(m.sendermelicod) == int(request.user.username)) and (int(m.recivermelicod) == int(melicodselet)) :
-                        messagerul = 'sender'
-                    if messagerul != '':
-                        a = mesaagemodel.objects.filter(id=m.id)
-                        a.update(vaziyat="پاسخ داده شده")
-                        if messagerul == 'reciver':
-                            array = ['']
-                            array.clear()
-                            array.append(m.messagemethod)
-                            array.append('0')
-                            array.append(m.textmessage)
-                            array.append(str(m.hour) + ':' + str(m.minute))
-                            array.append(f)
-                            chatlist.append(array)
-                            f = '1'
-                            e = '0'
+                ms = mesaagemodel.objects.all()
+                chatlist = ['']
+                chatlist.clear()
+                f = '0'
+                e = '0'
 
-                        if messagerul == 'sender' :
-                            array = ['']
-                            array.clear()
-                            array.append(m.messagemethod)
-                            array.append('1')
-                            array.append(m.textmessage)
-                            array.append(str(m.hour) + ':' + str(m.minute))
-                            array.append(e)
-                            chatlist.append(array)
-                            f = '0'
-                            e = '1'
-        chatlist.reverse()
-        return render(request,'chatbox.html',context={
-            'melicode':melicodselet,
-            'name':name,
-            'chatlist':chatlist,
-        })
+                for i in range(int(len(masli))):
+                    for m in ms :
+                        if int(m.id) == int(masli[i]) :
+                            messagerul = ''
+                            if (int(m.recivermelicod) == int(request.user.username)) and (int(m.sendermelicod) == int(melicodselet)) :
+                                messagerul = 'reciver'
+                            if (int(m.sendermelicod) == int(request.user.username)) and (int(m.recivermelicod) == int(melicodselet)) :
+                                messagerul = 'sender'
+                            if messagerul != '':
+                                a = mesaagemodel.objects.filter(id=m.id)
+                                a.update(vaziyat="پاسخ داده شده")
+                                if messagerul == 'reciver':
+                                    array = ['']
+                                    array.clear()
+                                    array.append(m.messagemethod)
+                                    array.append('0')
+                                    array.append(m.textmessage)
+                                    array.append(str(m.hour) + ':' + str(m.minute))
+                                    array.append(f)
+                                    chatlist.append(array)
+                                    f = '1'
+                                    e = '0'
+
+                                if messagerul == 'sender' :
+                                    array = ['']
+                                    array.clear()
+                                    array.append(m.messagemethod)
+                                    array.append('1')
+                                    array.append(m.textmessage)
+                                    array.append(str(m.hour) + ':' + str(m.minute))
+                                    array.append(e)
+                                    chatlist.append(array)
+                                    f = '0'
+                                    e = '1'
+                chatlist.reverse()
+                return render(request,'chatbox.html',context={
+                    'melicode':melicodselet,
+                    'name':name,
+                    'chatlist':chatlist,
+                })
 
 
 
-    nananswer = ['']
-    nananswer.clear()
-    answer =['']
-    answer.clear()
- # -------ارایه کامل پیامهای جدید----
-    ms = mesaagemodel.objects.all()
-    for meli in notphonnamberarray :
-        name = ''
-        messagenamber = 0
-        mestext = ''
-        date = ''
-        meliarray = ['']
-        meliarray.clear()
-        users = accuntmodel.objects.all()
-        for user in users :
-            if user.melicode == meli :
-                name = user.firstname + ' ' + user.lastname
-        for mesage in ms :
-            if (mesage.vaziyat == "در انتظار پاسخ") and (mesage.sendermelicod == meli) :
-                messagenamber += 1
-        for mes in ms :
-            if (mes.sendermelicod == meli) and (mes.vaziyat == "در انتظار پاسخ") :
-                mestext = mes.textmessage
-                date = str(mes.hour) + ':' + str(mes.minute)
-                break
-        meliarray.append(name)
-        meliarray.append(date)
-        meliarray.append(mestext)
-        meliarray.append(messagenamber)
-        nananswer.append(meliarray)
+            nananswer = ['']
+            nananswer.clear()
+            answer =['']
+            answer.clear()
+         # -------ارایه کامل پیامهای جدید----
+            ms = mesaagemodel.objects.all()
+            for meli in notphonnamberarray :
+                name = ''
+                messagenamber = 0
+                mestext = ''
+                date = ''
+                meliarray = ['']
+                meliarray.clear()
+                users = accuntmodel.objects.all()
+                for user in users :
+                    if user.melicode == meli :
+                        name = user.firstname + ' ' + user.lastname
+                for mesage in ms :
+                    if (mesage.vaziyat == "در انتظار پاسخ") and (mesage.sendermelicod == meli) :
+                        messagenamber += 1
+                for mes in ms :
+                    if (mes.sendermelicod == meli) and (mes.vaziyat == "در انتظار پاسخ") :
+                        mestext = mes.textmessage
+                        date = str(mes.hour) + ':' + str(mes.minute)
+                        break
+                meliarray.append(name)
+                meliarray.append(date)
+                meliarray.append(mestext)
+                meliarray.append(messagenamber)
+                nananswer.append(meliarray)
 
-# -------ارایه کامل پیامهای قدیم----
-    ms = mesaagemodel.objects.all()
-    for meli in ansphonnamberarray:
-        name = ''
-        # messagenamber = 0
-        mestext = ''
-        date = ''
-        meliarray = ['']
-        meliarray.clear()
-        users = accuntmodel.objects.all()
-        for user in users:
-            if user.melicode == meli:
-                name = user.firstname + ' ' + user.lastname
-        for mes in ms:
-            if (mes.sendermelicod == meli) and (mes.vaziyat == "پاسخ داده شده"):
-                mestext = mes.textmessage
-                date = str(mes.hour) + ':' + str(mes.minute)
-                break
-        meliarray.append(name)
-        meliarray.append(date)
-        meliarray.append(mestext)
-        # meliarray.append(messagenamber)
-        answer.append(meliarray)
+        # -------ارایه کامل پیامهای قدیم----
+            ms = mesaagemodel.objects.all()
+            for meli in ansphonnamberarray:
+                name = ''
+                # messagenamber = 0
+                mestext = ''
+                date = ''
+                meliarray = ['']
+                meliarray.clear()
+                users = accuntmodel.objects.all()
+                for user in users:
+                    if user.melicode == meli:
+                        name = user.firstname + ' ' + user.lastname
+                for mes in ms:
+                    if (mes.sendermelicod == meli) and (mes.vaziyat == "پاسخ داده شده"):
+                        mestext = mes.textmessage
+                        date = str(mes.hour) + ':' + str(mes.minute)
+                        break
+                meliarray.append(name)
+                meliarray.append(date)
+                meliarray.append(mestext)
+                # meliarray.append(messagenamber)
+                answer.append(meliarray)
 
-    # nananswer.reverse()
-    # answer.reverse()
-    return render(request,'tiket.html',context={
-            'nananswer':nananswer,
-            'answer':answer,
-            # 'listnonread':listmessage,
-        })
+            # nananswer.reverse()
+            # answer.reverse()
+            return render(request,'tiket.html',context={
+                    'nananswer':nananswer,
+                    'answer':answer,
+                    # 'listnonread':listmessage,
+                })
+        except:
+            print("notnet")
+    schedule.every(1).seconds.do(chatdef)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 def itcontrol(request):
     savebottom = request.POST.get("savebottom")
@@ -488,6 +498,8 @@ def tim(x):
 t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
+t4 = Thread(target=chatdef,args="4")
 t1.start()
 t2.start()
 t3.start()
+t4.start()
