@@ -25,7 +25,7 @@ DB_DATABASE : 'd1403-6qbg_db'
 DB_USERNAME : 'root'
 DB_PASSWORD :'krOenXvXrTN8WwUpr57q'
 
-process.env.DB_HOST
+// process.env.DB_HOST
 var mysql = require ('mysql');
 
 var con = mysql.createConnection({
