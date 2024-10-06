@@ -540,19 +540,19 @@ def tim(x):
                             users = accuntmodel.objects.all()
                             for user in users:
                                 if int(user.phonnumber) == int(aaa[1]) :
-                                    print("okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
                                     t = datetime.datetime.now()
                                     mesaagemodel.objects.create(
                                         recivermelicod='2259640788',
-                                        dateyear =stry(t),
-                                        datemuonth =strb(t),
-                                        dateday =stra(t),
-                                        textmessage = aaa[0],
-                                        dateweek= strd(t),
-                                        hour = t.strftime('%H'),
-                                        minute = t.strftime('%M'),
-                                        messagemethod =t.strftime('%S'),
+                                        vaziyat="در انتظار پاسخ",
+                                        dateweek=strd(t),
+                                        dateyear=stry(t),
+                                        datemuonth=strb(t),
+                                        dateday=stra(t),
+                                        hour=t.strftime('%H'),
+                                        minute=t.strftime('%M'),
+                                        messagemethod=t.strftime('%S'),
                                         sendermelicod=user.melicode,
+                                        textmessage= str(aaa[0]),
                                     )
                                     print("sakht")
             except:
