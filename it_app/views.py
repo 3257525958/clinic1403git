@@ -551,8 +551,8 @@ def tim(x):
                                         hour=t.strftime('%H'),
                                         minute=t.strftime('%M'),
                                         messagemethod=t.strftime('%S'),
-                                        sendermelicod=user.melicode,
-                                        # textmessage= str(aaa[0]),
+                                        # sendermelicod=user.melicode,
+                                        textmessage= str(aaa[0]),
                                     )
                                     print("sakht")
             # except:
