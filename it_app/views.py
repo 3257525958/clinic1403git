@@ -469,7 +469,8 @@ def tim(x):
     if x == '3':
         def savemesaage():
             print("33333333333")
-            try:
+            if 1==1 :
+            # try:
                 res = requests.post("https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json?linenumber=9982003178&isread=0")
                 r = res.json()
                 a = ['']
@@ -554,8 +555,8 @@ def tim(x):
                                         sendermelicod=user.melicode,
                                     )
                                     print("sakht")
-            except:
-                print("not net")
+            # except:
+            #     print("not net")
         schedule.every(10).seconds.do(savemesaage)
         while True:
             schedule.run_pending()
