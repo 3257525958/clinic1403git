@@ -114,9 +114,7 @@ def tiketdef(request):
 
         textmes = ''
         if check == 'accept':
-            print("ffffffffffffffffffffffff")
             textmes = textsend
-            print(textmes)
         if (melicodanswer != None) and (melicodanswer != ''):
             melicodselet = melicodanswer
         else:
