@@ -539,6 +539,7 @@ def tim(x):
                             print(aaa[1])
                             users = accuntmodel.objects.all()
                             for user in users:
+                                mcode = user.melicode
                                 if int(user.phonnumber) == int(aaa[1]) :
                                     t = datetime.datetime.now()
                                     mesaagemodel.objects.create(
@@ -551,7 +552,7 @@ def tim(x):
                                         hour=t.strftime('%H'),
                                         minute=t.strftime('%M'),
                                         messagemethod=t.strftime('%S'),
-                                        # sendermelicod=user.melicode,
+                                        sendermelicod=mcode,
                                         textmessage= str(aaa[0]),
                                     )
                                     print("sakht")
