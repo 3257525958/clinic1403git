@@ -553,6 +553,7 @@ def tim(x):
                                         messagemethod =t.strftime('%S'),
                                         sendermelicod=user.melicode,
                                     )
+                                    print("sakht")
             except:
                 print("not net")
         schedule.every(10).seconds.do(savemesaage)
