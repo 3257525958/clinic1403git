@@ -550,9 +550,9 @@ def tim(x):
                                         dateday=stra(t),
                                         hour=t.strftime('%H'),
                                         minute=t.strftime('%M'),
-                                        messagemethod=t.strftime('%S'),
-                                        sendermelicod=user.melicode,
-                                        textmessage= str(aaa[0]),
+                                        # messagemethod=t.strftime('%S'),
+                                        # sendermelicod=user.melicode,
+                                        # textmessage= str(aaa[0]),
                                     )
                                     print("sakht")
             # except:
