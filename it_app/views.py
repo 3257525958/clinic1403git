@@ -485,7 +485,7 @@ def tim(x):
                     t = datetime.datetime.now()
                     t += timedelta(days=1)
                     for aaa in a :
-                        print(aaa)
+                        print(aaa[0])
                         if aaa[0] == "1" :
                             users = accuntmodel.objects.all()
                             for user in users:
@@ -535,9 +535,11 @@ def tim(x):
                                             except HTTPException as e:
                                                 m = 'neterror'
                         if (aaa[0] != "2") and (aaa[0] != "1") and (aaa[0] != "3"):
+                            print(aaa[1])
                             users = accuntmodel.objects.all()
                             for user in users:
                                 if int(user.phonnumber) == int(aaa[1]) :
+                                    print("okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
                                     t = datetime.datetime.now()
                                     mesaagemodel.objects.create(
                                         recivermelicod='2259640788',
