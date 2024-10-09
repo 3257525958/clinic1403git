@@ -535,7 +535,7 @@ def tim(x):
                                                 m = 'tellerror'
                                             except HTTPException as e:
                                                 m = 'neterror'
-                        if (aaa[0] != "2") and (aaa[0] != "1") and (aaa[0] != "3"):
+                        if (aaa[0] != "2") and (aaa[0] != "1") :
                             print(aaa[1])
                             users = accuntmodel.objects.all()
                             for user in users:

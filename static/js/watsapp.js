@@ -37,3 +37,12 @@ startTimer();
 //   if (err) throw err;
 //   console.log('Connected!');
 // });
+
+function top() {
+    document.getElementById("top").scrollIntoView();
+};
+function bottom() {
+    document.getElementById("bottom").scrollIntoView();
+    window.setTimeout( function (){ top();},5000);
+};
+bottom();
