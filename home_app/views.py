@@ -5,12 +5,52 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from reserv_app.models import reservemodeltest,reservemodel,neursemodel,filepage1model
 from jobs_app.models import workmodel
-from it_app.models import homeimgmodel,homemenosarimodel,homemobilemodel
+from it_app.models import *
 from kavenegar import *
 import schedule
 import time
 
 # Create your views here.
+
+#start
+ms = mesaagemodel.objects.all()
+users = accuntmodel.objects.all()
+check = 'false'
+for user in users:
+    for m in ms :
+        if (int(user.melicode) == int(m.recivermelicod)) or (int(user.melicode) == int(m.sendermelicod)):
+            check = 'true'
+            break
+    if check == 'false':
+        mesaagemodel.objects.create(
+            recivermelicod=str(user.melicode),
+            vaziyat="در انتظار پاسخ",
+            sendermelicod='2259640788',
+            textmessage='سلام من در مطب دکتر اسدپور مشاور پزشکی و مدیر هستم ، خوشال میشم بتونم کمکتون کنم ',
+
+        )
+        mesaagemodel.objects.create(
+            recivermelicod=str(user.melicode),
+            vaziyat="در انتظار پاسخ",
+            sendermelicod='1050301811',
+            textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق فیشیال و تولید محتوا هستم ، خوشال میشم بتونم کمکتون کنم ',
+
+        )
+        mesaagemodel.objects.create(
+            recivermelicod=str(user.melicode),
+            vaziyat="در انتظار پاسخ",
+            sendermelicod='0019909306',
+            textmessage='سلام من در مطب دکتر اسدپور مسئول رزروشن  و مدیر داخلی هستم ، خوشال میشم بتونم کمکتون کنم ',
+
+        )
+        mesaagemodel.objects.create(
+            recivermelicod=str(user.melicode),
+            vaziyat="در انتظار پاسخ",
+            sendermelicod='1741694000',
+            textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق لیزر هستم ، خوشال میشم بتونم کمکتون کنم ',
+
+        )
+
 profilestatus =['']
 
 loglevel = ['']
@@ -92,3 +132,5 @@ def home(request):
 def logute(request):
     logout(request)
     return redirect('/')
+
+
