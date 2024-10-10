@@ -12,45 +12,54 @@ import time
 
 # Create your views here.
 
-def start():
-    ms = mesaagemodel.objects.all()
-    users = accuntmodel.objects.all()
-    check = 'false'
-    for user in users:
-        for m in ms :
-            if (int(user.melicode) == int(m.recivermelicod)) or (int(user.melicode) == int(m.sendermelicod)):
-                check = 'true'
-                break
-        if len(user.melicode) == 10:
-            if check == 'false':
-                mesaagemodel.objects.create(
-                    recivermelicod=str(user.melicode),
-                    vaziyat="در انتظار پاسخ",
-                    sendermelicod='2259640788',
-                    textmessage='سلام من در مطب دکتر اسدپور مشاور پزشکی و مدیر هستم ، خوشال میشم بتونم کمکتون کنم ',
+def start(z):
+    try:
+        ms = mesaagemodel.objects.all()
+        users = accuntmodel.objects.all()
+        check = 'false'
+        for user in users:
+            for m in ms :
+                if (int(user.melicode) == int(m.recivermelicod)) or (int(user.melicode) == int(m.sendermelicod)):
+                    check = 'true'
+                    break
+            if len(user.melicode) == 10:
+                if check == 'false':
+                    mesaagemodel.objects.create(
+                        recivermelicod=str(user.melicode),
+                        vaziyat="در انتظار پاسخ",
+                        sendermelicod='2259640788',
+                        textmessage='سلام من در مطب دکتر اسدپور مشاور پزشکی و مدیر هستم ، خوشال میشم بتونم کمکتون کنم ',
 
-                )
-                mesaagemodel.objects.create(
-                    recivermelicod=str(user.melicode),
-                    vaziyat="در انتظار پاسخ",
-                    sendermelicod='1050301811',
-                    textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق فیشیال و تولید محتوا هستم ، خوشال میشم بتونم کمکتون کنم ',
+                    )
+                    mesaagemodel.objects.create(
+                        recivermelicod=str(user.melicode),
+                        vaziyat="در انتظار پاسخ",
+                        sendermelicod='1050301811',
+                        textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق فیشیال و تولید محتوا هستم ، خوشال میشم بتونم کمکتون کنم ',
 
-                )
-                mesaagemodel.objects.create(
-                    recivermelicod=str(user.melicode),
-                    vaziyat="در انتظار پاسخ",
-                    sendermelicod='0019909306',
-                    textmessage='سلام من در مطب دکتر اسدپور مسئول رزروشن  و مدیر داخلی هستم ، خوشال میشم بتونم کمکتون کنم ',
+                    )
+                    mesaagemodel.objects.create(
+                        recivermelicod=str(user.melicode),
+                        vaziyat="در انتظار پاسخ",
+                        sendermelicod='0019909306',
+                        textmessage='سلام من در مطب دکتر اسدپور مسئول رزروشن  و مدیر داخلی هستم ، خوشال میشم بتونم کمکتون کنم ',
 
-                )
-                mesaagemodel.objects.create(
-                    recivermelicod=str(user.melicode),
-                    vaziyat="در انتظار پاسخ",
-                    sendermelicod='1741694000',
-                    textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق لیزر هستم ، خوشال میشم بتونم کمکتون کنم ',
+                    )
+                    mesaagemodel.objects.create(
+                        recivermelicod=str(user.melicode),
+                        vaziyat="در انتظار پاسخ",
+                        sendermelicod='1741694000',
+                        textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق لیزر هستم ، خوشال میشم بتونم کمکتون کنم ',
 
-                )
+                    )
+    except:
+        print("net erro in home app")
+schedule.every(1).minutes.do(start)
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+t11 = Thread(target=start,args="1")
+t11.start()
 
 profilestatus =['']
 
