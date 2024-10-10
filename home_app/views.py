@@ -21,35 +21,36 @@ for user in users:
         if (int(user.melicode) == int(m.recivermelicod)) or (int(user.melicode) == int(m.sendermelicod)):
             check = 'true'
             break
-    if check == 'false':
-        mesaagemodel.objects.create(
-            recivermelicod=str(user.melicode),
-            vaziyat="در انتظار پاسخ",
-            sendermelicod='2259640788',
-            textmessage='سلام من در مطب دکتر اسدپور مشاور پزشکی و مدیر هستم ، خوشال میشم بتونم کمکتون کنم ',
+    if len(user.melicode) == 10:
+        if check == 'false':
+            mesaagemodel.objects.create(
+                recivermelicod=str(user.melicode),
+                vaziyat="در انتظار پاسخ",
+                sendermelicod='2259640788',
+                textmessage='سلام من در مطب دکتر اسدپور مشاور پزشکی و مدیر هستم ، خوشال میشم بتونم کمکتون کنم ',
 
-        )
-        mesaagemodel.objects.create(
-            recivermelicod=str(user.melicode),
-            vaziyat="در انتظار پاسخ",
-            sendermelicod='1050301811',
-            textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق فیشیال و تولید محتوا هستم ، خوشال میشم بتونم کمکتون کنم ',
+            )
+            mesaagemodel.objects.create(
+                recivermelicod=str(user.melicode),
+                vaziyat="در انتظار پاسخ",
+                sendermelicod='1050301811',
+                textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق فیشیال و تولید محتوا هستم ، خوشال میشم بتونم کمکتون کنم ',
 
-        )
-        mesaagemodel.objects.create(
-            recivermelicod=str(user.melicode),
-            vaziyat="در انتظار پاسخ",
-            sendermelicod='0019909306',
-            textmessage='سلام من در مطب دکتر اسدپور مسئول رزروشن  و مدیر داخلی هستم ، خوشال میشم بتونم کمکتون کنم ',
+            )
+            mesaagemodel.objects.create(
+                recivermelicod=str(user.melicode),
+                vaziyat="در انتظار پاسخ",
+                sendermelicod='0019909306',
+                textmessage='سلام من در مطب دکتر اسدپور مسئول رزروشن  و مدیر داخلی هستم ، خوشال میشم بتونم کمکتون کنم ',
 
-        )
-        mesaagemodel.objects.create(
-            recivermelicod=str(user.melicode),
-            vaziyat="در انتظار پاسخ",
-            sendermelicod='1741694000',
-            textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق لیزر هستم ، خوشال میشم بتونم کمکتون کنم ',
+            )
+            mesaagemodel.objects.create(
+                recivermelicod=str(user.melicode),
+                vaziyat="در انتظار پاسخ",
+                sendermelicod='1741694000',
+                textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق لیزر هستم ، خوشال میشم بتونم کمکتون کنم ',
 
-        )
+            )
 
 profilestatus =['']
 
