@@ -9,10 +9,12 @@ from it_app.models import *
 from kavenegar import *
 import schedule
 import time
+from threading import Thread
+
 
 # Create your views here.
 
-def start(z):
+def st(z):
     try:
         ms = mesaagemodel.objects.all()
         users = accuntmodel.objects.all()
@@ -54,11 +56,11 @@ def start(z):
                     )
     except:
         print("net erro in home app")
-schedule.every(1).minutes.do(start)
+schedule.every(1).minutes.do(st)
 while True:
     schedule.run_pending()
     time.sleep(1)
-t11 = Thread(target=start,args="1")
+t11 = Thread(target=st,args="1")
 t11.start()
 
 profilestatus =['']
