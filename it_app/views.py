@@ -51,18 +51,11 @@ def sendmesaage(request):
 
 def chatlistproduct(usercodemeli,melicodselet,masli):
     if melicodselet != '':
-        # name = ''
-        # users = accuntmodel.objects.all()
-        # for user in users:
-        #     if int(user.melicode) == int(melicodselet):
-        #         name = user.firstname + ' ' + user.lastname
-        #
         ms = mesaagemodel.objects.all()
         chatlist = ['']
         chatlist.clear()
         f = '0'
         e = '0'
-
         for i in range(int(len(masli))):
             for m in ms:
                 if int(m.id) == int(masli[i]):
@@ -161,7 +154,6 @@ def tiketdef(request):
                 if m3 < m4 :
                     x+=1
             masli[x] = m3
-
         # در این ارایه ها درست میشن دز این ارایه ها بر اساس زمان از آخر به اول کد ملی ها ردف میشه -------------------ساخت ارایه پیامهای جدید
         for i in range(int(len(masli))):
             for mesaage in ms:
@@ -270,10 +262,10 @@ def tiketdef(request):
                 if user.melicode == meli :
                     name = user.firstname + ' ' + user.lastname
             for mesage in ms :
-                if (mesage.vaziyat == "در انتظار پاسخ") and (mesage.sendermelicod == meli) :
+                if (mesage.vaziyat == "در انتظار پاسخ") and (mesage.sendermelicod == meli) and (int(mesage.recivermelicod) == int(request.user.username) ) :
                     messagenamber += 1
             for mes in ms :
-                if (mes.sendermelicod == meli) and (mes.vaziyat == "در انتظار پاسخ") :
+                if (mes.sendermelicod == meli) and (mes.vaziyat == "در انتظار پاسخ") and (int(mesage.recivermelicod) == int(request.user.username)):
                     mestext = mes.textmessage
                     date = str(mes.hour) + ':' + str(mes.minute)
                     break
