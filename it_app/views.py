@@ -468,9 +468,8 @@ def tim(x):
             time.sleep(1)
     if x == '3':
         def savemesaage():
-            print("33333333333")
-            if 1==1 :
-            # try:
+            # if 1==1 :
+            try:
                 res = requests.post("https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json?linenumber=9982003178&isread=0")
                 r = res.json()
                 a = ['']
@@ -486,7 +485,6 @@ def tim(x):
                     t = datetime.datetime.now()
                     t += timedelta(days=1)
                     for aaa in a :
-                        print(aaa[0])
                         if aaa[0] == "1" :
                             users = accuntmodel.objects.all()
                             for user in users:
@@ -536,12 +534,10 @@ def tim(x):
                                             except HTTPException as e:
                                                 m = 'neterror'
                         if (aaa[0] != "2") and (aaa[0] != "1") :
-                            print(aaa[1])
                             users = accuntmodel.objects.all()
                             for user in users:
                                 if int(user.phonnumber) == int(aaa[1]) :
                                     t = datetime.datetime.now()
-                                    print(user.melicode)
                                     mesaagemodel.objects.create(
                                         recivermelicod='2259640788',
                                         vaziyat="در انتظار پاسخ",
@@ -555,9 +551,8 @@ def tim(x):
                                         sendermelicod=str(user.melicode),
                                         textmessage= str(aaa[0]),
                                     )
-                                    print("sakht")
-            # except:
-            #     print("not net")
+            except:
+                print("not net")
         schedule.every(10).seconds.do(savemesaage)
         while True:
             schedule.run_pending()
