@@ -62,8 +62,8 @@ def st(z):
                 print("net erro in home app")
     schedule.every(1).minutes.do(st)
     while True:
-    schedule.run_pending()
-    time.sleep(1)
+        schedule.run_pending()
+        time.sleep(1)
 t11 = Thread(target=st,args="1")
 t11.start()
 
