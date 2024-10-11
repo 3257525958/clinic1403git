@@ -3,7 +3,7 @@
                 document.getElementById("textsend").click();
 function  cklik(){
                 document.getElementById("textsend").click();
-                document.getElementById("botomoto").click();
+                // document.getElementById("botomoto").click();
                 document.getElementById("check").click();
                 document.getElementById("textsend").click();
 }
