@@ -546,7 +546,7 @@ def tim(x):
                                     )
             except:
                 print("not net")
-        schedule.every(10).seconds.do(savemesaage)
+        schedule.every(60).seconds.do(savemesaage)
         while True:
             schedule.run_pending()
             time.sleep(1)
