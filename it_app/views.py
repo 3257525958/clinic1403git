@@ -14,7 +14,7 @@ import requests
 from multiprocessing import process
 from threading import Thread
 from cantact_app.views import strb,strd , stra,stry
-from home_app.views import start
+from home_app.views import *
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
