@@ -6,7 +6,7 @@ class accuntmodel(models.Model):
     lastname = models.CharField(max_length=100 )
     melicode = models.CharField(max_length=15 , default='0')
     phonnumber = models.CharField(max_length=11 )
-    berthday = models.CharField(max_length=100)
+    savesabt = models.CharField(max_length=100)
     pasword = models.CharField(max_length=100)
     level = models.CharField(max_length=50,default='دسترسی معمولی')
     dayb = models.CharField(max_length=3 , default='0')

@@ -17,69 +17,71 @@ from threading import Thread
 #     a= mesaagemodel.objects.filter(id=m.id)
 #     a.delete()
 
-print("qqqqqqqq")
-if 1==1 :
-    print("gggggggggg")
-    if 1 == 1 :
 
-        if 1==1 :
-            ms = mesaagemodel.objects.all()
-            users = accuntmodel.objects.all()
-            try:
-                for user in users:
-                    nayme = 'false'
-                    maede = 'false'
-                    nilofal = 'false'
-                    sara = 'false'
-                    print(user.melicode)
-                    for m in ms :
-                        if ('2259640788' == str(m.sendermelicod)) or ('2259640788' == str(user.melicode)):
-                            nayme = 'true'
-                        print(nayme)
-                        if ('1050301811' == str(m.sendermelicod)) or ('1050301811' == str(user.melicode)):
-                            maede = 'true'
-                        print(maede)
-                        if ('1741694000' == str(m.sendermelicod)) or ('1741694000' == str(user.melicode)):
-                            nilofal = 'true'
-                        print(nilofal)
-                        if ('0019909306' == str(m.sendermelicod)) or ('0019909306' == str(user.melicode)):
-                            sara = 'true'
-                        print(sara)
-                    if len(user.melicode) == 10:
-                        if nayme == "false":
-                            mesaagemodel.objects.create(
-                                        recivermelicod=str(user.melicode),
-                                        vaziyat="در انتظار پاسخ",
-                                        sendermelicod='2259640788',
-                                        textmessage='سلام من در مطب دکتر اسدپور مشاور پزشکی و مدیر هستم ، خوشال میشم بتونم کمکتون کنم ',
 
-                                    )
-                        if maede == "false":
-                            mesaagemodel.objects.create(
-                                        recivermelicod=str(user.melicode),
-                                        vaziyat="در انتظار پاسخ",
-                                        sendermelicod='1050301811',
-                                        textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق فیشیال و تولید محتوا هستم ، خوشال میشم بتونم کمکتون کنم ',
+# if 1==1 :
+#     if 1 == 1 :
+#         if 1==1 :
+#             ms = mesaagemodel.objects.all()
+#             users = accuntmodel.objects.all()
+#             try:
+#                 for user in users:
+#                     nayme = 'false'
+#                     maede = 'false'
+#                     nilofal = 'false'
+#                     sara = 'false'
+#                     print(user.melicode)
+#                     for m in ms :
+#                         if ('2259640788' == str(m.sendermelicod)) or ('2259640788' == str(user.melicode)):
+#                             nayme = 'true'
+#                         print(nayme)
+#                         if ('1050301811' == str(m.sendermelicod)) or ('1050301811' == str(user.melicode)):
+#                             maede = 'true'
+#                         print(maede)
+#                         if ('1741694000' == str(m.sendermelicod)) or ('1741694000' == str(user.melicode)):
+#                             nilofal = 'true'
+#                         print(nilofal)
+#                         if ('0019909306' == str(m.sendermelicod)) or ('0019909306' == str(user.melicode)):
+#                             sara = 'true'
+#                         print(sara)
+#                     if len(user.melicode) == 10:
+#                         if nayme == "false":
+#                             mesaagemodel.objects.create(
+#                                         recivermelicod=str(user.melicode),
+#                                         vaziyat="در انتظار پاسخ",
+#                                         sendermelicod='2259640788',
+#                                         textmessage='سلام من در مطب دکتر اسدپور مشاور پزشکی و مدیر هستم ، خوشال میشم بتونم کمکتون کنم ',
+#
+#                                     )
+#                         if maede == "false":
+#                             mesaagemodel.objects.create(
+#                                         recivermelicod=str(user.melicode),
+#                                         vaziyat="در انتظار پاسخ",
+#                                         sendermelicod='1050301811',
+#                                         textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق فیشیال و تولید محتوا هستم ، خوشال میشم بتونم کمکتون کنم ',
+#
+#                                     )
+#                         if sara == "false":
+#                             mesaagemodel.objects.create(
+#                                         recivermelicod=str(user.melicode),
+#                                         vaziyat="در انتظار پاسخ",
+#                                         sendermelicod='0019909306',
+#                                         textmessage='سلام من در مطب دکتر اسدپور مسئول رزروشن  و مدیر داخلی هستم ، خوشال میشم بتونم کمکتون کنم ',
+#
+#                                     )
+#                         if nilofal == "false":
+#                             mesaagemodel.objects.create(
+#                                         recivermelicod=str(user.melicode),
+#                                         vaziyat="در انتظار پاسخ",
+#                                         sendermelicod='1741694000',
+#                                         textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق لیزر هستم ، خوشال میشم بتونم کمکتون کنم ',
+#
+#                                     )
+#             except:
+#                 print("net erro in home app")
 
-                                    )
-                        if sara == "false":
-                            mesaagemodel.objects.create(
-                                        recivermelicod=str(user.melicode),
-                                        vaziyat="در انتظار پاسخ",
-                                        sendermelicod='0019909306',
-                                        textmessage='سلام من در مطب دکتر اسدپور مسئول رزروشن  و مدیر داخلی هستم ، خوشال میشم بتونم کمکتون کنم ',
 
-                                    )
-                        if nilofal == "false":
-                            mesaagemodel.objects.create(
-                                        recivermelicod=str(user.melicode),
-                                        vaziyat="در انتظار پاسخ",
-                                        sendermelicod='1741694000',
-                                        textmessage='سلام من در مطب دکتر اسدپور مسئول اتاق لیزر هستم ، خوشال میشم بتونم کمکتون کنم ',
 
-                                    )
-            except:
-                print("net erro in home app")
 #         schedule.every(30).seconds.do(cke)
 #         while True:
 #             schedule.run_pending()
