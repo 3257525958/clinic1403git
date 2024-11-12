@@ -454,7 +454,7 @@ def tim(x):
             except:
                 print("not net yadavari")
         # Schedule the message to be sent at midnight
-        schedule.every().day.at("08:30").do(yadavari_vaghtfarda)
+        schedule.every(1).day.at("11:30").do(yadavari_vaghtfarda)
         # schedule.every(20).seconds.do(yadavari_vaghtfarda)
         while True:
             schedule.run_pending()
