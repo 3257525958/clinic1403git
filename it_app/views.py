@@ -308,10 +308,7 @@ def tiketdef(request):
                 # 'listnonread':listmessage,
             })
     except:
-        print("not netttttttttttttt")
-
-    # t3 = Thread(target=tim, args="3")
-    # t1.start()
+        print("not net")
 
 
 def itcontrol(request):
