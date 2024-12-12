@@ -112,18 +112,18 @@
          
                 <thead>
                       <tr>
-                          <th>انتخاب</th>
-                          <th>نام و نام خانوادگی</th>
-                          <th>کد ملی</th>
+{#                          <th>انتخاب</th>#}
+                          <th>نام کالا مصرفی</th>
+                          <th>مقدار مصرف</th>
                       </tr>
                 </thead>
         
                 <tbody>
                     {% for k in kalaarray %}
                       <tr>
-                        <td> <label><input name="tickkala{{ forloop.counter0 }}" id="tickkala" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange=""/><span></span></label></td>  
-                        <td>{{ k.0 }}</td>
-                        <td>{{ k.1 }}</td>
+{#                        <td> <label><input name="tickkala{{ forloop.counter0 }}" id="tickkala" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange=""/><span></span></label></td>  #}
+                        <td>{{ k.0 }} {{' '}} {{ k.1 }}</td>
+{#                        <td>{{ k.1 }}</td>#}
                         <td>{{ k.2 }}</td>
                         <td><input type="text" name="valueunit{{ forloop.counter0 }}" id="vahedeobject" class="validate" autocomplete="off">
 </td>

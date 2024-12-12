@@ -1499,9 +1499,9 @@ def dashborddef(request):
             d = "valueunit"+str(i)
             tickkala = request.POST.get(s)
             valueunit = request.POST.get(d)
-            if (tickkala != None) and (tickkala != ''):
-                iunit.append(valueunit)
-                idkalaarray.append(karray[int(tickkala)])
+            # if (tickkala != None) and (tickkala != ''):
+            iunit.append(valueunit)
+            idkalaarray.append(karray[int(i)])
 
     tickkala = request.POST.get("tickkala")
     dayconterstr = request.POST.get("dayconter")
