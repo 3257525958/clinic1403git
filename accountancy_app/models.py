@@ -44,3 +44,33 @@ class esmekalamodel(models.Model):
     def __str__(self):
         return f"{self.esmekala}"
 
+class froshandemodel(models.Model):
+    firstname = models.CharField(max_length=100 )
+    lastname = models.CharField(max_length=100 )
+    phonnumber = models.CharField(max_length=11 )
+    def __str__(self):
+        return f"{self.firstname}{' '}{self.lastname}"
+
+class waremodel(models.Model):
+    kala = models.CharField(max_length=200)
+    froshande = models.CharField(max_length=150)
+    castmethode = models.CharField(max_length=50,default='پرداخت نشده')
+    cast =models.CharField(max_length=50)
+    value = models.CharField(max_length=50)
+    def __str__(self):
+        return f"{self.kala}"
+class anbarmodel(models.Model):
+    kalaid = models.CharField(max_length=10)
+    value = models.CharField(max_length=20)
+    def __str__(self):
+        return f"{self.kalaid}"
+class anbargardanimodel(models.Model):
+    kalaid = models.CharField(max_length=10)
+    value = models.CharField(max_length=20)
+    dateyear= models.CharField(max_length=10)
+    datemounth= models.CharField(max_length=10)
+    dateday= models.CharField(max_length=10)
+    def __str__(self):
+        return f"{self.kalaid}"
+
+

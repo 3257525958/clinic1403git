@@ -1600,6 +1600,15 @@ def dashborddef(request):
                     materiyal=idkalaarray,
                     valueunit=iunit,
                 )
+                for z in range(len(idkalaarray)):
+                    if (iunit[z] != '') and (iunit[z] != None):
+                        anbars = anbarmodel.objects.all()
+                        for ii in anbars:
+                            if int(ii.kalaid) == int(idkalaarray[z]):
+                                newvale = int(ii.value) - int(iunit[z])
+                                a=anbarmodel.objects.filter(kalaid=str(ii.kalaid))
+                                a.update(value=str(newvale))
+
                 a = reservemodel.objects.filter(id=int(reservid))
                 a.delete()
                 return redirect('/')
@@ -1860,6 +1869,8 @@ def reservdasti(request):
         'melipersonel':namepersonel,
 
     })
+
+
 
 
 

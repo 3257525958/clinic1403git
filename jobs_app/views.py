@@ -281,7 +281,6 @@ def jobs(request):
                                                          berand = workberand,
                                                          idbrand = berand,
                                 )
-                print(etesave)
                 addetebar[0] = 'succes'
                 savework.clear()
                 selectjob.clear()

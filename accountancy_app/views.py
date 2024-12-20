@@ -204,3 +204,99 @@ def sana(request):
         'jobsarray':jobsarray,
         'form':form,
         })
+
+def warehouse(request):
+    kala = request.POST.get('kala')
+    froshandename = request.POST.get('froshandename')
+    mablagh = request.POST.get('mablagh')
+    unit = request.POST.get('unit')
+    button = request.POST.get('button')
+    kalas = esmekalamodel.objects.all()
+    vahed = ''
+    kalalist = ['']
+    kalalist.clear()
+    if (kala != '') and (kala != None):
+        for i in kalas:
+            if int(i.id) == int(kala):
+                kalalist.append([i.esmekala+' '+i.berand,i.id])
+                vahed = i.unit
+    else:
+        kalalist.append(['',0])
+    for i in kalas:
+        kalalist.append([i.esmekala+' '+i.berand,i.id])
+
+    froshandesname = froshandemodel.objects.all()
+    froshandelist = ['']
+    froshandelist.clear()
+    for i in froshandesname:
+        froshandelist.append([i.firstname+' '+i.lastname,i.id])
+    if button == 'accept':
+        waremodel.objects.create(
+        kala = str(kala),
+        froshande = str(froshandename),
+        cast = str(mablagh),
+        value = str(unit),
+                              )
+        anbars = anbarmodel.objects.all()
+        c = 0
+        for i in anbars:
+            if int(i.kalaid) == int(kala):
+                c = 1
+        newvalue = 0
+        if c == 1 :
+            for i in anbars:
+                if int(i.kalaid) == int(kala):
+                    newvalue = int(i.value) + int(unit)
+            a=anbarmodel.objects.filter(kalaid=str(kala))
+            a.update(value=str(newvalue))
+        if c == 0 :
+            anbarmodel.objects.create(
+                kalaid=str(kala),
+                value=str(unit),
+            )
+
+    return render(request,'warehouse.html',context={
+                                                                    'kalalist':kalalist,
+                                                                    'froshandelist':froshandelist,
+                                                                    'vahed':vahed,
+                                                                })
+
+
+def froshande(request):
+    firstname = request.POST.get('firstname')
+    lastname =request.POST.get('lastname')
+    phonnumber =request.POST.get('phonnumber')
+    button_send =request.POST.get('button_send')
+    if button_send == 'accept' :
+        froshandemodel.objects.create(firstname=firstname,
+                                      lastname=lastname,
+                                      phonnumber=phonnumber,
+                                      )
+
+    return render(request,'froshande.html')
+
+
+def anbargardani(request):
+    anbars = anbarmodel.objects.all()
+    anbarlist = ['']
+    anbarlist.clear()
+    es = esmekalamodel.objects.all()
+    for i in anbars:
+        for j in es:
+            print(i)
+            # if int(j.id) == int(i):
+            #     print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiioooooooooooooooooooooo")
+    print(anbarlist)
+    namekalalist =['']
+    namekalalist.clear()
+    names = esmekalamodel.objects.all()
+    for j in names:
+        print("0")
+        for ii in anbarlist:
+            print(ii)
+            print(j.id)
+            if int(ii) == int(j.id):
+                namekalalist.append(j.esmekala+' '+j.berand)
+    return render(request,'anbargardani.html',context={
+                                                                     "kalalist":namekalalist,
+                                                                    })

@@ -7,4 +7,7 @@ urlpatterns = [
     path('laghv/',views.laghvgharardad),
     path('pardakhthoghogh/',views.pardakhthoghogh),
     path('sana/',views.sana),
+    path('ware/',views.warehouse),
+    path('froshande/',views.froshande),
+    path('anbargardani/',views.anbargardani),
     ]
