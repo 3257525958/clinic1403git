@@ -3,7 +3,7 @@ from django.db import models
 
 class accuntmodel(models.Model):
     firstname = models.CharField(max_length=100 )
-    berthday = models.CharField(max_length=20, default='0')
+    berthday = models.CharField(max_length=20, default='0', null=True)
     lastname = models.CharField(max_length=100 )
     melicode = models.CharField(max_length=15 , default='0')
     phonnumber = models.CharField(max_length=11 )
