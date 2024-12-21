@@ -5,14 +5,14 @@ class accuntmodel(models.Model):
     firstname = models.CharField(max_length=100 )
     # berthday = models.CharField(max_length=20, default='0', null=True)
     lastname = models.CharField(max_length=100 )
-    melicode = models.CharField(max_length=15 , default='0')
-    phonnumber = models.CharField(max_length=11 )
-    # savesabt = models.CharField(max_length=100)
-    pasword = models.CharField(max_length=100)
-    level = models.CharField(max_length=50,default='دسترسی معمولی')
-    dayb = models.CharField(max_length=3 , default='0')
-    mountb = models.CharField(max_length=20 , default='0')
-    yearb = models.CharField(max_length=5, default='0')
+    # melicode = models.CharField(max_length=15 , default='0')
+    # phonnumber = models.CharField(max_length=11 )
+    # # savesabt = models.CharField(max_length=100)
+    # pasword = models.CharField(max_length=100)
+    # level = models.CharField(max_length=50,default='دسترسی معمولی')
+    # dayb = models.CharField(max_length=3 , default='0')
+    # mountb = models.CharField(max_length=20 , default='0')
+    # yearb = models.CharField(max_length=5, default='0')
     def __str__(self):
         return f"{self.melicode}"
 class savecodphon(models.Model):
