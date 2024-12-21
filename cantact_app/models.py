@@ -6,12 +6,12 @@ class accuntmodel(models.Model):
     lastname = models.CharField(max_length=100 ,null=True)
     melicode = models.CharField(max_length=15 , default='0',null=True)
     phonnumber = models.CharField(max_length=11 ,null=True)
-    # savesabt = models.CharField(max_length=100,null=True)
-    # pasword = models.CharField(max_length=100,null=True)
-    # level = models.CharField(max_length=50,default='دسترسی معمولی' ,null=True)
-    # dayb = models.CharField(max_length=3 , default='0',null=True)
-    # mountb = models.CharField(max_length=20 , default='0',null=True)
-    # yearb = models.CharField(max_length=5, default='0',null=True)
+    savesabt = models.CharField(max_length=100,null=True)
+    pasword = models.CharField(max_length=100,null=True)
+    level = models.CharField(max_length=50,default='دسترسی معمولی' ,null=True)
+    dayb = models.CharField(max_length=3 , default='0',null=True)
+    mountb = models.CharField(max_length=20 , default='0',null=True)
+    yearb = models.CharField(max_length=5, default='0',null=True)
 
     def __str__(self):
         return f"{self.melicode}"
