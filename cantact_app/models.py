@@ -12,6 +12,7 @@ class accuntmodel(models.Model):
     dayb = models.CharField(max_length=3 , default='0')
     mountb = models.CharField(max_length=20 , default='0')
     yearb = models.CharField(max_length=5, default='0')
+    berthday = models.CharField(max_length=20, default='0')
 
     def __str__(self):
         return f"{self.melicode}"
