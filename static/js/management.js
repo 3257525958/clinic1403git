@@ -381,6 +381,7 @@ var l = document.getElementById("loglevel").innerHTML;
                         m2626.hidden = true;
                         m2727.hidden = true;
                         m2828.hidden = true;
+                        m2929.hidden = true;
                         m3030.hidden = true;
                     }
                 }
