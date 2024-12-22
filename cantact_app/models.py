@@ -5,7 +5,7 @@ class accuntmodel(models.Model):
     firstname = models.CharField(max_length=100 ,null=True)
     lastname = models.CharField(max_length=100 ,null=True)
     melicode = models.CharField(max_length=15 , default='0',null=True)
-    phonnumber = models.CharField(max_length=11 ,null=True)
+    phonnumber = models.CharField(max_length=11 ,null=True, default='0')
     savesabt = models.CharField(max_length=100,null=True)
     pasword = models.CharField(max_length=100,null=True)
     level = models.CharField(max_length=50,default='دسترسی معمولی' ,null=True)
@@ -31,11 +31,11 @@ class savecodphon(models.Model):
 
 
 class dataacont(models.Model):
-    firstname = models.CharField(max_length=100)
-    lastname = models.CharField(max_length=100)
+    firstname = models.CharField(max_length=100,null=True)
+    lastname = models.CharField(max_length=100,null=True)
     melicode = models.CharField(max_length=20 , default="0")
     phonnumber = models.CharField(max_length=20 , default="0")
-    berthday = models.CharField(max_length=100)
+    berthday = models.CharField(max_length=100,null=True)
     miladiarray = models.CharField(max_length=5000 , default="0")
     shamsiarray = models.CharField(max_length=5000 , default="0")
     showclandarray = models.CharField(max_length=5000 , default="0")

@@ -277,26 +277,22 @@ def froshande(request):
 
 
 def anbargardani(request):
+    codekala = request.POST.get('codekala')
     anbars = anbarmodel.objects.all()
     anbarlist = ['']
     anbarlist.clear()
-    es = esmekalamodel.objects.all()
+    anbarlist.append(['',0])
+    ws = esmekalamodel.objects.all()
     for i in anbars:
-        for j in es:
-            print(i)
-            # if int(j.id) == int(i):
-            #     print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiioooooooooooooooooooooo")
-    print(anbarlist)
-    namekalalist =['']
-    namekalalist.clear()
-    names = esmekalamodel.objects.all()
-    for j in names:
-        print("0")
-        for ii in anbarlist:
-            print(ii)
-            print(j.id)
-            if int(ii) == int(j.id):
-                namekalalist.append(j.esmekala+' '+j.berand)
+        for j in ws:
+            if int(i.kalaid) == int(j.id):
+                anbarlist.append([j.esmekala+' '+j.berand+' '+i.value,j.id])
+    nameofunit = ''
+    if (codekala != '') and (codekala != None):
+        for j in ws :
+            if  int(j.id) == int(codekala):
+                nameofunit = j.unit
     return render(request,'anbargardani.html',context={
-                                                                     "kalalist":namekalalist,
+                                                                     "kalalist":anbarlist,
+                                                                     "nameofunit":nameofunit,
                                                                     })
