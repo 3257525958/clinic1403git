@@ -236,6 +236,9 @@ def warehouse(request):
         froshande = str(froshandename),
         cast = str(mablagh),
         value = str(unit),
+        year=stry(datetime.datetime.now()),
+        mounth=strb(datetime.datetime.now()),
+        day=strd(datetime.datetime.now()),
                               )
         anbars = anbarmodel.objects.all()
         c = 0

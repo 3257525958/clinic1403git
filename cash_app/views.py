@@ -877,3 +877,18 @@ def contact(request):
                                                                 "name":name,
                                                                 "number":number,
                                                                     })
+
+def pardakhtdef(request):
+    doc_date = request.POST.get("doc_date")
+    doc_time = request.POST.get("doc_time")
+    doc_material= request.POST.get("doc_material")
+    doc_forosh = request.POST.get("doc_forosh")
+    doc_factor= request.POST.get("doc_factor")
+    print("ppppppppppppppppppp")
+    print(doc_date)
+    print(doc_time)
+    print(doc_material)
+    print(doc_forosh)
+    print(doc_factor)
+
+    return render(request,'pardakht.html')
