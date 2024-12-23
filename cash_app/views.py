@@ -859,3 +859,21 @@ def closecashdef(request):
         'bank':bankarray,
         'level':level,
     })
+
+
+def contact(request):
+    number = request.POST.get('number')
+    users = accuntmodel.objects.all()
+    name =''
+    if (number != '') and (number != None):
+        for i in users :
+            try:
+                if int(i.phonnumber) == int(number) :
+                    name = i.firstname+ '  ' + i.lastname
+            except:
+                print("error for phon number")
+
+    return render(request,'contact.html', context={
+                                                                "name":name,
+                                                                "number":number,
+                                                                    })

@@ -4,13 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">                 #}
-    <link rel="stylesheet" type="text/css" href="{% static "/css/materialize.min.css" %}">
+    <link rel="stylesheet" href={%  static "/css/materialize.min.css" %}>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static  "/css/materialize-rtl.css"%}">
-    <link rel="stylesheet" type="text/css" href="{% static "/fontawesome/css/all.css" %}">
-    <link rel="stylesheet" type="text/css" href= "{% static "/css/home.css" %}">
-    <link rel="stylesheet" type="text/css" href= "{% static "/css/add-contact.css" %}">
+    <link rel="stylesheet" href="{% static "/css/materialize-rtl.css" %}">
+    <link rel="stylesheet" href={%  static "/fontawesome/css/all.css" %}>
+    <link rel="stylesheet" href={% static "/css/home.css" %}>
+    <link rel="stylesheet" href={% static "/css/add-contact.css" %}>
     <title>مرکز زیبایی دکتر اسدپور</title>
 </head>
 <body dir="rtl" class="body">
@@ -31,7 +30,7 @@
     
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo">
-        <img src={% static "/img/logo.jpg" %} alt="menu">
+        <img src="/static/img/logo.jpg" alt="">
       </a>
 
 {#      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>#}
@@ -69,39 +68,33 @@
 </ul>
 <!-- ----------پایان ناوبار------------ -->
 <main>
-  <form class="row w-100 login dakhel_loginsec" method="POST">
+  <form class="row w-100 login dakhel_loginsec" method="POST" action="">
+  {% csrf_token %}
     <div class="col m3 l4 hide-on-small-and-down"></div>
 
     <div class="ghesmate_login col s12 m6 l4">
 
-    
-      <i class="center-align blick-shodan fas fa-user-plus fa-2x"></i>
-        
-      <div class="input-field col s12">
-                    <select class="custom-select" name="codekala" onchange="chenghe()">
-                        {% for kala in kalalist %}
-                            <option value="{{ kala.1 }}">{{ kala.0 }}</option>
-                        {% endfor %}
-                    </select>
-        <label class="teal-text text-darken-4">نام کالا و مقدار آن :</label>
-      </div>
-        
+      <i class="center-align blick-shodan fas fa-cash-register fa-4x"></i>
+
       <div class="input-field col s12 ">
-        <input type="number" name="melicod"  id="melicod" class="validate" autocomplete="off">
-        <label for="melicod"> موحودی فعلی (حتما با توجه به {{ nameofunit }} ):</label>
+        <input type="number" name="number"  id="number" class="validate"  oninput="chenggg()">
+        <label for="number">شماره تلفن را وارد کنید</label>
       </div>
-
-
-      <div class="center-align dokmeye-vorood ">
-        <button class="w-100 btn waves-effect" name="button_send" value="accept" >ثبت اطلاعات و ارسال پیامک</button>
+   
+      <div class="input-field col s12 ">
+        <label for="melicodebank">{{ name }}</label>
       </div>
-        <button name="btf" id="btfchen" hidden value="accept"></button>
+        <br>
+        <br>
+        <br>
 
+
+      
     </div>
 
     <div class="col m3 l4 hide-on-small-and-down"></div>
-                {% csrf_token %}
-
+    <label id="lbf">{{  number }}</label>
+    <button id="btfa" name="btfa" value="accept" hidden >اینتر</button>
   </form>
 </main>
 
@@ -151,12 +144,7 @@
 
 </footer> 
 
-<script src="/static/js/materialize.min.js"></script>
-<script src="/static/js/home.js"></script>
-<script src="/static/js/addselect.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/add_cantact.js" %}"></script>
-<script src="{% static "/js/anbardari.js" %}">    </script>
-
+<script src={%  static "/js/materialize.min.js" %}></script>
+<script src="{% static "/js/contactphon.js" %}">    </script>
 </body>
 </html>
