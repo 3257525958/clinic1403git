@@ -57,6 +57,10 @@ class waremodel(models.Model):
     castmethode = models.CharField(max_length=50,default='پرداخت نشده')
     cast =models.CharField(max_length=50)
     value = models.CharField(max_length=50)
+    year = models.CharField(max_length=5, default="0" , null=True)
+    mounth = models.CharField(max_length=3, default="0" , null=True)
+    day = models.CharField(max_length=3, default="0" , null=True)
+    factornumber = models.CharField(max_length=15, default="0" , null=True)
     def __str__(self):
         return f"{self.kala}"
 class anbarmodel(models.Model):
