@@ -464,15 +464,22 @@ def cast(request):
                     'pracedure':q.jobreserv + ' ' + q.detalereserv,
                     'cast':q.castreserv,
                     'peyment':q.pyment,
+                    'offer':q.offer,
                     'id':q.id,
                     'melicodvarizande':melicodvarizande,
                 })
     if offerbuttom == 'accept':
+        print("inter")
+        print(inputid)
+        print(offermeghdar)
+        print(beyanemeghdar)
         if (inputid != None) and ( inputid != ''):
             a = fpeseshktestmodel.objects.filter(id=int(inputid))
             if (offermeghdar != None) and (offermeghdar != ''):
                 a.update(offer=offermeghdar)
+            print("pey")
             if (beyanemeghdar != None)  and (beyanemeghdar != ''):
+                print("ooo")
                 a.update(pyment=beyanemeghdar)
         us = accuntmodel.objects.all()
         for u in us:

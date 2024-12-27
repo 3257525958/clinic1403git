@@ -158,8 +158,6 @@ def pardakhthoghogh(request):
                 savemovaghat.objects.create(hoghoghmelicod=melicod,idcod=i[4])
             c = c+1
     if  (sel != None) and (sel != ''):
-        print("sel")
-        print(sel)
         j = int(sel)
         c = 0
         for i in d:

@@ -64,8 +64,8 @@ var etebar = document.getElementById("melicod_etebar");
     }
     function mablaghbeyane(){
         b = ((beyanemeghdar.value - (beyanemeghdar.value % 10 )) / 10);
-
-    lmablaghbeyane.innerHTML = (b).num2persian() + " " + "تومان";
+        inputid.value = lableid.innerHTML;
+        lmablaghbeyane.innerHTML = (b).num2persian() + " " + "تومان";
     }
     function clk(){
             document.getElementById("tik").click();
