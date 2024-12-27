@@ -79,6 +79,7 @@
         
       <div class="input-field col s12">
                     <select class="custom-select" name="codekala" onchange="chenghe()">
+                            <option value="{{ anbarlabelface.1 }}">{{ anbarlabelface.0 }}</option>
                         {% for kala in kalalist %}
                             <option value="{{ kala.1 }}">{{ kala.0 }}</option>
                         {% endfor %}
@@ -101,7 +102,6 @@
 
     <div class="col m3 l4 hide-on-small-and-down"></div>
                 {% csrf_token %}
-
   </form>
 </main>
 
@@ -152,10 +152,10 @@
 </footer> 
 
 <script src="/static/js/materialize.min.js"></script>
-<script src="/static/js/home.js"></script>
+{#<script src="/static/js/home.js"></script>#}
 <script src="/static/js/addselect.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/add_cantact.js" %}"></script>
+{#<script src="{% static "/js/add_cantact.js" %}"></script>#}
 <script src="{% static "/js/anbardari.js" %}">    </script>
 
 </body>

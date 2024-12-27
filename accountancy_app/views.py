@@ -284,7 +284,7 @@ def anbargardani(request):
     anbars = anbarmodel.objects.all()
     anbarlist = ['']
     anbarlist.clear()
-    anbarlist.append(['',0])
+    # anbarlist.append(['',0])
     ws = esmekalamodel.objects.all()
     for i in anbars:
         for j in ws:
@@ -295,7 +295,20 @@ def anbargardani(request):
         for j in ws :
             if  int(j.id) == int(codekala):
                 nameofunit = j.unit
+    selectkala = ['']
+    selectkala.clear()
+    if (codekala != '') and (codekala != None):
+        for i in anbars :
+            if int(i.kalaid) == int(codekala):
+                for j in ws :
+                    if int(j.id) == int(codekala):
+                        selectkala.append(j.esmekala+' '+j.berand+' '+i.value)
+                        selectkala.append(j.id)
+    # else:
+    #     selectkala.append('',''])
+
     return render(request,'anbargardani.html',context={
                                                                      "kalalist":anbarlist,
                                                                      "nameofunit":nameofunit,
+                                                                     "anbarlabelface":selectkala,
                                                                     })

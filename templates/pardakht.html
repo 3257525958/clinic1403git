@@ -71,51 +71,57 @@
 <main>
   <form class="row w-100 login dakhel_loginsec" method="POST" action="">
     {% csrf_token %}
-      <div class="col m3 l4 hide-on-small-and-down"></div>
   
-      <div class="ghesmate_login col s12 m6 l4">
+      <div class="ghesmate_login col s12 m12 l12">
   
         <i class="center-align blick-shodan fas "></i>
       
       
-      <div class="col s12">
+      <div class="col s12 m12 l12">
          <table class="highlight" id="table"  >
         
                 <tbody>
                       <tr>
-                        <td> <label><input name="doc_date" id="doc_date" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange=""/><span></span></label></td>  
+                        <td> <label><input name="doc_date" id="doc_date" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span></span></label></td>  
                         <td>صدور سند بر اساس تاریخ</td>
                       </tr>
                       <tr>
-                        <td> <label><input name="doc_time" id="doc_time" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange=""/><span></span></label></td>  
+                        <td> <label><input name="doc_time" id="doc_time" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span></span></label></td>  
                         <td>صدور سند بر اساس بازه زمانی</td>
                       </tr>
                       <tr>
-                        <td> <label><input name="doc_material" id="doc_material" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange=""/><span></span></label></td>  
+                          {% if cilikmaterial == 'true' %}
+                        <td> <label><input checked name="doc_material" id="doc_material" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span></span></label></td>  
                         <td>صدور سند بر اساس کالا</td>
+                          {% else %}
+                        <td> <label><input  name="doc_material" id="doc_material" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span></span></label></td>  
+                        <td>صدور سند بر اساس کالا</td>
+                          {% endif %} 
                       </tr>
                       <tr>
-                        <td> <label><input name="doc_forosh" id="doc_forosh" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange=""/><span></span></label></td>  
+                        <td> <label><input name="doc_forosh" id="doc_forosh" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span></span></label></td>  
                         <td>صدور سند بر اساس فروشنده</td>
                       </tr>
                       <tr>
-                        <td> <label><input name="doc_factor" id="doc_factor" type="checkbox" class="filled-in" value="{{ forloop.counter0 }}" onchange=""/><span></span></label></td>  
+                        <td> <label><input name="doc_factor" id="doc_factor" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span></span></label></td>  
                         <td>صدور سند بر اساس شماره فاکتور</td>
                       </tr>
                 </tbody>
          </table>
       </div>  
+            
+          
+
 
       
-      <br><br>
-        <div class="center-align dokmeye-vorood ">
-          <button class="w-100 btn waves-effect" name="fpezeshkibottom" value="accept">ثبت اطلاعات </button>
-        </div>
+{#        <div class="center-align dokmeye-vorood ">#}
+{#          <button class="w-100 btn waves-effect" name="fpezeshkibottom" value="accept">ثبت اطلاعات </button>#}
+{#        </div>#}
   
         
       </div>
 
-
+    <button name="btfpardakht" id="btfpardakht" hidden></button>
   </form>
 </main>
 
@@ -166,10 +172,7 @@
 </footer> 
 
 <script src="/static/js/materialize.min.js"></script>
-<script src="/static/js/home.js"></script>
-<script src="/static/js/addselect.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/pardakht_hoghogh.js" %}"></script>
+<script src="{% static "/js/pardakht.js" %}"></script>
 
 </body>
 </html>

@@ -20,6 +20,7 @@ from cash_app.models import *
 from cantact_app.models import accuntmodel
 from cantact_app.views import *
 from file_app.models import *
+from accountancy_app.models import *
 ZIB_API_REQUEST = "https://gateway.zibal.ir/v1/request"
 ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
@@ -616,8 +617,29 @@ def banksave(request):
                                   shebanamber=shebanamber,melicodebank=melicodebank,)
     return render(request,'bank.html')
 
-def pardakht(request):
-    return render(request,'pardakht.html')
+def pardakhtdef(request):
+    doc_date = request.POST.get("doc_date")
+    doc_time = request.POST.get("doc_time")
+    doc_material= request.POST.get("doc_material")
+    doc_forosh = request.POST.get("doc_forosh")
+    doc_factor= request.POST.get("doc_factor")
+    print(doc_material)
+    ws = waremodel.objects.all()
+    flist = ['']
+    flist.clear()
+    for w in ws:
+        try:
+            if (w.kala != '') and (w.kala != None) :
+                flist.append(w.id)
+        except:
+            print("error the pardakht")
+    cilikmaterial = ''
+    if doc_material == 'accept' :
+        cilikmaterial = "true"
+
+    return render(request,'pardakht.html', context={
+                                                                    "cilikmaterial" : cilikmaterial,
+                                                                })
 
 def closecashdef(request):
     castbeyane = request.POST.get("castbeyane")
@@ -878,17 +900,3 @@ def contact(request):
                                                                 "number":number,
                                                                     })
 
-def pardakhtdef(request):
-    doc_date = request.POST.get("doc_date")
-    doc_time = request.POST.get("doc_time")
-    doc_material= request.POST.get("doc_material")
-    doc_forosh = request.POST.get("doc_forosh")
-    doc_factor= request.POST.get("doc_factor")
-    print("ppppppppppppppppppp")
-    print(doc_date)
-    print(doc_time)
-    print(doc_material)
-    print(doc_forosh)
-    print(doc_factor)
-
-    return render(request,'pardakht.html')
