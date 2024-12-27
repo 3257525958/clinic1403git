@@ -885,6 +885,7 @@ def closecashdef(request):
 
 def contact(request):
     number = request.POST.get('number')
+    delet =request.POST.get('delet')
     users = accuntmodel.objects.all()
     name =''
     if (number != '') and (number != None):
@@ -894,6 +895,12 @@ def contact(request):
                     name = i.firstname+ '  ' + i.lastname
             except:
                 print("error for phon number")
+    print(number)
+    print(delet)
+    if (delet == 'accept') and (number != '') and (number != None):
+        print(number)
+        a = accuntmodel.objects.filter(phonnumber=number)
+        a.delete()
 
     return render(request,'contact.html', context={
                                                                 "name":name,
