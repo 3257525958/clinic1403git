@@ -136,6 +136,20 @@
         <label class="teal-text text-darken-4">جزئیات خدمت :</label>
       </div>
 
+      <div class="input-field col s12 "id="peyment" hidden>
+        <input type="text" name="pey"  id="pey" class="validate" autocomplete="off">
+        <label for="pey">مبلغ بیعانه :</label>
+      </div>
+        <label id="m1" hidden></label>
+      <div class="input-field col s12 l4 m12" id="bey" hidden>
+                    <select name="bankpey" id="bankpey">
+                         <option value="">انتخاب کنید</option>
+                       {% for hesab in bank %}
+                         <option value={{ hesab.0 }}>{{ hesab.1 }}</option>
+                       {% endfor %}
+                    </select>
+        <label class="teal-text text-darken-4">حساب پرداخت بیعانه :</label>
+      </div>
 
 
       <div class="center-align dokmeye-vorood ">

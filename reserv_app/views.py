@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+
+from cash_app.models import bankmodel
 from jobs_app.models import *
 from cantact_app.models import accuntmodel
 from file_app.form import *
@@ -826,6 +828,27 @@ def reserverdef(request):
     jobbuttom = request.POST.get('jobbuttom')
     button_send =request.POST.get("button_send")
     detalework = request.POST.get("detalework")
+    pey = request.POST.get("pey")
+    bankpey = request.POST.get("bankpey")
+    if (pey == '') or (pey == None):
+        pey = '0'
+    if (bankpey == '') or (bankpey == None):
+        bankpey = '-2'
+    # ------تولید لیست حسابهای بانکی در hesabs-و کار انتخاب شده رو میریزه توی b----
+    banks = bankmodel.objects.all()
+    hesabs = [""]
+    hesabs.clear()
+    for bank in banks:
+        r = 0
+        for hesab in hesabs:
+            if hesab[1] == bank.onvan:
+                r = 1
+        if r == 0:
+            s = (str(bank.id) + "," + str(bank.onvan)).split(",")
+            hesabs.append(s)
+
+    # --------------------------------------------------------------------------------
+
     # dayconter = request.POST.get("dayconter")
     # if (dayconter == None) or (dayconter == 'None') or (dayconter == ''):
     #     dayconter = 0
@@ -1125,6 +1148,9 @@ def reserverdef(request):
             yearshamsi = stry(datetime.datetime.now()),
             vahed = vahed,
             idwork=detalework,
+            pyment=pey,
+            bankpeyment=bankpey,
+
         )
         nam = ''
         users = accuntmodel.objects.all()
@@ -1186,6 +1212,7 @@ def reserverdef(request):
             'dayselect': dayselect,
             'mounthselect': mounthselect,
             'e': e,
+            'bank': hesabs,
         })
 
     # ------از جدول وقتها یکی انتخاب میشه سه حالت داره یا یه تایم قبلی هستش یا یه تایم حارج از وقت یا تایم خالی  ------
@@ -1219,8 +1246,8 @@ def reserverdef(request):
                         'operat':reserv.personreserv,
                         'timereserv':reserv.dateshamsireserv+ ' ' +reserv.hourreserv + ' ' + reserv.jobreserv + ' ' + reserv.detalereserv,
                         'idreserv':reserv.id,
-
-                                                                            })
+                        'bank': hesabs,
+                    })
             else:
                 if (reserv.personreserv == personel) and (reserv.datemiladireserv == time.strftime('%a %d %b %y')) and ( int(se[0]) == int(reserv.numbertime)) :
                     n = ''
@@ -1234,12 +1261,14 @@ def reserverdef(request):
                         'operat':reserv.personreserv,
                         'timereserv':reserv.dateshamsireserv+ ' ' +reserv.hourreserv + ' ' + reserv.jobreserv + ' ' + reserv.detalereserv,
                         'idreserv':reserv.id,
-                                                                                })
+                        'bank': hesabs,
+                    })
         return render(request,'reserv_reserver.html',context={
             'operatormelicod':operatormelicod,
             'dayconter':dayconter,
             'timesel':timesel,
-            })
+            'bank': hesabs,
+        })
 # -------------------------------------------------------------------------------------------------------------------------------------
 # ------------میاد سه حرف اول اسم یا فامیل رو میگیره و بعد لبست اسامی
     # رو تهیه میکنه و میریزه تو ارایه arraynameهمراه با این ارایه مد ملی اپراتور که از اول تو جدول تایمش بودیم رو میقرسته-------
@@ -1283,6 +1312,7 @@ def reserverdef(request):
             'dayconter': dayconter,
             'arrayname':arrayname,
             'timesel':timesel,
+            'bank': hesabs,
         })
 # -------------------------------------------------------------------------------------------------------------------------------
 # -----در اینچا کد ملی اپراتور که از اول در تایمش بودیم رو میاره به عنوان اپراتور در صفحه ای که میخوای خدمت رو انتخاب کنی -----
@@ -1330,6 +1360,7 @@ def reserverdef(request):
             'jobs': jobarray,
             'dayconter': dayconter,
             'timesel':timesel,
+            'bank': hesabs,
         })
 
 # -------------------------------------------------------------------------------------------------------------------------------------
@@ -1357,6 +1388,7 @@ def reserverdef(request):
             'jobs':jobarray,
             'dayconter': dayconter,
             'timesel':timesel,
+            'bank': hesabs,
 
         })
 # -----------------------------------------------------------------------------------------------------------------------------------
@@ -1409,6 +1441,7 @@ def reserverdef(request):
             'jadid':jobs,
             'jid':job,
             'timesel':timesel,
+            'bank': hesabs,
         })
 
 
@@ -1422,6 +1455,7 @@ def reserverdef(request):
         'melicodperonel':melicodperonel,
         'dayselect':dayselect,
         'mounthselect':mounthselect,
+        'bank': hesabs,
         'e':e,
     })
 
@@ -1599,6 +1633,7 @@ def dashborddef(request):
                     coment=description,
                     materiyal=idkalaarray,
                     valueunit=iunit,
+                    bankpeyment=w.bankpeyment,
                 )
                 for z in range(len(idkalaarray)):
                     if (iunit[z] != '') and (iunit[z] != None):
@@ -1710,6 +1745,27 @@ def reservdasti(request):
     names =request.POST.get("names")
     tickon = request.POST.get("tickon")
     detalework = request.POST.get("detalework")
+    pey = request.POST.get("pey")
+    bankpey = request.POST.get("bankpey")
+    if (pey == '') or (pey == None):
+        pey = '0'
+    if (bankpey == '') or (bankpey == None):
+        bankpey = '-2'
+    print(bankpey)
+    # ------تولید لیست حسابهای بانکی در hesabs-و کار انتخاب شده رو میریزه توی b----
+    banks = bankmodel.objects.all()
+    hesabs = [""]
+    hesabs.clear()
+    for bank in banks:
+        r = 0
+        for hesab in hesabs :
+            if hesab[1] ==  bank.onvan :
+                r = 1
+        if r == 0 :
+            s = (str(bank.id )+ "," + str(bank.onvan)).split(",")
+            hesabs.append(s)
+
+# --------------------------------------------------------------------------------
 
     arrayname =['']
     if namebuttom == 'accept':
@@ -1745,7 +1801,9 @@ def reservdasti(request):
                     searchmodeltest.objects.create(m=aa.melicode)
                     arrayname.append(mm)
         return render(request,'reserv_dasti.html',context={
-            'arrayname':arrayname
+            'arrayname':arrayname,
+            'bank': hesabs,
+
         })
 
     ls = searchmodeltest.objects.all()
@@ -1849,9 +1907,10 @@ def reservdasti(request):
             dateshamsireserv = dateshamsireserv,
             datemiladireserv = datemiladireserv,
             yearshamsi = yearshamsi,
-            pyment = "0",
             vahed=vahed,
             idwork=detalework,
+            pyment = pey,
+            bankpeyment=bankpey,
         )
 
     return render(request,'reserv_dasti.html',context={
@@ -1867,6 +1926,7 @@ def reservdasti(request):
         'namepersonal':namepersonal,
         'personel':personel,
         'melipersonel':namepersonel,
+        'bank': hesabs,
 
     })
 

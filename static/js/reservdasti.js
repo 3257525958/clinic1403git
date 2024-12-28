@@ -21,6 +21,9 @@ var personelbutton = document.getElementById("personelbutton");
             document.getElementById("namepersonel").hidden = true;
             document.getElementById("workhide").hidden = true;
             document.getElementById("detalhiden").hidden = true ;
+            document.getElementById("peyment").hidden = true ;
+            document.getElementById("m1").hidden = true ;
+            document.getElementById("bey").hidden = true ;
         if ( document.getElementById("melicode").value.length  > 9 ) {
             jobbuttom.click();
         }
@@ -40,6 +43,9 @@ var personelbutton = document.getElementById("personelbutton");
             document.getElementById("namepersonel").hidden = false;
             document.getElementById("workhide").hidden = false ;
             document.getElementById("detalhiden").hidden = false ;
+            document.getElementById("peyment").hidden = false ;
+            document.getElementById("m1").hidden = false ;
+            document.getElementById("bey").hidden = false ;
             melicode.value = melicodesave.innerHTML;
             job.value = jobsave.innerHTML;
      }

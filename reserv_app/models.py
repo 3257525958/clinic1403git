@@ -21,6 +21,7 @@ class reservemodel(models.Model):
     checking = models.CharField(max_length=20,default='false')
     vahed = models.CharField(max_length=100,default='0', null=True)
     idwork = models.CharField(max_length=100,default='0', null=True)
+    bankpeyment = models.CharField(max_length=200, default='-3',null=True)
     def __str__(self):
         return f"{self.personreserv}"
 
@@ -44,6 +45,7 @@ class reservemodeltest(models.Model):
     lastname =models.CharField(max_length=150,default='0')
     vahed = models.CharField(max_length=100,default='')
     idwork = models.CharField(max_length=100,default='0', null=True)
+    bankpeyment = models.CharField(max_length=200, default='-3',null=True)
     def __str__(self):
         return f"{self.personreserv}"
 
@@ -116,6 +118,7 @@ class fpeseshktestmodel(models.Model):
     reservid = models.CharField(max_length=50, default='0')
     materiyal = models.CharField(max_length=500, default='0')
     valueunit = models.CharField(max_length=200, default='0')
+    bankpeyment = models.CharField(max_length=200, default='-3',null=True)
 
     def __str__(self):
         return f"{self.melicod}"
