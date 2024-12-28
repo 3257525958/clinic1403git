@@ -97,6 +97,16 @@
         <input type="text" name="castoffer"  id="castoffer" class="validate" autocomplete="off" value="{{ castoffer }}" >
         <label for="names">مبلغ تخفیف :</label>
       </div>
+      <div class="input-field col s12 l4 m12" id="bey">
+                    <select name="bankpey" id="bankpey">
+             <option value="">انتخاب کنید</option>
+                   {% for hesab in bank %}
+                     <option value={{ hesab.0 }}>{{ hesab.1 }}</option>
+                   {% endfor %}
+                    </select>
+        <label class="teal-text text-darken-4">حساب پرداخت بیعانه :</label>
+      </div>
+
       <div class="input-field col s4">
                         <select class="custom-select" name="dayedit">
                                 <option value= "1" >1</option>

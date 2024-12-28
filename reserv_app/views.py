@@ -832,8 +832,11 @@ def reserverdef(request):
     bankpey = request.POST.get("bankpey")
     if (pey == '') or (pey == None):
         pey = '0'
-    if (bankpey == '') or (bankpey == None):
         bankpey = '-2'
+    yu = int(bankpey)
+    #
+    # if (bankpey == '') or (bankpey == None):
+    #     bankpey = '-2'
     # ------تولید لیست حسابهای بانکی در hesabs-و کار انتخاب شده رو میریزه توی b----
     banks = bankmodel.objects.all()
     hesabs = [""]
@@ -1749,9 +1752,9 @@ def reservdasti(request):
     bankpey = request.POST.get("bankpey")
     if (pey == '') or (pey == None):
         pey = '0'
-    if (bankpey == '') or (bankpey == None):
         bankpey = '-2'
-    print(bankpey)
+    yu = int(bankpey)
+
     # ------تولید لیست حسابهای بانکی در hesabs-و کار انتخاب شده رو میریزه توی b----
     banks = bankmodel.objects.all()
     hesabs = [""]

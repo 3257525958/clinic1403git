@@ -85,6 +85,7 @@
                       <th>مبلغ</th>
                       <th>بیعانه</th>
                       <th>بیعانه به حروف</th>
+                      <th>بانک واریز بیعانه</th>
                       <th>تخفیف</th>
                       <th>تخفیف به حروف</th>
                   </tr>
@@ -97,6 +98,18 @@
                     <td>{{ cast }}</td>
                     <td><input type="number" name="beyanemeghdar"  id="beyanemeghdar" class="validate" autocomplete="off" oninput="mablaghbeyane()" value="{{ peyment }}"></td>
                       <td><label id="lmablaghbeyane"></label></td>
+                    <td>
+{#                        <div class="input-field col s12 l4 m12" id="bey">#}
+                            <select name="bankpey" id="bankpey">
+                                 <option value="">انتخاب کنید</option>
+                                {% for hesab in bank %}
+                                    <option value={{ hesab.0 }}>{{ hesab.1 }}</option>
+                                {% endfor %}
+                            </select>
+{#                      </div>#}
+
+                    </td>
+                      
                     <td><input type="number" name="offermeghdar"  id="offermeghdar" class="validate" autocomplete="off" oninput="mablagh()" value="{{ offer }}"></td>
                       <td><label id="lmablagh"></label></td>
                   </tr>

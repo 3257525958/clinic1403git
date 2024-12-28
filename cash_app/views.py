@@ -236,6 +236,7 @@ def cast(request):
     melicodvarizande =request.POST.get("melicodvarizande")
     jamekolinput = request.POST.get('jamekolinput')
     bankonvanfactor = request.POST.get("bankonvanfactor")
+    bankpey = request.POST.get("bankpey")
     jamkol = 0
 
 
@@ -390,7 +391,7 @@ def cast(request):
                     cashmethodname = zz,
                     melicodeoperatore = request.user.username,
                     mablagh = str(jamekolinput),
-                    # dateshamsieditor = ,
+                    bankpeyment=r.bankpeyment,
                     )
                     a =fpeseshktestmodel.objects.filter(id=int(r.id))
                     a.update(checking='true')
@@ -468,6 +469,7 @@ def cast(request):
                     'offer':q.offer,
                     'id':q.id,
                     'melicodvarizande':melicodvarizande,
+                    'bank': hesabs,
                 })
     if offerbuttom == 'accept':
         if (inputid != None) and ( inputid != ''):
@@ -475,7 +477,8 @@ def cast(request):
             if (offermeghdar != None) and (offermeghdar != ''):
                 a.update(offer=offermeghdar)
             if (beyanemeghdar != None)  and (beyanemeghdar != ''):
-                a.update(pyment=beyanemeghdar)
+                yu = int(bankpey)
+                a.update(pyment=beyanemeghdar,bankpeyment=bankpey)
         us = accuntmodel.objects.all()
         for u in us:
             if int(u.melicode) == int(melicodvarizande) :
@@ -562,7 +565,7 @@ def cast(request):
                                                                     'bank':hesabs,
                                                                     'jamkol':jamkol,
                                                                     'melicodvarizande':melicodvarizande,
-                                                               })
+        })
     if namesearch == None :
         namesearch = ''
     if searchnamebottum == 'accept':
@@ -605,7 +608,8 @@ def cast(request):
                                                                         'searchinput':namesearch,
                                                                         's':ia,
                                                                         'etebarsabt':etebarsabt,
-                                                                        })
+                                                                        'bank': hesabs,
+    })
 
 def banksave(request):
     onvan = request.POST.get("onvan")
@@ -657,6 +661,22 @@ def closecashdef(request):
     closecash = request.POST.get("closecash")
     day = request.POST.get("day")
     daysave = request.POST.get("daysave")
+    bankpey = request.POST.get("bankpey")
+    # ------تولید لیست حسابهای بانکی در hesabs-و کار انتخاب شده رو میریزه توی b----
+    banks = bankmodel.objects.all()
+    hesabs = [""]
+    hesabs.clear()
+    for bank in banks:
+        r = 0
+        for hesab in hesabs:
+            if hesab[1] == bank.onvan:
+                r = 1
+        if r == 0:
+            s = (str(bank.id) + "," + str(bank.onvan)).split(",")
+            hesabs.append(s)
+
+    # --------------------------------------------------------------------------------
+
 
     m = request.user.username
     users = accuntmodel.objects.all()
@@ -832,6 +852,7 @@ def closecashdef(request):
             'hesabs':hesabs,
             'idc':idcast,
             'idfp':idfp,
+            'bank': hesabs,
         })
     if buttondelet == 'accept' :
         a=castmodel.objects.filter(id=int(idcedit))
@@ -839,6 +860,7 @@ def closecashdef(request):
         a.delete()
         b.update(checking='false',offer=0,pyment=0)
     if buttonedit == 'accept':
+        yu = int(bankpey)
         tedit = datetime.datetime.now()
         while strb(tedit) != 'فروردین':
             tedit -= timedelta(days=28)
@@ -858,7 +880,7 @@ def closecashdef(request):
         a=castmodel.objects.filter(id=int(idcedit))
         b=fpeseshktestmodel.objects.filter(id=int(idfpedit))
         a.delete()
-        b.update(offer=castoffer,pyment=castbeyane)
+        b.update(offer=castoffer,pyment=castbeyane,bankpeyment=bankpey)
         fps = fpeseshktestmodel.objects.all()
         for fp in fps:
             if int(fp.id) == int(idfpedit):
@@ -874,6 +896,7 @@ def closecashdef(request):
                     melicodeoperatore=request.user.username,
                     mablagh=j,
                     dateshamsieditor=stradby(datetime.datetime.now()),
+                    bankpeyment=bankpey,
                 )
 
     return render(request,'closecash.html',context={
@@ -882,6 +905,7 @@ def closecashdef(request):
         'rarray':casharray,
         'bank':bankarray,
         'level':level,
+        'bank': hesabs,
     })
 
 
