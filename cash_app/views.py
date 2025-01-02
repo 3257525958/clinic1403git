@@ -903,7 +903,7 @@ def closecashdef(request):
         'day':day,
         'mounth': mounth,
         'rarray':casharray,
-        'bank':bankarray,
+        'bankarray':bankarray,
         'level':level,
         'bank': hesabs,
     })
