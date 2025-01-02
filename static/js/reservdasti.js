@@ -88,4 +88,9 @@ var personelbutton = document.getElementById("personelbutton");
             document.getElementById("jobbuttom").click();
         }
 
+    function mablaghbeyane(){
+        b = ((beyanemeghdar.value - (beyanemeghdar.value % 10 )) / 10);
+        inputid.value = lableid.innerHTML;
+        lmablaghbeyane.innerHTML = (b).num2persian() + " " + "تومان";
+    }
 

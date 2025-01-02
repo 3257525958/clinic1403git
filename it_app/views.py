@@ -549,9 +549,9 @@ def tim(x):
             time.sleep(1)
 
 
-t1 = Thread(target=tim,args="1")
+# t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
-t1.start()
+# t1.start()
 t2.start()
 t3.start()
