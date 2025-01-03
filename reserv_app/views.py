@@ -1466,7 +1466,6 @@ def dashborddef(request):
     users = accuntmodel.objects.all()
     namedashbord = ''
     dastrasi = ''
-    idkalaarray = ['']
     for user in users:
         if user.melicode == request.user.username:
             namedashbord = user.firstname + ' ' + user.lastname
@@ -1498,11 +1497,7 @@ def dashborddef(request):
                                     esmes = esmekalamodel.objects.all()
                                     for esme in esmes:
                                         if int(esme.jobid) == int(job.id):
-                                            a = ['']
-                                            a.clear()
-                                            a.append(esme.esmekala)
-                                            a.append(esme.berand)
-                                            karray.append(a)
+                                            karray.append(esme.id)
 
 
             else:
@@ -1534,17 +1529,16 @@ def dashborddef(request):
         for i in range(int(len(karray))):
             s = "tickkala"+str(i)
             d = "valueunit"+str(i)
-            tickkala = request.POST.get(s)
+            # tickkala = request.POST.get(s)
             valueunit = request.POST.get(d)
+            if (valueunit == '') or (valueunit == None):
+                valueunit = '0'
             # if (tickkala != None) and (tickkala != ''):
             iunit.append(valueunit)
             idkalaarray.append(karray[int(i)])
-
-    tickkala = request.POST.get("tickkala")
     dayconterstr = request.POST.get("dayconter")
     button_next = request.POST.get("button_next")
     button_back = request.POST.get("button_back")
-    valueunit = request.POST.get("valueunit")
 
     dayreserv = ['t']
     dayreserv.clear()
@@ -1688,6 +1682,7 @@ def dashborddef(request):
                         'id':reserv.id,
                         'vahed':reserv.vahed,
                         'kalaarray': kalaarray,
+                        'timeselect': timeselect,
                         'tres':tres,
                     })
             else:

@@ -69,11 +69,13 @@ class anbarmodel(models.Model):
     def __str__(self):
         return f"{self.kalaid}"
 class anbargardanimodel(models.Model):
-    kalaid = models.CharField(max_length=10)
-    value = models.CharField(max_length=20)
-    dateyear= models.CharField(max_length=10)
-    datemounth= models.CharField(max_length=10)
-    dateday= models.CharField(max_length=10)
+    kalaid = models.CharField(max_length=10,default="0" , null=True)
+    value = models.CharField(max_length=20,default="0" , null=True)
+    dateyear= models.CharField(max_length=10,default="0" , null=True)
+    datemounth= models.CharField(max_length=10,default="0" , null=True)
+    dateday= models.CharField(max_length=10,default="0" , null=True)
+    newvalue = models.CharField(max_length=10,default="0" , null=True)
+    chengermelicode = models.CharField(max_length=11,default="0" , null=True)
     def __str__(self):
         return f"{self.kalaid}"
 

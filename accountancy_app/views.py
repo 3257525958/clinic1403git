@@ -279,6 +279,8 @@ def froshande(request):
 
 def anbargardani(request):
     codekala = request.POST.get('codekala')
+    chenghvalue = request.POST.get('chenghvalue')
+    newvalue = request.POST.get("newvalue")
     anbars = anbarmodel.objects.all()
     anbarlist = ['']
     anbarlist.clear()
@@ -295,15 +297,31 @@ def anbargardani(request):
                 nameofunit = j.unit
     selectkala = ['']
     selectkala.clear()
+    value = '0'
     if (codekala != '') and (codekala != None):
         for i in anbars :
             if int(i.kalaid) == int(codekala):
                 for j in ws :
                     if int(j.id) == int(codekala):
+                        value = str(i.value)
                         selectkala.append(j.esmekala+' '+j.berand+' '+i.value)
                         selectkala.append(j.id)
     # else:
     #     selectkala.append('',''])
+    if chenghvalue == 'accept':
+        if (newvalue != '') and (newvalue != None) :
+            anbargardanimodel.objects.create(
+                kalaid= str(codekala),
+                value= value,
+                dateyear = stry(datetime.datetime.now()),
+                datemounth = strb(datetime.datetime.now()),
+                dateday = strd(datetime.datetime.now()),
+                newvalue= str(newvalue),
+                chengermelicode = request.user.username
+
+            )
+            a = anbarmodel.objects.filter(kalaid=str(codekala))
+            a.update(value=str(newvalue))
 
     return render(request,'anbargardani.html',context={
                                                                      "kalalist":anbarlist,

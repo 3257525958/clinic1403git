@@ -921,10 +921,7 @@ def contact(request):
                     name = i.firstname+ '  ' + i.lastname
             except:
                 print("error for phon number")
-    print(number)
-    print(delet)
     if (delet == 'accept') and (number != '') and (number != None):
-        print(number)
         a = accuntmodel.objects.filter(phonnumber=number)
         a.delete()
 
