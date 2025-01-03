@@ -60,7 +60,10 @@ class waremodel(models.Model):
     year = models.CharField(max_length=5, default="0" , null=True)
     mounth = models.CharField(max_length=3, default="0" , null=True)
     day = models.CharField(max_length=3, default="0" , null=True)
+    # -----------------اگر شماره فاکتور نداشته باشه 0 و اکه داشته باشه شماره فاکتور مذکور ثبت میشه-------------------
     factornumber = models.CharField(max_length=15, default="0" , null=True)
+    # -------اگر تحوبل انبارشده باشه 1 و اگر نشده باشه 0 ثبت میشه-------------
+    tahvil = models.CharField(max_length=2, default="0" , null=True)
     def __str__(self):
         return f"{self.kala}"
 class anbarmodel(models.Model):

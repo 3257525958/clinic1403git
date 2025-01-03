@@ -204,6 +204,12 @@ def sana(request):
         })
 
 def warehouse(request):
+    # -----------------اگر شماره فاکتور نداشته باشه 0 و اکه داشته باشه شماره فاکتور مذکور ثبت میشه-------------------
+    factornamber = request.POST.get("factornamber")
+    if (factornamber == '') or (factornamber == None):
+        factornamber = '0'
+    # -----------------------------------------------
+    tahvil =request.POST.get("tahvil")
     kala = request.POST.get('kala')
     froshandename = request.POST.get('froshandename')
     mablagh = request.POST.get('mablagh')
@@ -237,24 +243,27 @@ def warehouse(request):
         year=stry(datetime.datetime.now()),
         mounth=strb(datetime.datetime.now()),
         day=strd(datetime.datetime.now()),
-                              )
-        anbars = anbarmodel.objects.all()
-        c = 0
-        for i in anbars:
-            if int(i.kalaid) == int(kala):
-                c = 1
-        newvalue = 0
-        if c == 1 :
+        factornumber= factornamber,
+        tahvil = tahvil,
+        )
+        if tahvil == '1':
+            anbars = anbarmodel.objects.all()
+            c = 0
             for i in anbars:
                 if int(i.kalaid) == int(kala):
-                    newvalue = int(i.value) + int(unit)
-            a=anbarmodel.objects.filter(kalaid=str(kala))
-            a.update(value=str(newvalue))
-        if c == 0 :
-            anbarmodel.objects.create(
-                kalaid=str(kala),
-                value=str(unit),
-            )
+                    c = 1
+            newvalue = 0
+            if c == 1 :
+                for i in anbars:
+                    if int(i.kalaid) == int(kala):
+                        newvalue = int(i.value) + int(unit)
+                a=anbarmodel.objects.filter(kalaid=str(kala))
+                a.update(value=str(newvalue))
+            if c == 0 :
+                anbarmodel.objects.create(
+                    kalaid=str(kala),
+                    value=str(unit),
+                )
 
     return render(request,'warehouse.html',context={
                                                                     'kalalist':kalalist,
