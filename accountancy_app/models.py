@@ -64,6 +64,7 @@ class waremodel(models.Model):
     factornumber = models.CharField(max_length=15, default="0" , null=True)
     # -------اگر تحوبل انبارشده باشه 1 و اگر نشده باشه 0 ثبت میشه-------------
     tahvil = models.CharField(max_length=2, default="0" , null=True)
+    savermelicode = models.CharField(max_length=12, default="0" , null=True)
     def __str__(self):
         return f"{self.kala}"
 class anbarmodel(models.Model):

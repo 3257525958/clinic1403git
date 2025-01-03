@@ -79,45 +79,177 @@
       
       <div class="col s12 m12 l12">
          <table class="highlight" id="table"  >
-        
-                <tbody>
-                      <tr>
-                        <td> <label><input name="doc_date" id="doc_date" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span></span></label></td>  
-                        <td>صدور سند بر اساس تاریخ</td>
-                      </tr>
-                      <tr>
-                        <td> <label><input name="doc_time" id="doc_time" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span></span></label></td>  
-                        <td>صدور سند بر اساس بازه زمانی</td>
-                      </tr>
-                      <tr>
-                          {% if cilikmaterial == 'true' %}
-                        <td> <label><input checked name="doc_material" id="doc_material" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span></span></label></td>  
-                        <td>صدور سند بر اساس کالا</td>
+                          {% if ciliktime == 'true' %}
+                        <label><input checked name="doc_time" id="doc_time" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span>صدور سند بر اساس بازه زمانی</span></label>
                           {% else %}
-                        <td> <label><input  name="doc_material" id="doc_material" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span></span></label></td>  
-                        <td>صدور سند بر اساس کالا</td>
+                        <label><input name="doc_time" id="doc_time" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span>صدور سند بر اساس بازه زمانی</span></label>  
                           {% endif %} 
-                      </tr>
-                      <tr>
-                        <td> <label><input name="doc_forosh" id="doc_forosh" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span></span></label></td>  
-                        <td>صدور سند بر اساس فروشنده</td>
-                      </tr>
-                      <tr>
-                        <td> <label><input name="doc_factor" id="doc_factor" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span></span></label></td>  
-                        <td>صدور سند بر اساس شماره فاکتور</td>
-                      </tr>
-                </tbody>
+         </table>
+         <div id="bazezamani" hidden>
+      <div class="input-field col s4">
+                    <select class="custom-select" name="day" >
+                            <option value= "1" >1</option>
+                            <option value= "2" >2</option>
+                            <option value= "3" >3</option>
+                            <option value= "4" >4</option>
+                            <option value= "5" >5</option>
+                            <option value= "6" >6</option>
+                            <option value= "7" >7</option>
+                            <option value= "8" >8</option>
+                            <option value= "9" >9</option>
+                            <option value= "10" >10</option>
+                            <option value= "11" >11</option>
+                            <option value= "12" >12</option>
+                            <option value= "13" >13</option>
+                            <option value= "14" >14</option>
+                            <option value= "15" >15</option>
+                            <option value= "16" >16</option>
+                            <option value= "17" >17</option>
+                            <option value= "18" >18</option>
+                            <option value= "19" >19</option>
+                            <option value= "20" >20</option>
+                            <option value= "21" >21</option>
+                            <option value= "22" >22</option>
+                            <option value= "23" >23</option>
+                            <option value= "24" >24</option>
+                            <option value= "25" >25</option>
+                            <option value= "26" >26</option>
+                            <option value= "27" >27</option>
+                            <option value= "28" >28</option>
+                            <option value= "29" >29</option>
+                            <option value= "30" >30</option>
+                            <option value= "31" >31</option>
+                    </select>
+        <label class="teal-text text-darken-4">روز شروع بازه :</label>
+      </div>
+      <div class="input-field col s4">
+                    <select  class="custom-select" name="mounth" >
+                        <option value="فروردین">فروردین</option>
+                        <option value="اردیبهشت">اردیبهشت</option>
+                        <option value="خرداد">خرداد</option>
+                        <option value="تیر">تیر</option>
+                        <option value="مرداد">مرداد</option>
+                        <option value="شهریور">شهریور</option>
+                        <option value="مهر">مهر</option>
+                        <option value="آبان">آبان</option>
+                        <option value="آذر">آذر</option>
+                        <option value="دی">دی</option>
+                        <option value="بهمن">بهمن</option>
+                        <option value="اسفند">اسفند</option>
+                    </select>
+        <label class="teal-text text-darken-4 ">ماه شروع بازه:</label>
+      </div>
+      <div class="input-field col s4">
+                    <select class="custom-select" name="year" >
+                        {% for i in yearcant %}
+                            <option value={{ i }}>{{ i }}</option>
+                        {% endfor %}
+                    </select>
+        <label class="teal-text text-darken-4">سال شروع بازه:</label>
+      </div>
+      <div class="input-field col s4">
+                    <select class="custom-select" name="day" >
+                            <option value= "1" >1</option>
+                            <option value= "2" >2</option>
+                            <option value= "3" >3</option>
+                            <option value= "4" >4</option>
+                            <option value= "5" >5</option>
+                            <option value= "6" >6</option>
+                            <option value= "7" >7</option>
+                            <option value= "8" >8</option>
+                            <option value= "9" >9</option>
+                            <option value= "10" >10</option>
+                            <option value= "11" >11</option>
+                            <option value= "12" >12</option>
+                            <option value= "13" >13</option>
+                            <option value= "14" >14</option>
+                            <option value= "15" >15</option>
+                            <option value= "16" >16</option>
+                            <option value= "17" >17</option>
+                            <option value= "18" >18</option>
+                            <option value= "19" >19</option>
+                            <option value= "20" >20</option>
+                            <option value= "21" >21</option>
+                            <option value= "22" >22</option>
+                            <option value= "23" >23</option>
+                            <option value= "24" >24</option>
+                            <option value= "25" >25</option>
+                            <option value= "26" >26</option>
+                            <option value= "27" >27</option>
+                            <option value= "28" >28</option>
+                            <option value= "29" >29</option>
+                            <option value= "30" >30</option>
+                            <option value= "31" >31</option>
+                    </select>
+        <label class="teal-text text-darken-4">روز پایان بازه :</label>
+      </div>
+      <div class="input-field col s4">
+                    <select  class="custom-select" name="mounth" >
+                        <option value="فروردین">فروردین</option>
+                        <option value="اردیبهشت">اردیبهشت</option>
+                        <option value="خرداد">خرداد</option>
+                        <option value="تیر">تیر</option>
+                        <option value="مرداد">مرداد</option>
+                        <option value="شهریور">شهریور</option>
+                        <option value="مهر">مهر</option>
+                        <option value="آبان">آبان</option>
+                        <option value="آذر">آذر</option>
+                        <option value="دی">دی</option>
+                        <option value="بهمن">بهمن</option>
+                        <option value="اسفند">اسفند</option>
+                    </select>
+        <label class="teal-text text-darken-4 ">ماه پایان بازه:</label>
+      </div>
+      <div class="input-field col s4">
+                    <select class="custom-select" name="year" >
+                        {% for i in yearcant %}
+                            <option value={{ i }}>{{ i }}</option>
+                        {% endfor %}
+                    </select>
+        <label class="teal-text text-darken-4">سال پایان بازه:</label>
+      </div>
+    </div>      
+         <table class="highlight" id="table"  >
+                          {% if cilikmaterial == 'true' %}
+                        <label><input checked name="doc_material" id="doc_material" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span>صدور سند بر اساس  نام کالا</span></label>          
+                          {% else %}
+                         <label><input name="doc_material" id="doc_material" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span>صدور سند بر اساس نام کالا</span></label>
+                          {% endif %}           
+         </table>
+      <div class="input-field col s12" id="materiallist" hidden>
+                    <select class="custom-select" name="codekala" onchange="chenghe()">
+                            <option value="{{ anbarlabelface.1 }}">{{ anbarlabelface.0 }}</option>
+                        {% for kala in kalalist %}
+                            <option value="{{ kala.1 }}">{{ kala.0 }}</option>
+                        {% endfor %}
+                    </select>
+        <label class="teal-text text-darken-4">نام کالا و مقدار آن :</label>
+      </div>
+      
+         <table class="highlight" id="table"  >
+                          {% if cilikforosh == 'true' %}
+                        <label><input checked name="doc_forosh" id="doc_forosh" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span>صدور سند بر اساس فروشنده</span></label>  
+                          {% else %}
+                        <label><input name="doc_forosh" id="doc_forosh" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span>صدور سند بر اساس فروشنده</span></label>
+                          {% endif %} 
+         </table>
+      
+         <table class="highlight" id="table"  >
+                          {% if cilikfactor == 'true' %}
+                        <label><input checked name="doc_factor" id="doc_factor" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span>صدور سند بر اساس شماره فاکتور</span></label>  
+                          {% else %}
+                        <label><input name="doc_factor" id="doc_factor" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span>صدور سند بر اساس شماره فاکتور</span></label>  
+                          {% endif %} 
          </table>
       </div>  
-            
-          
 
 
       
 {#        <div class="center-align dokmeye-vorood ">#}
 {#          <button class="w-100 btn waves-effect" name="fpezeshkibottom" value="accept">ثبت اطلاعات </button>#}
 {#        </div>#}
-  
+  <label id="timechek" hidden>{{ ciliktime }}</label>
+  <label id="materialchek" hidden>{{ cilikmaterial }}</label>
         
       </div>
 
@@ -170,7 +302,7 @@
   </div>
 
 </footer> 
-
+<script src="/static/js/addselect.js"></script>
 <script src="/static/js/materialize.min.js"></script>
 <script src="{% static "/js/pardakht.js" %}"></script>
 

@@ -95,90 +95,6 @@ def laghvgharardad(request):
                                                                     'melicodetebar':melicodetebar,
                                                                     'etebar':etebar,
                                                                     })# Create your views here.
-def pardakhthoghogh(request):
-    melicod = request.POST.get('melicod')
-    if (melicod == None) or (melicod == '') :
-        etebarmelicod = "notr"
-    else:
-        etebarmelicod = "false"
-    us = accuntmodel.objects.all()
-    name = ''
-    for u in us:
-        if melicod == u.melicode:
-            name = u.firstname + ' ' + u.lastname
-            etebarmelicod = "true"
-
-    mounthselect = request.POST.get("mounthselect")
-    etebar = ""
-
-    notsel = request.POST.get("notsel")
-    sel = request.POST.get("sel")
-    tickon = request.POST.get("tickon")
-    gs = gharardadmodel.objects.all()
-    chekbox = "notselect"
-    d = []
-    d.clear()
-    for g in gs:
-        if g.melicod == melicod :
-            if g.type_select == 'درصدی' :
-                ps = castmodel.objects.all()
-                for p in ps:
-                    if (p.persone == melicod) and (p.selectjob == g.job_select) and (p.mounth == mounthselect):
-                        dastmozddasadi = int(g.cast) * int(p.peyment)
-                        dastmozddasadi = dastmozddasadi / 100
-                        dd = ['']
-                        dd.clear()
-                        ss = savemovaghat.objects.all()
-                        for s in ss:
-                            if int(s.idcod) == int(p.id):
-                                chekbox = "select"
-                        dd = [p.selectjob,p.day+p.mounth+p.year,str(dastmozddasadi),chekbox,p.id]
-                        chekbox = "notselect"
-                        d.append(dd)
-            if g.type_select == 'موردی' :
-                ps = castmodel.objects.all()
-                for p in ps :
-                    if (p.persone == melicod) and (p.selectjob == g.job_select) and (p.mounth == mounthselect):
-                        dastmozdmoredi = int(g.cast)
-                        dm = ['']
-                        dm.clear()
-                        ss = savemovaghat.objects.all()
-                        for s in ss:
-                            if int(s.idcod) == int(p.id):
-                                chekbox = "select"
-                        dm = [p.selectjob,p.day+p.mounth+p.year,str(dastmozdmoredi),chekbox,p.id]
-                        chekbox = "notselect"
-                        d.append(dm)
-    if (tickon != None) and (tickon != '') and (notsel != None) and (notsel != ''):
-        j = int(tickon)
-        c = 0
-        for i in d:
-            if c == j :
-                i[3] = "select"
-                savemovaghat.objects.create(hoghoghmelicod=melicod,idcod=i[4])
-            c = c+1
-    if  (sel != None) and (sel != ''):
-        j = int(sel)
-        c = 0
-        for i in d:
-            if c == j :
-                i[3] = "notselect"
-                a = savemovaghat.objects.filter(idcod=i[4],hoghoghmelicod=melicod)
-                a.delete()
-            c = c+1
-
-
-    return render(request,'pardakht_hoghogh.html',context={
-                                                                        'dastmozddasadimoredi':d,
-                                                                        'mounthselect':mounthselect,
-                                                                        'name':name,
-                                                                        'etebarmelicod':etebarmelicod,
-                                                                        'etebar':etebar,
-                                                                        'melicod':melicod,
-                                                                        # 'a':dd,
-                                                                        })
-
-
 
 def sana(request):
     job = request.POST.get('job')
@@ -245,6 +161,7 @@ def warehouse(request):
         day=strd(datetime.datetime.now()),
         factornumber= factornamber,
         tahvil = tahvil,
+        savermelicode= request.user.username,
         )
         if tahvil == '1':
             anbars = anbarmodel.objects.all()
@@ -337,3 +254,87 @@ def anbargardani(request):
                                                                      "nameofunit":nameofunit,
                                                                      "anbarlabelface":selectkala,
                                                                     })
+
+
+def pardakhthoghogh(request):
+    melicod = request.POST.get('melicod')
+    if (melicod == None) or (melicod == '') :
+        etebarmelicod = "notr"
+    else:
+        etebarmelicod = "false"
+    us = accuntmodel.objects.all()
+    name = ''
+    for u in us:
+        if melicod == u.melicode:
+            name = u.firstname + ' ' + u.lastname
+            etebarmelicod = "true"
+
+    mounthselect = request.POST.get("mounthselect")
+    etebar = ""
+
+    notsel = request.POST.get("notsel")
+    sel = request.POST.get("sel")
+    tickon = request.POST.get("tickon")
+    gs = gharardadmodel.objects.all()
+    chekbox = "notselect"
+    d = []
+    d.clear()
+    for g in gs:
+        if g.melicod == melicod :
+            if g.type_select == 'درصدی' :
+                ps = castmodel.objects.all()
+                for p in ps:
+                    if (p.persone == melicod) and (p.selectjob == g.job_select) and (p.mounth == mounthselect):
+                        dastmozddasadi = int(g.cast) * int(p.peyment)
+                        dastmozddasadi = dastmozddasadi / 100
+                        dd = ['']
+                        dd.clear()
+                        ss = savemovaghat.objects.all()
+                        for s in ss:
+                            if int(s.idcod) == int(p.id):
+                                chekbox = "select"
+                        dd = [p.selectjob,p.day+p.mounth+p.year,str(dastmozddasadi),chekbox,p.id]
+                        chekbox = "notselect"
+                        d.append(dd)
+            if g.type_select == 'موردی' :
+                ps = castmodel.objects.all()
+                for p in ps :
+                    if (p.persone == melicod) and (p.selectjob == g.job_select) and (p.mounth == mounthselect):
+                        dastmozdmoredi = int(g.cast)
+                        dm = ['']
+                        dm.clear()
+                        ss = savemovaghat.objects.all()
+                        for s in ss:
+                            if int(s.idcod) == int(p.id):
+                                chekbox = "select"
+                        dm = [p.selectjob,p.day+p.mounth+p.year,str(dastmozdmoredi),chekbox,p.id]
+                        chekbox = "notselect"
+                        d.append(dm)
+    if (tickon != None) and (tickon != '') and (notsel != None) and (notsel != ''):
+        j = int(tickon)
+        c = 0
+        for i in d:
+            if c == j :
+                i[3] = "select"
+                savemovaghat.objects.create(hoghoghmelicod=melicod,idcod=i[4])
+            c = c+1
+    if  (sel != None) and (sel != ''):
+        j = int(sel)
+        c = 0
+        for i in d:
+            if c == j :
+                i[3] = "notselect"
+                a = savemovaghat.objects.filter(idcod=i[4],hoghoghmelicod=melicod)
+                a.delete()
+            c = c+1
+
+
+    return render(request,'pardakht_hoghogh.html',context={
+                                                                        'dastmozddasadimoredi':d,
+                                                                        'mounthselect':mounthselect,
+                                                                        'name':name,
+                                                                        'etebarmelicod':etebarmelicod,
+                                                                        'etebar':etebar,
+                                                                        'melicod':melicod,
+                                                                        # 'a':dd,
+                                                                        })

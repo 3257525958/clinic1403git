@@ -624,12 +624,33 @@ def banksave(request):
     return render(request,'bank.html')
 
 def pardakhtdef(request):
-    doc_date = request.POST.get("doc_date")
     doc_time = request.POST.get("doc_time")
     doc_material= request.POST.get("doc_material")
     doc_forosh = request.POST.get("doc_forosh")
     doc_factor= request.POST.get("doc_factor")
-    print(doc_material)
+    ciliktime = 'false'
+    if doc_time == 'accept' :
+        ciliktime = "true"
+    cilikmaterial = 'false'
+    if doc_material == 'accept' :
+        cilikmaterial = "true"
+    cilikfactor = 'false'
+    if doc_factor == 'accept' :
+        cilikfactor = "true"
+    cilikforosh = 'false'
+    if doc_forosh == 'accept' :
+        cilikforosh = "true"
+
+    yearcant = [0]
+    yearcant.clear()
+    tyear = datetime.datetime.now()
+    h = int(stry(tyear))+1400
+    while 1300 <= h :
+        yearcant.append(str(h))
+        h -= 1
+
+
+
     ws = waremodel.objects.all()
     flist = ['']
     flist.clear()
@@ -639,13 +660,15 @@ def pardakhtdef(request):
                 flist.append(w.id)
         except:
             print("error the pardakht")
-    cilikmaterial = ''
-    if doc_material == 'accept' :
-        cilikmaterial = "true"
+
 
     return render(request,'pardakht.html', context={
-                                                                    "cilikmaterial" : cilikmaterial,
-                                                                })
+        'ciliktime':ciliktime,
+        'cilikmaterial':cilikmaterial,
+        'cilikfactor':cilikfactor,
+        'cilikforosh':cilikforosh,
+        'yearcant':yearcant,
+         })
 
 def closecashdef(request):
     castbeyane = request.POST.get("castbeyane")
