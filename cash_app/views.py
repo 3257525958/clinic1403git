@@ -624,6 +624,7 @@ def banksave(request):
     return render(request,'bank.html')
 
 def pardakhtdef(request):
+    factorn = request.POST.get("factorn")
     button_factor =  request.POST.get("button_factor")
     doc_time = request.POST.get("doc_time")
     doc_material= request.POST.get("doc_material")
@@ -661,10 +662,32 @@ def pardakhtdef(request):
                 flist.append(w.id)
         except:
             print("error the pardakht")
-
+    factors = ['']
+    factors.clear()
     if button_factor == 'accept':
+        if (factorn != '') and (factorn != None):
+            for w in ws:
+                if str(w.factornumber) == str(factorn):
+                    factor=['']
+                    factor.clear()
+                    factor.append(w.day+'/'+w.mounth+'/'+w.year)
+                    es = esmekalamodel.objects.all()
+                    for e in es :
+                        if str(e.id) == str(w.kala):
+                            factor.append(e.esmekala)
+                    factor.append(w.cast)
+                    factor.append(w.takhfif)
+                    fs = froshandemodel.objects.all()
+                    for f in fs :
+                        if str(f.id) == str(w.froshande):
+                            factor.append(f.lastname+' '+f.lastname)
+                    if w.tahvil == "1":
+                        factor.append("تحویل انبار شده")
+                    if w.tahvil == "0":
+                        factor.append("تحویل  انبار نشده")
+                    factors.append(factor)
         return render(request,'factorlist.html',context={
-
+            'factors':factors,
         })
     return render(request,'pardakht.html', context={
         'ciliktime':ciliktime,

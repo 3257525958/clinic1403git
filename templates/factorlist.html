@@ -144,13 +144,15 @@
                 </thead>
         
                 <tbody>
-                {% for r in rarray %}
+                {% for r in factors %}
                   <tr>
                     <td>{{ r.0 }}</td>
                     <td>{{ r.1 }}</td>
                     <td>{{ r.2 }}</td>
                     <td>{{ r.3 }}</td>
                     <td>{{ r.4 }}</td>
+                    <td>{{ r.5 }}</td>
+                  
                   {% if level == "مدیر" %}    
                     <td><input type="submit" name="cash"  id="cash" class="validate" autocomplete="off" value="{{ r.5 }}"></td>
                   {% endif %}
