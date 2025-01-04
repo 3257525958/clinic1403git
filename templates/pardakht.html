@@ -233,6 +233,15 @@
                         <label><input name="doc_forosh" id="doc_forosh" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span>صدور سند بر اساس فروشنده</span></label>
                           {% endif %} 
          </table>
+      <div class="input-field col s12" id="foroshandelist" hidden>
+                    <select class="custom-select" name="codekala" onchange="chenghe()">
+                            <option value="{{ anbarlabelface.1 }}">{{ anbarlabelface.0 }}</option>
+                        {% for kala in kalalist %}
+                            <option value="{{ kala.1 }}">{{ kala.0 }}</option>
+                        {% endfor %}
+                    </select>
+        <label class="teal-text text-darken-4">نام کالا و مقدار آن :</label>
+      </div>
       
          <table class="highlight" id="table"  >
                           {% if cilikfactor == 'true' %}
@@ -241,6 +250,11 @@
                         <label><input name="doc_factor" id="doc_factor" type="checkbox" class="filled-in" value="accept" onchange="cilik()"/><span>صدور سند بر اساس شماره فاکتور</span></label>  
                           {% endif %} 
          </table>
+      <div class="input-field col s12 " id="factornumber" hidden>
+        <input type="number" name="factorn"  id="factorn" class="validate" autocomplete="off">
+        <label for="factorn">شماره فاکتور :</label>
+      </div>
+
       </div>  
 
 
@@ -250,6 +264,13 @@
 {#        </div>#}
   <label id="timechek" hidden>{{ ciliktime }}</label>
   <label id="materialchek" hidden>{{ cilikmaterial }}</label>
+  <label id="foroshchek" hidden>{{ cilikforosh }}</label>
+  <label id="factorchek" hidden>{{ cilikfactor }}</label>
+      
+      <div class="center-align dokmeye-vorood ">
+        <button class="w-100 btn waves-effect" name="button_factor" value="accept" >تایید</button>
+      </div>
+
         
       </div>
 

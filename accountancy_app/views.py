@@ -120,6 +120,7 @@ def sana(request):
         })
 
 def warehouse(request):
+    takhfif =request.POST.get("mablaghtakhfif")
     # -----------------اگر شماره فاکتور نداشته باشه 0 و اکه داشته باشه شماره فاکتور مذکور ثبت میشه-------------------
     factornamber = request.POST.get("factornamber")
     if (factornamber == '') or (factornamber == None):
@@ -162,6 +163,7 @@ def warehouse(request):
         factornumber= factornamber,
         tahvil = tahvil,
         savermelicode= request.user.username,
+        takhfif= takhfif,
         )
         if tahvil == '1':
             anbars = anbarmodel.objects.all()

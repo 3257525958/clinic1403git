@@ -624,6 +624,7 @@ def banksave(request):
     return render(request,'bank.html')
 
 def pardakhtdef(request):
+    button_factor =  request.POST.get("button_factor")
     doc_time = request.POST.get("doc_time")
     doc_material= request.POST.get("doc_material")
     doc_forosh = request.POST.get("doc_forosh")
@@ -661,7 +662,10 @@ def pardakhtdef(request):
         except:
             print("error the pardakht")
 
+    if button_factor == 'accept':
+        return render(request,'factorlist.html',context={
 
+        })
     return render(request,'pardakht.html', context={
         'ciliktime':ciliktime,
         'cilikmaterial':cilikmaterial,
