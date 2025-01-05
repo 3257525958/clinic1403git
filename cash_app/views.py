@@ -656,14 +656,20 @@ def pardakhtdef(request):
     ws = waremodel.objects.all()
     flist = ['']
     flist.clear()
-    for w in ws:
+    for ww in ws:
         try:
-            if (w.kala != '') and (w.kala != None) :
-                flist.append(w.id)
+            if (ww.kala != '') and (ww.kala != None) :
+                flist.append(ww.id)
         except:
             print("error the pardakht")
+            
     factors = ['']
     factors.clear()
+    baghimande = 0
+    bestankari = 0
+    bedehkari = 0
+    jamkool = 0
+    idfroshande = 0
     if button_factor == 'accept':
         if (factorn != '') and (factorn != None):
             for w in ws:
@@ -680,14 +686,31 @@ def pardakhtdef(request):
                     fs = froshandemodel.objects.all()
                     for f in fs :
                         if str(f.id) == str(w.froshande):
-                            factor.append(f.lastname+' '+f.lastname)
+                            factor.append(f.firstname+' '+f.lastname)
+                            idfroshande = f.id
+                    if w.pardakht == "1":
+                        factor.append("پرداخت شده")
+                    if w.pardakht == "0":
+                        factor.append("پرداخت نشده")
                     if w.tahvil == "1":
                         factor.append("تحویل انبار شده")
                     if w.tahvil == "0":
                         factor.append("تحویل  انبار نشده")
+
+                    jamkool = jamkool + int(w.cast) - int(w.takhfif)
                     factors.append(factor)
+
+        for w in ws:
+            if int(w.froshande) == int(idfroshande) :
+                bedehkari = bedehkari + int(w.cast) - int(w.takhfif)
+        baghimande = bedehkari - bestankari
+        bedehkari = bedehkari - jamkool
         return render(request,'factorlist.html',context={
             'factors':factors,
+            'baghimande':baghimande,
+            'bestankari':bestankari,
+            'bedehkari':bedehkari,
+            'jamkool':jamkool,
         })
     return render(request,'pardakht.html', context={
         'ciliktime':ciliktime,

@@ -55,7 +55,7 @@ class waremodel(models.Model):
     kala = models.CharField(max_length=200)
     froshande = models.CharField(max_length=150)
     castmethode = models.CharField(max_length=50,default='پرداخت نشده')
-    cast =models.CharField(max_length=50)
+    cast =models.CharField(max_length=50 , default=0)
     value = models.CharField(max_length=50)
     year = models.CharField(max_length=5, default="0" , null=True)
     mounth = models.CharField(max_length=3, default="0" , null=True)
@@ -65,7 +65,10 @@ class waremodel(models.Model):
     # -------اگر تحوبل انبارشده باشه 1 و اگر نشده باشه 0 ثبت میشه-------------
     tahvil = models.CharField(max_length=2, default="0" , null=True)
     savermelicode = models.CharField(max_length=12, default="0" , null=True)
-    takhfif =models.CharField(max_length=50, default="0" , null=True)
+    takhfif =models.CharField(max_length=50, default="0")
+    # -------------0 یعنی پرداخت نشده و 1 یعنی پرداخت شده-----------
+    pardakht = models.CharField(max_length=50, default="0" , null=True)
+
     def __str__(self):
         return f"{self.kala}"
 class anbarmodel(models.Model):

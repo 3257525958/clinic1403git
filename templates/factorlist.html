@@ -140,6 +140,7 @@
                       <th>نخفیف</th>
                       <th>فروشنده</th>
                       <th>وضعیت پرداخت</th>
+                      <th>وضعیت تحویل</th>
                   </tr>
                 </thead>
         
@@ -152,6 +153,7 @@
                     <td>{{ r.3 }}</td>
                     <td>{{ r.4 }}</td>
                     <td>{{ r.5 }}</td>
+                    <td>{{ r.6 }}</td>
                   
                   {% if level == "مدیر" %}    
                     <td><input type="submit" name="cash"  id="cash" class="validate" autocomplete="off" value="{{ r.5 }}"></td>
@@ -171,13 +173,56 @@
                         <label for="phonnumber" id="ljamkol"></label>
                     </div>
                 {% endfor %}
+          
+          
+      <div class="input-field col s12 l3 m3 ">
+          <div class="input-field col s12 l12 m12 ">
+            <input type="number" name="mablaghpardakht"   class="validate" autocomplete="off" value="{{ baghimande }}" id="mablaghpardakht" oninput="pardakhtcheng()">
+            <label for="mablaghpardakht">مبلغ قابل پرداخت :</label>
+          </div>    
+          <div class="input-field col s12 l12 m12">
+            <label id="pardakhtimablagh"></label>
+          </div>    
+      </div>    
+      <div class="input-field col s12 l3 m3 ">
+          <div class="input-field col s12 l12 m12 ">
+            <input type="number" name="mablaghbestankari"   class="validate" value="{{ bestankari }}" autocomplete="off" id="mablaghbestankari" >
+            <label for="mablaghbestankari">مبلغ بستانکاری:</label>
+          </div>    
+          <div class="input-field col s12 l12 m12">
+            <label id="bestankari"></label>
+          </div>    
+      </div>    
+      <div class="input-field col s12 l3 m3 ">
+          <div class="input-field col s12 l12 m12 ">
+            <input type="number" name="mablaghbedehkari"   class="validate"  value="{{ bedehkari }}" autocomplete="off" id="mablaghbedehkari">
+            <label for="mablaghbedehkari">مبلغ باقی مانده از قبل :</label>
+          </div>    
+          <div class="input-field col s12 l12 m12">
+            <label id="bedehkari"></label>
+          </div>    
+      </div>    
+      <div class="input-field col s12 l3 m3 ">
+          <div class="input-field col s12 l12 m12 ">
+            <input type="number" name="jamfactor"   class="validate"  value="{{ jamkool }}" autocomplete="off" id="jamfactor">
+            <label for="jamfactor">جمع کل فاکتور فعلی :</label>
+          </div>    
+          <div class="input-field col s12 l12 m12">
+            <label id="jamfactorhorof"></label>
+          </div>    
+      </div>    
+
+
           <div class="center-align dokmeye-vorood ">
             <button class="w-100 btn waves-effect" name="closecash" value="accept" >بستن صندوق </button>
           </div>
           </div>
     </div>
   
-  
+  <label id="horofbaghimande" hidden>{{ baghimande }}</label>
+  <label id="horofbestankari" hidden>{{ bestankari }}</label>
+  <label id="horofbedehkari" hidden>{{ bedehkari }}</label>
+  <label id="horofjamkol" hidden>1{{ jamkool }}</label>
  </form>
 </main>
 
@@ -241,11 +286,9 @@
 {#<label id="succes" hidden>{{  succes }}</label>#}
 
 <script src={%  static "/js/materialize.min.js" %}></script>
-<script src={% static "/js/home.js" %}></script>
 <script src={% static "/js/addselect.js" %}></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static "/js/cast_form.js" %}">    </script>
 <script src="{% static "js/lib/num2persian-min.js" %}"></script>
-<script src="{% static "js/searchname.js" %}">    </script>
+<script src="{% static "js/factorlist.js" %}">    </script>
 </body>
 </html>
