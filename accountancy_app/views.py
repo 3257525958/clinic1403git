@@ -151,6 +151,8 @@ def warehouse(request):
     froshandelist.clear()
     for i in froshandesname:
         froshandelist.append([i.firstname+' '+i.lastname,i.id])
+    if (takhfif == '') or (takhfif == None):
+        takhfif = 0
     if button == 'accept':
         waremodel.objects.create(
         kala = str(kala),
