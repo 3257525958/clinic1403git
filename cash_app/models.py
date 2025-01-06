@@ -41,3 +41,16 @@ class ctmodel(models.Model):
     melicod = models.CharField(max_length=10,default="0")
     def __str__(self):
         return f"{self.idf}"
+
+class hesabdaryaft(models.Model):
+    firstname = models.CharField(max_length=50,null=True)
+    lastname = models.CharField(max_length=50,null=True)
+    onvansherkat = models.CharField(max_length=50,null=True)
+    shomarehesabd = models.CharField(max_length=50,null=True)
+    shomarekart = models.CharField(max_length=50,null=True)
+    shomaresheba = models.CharField(max_length=50,null=True)
+    idfroshander = models.CharField(max_length=5,null=True)
+
+    def __str__(self):
+        return f"{self.firstname}{' '}{self.lastname}"
+
