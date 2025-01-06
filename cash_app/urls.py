@@ -17,4 +17,6 @@ urlpatterns = [
     path('closecash/', views.closecashdef, name='closecash'),
     path('contact/', views.contact, name='contact'),
     path('pardakht/', views.pardakhtdef, name='pardakhtdef'),
+    path('sakhthesab/', views.hesabsazi , name='hesab'),
+
 ]

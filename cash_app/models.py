@@ -42,9 +42,7 @@ class ctmodel(models.Model):
     def __str__(self):
         return f"{self.idf}"
 
-class hesabdaryaft(models.Model):
-    firstname = models.CharField(max_length=50,null=True)
-    lastname = models.CharField(max_length=50,null=True)
+class hesab(models.Model):
     onvansherkat = models.CharField(max_length=50,null=True)
     shomarehesabd = models.CharField(max_length=50,null=True)
     shomarekart = models.CharField(max_length=50,null=True)
@@ -52,5 +50,5 @@ class hesabdaryaft(models.Model):
     idfroshander = models.CharField(max_length=5,null=True)
 
     def __str__(self):
-        return f"{self.firstname}{' '}{self.lastname}"
+        return f"{self.onvansherkat}"
 

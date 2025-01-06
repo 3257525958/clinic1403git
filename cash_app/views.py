@@ -1003,3 +1003,28 @@ def contact(request):
                                                                 "number":number,
                                                                     })
 
+
+def hesabsazi(request):
+    fs = froshandemodel.objects.all()
+    frosharray = ['']
+    frosharray.clear()
+    for f in fs :
+        frosharray.append([f.firstname+' '+f.lastname,f.id])
+    name =request.POST.get('name')
+    onvan = request.POST.get('onvan')
+    officnamber = request.POST.get('officnamber')
+    namberkart = request.POST.get('namberkart')
+    shebanamber = request.POST.get('shebanamber')
+    interky = request.POST.get('interky')
+    if interky == 'accept':
+        hesab.objects.create(
+            onvansherkat=onvan,
+            shomarehesabd=officnamber,
+            shomarekart=namberkart,
+            shomaresheba=shebanamber,
+            idfroshander= name,
+        )
+    return render(request, 'hesabdaryaft.html',context={
+        'frosharray':frosharray,
+    })
+
