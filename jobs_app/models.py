@@ -25,6 +25,7 @@ class workmodel(models.Model):
     cast = models.CharField(max_length=150, default='0')
     idjob = models.CharField(max_length=10,default="0")
     vahed = models.CharField(max_length=150,default='ندارد')
+    hidde = models.CharField(max_length=10, null=True)
     def __str__(self):
         return f"{self.work}"
 
