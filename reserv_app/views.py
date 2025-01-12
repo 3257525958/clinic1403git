@@ -1420,7 +1420,7 @@ def reserverdef(request):
         if (job != None) and (job != ''):
             ws = workmodel.objects.all()
             for w in ws:
-                if w.idjob == job:
+                if (w.idjob == job) and (w.hidde != 'hidde'):
                     p = ((w.detalework + ' ' + w.berand) + "," + str(w.id)).split(",")
                     detalarray.append(p)
             js = jobsmodel.objects.all()
@@ -1869,7 +1869,7 @@ def reservdasti(request):
     if ( job != None ) and ( job != ''):
         ws = workmodel.objects.all()
         for w in ws:
-            if w.idjob == job :
+            if (w.idjob == job)  and (w.hidde != 'hidde'):
                 p = ((w.detalework + ' ' + w.berand)+","+str(w.id)).split(",")
                 detalarray.append(p)
 

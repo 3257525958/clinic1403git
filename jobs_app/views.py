@@ -304,7 +304,7 @@ def jobs(request):
     if servicdelet== "accept" :
         if (deletservicselect != '') and (deletservicselect != None) :
             a = workmodel.objects.filter(id=deletservicselect)
-            a.delete()
+            a.update(hidde='hidde')
             deletworkmessage[0] = 'false'
     # ***********************************************************************************************************
     js = jobsmodel.objects.all()

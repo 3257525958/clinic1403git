@@ -100,6 +100,7 @@
              <div class="effectse" >
                 {% for d in works %}
                     {% if d.work == w %}
+                        {% if d.hidde != 'hidde' %}
                         <button type="submit" class="effects__iteme " name="inputwork" value="{{ forloop.counter0 }}">
                             {% for b in bers%}
                                 {% if b.id == d.idbrand %}
@@ -113,6 +114,7 @@
                             <p class="effects__name" >{{ d.cast }}</p>
                             <p class="effects__name" >زمان: {{ d.time}}</p>
                         </button>
+                        {% endif %}    
                     {% endif %}
                 {% endfor %}
              </div>
