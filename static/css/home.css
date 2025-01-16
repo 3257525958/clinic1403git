@@ -201,3 +201,7 @@ nav ul li a:hover{
     position: relative;
     right: 70px;
 }
+.faseleazbala {
+    position: absolute;
+    top: 50px !important;
+}

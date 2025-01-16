@@ -42,4 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
       M.Carousel.getInstance(carouselElems[0]).next()
     }, 2000)
   })
-
+   document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems, { });
+  });
