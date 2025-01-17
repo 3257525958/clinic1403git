@@ -205,3 +205,25 @@ nav ul li a:hover{
     position: absolute;
     top: 50px !important;
 }
+.faseleazbalamobile{
+    position: relative;
+    left: 170px; !important;
+    top: 0px; !important;
+    width: 100px;!important;
+    height: 250px;!important;
+    z-index: 10000;!important;
+}
+/*.sidenav li > a {*/
+/*    height: 48px; !important;*/
+
+/*}*/
+/*.sidenav li > a > i,icons{*/
+/*margin: 0 0px 0 0; !important;*/
+/*}*/
+#mobile-demo{
+        display: inline-table;!important;
+    overflow-y: auto;!important;
+        width: 200px;!important;
+    height: 300px;!important;
+
+}
