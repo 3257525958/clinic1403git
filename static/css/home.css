@@ -207,7 +207,7 @@ nav ul li a:hover{
 }
 .faseleazbalamobile{
     position: relative;
-    left: 170px; !important;
+    left: 150px; !important;
     top: 0px; !important;
     width: 100px;!important;
     height: 250px;!important;
@@ -223,7 +223,8 @@ nav ul li a:hover{
 #mobile-demo{
         display: inline-table;!important;
     overflow-y: auto;!important;
-        width: 200px;!important;
+        width: 170px;!important;
     height: 300px;!important;
+    padding: 0px; !important;
 
 }
