@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آپلود تصویر</title>
+</head>
+<body>
+    <h1>تصویر خود را آپلود کنید</h1>
+    <form method="POST" enctype="multipart/form-data" action="image/process/">
+        {% csrf_token %}
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">آپلود و پردازش</button>
+    </form>
+</body>
+</html>
