@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آپلود تصویر</title>
+</head>
+<body>
+    <h1>تصویر خود را آپلود کنید</h1>
+    <form action="{% url 'upload_image' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">ارسال تصویر</button>
+    </form>
+
+    {% if image_url %}
+    <h2>تصویر شناسایی‌شده:</h2>
+    <img src="{{ image_url }}" alt="Image">
+    {% endif %}
+</body>
+</html>
