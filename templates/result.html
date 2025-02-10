@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>نتایج پردازش</title>
+</head>
+<body>
+    <h1>نتایج پردازش عکس</h1>
+    <img src="{{ annotated_image_url }}" alt="Processed Image">
+    <br>
+    <a href="/">بازگشت به صفحه اصلی</a>
+    <br>
+    <form action="{% url 'change_lip_size' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="image_path" value="{{ annotated_image_url }}">
+        <button type="submit">تغییر حجم لب</button>
+    </form>
+</body>
+</html>
