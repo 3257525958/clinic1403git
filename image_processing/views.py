@@ -8,6 +8,7 @@ subprocess.run(['git', 'clone', 'https://github.com/CoinCheung/BiSeNet.git'])
 # تعریف مسیر مدل BiSeNet
 BISENET_MODEL_PATH = os.path.join(settings.BASE_DIR, 'models', 'bisenet.pth')
 
+
 def analyze_face_bisenet(image_path):
     if 1 == 2 :
         import torch
