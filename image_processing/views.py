@@ -62,16 +62,6 @@ def upload_page(request):
     return render(request, 'upload.html')
 
 
-from django.shortcuts import render
-from django.core.files.storage import FileSystemStorage
-import os
-
-import cv2
-import os
-from django.core.files.storage import FileSystemStorage
-from django.shortcuts import render
-import mediapipe as mp
-
 
 def preprocess_image(image_path, target_size=(512, 512)):
     # خواندن تصویر
@@ -235,7 +225,6 @@ def upload_image(request):
 #     return output_path
 
 import cv2
-import mediapipe as mp
 import numpy as np
 
 
