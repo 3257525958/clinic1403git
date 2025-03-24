@@ -1,3 +1,5 @@
+# import cv2
+import numpy as np
 import os
 from django.conf import settings
 import subprocess
@@ -7,51 +9,52 @@ subprocess.run(['git', 'clone', 'https://github.com/CoinCheung/BiSeNet.git'])
 BISENET_MODEL_PATH = os.path.join(settings.BASE_DIR, 'models', 'bisenet.pth')
 
 def analyze_face_bisenet(image_path):
-    import torch
-    from PIL import Image
-    from torchvision import transforms
-
-    # اطمینان از تعریف متغیر BISENET_MODEL_PATH (مثلاً به صورت global)
-    # BISENET_MODEL_PATH = os.path.join(settings.BASE_DIR, 'models', 'bisenet.pth')
-
-    # بارگذاری مدل (بر روی CPU)
-    model = torch.load(BISENET_MODEL_PATH, map_location=torch.device('cpu'))
-    model.eval()
-
-    # بارگذاری و آماده‌سازی تصویر با PIL
-    image_pil = Image.open(image_path).convert('RGB')
-    transform = transforms.Compose([
-        transforms.Resize((512, 512)),  # تغییر اندازه به 512x512
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
-    ])
-    input_image = transform(image_pil).unsqueeze(0)
-
-    # پردازش تصویر توسط مدل BiSeNet
-    with torch.no_grad():
-        seg_output = model(input_image)[0]  # فرض می‌کنیم خروجی مدل یک tensor است
-        seg_map = seg_output.argmax(0).byte().cpu().numpy()
-
-    # تبدیل تصویر اصلی به آرایه numpy (برای رسم نقاط)
-    image_np = np.array(image_pil.resize((512, 512)))
-
-    # لیست کلاس‌هایی که می‌خواهیم مرزهایشان را مشخص کنیم
-    # (بر اساس آموزش مدل؛ شما می‌توانید این لیست را مطابق با نیاز تغییر دهید)
-    labels_of_interest = [1, 2, 3, 4, 5, 6]
-
-    # برای هر کلاس، ماسک بگیرید و مرزها (contours) را پیدا کنید
-    for label in labels_of_interest:
-        mask = np.uint8((seg_map == label) * 255)
-        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        # رسم نقاط (دایره‌های کوچک) سبز بر روی نقاط مرز
-        for cnt in contours:
-            for point in cnt:
-                x, y = point[0]
-                cv2.circle(image_np, (x, y), radius=1, color=(0, 255, 0), thickness=-1)
-
-    # ذخیره تصویر نهایی با نقاط مرزی
-    output_path = image_path.replace('.jpg', '_bisenet_annotated.jpg')
-    cv2.imwrite(output_path, cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR))
+    if 1 == 2 :
+        import torch
+        # from PIL import Image
+        # from torchvision import transforms
+        #
+        # # اطمینان از تعریف متغیر BISENET_MODEL_PATH (مثلاً به صورت global)
+        # # BISENET_MODEL_PATH = os.path.join(settings.BASE_DIR, 'models', 'bisenet.pth')
+        #
+        # # بارگذاری مدل (بر روی CPU)
+        # model = torch.load(BISENET_MODEL_PATH, map_location=torch.device('cpu'))
+        # model.eval()
+        #
+        # # بارگذاری و آماده‌سازی تصویر با PIL
+        # image_pil = Image.open(image_path).convert('RGB')
+        # transform = transforms.Compose([
+        #     transforms.Resize((512, 512)),  # تغییر اندازه به 512x512
+        #     transforms.ToTensor(),
+        #     transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
+        # ])
+        # input_image = transform(image_pil).unsqueeze(0)
+        #
+        # # پردازش تصویر توسط مدل BiSeNet
+        # with torch.no_grad():
+        #     seg_output = model(input_image)[0]  # فرض می‌کنیم خروجی مدل یک tensor است
+        #     seg_map = seg_output.argmax(0).byte().cpu().numpy()
+        #
+        # # تبدیل تصویر اصلی به آرایه numpy (برای رسم نقاط)
+        # image_np = np.array(image_pil.resize((512, 512)))
+        #
+        # # لیست کلاس‌هایی که می‌خواهیم مرزهایشان را مشخص کنیم
+        # # (بر اساس آموزش مدل؛ شما می‌توانید این لیست را مطابق با نیاز تغییر دهید)
+        # labels_of_interest = [1, 2, 3, 4, 5, 6]
+        #
+        # # برای هر کلاس، ماسک بگیرید و مرزها (contours) را پیدا کنید
+        # for label in labels_of_interest:
+        #     mask = np.uint8((seg_map == label) * 255)
+        #     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        #     # رسم نقاط (دایره‌های کوچک) سبز بر روی نقاط مرز
+        #     for cnt in contours:
+        #         for point in cnt:
+        #             x, y = point[0]
+        #             cv2.circle(image_np, (x, y), radius=1, color=(0, 255, 0), thickness=-1)
+        #
+        # # ذخیره تصویر نهایی با نقاط مرزی
+        # output_path = image_path.replace('.jpg', '_bisenet_annotated.jpg')
+        # cv2.imwrite(output_path, cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR))
 
     return output_path
 
@@ -223,8 +226,6 @@ def upload_image(request):
 #     cv2.imwrite(output_path, cv2.cvtColor(result, cv2.COLOR_RGB2BGR))
 #
 #     return output_path
-import cv2
-import numpy as np
 
 
 # def change_lip_size(image_path, scale=1.3):
