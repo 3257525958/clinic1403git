@@ -13,6 +13,8 @@ var MyDateshamsi = new Date().toLocaleDateString('fa-IR');
 }
 
 setInterval(time, 1000);
+
+
 document.addEventListener('DOMContentLoaded', function() {
     if ( screen > 601){
         var  a = 5000} else { var a = 0}
@@ -46,3 +48,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.dropdown-trigger');
     var instances = M.Dropdown.init(elems, { });
   });
+
+
+
+
+ pagesize = document.getElementById("pagesize");
+ pagesize.value = window.innerWidth;
+ if (!sessionStorage.getItem("executed")) {
+  // کد شما اینجا اجرا می‌شود
+ document.getElementById("btndate").click();
+
+  // علامت گذاری برای جلوگیری از اجرای مجدد
+  sessionStorage.setItem("executed", "true");
+}

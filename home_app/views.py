@@ -156,7 +156,7 @@ def home(request):
         imgmobile.append(u)
 
     btsize = request.POST.get('btsize')
-    b = request.POST.get('na')
+    b = request.POST.get('pagesize')
     d = 0
     if b != None :
         d = int(b)
