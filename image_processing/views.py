@@ -223,7 +223,6 @@ def upload_image(request):
 #     cv2.imwrite(output_path, cv2.cvtColor(result, cv2.COLOR_RGB2BGR))
 #
 #     return output_path
-
 import cv2
 import numpy as np
 
