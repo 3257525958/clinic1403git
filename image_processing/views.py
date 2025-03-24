@@ -10,54 +10,7 @@ BISENET_MODEL_PATH = os.path.join(settings.BASE_DIR, 'models', 'bisenet.pth')
 
 
 def analyze_face_bisenet(image_path):
-    if 1 == 2 :
-        import torch
-        # from PIL import Image
-        # from torchvision import transforms
-        #
-        # # اطمینان از تعریف متغیر BISENET_MODEL_PATH (مثلاً به صورت global)
-        # # BISENET_MODEL_PATH = os.path.join(settings.BASE_DIR, 'models', 'bisenet.pth')
-        #
-        # # بارگذاری مدل (بر روی CPU)
-        # model = torch.load(BISENET_MODEL_PATH, map_location=torch.device('cpu'))
-        # model.eval()
-        #
-        # # بارگذاری و آماده‌سازی تصویر با PIL
-        # image_pil = Image.open(image_path).convert('RGB')
-        # transform = transforms.Compose([
-        #     transforms.Resize((512, 512)),  # تغییر اندازه به 512x512
-        #     transforms.ToTensor(),
-        #     transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
-        # ])
-        # input_image = transform(image_pil).unsqueeze(0)
-        #
-        # # پردازش تصویر توسط مدل BiSeNet
-        # with torch.no_grad():
-        #     seg_output = model(input_image)[0]  # فرض می‌کنیم خروجی مدل یک tensor است
-        #     seg_map = seg_output.argmax(0).byte().cpu().numpy()
-        #
-        # # تبدیل تصویر اصلی به آرایه numpy (برای رسم نقاط)
-        # image_np = np.array(image_pil.resize((512, 512)))
-        #
-        # # لیست کلاس‌هایی که می‌خواهیم مرزهایشان را مشخص کنیم
-        # # (بر اساس آموزش مدل؛ شما می‌توانید این لیست را مطابق با نیاز تغییر دهید)
-        # labels_of_interest = [1, 2, 3, 4, 5, 6]
-        #
-        # # برای هر کلاس، ماسک بگیرید و مرزها (contours) را پیدا کنید
-        # for label in labels_of_interest:
-        #     mask = np.uint8((seg_map == label) * 255)
-        #     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        #     # رسم نقاط (دایره‌های کوچک) سبز بر روی نقاط مرز
-        #     for cnt in contours:
-        #         for point in cnt:
-        #             x, y = point[0]
-        #             cv2.circle(image_np, (x, y), radius=1, color=(0, 255, 0), thickness=-1)
-        #
-        # # ذخیره تصویر نهایی با نقاط مرزی
-        # output_path = image_path.replace('.jpg', '_bisenet_annotated.jpg')
-        # cv2.imwrite(output_path, cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR))
-
-    return output_path
+    return redirect('//')
 
 
 
@@ -68,23 +21,8 @@ def upload_page(request):
 
 
 def preprocess_image(image_path, target_size=(512, 512)):
-    # خواندن تصویر
-    image = cv2.imread(image_path)
 
-    # تبدیل به فضای رنگی RGB
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-
-    # تغییر اندازه تصویر
-    image = cv2.resize(image, target_size, interpolation=cv2.INTER_AREA)
-
-    # کاهش نویز و افزایش وضوح
-    image = cv2.GaussianBlur(image, (3, 3), 0)
-
-    # ذخیره تصویر پردازش‌شده موقت
-    temp_image_path = image_path.replace('.jpg', '_preprocessed.jpg')
-    cv2.imwrite(temp_image_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
-
-    return temp_image_path
+    return ('//')
 
 
 import os
@@ -109,31 +47,6 @@ def calculate_sha256(file_path, chunk_size=4096):
     return hash_sha256.hexdigest()
 
 
-if 1 == 2:
-    print("kkkkkkkkkkkkkkkkkkkkkkkkkkkk")
-    url = "https://huggingface.co/maze/faceX/resolve/main/bisenet.pth"
-    save_dir = "models"
-    os.makedirs(save_dir, exist_ok=True)
-    save_path = os.path.join(save_dir, "bisenet.pth")
-
-    # دانلود فایل
-    download_file(url, save_path)
-
-    # محاسبه هش SHA256
-    sha256_hash = calculate_sha256(save_path)
-    print("SHA256 222222222222222:", sha256_hash)
-
-    # مقایسه با هش معتبر
-    valid_sha256 = "468e13ca13a9b43cc0881a9f99083a430e9c0a38abd935431d1c28ee94b26567"
-    if sha256_hash == valid_sha256:
-        print("valid")
-    else:
-        print("invalid")
-
-
-from django.shortcuts import render, redirect
-from django.core.files.storage import FileSystemStorage
-import os
 
 # def change_lip_size_view(request):
 #     if request.method == 'POST':
