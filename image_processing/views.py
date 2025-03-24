@@ -10,19 +10,19 @@ BISENET_MODEL_PATH = os.path.join(settings.BASE_DIR, 'models', 'bisenet.pth')
 
 
 def analyze_face_bisenet(image_path):
-    return redirect('//')
+    print(f"11111111111111 ")
 
 
 
 def upload_page(request):
     """ نمایش صفحه آپلود تصویر """
-    return render(request, 'upload.html')
+    print(f"11111111111111 ")
 
 
 
 def preprocess_image(image_path, target_size=(512, 512)):
 
-    return ('//')
+    print(f"11111111111111 ")
 
 
 import os
@@ -75,26 +75,26 @@ def upload_image(request):
             # دریافت فایل آپلود شده
             uploaded_file = request.FILES['image']
             # ذخیره تصویر در پوشه media
-            fs = FileSystemStorage()
-            filename = fs.save(uploaded_file.name, uploaded_file)
-            file_path = os.path.join(fs.location, filename)
-
-            # پیش‌پردازش تصویر (بهینه‌سازی سایز و کیفیت)
-            preprocessed_image_path = preprocess_image(file_path)
-
-            # تحلیل تصویر و مشخص کردن نقاط چهره با BiSeNet
-            annotated_image_path = analyze_face_bisenet(preprocessed_image_path)
-            # # تحلیل تصویر و مشخص کردن نقاط چهره
-            # annotated_image_path = analyze_face(preprocessed_image_path)
-            annotated_image_url = fs.url(os.path.basename(annotated_image_path))
-
-            # نمایش نتیجه به کاربر
-            return render(request, 'result.html', {'annotated_image_url': annotated_image_url})
+            # fs = FileSystemStorage()
+            # filename = fs.save(uploaded_file.name, uploaded_file)
+            # file_path = os.path.join(fs.location, filename)
+            #
+            # # پیش‌پردازش تصویر (بهینه‌سازی سایز و کیفیت)
+            # preprocessed_image_path = preprocess_image(file_path)
+            #
+            # # تحلیل تصویر و مشخص کردن نقاط چهره با BiSeNet
+            # annotated_image_path = analyze_face_bisenet(preprocessed_image_path)
+            # # # تحلیل تصویر و مشخص کردن نقاط چهره
+            # # annotated_image_path = analyze_face(preprocessed_image_path)
+            # annotated_image_url = fs.url(os.path.basename(annotated_image_path))
+            #
+            # # نمایش نتیجه به کاربر
+            # return render(request, 'result.html', {'annotated_image_url': annotated_image_url})
 
         except Exception as e:
-            return render(request, 'error.html', {'error_message': f"خطا در تحلیل تصویر: {str(e)}"})
+            print(f"11111111111111 ")
 
-    return render(request, 'error.html', {'error_message': "درخواست نامعتبر"})
+    print(f"11111111111111")
 
 # def analyze_face_bisenet(image_path):
 #     import torch
