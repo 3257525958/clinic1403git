@@ -1,9 +1,3 @@
-from django.shortcuts import render, HttpResponse
-from django.core.files.storage import FileSystemStorage
-import cv2
-import numpy as np
-import os
-from PIL import Image
 import os
 from django.conf import settings
 import subprocess
