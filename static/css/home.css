@@ -226,5 +226,6 @@ nav ul li a:hover{
         width: 175px;!important;
     height: 300px;!important;
     padding: 0px; !important;
+    position: fixed;
 
 }
