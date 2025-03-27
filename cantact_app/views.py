@@ -435,7 +435,7 @@ def logindef(request):
                     if user_login is not None:
                         login(request, user_login)
                         # return redirect('/')
-    return render(request,'login_cantact.html',context={
+    return render(request,'new_loggin.html',context={
                                                                     "firstname": firstname_r[0],
                                                                     "lastname": lastname_r[0],
                                                                     "melicod": melicod_r[0],

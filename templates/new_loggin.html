@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">                 #}
+    <link rel="stylesheet" type="text/css" href="{% static "/css/materialize.min.css" %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static  "/css/materialize-rtl.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "/fontawesome/css/all.css" %}">
+    <link rel="stylesheet" type="text/css" href= "{% static "/css/home.css" %}">
+    <link rel="stylesheet" type="text/css" href= "{% static "/css/new_loggin.css" %}">
+    <title>مرکز زیبایی دکتر اسدپور</title>
+</head>
+<body>
+  <form  method="POST">
+    {% csrf_token %}
+    <div class="container">
+        <div class="login-box">
+            <h2>ورود کاربر</h2>
+            <form>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="username" id="username" placeholder="نام کاربری" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" id="password" placeholder="رمز عبور" required>
+                </div>
+                <div class="remember-me">
+                    <label><input type="checkbox"> مرا بخاطر بسپار</label>
+                    <a href="/cantact/ignor/" >فراموشی رمز؟</a>
+                </div>
+                <button  name="button_send" value="accept" >ورود</button>
+                <p class="register" ><a href="/cantact/addcontact/"> ساخت حساب کاربری جدید </a></p>
+            </form>
+        </div>
+        <div class="image-box">
+            <img src="{% static "/img/login.jpg" %}" alt="کلینیک زیبایی">
+        </div>
+    </div>
+   <label id="login_etebar" hidden >{{ login_etebar }}</label>
+  </form>    
+</body>
+
+<script src="/static/js/materialize.min.js"></script>
+<script src="/static/js/home.js"></script>
+<script src="/static/js/addselect.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static "/js/new_loggin.js" %}"></script>
+</html>
