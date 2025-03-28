@@ -1,173 +1,335 @@
 :root {
-    --main-color: #28a745; /* رنگ سبز مشابه فرم لاگین */
-    --text-color: #333;
-    --background-light: #f8f9fa;
-    --font-family: 'Roboto', sans-serif; /* اضافه کردن فونت جدید */
+  --primary-color: #a3c293;
+  --secondary-color: #8aa87e;
+  --accent-color: #6b8e23;
+  --bg-color: #f5f5f5;
+  --text-color: #2f4f4f;
 }
 
-body {
-    font-family: var(--font-family); /* استفاده از فونت روبوتو */
-    margin: 0;
-    padding: 0;
-    background: var(--background-light);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "BYekan", sans-serif;
+  direction: rtl;
+  text-align: right;
 }
 
-/* هدر */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--main-color);
-    padding: 10px 20px;
-    color: white;
-    font-family: var(--font-family); /* استفاده از فونت در هدر */
+.body {
+  background: var(--bg-color);
 }
 
-/* منو و زیرمنو */
-.menu a {
-    text-decoration: none;
-    color: white;
-    padding: 10px;
-    font-family: var(--font-family); /* استفاده از فونت در لینک‌های منو */
+/* نوار انتظار */
+#progressOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease;
+}
+#progressOverlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+#progressBarContainer {
+  width: 80%;
+  max-width: 600px;
+  height: 30px;
+  border: 2px solid var(--accent-color);
+  border-radius: 15px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 0 10px var(--accent-color);
+}
+#progressBar {
+  width: 0;
+  height: 100%;
+  background: var(--accent-color);
+  animation: progressAnim 5s forwards;
+}
+@keyframes progressAnim {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
-/* سایر بخش‌ها */
-.services {
-    text-align: center;
-    padding: 40px 0;
-    font-family: var(--font-family); /* استفاده از فونت در بخش خدمات */
+/* پوشش راهنما */
+#guideOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  z-index: 11000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+#guideOverlay.active {
+  visibility: visible;
+}
+#guideCircle {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+#guideCircle p {
+  color: var(--accent-color);
+  font-weight: bold;
 }
 
-
-
-
-
-.logo {
-    font-size: 20px;
-    font-weight: bold;
+/* نوار منوی بالایی */
+.top-menu {
+  background: var(--primary-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  padding: 10px 0;
+}
+.top-menu-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+.top-menu-list li {
+  margin: 0 15px;
+}
+.top-menu-list li a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: bold;
 }
 
-.menu {
-    list-style: none;
-    display: flex;
-    gap: 15px;
+/* هدر اصلاح شده */
+.header-info {
+  display: flex;
+  align-items: center;
+  padding: 15px 30px;
+  background: var(--secondary-color);
+  justify-content: space-between;
 }
-
-.menu li {
-    position: relative;
+.logo-container img {
+  width: 65px;
+  border-radius: 15px;
 }
-
-.menu a {
-    text-decoration: none;
-    color: white;
-    padding: 10px;
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
-
-/* منو و زیرمنو */
-.submenu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: var(--main-color);
-    list-style: none;
-    padding: 0;
-    width: 200px;
+.profile-upload {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--accent-color);
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-.submenu li {
-    padding: 10px;
-    text-align: center;
+.profile-upload i {
+  font-size: 1.7rem;
+  color: var(--accent-color);
 }
-
-.menu li:hover .submenu {
-    display: block;
-}
-
-/* آیکون همبرگر */
-.menu-icon {
-    display: none;
-    font-size: 24px;
+.user-name-display {
+  color: var(--text-color);
+  font-weight: bold;
 }
 
 /* اسلایدر */
-.slider {
-    position: relative;
-    max-width: 100%;
-    height: 300px;
-    overflow: hidden;
+.slider-section {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  margin: 20px 0;
+}
+.carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.carousel .carousel-item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.carousel .carousel-item.active {
+  opacity: 1;
+}
+.carousel .carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.text_style {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255,255,255,0.7);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--accent-color);
 }
 
-.slide img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
+/* منوی سریع */
+#quick_section {
+  padding: 20px 0;
+}
+.row.menosari {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.quick_item {
+  background: var(--primary-color);
+  width: 160px;
+  height: 160px;
+  margin: 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.quick_item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+.quick-icon {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+}
+.fa-sign-in-alt { color: #27ae60; }
+.fa-calendar-check { color: #c0392b; }
+.fa-photo-video { color: #8e44ad; }
+.fa-video { color: #2c3e50; }
+.fa-file-invoice-dollar { color: #f39c12; }
+.fa-tachometer-alt { color: #16a085; }
+
+/* بخش اخبار */
+#news_section {
+  padding: 20px 0;
+}
+.news-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.news-box {
+  background: #fff;
+  width: 80%;
+  max-width: 800px;
+  margin: 20px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+.news-box:hover {
+  transform: translateY(-5px);
+}
+.news-box img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.news-content {
+  padding: 15px;
+}
+.news-content h3 {
+  margin-bottom: 10px;
+  color: var(--accent-color);
+}
+.news-content p {
+  color: var(--text-color);
 }
 
-.fade {
-    animation: fadeEffect 3s infinite;
+@media (min-width: 768px) {
+  .news-box {
+    width: 45%;
+    margin: 15px;
+  }
 }
 
-@keyframes fadeEffect {
-    from { opacity: 0.4; }
-    to { opacity: 1; }
+@media (min-width: 1200px) {
+  .news-box {
+    width: 30%;
+  }
 }
 
-/* خدمات */
-.services {
-    text-align: center;
-    padding: 40px 0;
+/* فوتر */
+footer.clum {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer-logo img {
+  width: 50px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+.footer-links a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+.footer-links a:hover {
+  color: var(--accent-color);
+}
+.footer-links i {
+  margin-right: 5px;
 }
 
-.service-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+/* رسپانسیو */
+@media (max-width: 768px) {
+  .row.menosari {
+    flex-direction: column;
+    align-items: center;
+  }
+  .quick_item {
+    width: 80%;
+    max-width: 300px;
+    margin: 10px 0;
+  }
+  .header-info {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
 }
-
-.service-item {
-    background: white;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 150px;
+.social_icons {
+  display: flex;
+  justify-content: center; /* وسط افقی */
+  align-items: center;     /* وسط عمودی */
+  gap: 20px;              /* فاصله بین آیکون‌ها */
+  height: 100px;          /* ارتفاع دلخواه */
 }
-
-.service-item img {
-    width: 60px;
-    height: 60px;
-}
-
-/* طراحی واکنش‌گرا */
-@media screen and (max-width: 768px) {
-    .menu {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        gap: 10px;
-    }
-    .menu li {
-        text-align: center;
-        width: 100%;
-    }
-    .menu-icon {
-        display: block;
-        cursor: pointer;
-    }
-    .menu.open {
-        display: flex;
-    }
-    .submenu {
-        display: block;
-        position: relative;
-        top: 0;
-        width: 100%;
-        background-color: var(--main-color);
-    }
-    .submenu li {
-        padding: 15px;
-        text-align: center;
-    }
+.colo{
+  color : var(--accent-color) !important;
 }
