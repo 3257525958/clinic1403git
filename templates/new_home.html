@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کلینیک زیبایی دکتر اسدپور</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/new_home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/fontawesome/css/all.css' %}">
+    <!-- اضافه کردن فونت روبوتو از گوگل فونت -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head><body>
+
+    <!-- هدر سایت -->
+    <header>
+        <div class="logo">کلینیک زیبایی</div>
+        <nav>
+            <ul class="menu">
+                <li><a href="#">خانه</a>
+                    <ul class="submenu">
+                        <li><a href="#">ثبت نام</a></li>
+                        <li><a href="#">ورود</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">خدمات</a>
+                    <ul class="submenu">
+                        <li><a href="#">تزریق فیلر</a></li>
+                        <li><a href="#">تزریق بوتاکس</a></li>
+                        <li><a href="#">فشیال</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">درباره ما</a></li>
+                <li><a href="#">تماس با ما</a></li>
+            </ul>
+        </nav>
+        <div class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- اسلایدر تصاویر -->
+    <section class="slider">
+        <div class="slide fade">
+            <img src="{% static '/img/slider1.jpg' %}" alt="خدمات زیبایی">
+        </div>
+        <div class="slide fade">
+            <img src="{% static '/img/slider2.jpg' %}" alt="تزریق فیلر">
+        </div>
+        <div class="slide fade">
+            <img src="{% static '/img/slider3.jpg' %}" alt="تزریق بوتاکس">
+        </div>
+    </section>
+
+    <!-- بخش خدمات -->
+    <section class="services">
+        <h2>خدمات ما</h2>
+        <div class="service-container">
+            <div class="service-item">
+                <img src="{% static '/img/filler.png' %}" alt="تزریق فیلر">
+                <p>تزریق فیلر</p>
+            </div>
+            <div class="service-item">
+                <img src="{% static '/img/botox.png' %}" alt="تزریق بوتاکس">
+                <p>تزریق بوتاکس</p>
+            </div>
+            <div class="service-item">
+                <img src="{% static '/img/facial.png' %}" alt="فشیال">
+                <p>فشیال</p>
+            </div>
+            <div class="service-item">
+                <img src="{% static '/img/laser.png' %}" alt="لیزر موی زائد">
+                <p>لیزر موی زائد</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="{% static '/js/new_home.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+:root {
+    --main-color: #28a745; /* رنگ سبز مشابه فرم لاگین */
+    --text-color: #333;
+    --background-light: #f8f9fa;
+    --font-family: 'Roboto', sans-serif; /* اضافه کردن فونت جدید */
+}
+
+body {
+    font-family: var(--font-family); /* استفاده از فونت روبوتو */
+    margin: 0;
+    padding: 0;
+    background: var(--background-light);
+}
+
+/* هدر */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--main-color);
+    padding: 10px 20px;
+    color: white;
+    font-family: var(--font-family); /* استفاده از فونت در هدر */
+}
+
+/* منو و زیرمنو */
+.menu a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    font-family: var(--font-family); /* استفاده از فونت در لینک‌های منو */
+}
+
+/* سایر بخش‌ها */
+.services {
+    text-align: center;
+    padding: 40px 0;
+    font-family: var(--font-family); /* استفاده از فونت در بخش خدمات */
+}
+
+
+
+
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.menu li {
+    position: relative;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+}
+
+/* منو و زیرمنو */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--main-color);
+    list-style: none;
+    padding: 0;
+    width: 200px;
+}
+
+.submenu li {
+    padding: 10px;
+    text-align: center;
+}
+
+.menu li:hover .submenu {
+    display: block;
+}
+
+/* آیکون همبرگر */
+.menu-icon {
+    display: none;
+    font-size: 24px;
+}
+
+/* اسلایدر */
+.slider {
+    position: relative;
+    max-width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.slide img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.fade {
+    animation: fadeEffect 3s infinite;
+}
+
+@keyframes fadeEffect {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
+/* خدمات */
+.services {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.service-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.service-item {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 150px;
+}
+
+.service-item img {
+    width: 60px;
+    height: 60px;
+}
+
+/* طراحی واکنش‌گرا */
+@media screen and (max-width: 768px) {
+    .menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+    .menu li {
+        text-align: center;
+        width: 100%;
+    }
+    .menu-icon {
+        display: block;
+        cursor: pointer;
+    }
+    .menu.open {
+        display: flex;
+    }
+    .submenu {
+        display: block;
+        position: relative;
+        top: 0;
+        width: 100%;
+        background-color: var(--main-color);
+    }
+    .submenu li {
+        padding: 15px;
+        text-align: center;
+    }
+}

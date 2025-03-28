@@ -166,6 +166,12 @@ mounthjarry = ['']
 mounthjarry[0] = ''
 dayjarray = ['']
 dayjarray[0] = ''
+def convert_farsi_to_english(number_str):
+    persian_digits = "۰۱۲۳۴۵۶۷۸۹"
+    english_digits = "0123456789"
+    translation_table = str.maketrans(persian_digits, english_digits)
+    return number_str.translate(translation_table)
+
 def addcantactdef(request):
     logout(request)
 
@@ -183,17 +189,70 @@ def addcantactdef(request):
     inputcode_regester = request.POST.get('inputcode_regester')
     formuser = accuntform(request.POST, request.FILES)
     facebotton = request.POST.get("facebutton")
-    yearj = request.POST.get("year")
+
+
+    year = ''
+    mounth = ''
+    day = ''
+    birthdate = request.POST.get('birthdate')
+    if birthdate != None:
+        year = convert_farsi_to_english(str(birthdate).split("/")[0])
+        m = convert_farsi_to_english(str(birthdate).split("/")[1])
+        if m == "01":
+            mounth = "فروردین"
+        if m == "02":
+            mounth = "اردیبهشت"
+        if m == "03":
+            mounth = "خرداد"
+        if m == "04":
+            mounth = "تیر"
+        if m == "05":
+            mounth = "مرداد"
+        if m == "06":
+            mounth = "شهریور"
+        if m == "07":
+            mounth = "مهر"
+        if m == "08":
+            mounth = "آبان"
+        if m == "09":
+            mounth = "آذر"
+        if m == "10":
+            mounth = "دی"
+        if m == "11":
+            mounth = "بهمن"
+        if m == "12":
+            mounth = "اسفند"
+        day = convert_farsi_to_english(str(birthdate).split("/")[2])
+        if day == '01':
+            day = '1'
+        if day == '02':
+            day = '2'
+        if day == '03':
+            day = '3'
+        if day == '04':
+            day = '4'
+        if day == '05':
+            day = '5'
+        if day == '06':
+            day = '6'
+        if day == '07':
+            day = '7'
+        if day == '08':
+            day = '8'
+        if day == '09':
+            day = '9'
+
+    yearj = year
     if (yearj != '') and ( yearj != None) :
         yearjarray[0] = yearj
     else: yearj = yearjarray[0]
 
-    mounthj = request.POST.get("mounth")
+    mounthj = mounth
     if (mounthj != '') and ( mounthj != None) :
         mounthjarry[0] = mounthj
     else: mounthj = mounthjarry[0]
 
-    dayj = request.POST.get("day")
+    dayj = day
     if (dayj != '') and ( dayj != None) :
         dayjarray[0] = dayj
     else: dayj = dayjarray[0]
@@ -312,7 +371,7 @@ def addcantactdef(request):
                 hh += 1
                 day.append(hh)
 
-            return render(request, 'add_cantact.html', context={'melicod_etebar': melicod_etebar[0],
+            return render(request, 'new_addcontact.html', context={'melicod_etebar': melicod_etebar[0],
                                                                 "yearcant": yearcant,
                                                                 "day": day,
                                                                 })
@@ -387,11 +446,16 @@ def addcantactdef(request):
     while hh <= 30 :
         hh +=1
         day.append(hh)
-
-    return render(request,'add_cantact.html',context={'melicod_etebar':melicod_etebar[0],
+    return render(request,'new_addcontact.html',context={'melicod_etebar':melicod_etebar[0],
                                                                     "yearcant":yearcant,
                                                                     "day":day,
                                                                     })
+
+
+    # return render(request, 'add_cantact.html', context={'melicod_etebar': melicod_etebar[0],
+    #                                                     "yearcant": yearcant,
+    #                                                     "day": day,
+    #                                                     })
 login_etebar = ['f']
 
 
