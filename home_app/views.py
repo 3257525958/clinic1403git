@@ -160,7 +160,10 @@ def home(request):
     d = 0
     if b != None :
         d = int(b)
-    return render(request,'new_home.html')
+    return render(request,'new_home.html',context={
+                                                                'loglevel':loglevel[0],
+                                                                'profilestatus': profilestatus[0],
+                                                                })
     # return render(request,'home.html',context={ 'loglevel':loglevel[0],
     #                                             'profilestatus':profilestatus[0],
     #                                             'images':images,

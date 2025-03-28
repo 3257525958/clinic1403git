@@ -41,3 +41,49 @@ document.addEventListener('DOMContentLoaded', function () {
     progressBar.style.width = progress + '%';
   }, 200);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const progressBar = document.getElementById('progressBar');
+    const percentageText = document.getElementById('percentageText');
+    let progress = 0;
+
+    // غیرفعال کردن اسکرول و کلیک
+    document.body.style.overflow = 'hidden';
+
+    // شبیه‌سازی پیشرفت واقعی
+    const simulateProgress = () => {
+        const resources = performance.getEntriesByType('resource');
+        const total = resources.length;
+        const loaded = resources.filter(r => r.duration > 0).length;
+        const realProgress = Math.min((loaded / total) * 100, 100);
+
+        // به‌روزرسانی پیشرفت
+        progress = Math.min(progress + 2, realProgress);
+        progressBar.style.width = progress + '%';
+        percentageText.textContent = Math.round(progress) + '%';
+
+        if(progress < 100) {
+            requestAnimationFrame(simulateProgress);
+        }
+    };
+
+    // شروع فرآیند
+    simulateProgress();
+
+    // پایان بارگذاری
+    window.addEventListener('load', () => {
+        // تکمیل نوار پیشرفت
+        progressBar.style.width = '100%';
+        percentageText.textContent = '100%';
+
+        // محو شدن پس از 500ms
+        setTimeout(() => {
+            loadingOverlay.style.opacity = '0';
+            setTimeout(() => {
+                loadingOverlay.remove();
+                document.body.style.overflow = 'auto';
+            }, 500);
+        }, 500);
+    });
+});

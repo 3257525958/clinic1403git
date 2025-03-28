@@ -13,13 +13,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="body">
-  <!-- نوار انتظار -->
-  <div id="progressOverlay">
-    <div id="progressBarContainer">
-      <div id="progressBar"></div>
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="progress-content">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="percentage-text" id="percentageText">0%</div>
     </div>
-  </div>
-
+</div>
   <!-- پوشش راهنما -->
   <div id="guideOverlay">
     <div id="guideCircle">
@@ -43,13 +44,18 @@
       <img src="{% static "/img/logo.jpg" %}" alt="لوگوی مطب">
     </div>
     
+        {% if profilestatus != '' %}
     <div class="user-info">
-      <span class="user-name-display">سلام، [نام کاربر]</span>
+      <span class="user-name-display">{{profilestatus }}</span>
+      <div class="profile-circle">
+        <img src="{% static "/img/img3.jpeg" %}" alt="User Profile" class="profile-image">
+        </div>
       <div class="profile-upload">
         <i class="fas fa-user"></i>
         <input type="file" id="profilePicInput" style="display: none;">
       </div>
     </div>
+        {% endif %}
   </header>
 
   <!-- اسلایدر -->
@@ -145,9 +151,6 @@
   <!-- فوتر -->
   <footer class="clum">
     <div class="footer-container">
-      <div class="footer-logo">
-        <img src="footer-logo.png" alt="لوگوی سایت">
-      </div>
       <div class="footer-links">
         <a href="#">پیوند مرتبط ۱</a>
         <a href="#">پیوند مرتبط ۲</a>
