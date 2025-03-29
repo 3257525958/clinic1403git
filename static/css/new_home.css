@@ -445,4 +445,144 @@ footer.clum {
         color: #2c3e50;
         font-size: 1.2rem;
     }
+    .nav-rastchin{
+    display: flex;
+    position: relative;
+    right: 70px;
+}
 
+
+@font-face {
+    font-family: "BYekan";
+    src: url("../fonts/BYekan.eot") format("eot"),
+        url("../fonts/BYekan.ttf") format("truetype");
+        url("../fonts//BYekan.woff") format("woff"),
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+    font-family: "BYekan";
+    direction: rtl;
+    text-align: right;
+}
+.body{
+    background: url(/static/img/body_back4.jpg);
+}
+nav .brand-logo{
+    width: 50px;
+    top: 0.5rem;
+}
+nav .brand-logo img{
+    width: 100%;
+    border-radius: 15px;
+}
+@media(max-width:992px){
+    nav .brand-logo{
+        top: 0.2rem;
+    }
+}
+
+
+
+
+
+
+.text_style{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5rem;
+    transition: all 230ms;
+    transform: perspective(800px) rotateY(25deg) scale(0.9) rotateX(10deg);
+    filter: blur(1px);
+    opacity: 0.6;
+}
+.text_style.isShow{
+    transform: perspective(800px) rotateY(-15deg) scale(1) rotateX(-10deg);
+    filter: blur(0);
+    opacity: 1;
+    color: #4a148c;
+    font-size: 2rem;
+}
+.faseleye_nevarbala {
+    display: flex;
+    position: relative;
+    right: 70px;
+}
+.esme_morajee{
+    display: flex;
+    position: relative;
+    left: 30px;
+}
+
+.w-100{
+    width: 100% !important;
+}
+.clum {
+    display: flex;
+    flex-direction: column;
+    bottom: 0px;
+}
+.pink-text.text-accent-3 {
+    color: #4a148c !important;
+}
+.m2-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;;
+    /* flex-direction: column; */
+}
+.m2-text a{
+    margin: 0.5rem;
+}
+
+.top-20{
+    position: relative;
+    top: 40px;
+}
+.nav-rastchin{
+    display: flex;
+    position: relative;
+    right: 70px;
+}
+.faseleazbala {
+    position: absolute;
+    top: 50px !important;
+}
+.faseleazbalamobile{
+    position: relative;
+    left: 150px; !important;
+    top: 0px; !important;
+    width: 100px;!important;
+    height: 250px;!important;
+    z-index: 10000;!important;
+}
+/*.sidenav li > a {*/
+/*    height: 48px; !important;*/
+
+/*}*/
+/*.sidenav li > a > i,icons{*/
+/*margin: 0 0px 0 0; !important;*/
+/*}*/
+#mobile-demo{
+        display: inline-table;!important;
+    overflow-y: auto;!important;
+        width: 175px;!important;
+    height: 300px;!important;
+    padding: 0px; !important;
+    position: fixed;
+
+}
+
+
+.hamberger{
+ float: none !important;
+}
+.sidenav-trigger{
+    height: 5px !important;
+}

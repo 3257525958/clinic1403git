@@ -27,6 +27,15 @@ nav .brand-logo img{
         top: 0.2rem;
     }
 }
+
+
+
+
+
+
+
+
+
 nav ul li a:hover{
     background: transparent;
 }
@@ -53,7 +62,6 @@ nav ul li a:hover{
     font-size: 1.8rem;
     backdrop-filter: blur(1px);
 }
-
 .menu_links_desktop::after{
     content: "";
     width: 110%;
