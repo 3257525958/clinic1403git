@@ -116,13 +116,13 @@
   <nav class="top-menu">
 {#      ------منو در حالت دسکتاپ-------#}
                 <ul class=" hide-on-med-and-down nav-rastchin">
-                <li id="m1" ><a class="menu_links_desktop" href="cantact/login/">ثبت نام و ورود</a></li>
-                <li id="m2" ><a class="menu_links_desktop" href="reserv/reserv/">رزرو آنلاین</a></li>
-                <li id="m222" ><a class="menu_links_desktop" href="stor/reserv/" >نمایش رزروها</a></li>
-                <li id="m3" ><a class="menu_links_desktop" href="collapsible.html">آموزش مجازی</a></li>
-                <li id="m4" ><a class="menu_links_desktop" href="mobile.html">گالری</a></li>
-                <li id="m5" ><a class="menu_links_desktop" href="mobile.html">ارتباط با ما</a></li>
-                <li id="m6" ><a class="menu_links_desktop" href="mobile.html">راهنما</a></li>
+{#                <li id="m1" ><a class="menu_links_desktop" href="cantact/login/">ثبت نام و ورود</a></li>#}
+{#                <li id="m2" ><a class="menu_links_desktop" href="reserv/reserv/">رزرو آنلاین</a></li>#}
+{#                <li id="m222" ><a class="menu_links_desktop" href="stor/reserv/" >نمایش رزروها</a></li>#}
+{#                <li id="m3" ><a class="menu_links_desktop" href="collapsible.html">آموزش مجازی</a></li>#}
+{#                <li id="m4" ><a class="menu_links_desktop" href="mobile.html">گالری</a></li>#}
+{#                <li id="m5" ><a class="menu_links_desktop" href="mobile.html">ارتباط با ما</a></li>#}
+{#                <li id="m6" ><a class="menu_links_desktop" href="mobile.html">راهنما</a></li>#}
                 <li id="m32"><a class="menu_links_desktop" href="image/upload/">پردازش تصویر</a></li>
                   <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">رزروشن<i class="material-icons right">arrow_drop_down</i></a></li>
                   <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">حسابداری<i class="material-icons right">arrow_drop_down</i></a></li>
@@ -132,12 +132,11 @@
                 </ul>
  <!--منو در حالت م.بایل-->      
           <a href="#" data-target="mobile-demo" class="sidenav-trigger">
-              <i class="material-icons hamberger" >menu</i></a>
-          <a href="#" class=" right hamberger " >{{ profilestatus }}</a>
+              <i class="material-icons " >menu</i></a>
           <ul class="sidenav nav-rastchin " id="mobile-demo">
-                <li id="m11" ><a class="menu_links_desktop" href="cantact/login/">ثبت نام و ورود</a></li>
-                <li id="m22" hidden="hidden" ><a class="menu_links_desktop" href="reserv/reserv/">رزرو آنلاین</a></li>
-                <li id="m2222" hidden="hidden" ><a class="menu_links_desktop"  href="stor/reserv/" >نمایش رزروها</a></li>
+{#                <li id="m11" ><a class="menu_links_desktop" href="cantact/login/">ثبت نام و ورود</a></li>#}
+{#                <li id="m22" hidden="hidden" ><a class="menu_links_desktop" href="reserv/reserv/">رزرو آنلاین</a></li>#}
+{#                <li id="m2222" hidden="hidden" ><a class="menu_links_desktop"  href="stor/reserv/" >نمایش رزروها</a></li>#}
                 <li id="m33" hidden="hidden" ><a class="menu_links_desktop" href="collapsible.html">آموزش مجازی</a></li>
                 <li id="m44" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">گالری</a></li>
                 <li id="m55" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">ارتباط با ما</a></li>
@@ -234,36 +233,41 @@
     </div>
   </section>
 
-  <!-- منوی سریع -->
-  <section id="quick_section">
-    <div class="row menosari">
-      <div class="quick_item">
-        <i class="fas fa-sign-in-alt quick-icon"></i>
-        <span>ورود</span>
-      </div>
-      <div class="quick_item">
-        <i class="fas fa-calendar-check quick-icon"></i>
-        <span>رزرو آنلاین</span>
-      </div>
-      <div class="quick_item">
-        <i class="fas fa-photo-video quick-icon"></i>
-        <span>نمونه کارها</span>
-      </div>
-      <div class="quick_item">
-        <i class="fas fa-video quick-icon"></i>
-        <span>فیلم آموزشی</span>
-      </div>
-      <div class="quick_item">
-        <i class="fas fa-file-invoice-dollar quick-icon"></i>
-        <span>صورت حساب</span>
-      </div>
-      <div class="quick_item">
-        <i class="fas fa-tachometer-alt quick-icon"></i>
-        <span>داشبورد من</span>
-      </div>
-    </div>
-  </section>
+<!-- منوی سریع -->
+<section id="quick_section">
+  <div class="row menosari">
+    <!-- هر آیتم منو را به تگ a تغییر دهید -->
+    <a href="cantact/login/" class="quick_item">
+      <i class="fas fa-sign-in-alt quick-icon"></i>
+      <span>ورود</span>
+    </a>
 
+    <a href="reserv/reserv/" class="quick_item">
+      <i class="fas fa-calendar-check quick-icon"></i>
+      <span>رزرو آنلاین</span>
+    </a>
+
+    <a href="آدرس_مورد_نظر" class="quick_item">
+      <i class="fas fa-photo-video quick-icon"></i>
+      <span>نمونه کارها</span>
+    </a>
+
+    <a href="آدرس_مورد_نظر" class="quick_item">
+      <i class="fas fa-video quick-icon"></i>
+      <span>فیلم آموزشی</span>
+    </a>
+
+    <a href="آدرس_مورد_نظر" class="quick_item">
+      <i class="fas fa-file-invoice-dollar quick-icon"></i>
+      <span>صورت حساب</span>
+    </a>
+
+    <a href="آدرس_مورد_نظر" class="quick_item">
+      <i class="fas fa-tachometer-alt quick-icon"></i>
+      <span>داشبورد من</span>
+    </a>
+  </div>
+</section>
   <!-- بخش اخبار -->
   <section id="news_section">
     <div class="news-container">
