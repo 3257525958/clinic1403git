@@ -20,40 +20,31 @@
 }
 
 /* نوار انتظار */
-#progressOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
-  z-index: 10000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.5s ease;
+.progress-container {
+    position: relative;
+    width: 300px;
+    height: 30px;
+    background: #e0e0e0;
+    border-radius: 15px;
+    overflow: hidden;
 }
-#progressOverlay.hidden {
-  opacity: 0;
-  pointer-events: none;
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #2ecc71, #27ae60);
+    transition: width 0.3s ease;
 }
-#progressBarContainer {
-  width: 80%;
-  max-width: 600px;
-  height: 30px;
-  border: 2px solid var(--accent-color);
-  border-radius: 15px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 0 10px var(--accent-color);
-}
-#progressBar {
-  width: 0;
-  height: 100%;
-  background: var(--accent-color);
-  animation: progressAnim 5s forwards;
-}
-@keyframes progressAnim {
+
+.percentage-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    font-family: 'BYekan', sans-serif;
+}@keyframes progressAnim {
   from { width: 0; }
   to { width: 100%; }
 }
@@ -583,11 +574,3 @@ nav .brand-logo img{
 .sidenav-trigger{
     height: 5px !important;
 }
-
-
-
-
-
-
-
-

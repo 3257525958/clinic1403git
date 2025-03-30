@@ -111,7 +111,7 @@ def stradby(tdef):
     return (r)
 
 def reservdef(request):
-    if request.user.is_authenticated:
+    if 1 == 1:
 # ---------اگر فردی که وارد شده است login  کرده باشد اینجا برایش در reservmodeltest  یک object ساخته میشود-----------
         melicodcheck = "false"
         rtotal = reservemodeltest.objects.all()
@@ -651,7 +651,7 @@ def reservdef(request):
                                                                             "lastname": lastname,
                                                                             "berand":b,
                                                                         })
-        return render(request,'reserv.html',context={
+        return render(request,'new_reserv.html',context={
             'works':works,
             'job':ww,
             'shamsiarray':shamsiarray,

@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نوبت‌دهی کلینیک</title>
+  <!-- بارگذاری moment و moment-jalaali -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.9.2/build/moment-jalaali.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static '/css/new_timereserv.css' %}">
+</head>
+<body>
+<h1>انتخاب روز و زمان برای نوبت‌دهی</h1>
+<h2>بوتاکس زیر بغل توسط مهدی اسدپور</h2>  
+<div class="calendar-container" id="calendarContainer"></div>
+  
+  <!-- برچسب نمایش تاریخ انتخاب شده جهت تایم‌ها -->
+  <div id="timeDayLabel"></div>
+  
+  <div class="time-grid" id="timeGrid"></div>
+  <script src="{% static '/js/new_timereserv.js' %}"></script>
+</body>
+</html>
