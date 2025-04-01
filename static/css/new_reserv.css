@@ -63,6 +63,13 @@ h1 {
     padding: 15px;
 }
 
+/* تغییرات فونت قیمت و اپراتور */
+.option-price,
+.option-operator {
+    font-size: 0.8rem;
+    color: green;
+}
+
 /* بقیه استایل‌های تقویم و زمان */
 .calendar-container {
     display: grid;
@@ -94,7 +101,6 @@ h1 {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* سایر استایل‌ها... */
 .time-slot {
     padding: 10px;
     border: 1px solid #ccc;
@@ -127,7 +133,6 @@ h1 {
         grid-template-columns: repeat(3, 1fr);
         max-width: 100%;
     }
-
     .time-grid {
         grid-template-columns: repeat(2, 1fr);
         max-width: 100%;
@@ -139,7 +144,6 @@ h1 {
         grid-template-columns: repeat(5, 1fr);
         max-width: 90%;
     }
-
     .time-grid {
         grid-template-columns: repeat(3, 1fr);
         max-width: 90%;
@@ -151,7 +155,6 @@ h1 {
         grid-template-columns: repeat(7, 1fr);
         max-width: 800px;
     }
-
     .time-grid {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         max-width: 800px;

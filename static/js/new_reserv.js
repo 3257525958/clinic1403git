@@ -1,4 +1,3 @@
-// app.js
 document.addEventListener('DOMContentLoaded', function() {
     // مدیریت کارت‌های خدمات
     document.querySelectorAll('.service-card').forEach(function(card) {
@@ -103,7 +102,48 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // اجرای اولیه
+    // اجرای اولیه تقویم
     generateCalendar();
     document.querySelector('.day-cell').click();
+
+    // ارسال مشخصات انتخاب شده به بکند با متد POST
+    document.querySelectorAll('.option-item').forEach(function(item) {
+        item.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const service = this.getAttribute('data-service');
+            const option = this.getAttribute('data-option');
+
+            fetch('/save-selection/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({ service: service, option: option })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('اطلاعات ارسال شد:', data);
+            })
+            .catch(error => {
+                console.error('خطا در ارسال اطلاعات:', error);
+            });
+        });
+    });
+
+    // تابع کمکی برای دریافت CSRF Token از کوکی‌ها (در صورت استفاده از جنگو)
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
 });

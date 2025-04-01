@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{% static '/css/new_reserv.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static '/css/new_home.css' %}">
-
 </head>
 <body>
     <div class="main-container">
@@ -17,175 +16,54 @@
                 <div class="logo-container">
                     <img src="{% static 'logo.png' %}" alt="لوگوی مطب">
                 </div>
-    <div class="user-info">
-      <span class="user-name-display">{{profilestatus }}</span>
-      <div class="profile-circle">
-        <img src="{% static "/img/img3.jpeg" %}" alt="User Profile" class="profile-image">
-        </div>
-      <div class="profile-upload">
-        <i class="fas fa-user"></i>
-        <input type="file" id="profilePicInput" style="display: none;">
-      </div>
-    </div>
+                <div class="user-info">
+                    <span class="user-name-display">{{profilestatus }}</span>
+                    <div class="profile-circle">
+                        <img src="{% static "/img/img3.jpeg" %}" alt="User Profile" class="profile-image">
+                    </div>
+                    <div class="profile-upload">
+                        <i class="fas fa-user"></i>
+                        <input type="file" id="profilePicInput" style="display: none;">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <h1 class="section-title">خدمات ما</h1>
+       <h1 class="section-title">خدمات ما</h1>
 
         <div class="cards-container">
-            <!-- کارت خدمت ۱: تزریق بوتاکس -->
-            <div class="service-card" data-service="تزریق بوتاکس">
+            {% for service in job %}
+            <div class="service-card" data-service-id="{{ service }}">
                 <div class="card-header">
-                    <i class="fas fa-syringe"></i>
-                    <div class="card-title">تزریق بوتاکس</div>
+{#                    <i class="{{ service.icon_class }}"></i>#}
+                    <div class="card-title">{{ service }}</div>
                 </div>
                 <div class="options-container">
-                    <div class="option-item" data-service="تزریق بوتاکس" data-option="بوتاکس پیشانی">
-                        بوتاکس پیشانی
+                    {% for option in works %}
+                      {% if option.work == service %}
+                        {% if option.hidde != 'hidde' %}
+                    <div class="option-item" 
+                         data-service-id="{{ service }}"
+                         data-option-id="{{ option.work }} {{ option.detalework }} برند {{ option.berand }}">
+                        {{ option.work }} {{ option.detalework }} برند {{ option.berand }}
                         <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
+                            <span class="option-price">{{ option.cast }} تومان</span>
+                            <span class="option-operator">{{ option.person }}</span>
                         </div>
                     </div>
-                    <div class="option-item" data-service="تزریق بوتاکس" data-option="بوتاکس زیر بغل">
-                        بوتاکس زیر بغل
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                    <div class="option-item" data-service="تزریق بوتاکس" data-option="بوتاکس خط غم">
-                        بوتاکس خط غم
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                    <div class="option-item" data-service="تزریق بوتاکس" data-option="بوتاکس کف دست">
-                        بوتاکس کف دست
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                    <div class="option-item" data-service="تزریق بوتاکس" data-option="بوتاکس گردن">
-                        بوتاکس گردن
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
+                        {% endif %}    
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
-
-            <!-- کارت خدمت ۲: تزریق ژل -->
-            <div class="service-card" data-service="تزریق ژل">
-                <div class="card-header">
-                    <i class="fas fa-syringe"></i>
-                    <div class="card-title">تزریق ژل</div>
-                </div>
-                <div class="options-container">
-                    <div class="option-item" data-service="تزریق ژل" data-option="ژل چانه">
-                        ژل چانه
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                    <div class="option-item" data-service="تزریق ژل" data-option="ژل گونه">
-                        ژل گونه
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                    <div class="option-item" data-service="تزریق ژل" data-option="کانتورینک">
-                        کانتورینک
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                    <div class="option-item" data-service="تزریق ژل" data-option="ژل زاویه فک">
-                        ژل زاویه فک
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                    <div class="option-item" data-service="تزریق ژل" data-option="ژل شقیقه">
-                        ژل شقیقه
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                    <div class="option-item" data-service="تزریق ژل" data-option="ژل زیر چشم">
-                        ژل زیر چشم
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                    <div class="option-item" data-service="تزریق ژل" data-option="ژل پیشانی">
-                        ژل پیشانی
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                    <div class="option-item" data-service="تزریق ژل" data-option="ژل لب">
-                        ژل لب
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- کارت خدمت ۳: فیشیال -->
-            <div class="service-card" data-service="فیشیال">
-                <div class="card-header">
-                    <i class="fas fa-spa"></i>
-                    <div class="card-title">فیشیال</div>
-                </div>
-                <div class="options-container">
-                    <div class="option-item" data-service="فیشیال" data-option="فیشیال VIP">
-                        فیشیال VIP
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                    <div class="option-item" data-service="فیشیال" data-option="فیشیال ساده">
-                        فیشیال ساده
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- کارت خدمت ۴: لیزر موی زائد -->
-            <div class="service-card" data-service="لیزر موی زائد">
-                <div class="card-header">
-                    <i class="fas fa-cut"></i>
-                    <div class="card-title">لیزر موی زائد</div>
-                </div>
-                <div class="options-container">
-                    <div class="option-item" data-service="لیزر موی زائد" data-option="لیزر موی زائد">
-                        لیزر موی زائد
-                        <div class="option-info">
-                            <span class="option-price">100,000,000 تومان</span>
-                            <span class="option-operator">مهدی نعیمه و مائده</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
+
+        <div id="toastContainer"></div>
     </div>
-  <script src="{% static '/js/new_reserv.js' %}"></script>
+
+        
+
+    <script src="{% static '/js/new_reserv.js' %}"></script>
 </body>
 </html>
