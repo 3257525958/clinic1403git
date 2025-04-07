@@ -172,32 +172,14 @@ def convert_farsi_to_english(number_str):
     translation_table = str.maketrans(persian_digits, english_digits)
     return number_str.translate(translation_table)
 
-def addcantactdef(request):
-    logout(request)
 
-    mounth_number[0] = request.POST.get('mbtn')
-    if mounth_number[0] == None :
-        mounth_number[0] == ''
-    bbtn = request.POST.get("bbtn")
-    button_upmounth = request.POST.get("button_upmounth")
-    button_downmounth = request.POST.get("button_downmounth")
-    button_calandar = request.POST.get("button_calandar")
-    button_back = request.POST.get("button_back")
-    button_send = request.POST.get('button_send')
-    buttoncode_repeat = request.POST.get('buttoncode_repeat')
-    buttoncode_send = request.POST.get('buttoncode_send')
-    inputcode_regester = request.POST.get('inputcode_regester')
-    formuser = accuntform(request.POST, request.FILES)
-    facebotton = request.POST.get("facebutton")
-
-
+def dateset(datejalalifarsi):
     year = ''
     mounth = ''
     day = ''
-    birthdate = request.POST.get('birthdate')
-    if birthdate != None:
-        year = convert_farsi_to_english(str(birthdate).split("/")[0])
-        m = convert_farsi_to_english(str(birthdate).split("/")[1])
+    if datejalalifarsi != None:
+        year = convert_farsi_to_english(str(datejalalifarsi).split("/")[0])
+        m = convert_farsi_to_english(str(datejalalifarsi).split("/")[1])
         if m == "01":
             mounth = "فروردین"
         if m == "02":
@@ -222,7 +204,7 @@ def addcantactdef(request):
             mounth = "بهمن"
         if m == "12":
             mounth = "اسفند"
-        day = convert_farsi_to_english(str(birthdate).split("/")[2])
+        day = convert_farsi_to_english(str(datejalalifarsi).split("/")[2])
         if day == '01':
             day = '1'
         if day == '02':
@@ -241,6 +223,28 @@ def addcantactdef(request):
             day = '8'
         if day == '09':
             day = '9'
+    return (year,mounth,day)
+def addcantactdef(request):
+    logout(request)
+
+    mounth_number[0] = request.POST.get('mbtn')
+    if mounth_number[0] == None :
+        mounth_number[0] == ''
+    bbtn = request.POST.get("bbtn")
+    button_upmounth = request.POST.get("button_upmounth")
+    button_downmounth = request.POST.get("button_downmounth")
+    button_calandar = request.POST.get("button_calandar")
+    button_back = request.POST.get("button_back")
+    button_send = request.POST.get('button_send')
+    buttoncode_repeat = request.POST.get('buttoncode_repeat')
+    buttoncode_send = request.POST.get('buttoncode_send')
+    inputcode_regester = request.POST.get('inputcode_regester')
+    formuser = accuntform(request.POST, request.FILES)
+    facebotton = request.POST.get("facebutton")
+
+
+    birthdate = request.POST.get('birthdate')
+    year, mounth, day =dateset(birthdate)
 
     yearj = year
     if (yearj != '') and ( yearj != None) :

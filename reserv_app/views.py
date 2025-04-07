@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from cantact_app.views import dateset,stry,strd,strb
 from cash_app.models import bankmodel
 from jobs_app.models import *
 from cantact_app.models import accuntmodel
@@ -59,6 +59,36 @@ def strb(tdef):
         ag_month = 'اسفند'
     rmonth = ag_month
     return (rmonth)
+def strbadd(tdef):
+    x = str(datetime2jalali(tdef).strftime('%a %d %b %y'))
+    rmonth = x[7:10]
+    ag_month = rmonth
+    if ag_month == 'Far':
+        ag_month = '01'
+    if ag_month == 'Ord':
+        ag_month = '02'
+    if ag_month == 'Kho':
+        ag_month = '03'
+    if ag_month == 'Tir':
+        ag_month = '04'
+    if ag_month == 'Mor':
+        ag_month = '05'
+    if ag_month == 'Sha':
+        ag_month = '06'
+    if ag_month == 'Meh':
+        ag_month = '07'
+    if ag_month == 'Aba':
+        ag_month = '08'
+    if ag_month == 'Aza':
+        ag_month = '09'
+    if ag_month == 'Dey':
+        ag_month = '10'
+    if ag_month == 'Bah':
+        ag_month = '11'
+    if ag_month == 'Esf':
+        ag_month = '12'
+    rmonth = ag_month
+    return (rmonth)
 def strd(tdef):
     x = str(datetime2jalali(tdef).strftime('%a %d %b %y'))
     rday = x[4:6]
@@ -109,7 +139,434 @@ def stradb(tdef):
 def stradby(tdef):
     r = stra(tdef)+' '+strd(tdef)+' '+strb(tdef)+' '+stry(tdef)
     return (r)
+def convert_english_to_persian(number):
+    translation_dict = {
+        '0': '۰',
+        '1': '۱',
+        '2': '۲',
+        '3': '۳',
+        '4': '۴',
+        '5': '۵',
+        '6': '۶',
+        '7': '۷',
+        '8': '۸',
+        '9': '۹'
+    }
+    num_str = str(number)
+    return ''.join([translation_dict.get(c, c) for c in num_str])
 
+
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.urls import reverse
+
+@csrf_exempt  # در محیط تولیدی پیشنهاد می‌شود مدیریت CSRF به روش امن‌تر انجام شود.
+def save_selection(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            service_id = data.get('service')
+            option_id = data.get('option')
+            national_code = data.get('nationalcode')
+
+            # ذخیره اطلاعات در session به نحوی که در ادامه بتوانید از آن‌ها استفاده کنید
+            request.session['selected_service_id'] = service_id
+            request.session['selected_option_id'] = option_id
+            request.session['national_code'] = national_code
+
+            # ارسال URL صفحه new_timereserv به کلاینت
+            return JsonResponse({
+                'redirect_url': reverse('new_timereserv_page')  # نام URL صفحه جدید
+            })
+        except Exception as e:
+            print("Error:", e)
+            return JsonResponse({'error': str(e)}, status=400)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+# def save_selection(request):
+#     if request.method == 'POST':
+#         try:
+#             data = json.loads(request.body.decode('utf-8'))
+#             service = data.get('service')
+#             option = data.get('option')
+#             procedureselect = option
+#             request.session['procedureselect'] = procedureselect
+#             # ارسال URL صفحه جدید به کلاینت
+#             return JsonResponse({
+#                 'redirect_url': reverse('new_timereserv_page')  # نام URL صفحه جدید
+#             })
+#             # return (option)
+#             # # return JsonResponse({'status': 'success'})
+#         except Exception as e:
+#             print("Error:", e)
+#             return JsonResponse({'error': str(e)}, status=400)
+#     return JsonResponse({'error': 'Invalid request'}, status=400)
+def convert(t):
+    y = convert_english_to_persian(stry(t))
+    m = convert_english_to_persian(strbadd(t))
+    d = convert_english_to_persian(strd(t))
+    return (y+'/'+m+'/'+d)
+
+
+import json
+import datetime
+from django.http import JsonResponse
+from django.shortcuts import render
+
+
+# فرض کنید توابع convert و timebefor در فایل utils یا ماژول مربوطه موجود باشند.
+# از مثال‌های زیر استفاده کنید:
+# from .utils import convert, timebefor
+
+def new_timereserv_view(request):
+    # دریافت داده انتخاب شده از session (مثلاً شماره خدمت و سایر اطلاعات)
+    s = request.session.get('selected_service_id')
+    procedureselect = request.session.get('selected_option_id')
+    melicod = request.session.get('national_code')
+
+    if request.method == 'POST':
+        try:
+            # دریافت داده‌های ارسالی به صورت JSON
+            data = json.loads(request.body.decode('utf-8'))
+            selected_date = data.get('selected_date')
+            selected_time = data.get('datetime')
+            print(selected_time)
+            try:
+                workselectid = int(procedureselect.split('+')[0])
+            except Exception as e:
+                workselectid = "None"
+
+            # دریافت زمان‌های رزرو شده با استفاده از تابع timebefor
+            reserved_times = timebefor(selected_date, workselectid, melicod)
+            print(reserved_times)
+
+            return JsonResponse({'reserved_times': reserved_times})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+    else:  # حالت GET
+        default_date = datetime.datetime.now() + datetime.timedelta(days=2)
+        jalali_date = convert(default_date)
+
+        # حذف داده از session پس از استفاده
+        # if 'procedureselect' in request.session:
+        #     del request.session['procedureselect']
+
+        try:
+            workselectid = int(procedureselect.split('+')[0])
+        except Exception as e:
+            workselectid = "None"
+
+        reserved_times = timebefor('1', workselectid, melicod)
+        print(reserved_times)
+        reserved_times_json = json.dumps(reserved_times)
+
+        # آماده‌سازی context برای ارسال به قالب HTML
+        context = {
+            'workselectid': workselectid,
+            'melicode': request.user.username,
+            'reserved_times_json': reserved_times_json,
+        }
+        return render(request, 'new_timereserv.html', context)
+
+
+
+
+
+
+
+
+import json
+import datetime
+from django.http import JsonResponse
+
+
+# def new_timereserv_view(request):
+#     print("1")
+#     procedureselect = request.session.get('procedureselect')
+#     print(procedureselect)
+#     print("lllllllll")
+#     if request.method == 'POST':
+#         print("2")
+#         try:
+#             print("3")
+#             data = json.loads(request.body.decode('utf-8'))
+#             print("4")
+#             selected_date = data.get('selected_date')
+#             print("5")
+#             # در صورتی که تاریخ انتخاب شده ارسال شده باشد از آن استفاده کنید
+#             if selected_date:
+#                 print('6')
+#                 jalali_date = selected_date  # فرض کنید تاریخ به فرمت شمسی صحیح است
+#             else:
+#                 print('7')
+#                 default_date = datetime.datetime.now() + datetime.timedelta(days=2)
+#                 jalali_date = convert(default_date)  # تابع convert تاریخ میلادی را به شمسی تبدیل می‌کند
+#
+#             procedureselect = request.session.get('procedureselect')
+#             if 'procedureselect' in request.session:
+#                 del request.session['procedureselect']
+#
+#             try:
+#                 workselectid = int(procedureselect.split('+')[0])
+#             except Exception as e:
+#                 workselectid = "None"
+#
+#             # دریافت آرایه reserved_times از تابع timebefor
+#             reserved_times = timebefor(jalali_date, workselectid, request.user.username)
+#             # در اینجا می‌توانید در صورت نیاز اطلاعات دیگری هم بفرستید
+#
+#             return JsonResponse({
+#                 'reserved_times': reserved_times
+#             })
+#         except Exception as e:
+#             return JsonResponse({'error': str(e)}, status=400)
+#
+#     # در صورت دریافت درخواست GET، می‌توانید صفحه اولیه را render کنید
+#     else:
+#         print('8')
+#         # تاریخ پیش‌فرض: دو روز بعد از امروز
+#         default_date = datetime.datetime.now() + datetime.timedelta(days=2)
+#         jalali_date = convert(default_date)
+#
+#         procedureselect = request.session.get('procedureselect')
+#         if 'procedureselect' in request.session:
+#             del request.session['procedureselect']
+#
+#         try:
+#             workselectid = int(procedureselect.split('+')[0])
+#         except Exception as e:
+#             workselectid = "None"
+#
+#         reserved_times = timebefor(jalali_date, workselectid, request.user.username)
+#         reserved_times_json = json.dumps(reserved_times)
+#
+#         return render(request, 'new_timereserv.html', {
+#             'workselectid': workselectid,
+#             'melicode': request.user.username,
+#             'reserved_times_json': reserved_times_json,
+#         })
+
+
+def timebefor(namberdate, workselectid,melicode):
+    # مثال: اگر کد خدمت 'A' و تاریخ '۱۴۰۴/۰۱/۱۰' باشد، تایم‌های رزرو شده مشخص شود.3
+    # y,m,d = dateset(jalali_date)
+    # melicode = melicode
+    works = workmodel.objects.all()
+    c = 0
+    personelmelicode = '0'
+    berand = ''
+    if workselectid != "None":
+        reservposition[0] = "1"
+        for f in works:
+            if workselectid == f.id:
+                selectprocedure.clear()
+                selectprocedure.append(f.work)
+                selectprocedure.append(f.detalework)
+                selectprocedure.append(f.person)
+                berand = f.berand
+                personelmelicode = f.melicodpersonel
+                a = reservemodeltest.objects.filter(mellicode=melicode)
+                a.update(jobreserv=f.work,
+                         detalereserv=f.detalework,
+                         personreserv=f.person,
+                         vahed=f.vahed,
+                         idwork=f.id
+                         )
+                sel = ''
+                if f.time == "زمان کمی میبرد":
+                    sel = "0"
+                    selectprocedure.append("0")
+                if f.time == "پانزده دقیقه":
+                    sel = "1"
+                    selectprocedure.append("1")
+                if f.time == "سی دقیقه":
+                    sel = "2"
+                    selectprocedure.append("2")
+                if f.time == "چهل و پنج دقیقه":
+                    sel = "3"
+                    selectprocedure.append("3")
+                if f.time == "یک ساعت":
+                    sel = "4"
+                    selectprocedure.append("4")
+                if f.time == "یک ساعت و پانزده دقیقه":
+                    sel = "5"
+                    selectprocedure.append("5")
+                if f.time == "یک ساعت و نیم":
+                    sel = "6"
+                    selectprocedure.append("6")
+                selectprocedure.append(f.cast)
+                a = reservemodeltest.objects.filter(mellicode=melicode)
+                a.update(
+                    timereserv=sel,
+                    castreserv=f.cast,
+                )
+
+            c += 1
+        reservmovaghats = reservemodeltest.objects.all()
+        # ___________در این قسمت تعداد روزهایی که قرار هستش به مراجعه کننده نشون بدیم مشخص میشه____
+        # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
+        t = datetime.datetime.now()
+        t += timedelta(days=1+int(namberdate))
+        # ____________در آرایه ی dayarr  بیست تا true مسازه که برای هر روز نشانه ازاد بودن بیست تایم ده صبح تا 8 شب هستش________
+        # _________بعد میاد محدودیتها رو اعمال میکنه و هذ تایم رو براساس محدودتها ممکنه false کنه یا true نگه داره_________
+        dayarr = ['t']
+        dayarr.clear()
+        dayarr.append(stradb(t))
+        for h in range(40):
+            dayarr.append('true')
+
+        # _____برسی مرخصی ها و حضور اپراتوری که انتخاب شده_________
+        ls = leavemodel.objects.all()
+        for l in ls:
+            if int(l.personelmelicod) == int(personelmelicode):
+                if l.muont == strb(t):
+                    s = l.leave.split(",")
+                    a = 2
+                    for iii in range(int(len(s))):
+                        if a <= len(s):
+                            if s[a] == strd(t):
+                                dayarr[int(s[a - 1])] = "false"
+                            a += 2
+                        else:
+                            break
+        # ---------وقتی یه نفر یه کاری رو انتخاب میکنه تا قبل از پرداخت براش رزرو میشه تا کس دیگه ای تو این فاصله نتونه رزروش کنه--------
+        for reservmovaghat in reservmovaghats:
+            if reservmovaghat.personreserv == selectprocedure[2]:
+                if reservmovaghat.dateshamsireserv == stradb(t):
+                    if reservmovaghat.timereserv == '1':
+                        dayarr[int(reservmovaghat.numbertime)] = "false"
+                    if reservmovaghat.timereserv == '2':
+                        dayarr[int(reservmovaghat.numbertime)] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                    if reservmovaghat.timereserv == '3':
+                        dayarr[int(reservmovaghat.numbertime)] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+                    if reservmovaghat.timereserv == '4':
+                        dayarr[int(reservmovaghat.numbertime)] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+                    if reservmovaghat.timereserv == '5':
+                        dayarr[int(reservmovaghat.numbertime)] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 4] = "false"
+                    if reservmovaghat.timereserv == '6':
+                        dayarr[int(reservmovaghat.numbertime)] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 4] = "false"
+                        dayarr[int(reservmovaghat.numbertime) + 5] = "false"
+
+        # -------------------------اینجا رزرو های قبلی رو چک میکنه---------
+        res = reservemodel.objects.all()
+        for r in res:
+            if r.personreserv == selectprocedure[2]:
+                if r.dateshamsireserv == stradb(t):
+                    if r.timereserv == '1':
+                        dayarr[int(r.numbertime)] = "false"
+                    if r.timereserv == '2':
+                        dayarr[int(r.numbertime)] = "false"
+                        dayarr[int(r.numbertime) + 1] = "false"
+                    if r.timereserv == '3':
+                        dayarr[int(r.numbertime)] = "false"
+                        dayarr[int(r.numbertime) + 1] = "false"
+                        dayarr[int(r.numbertime) + 2] = "false"
+                    if r.timereserv == '4':
+                        dayarr[int(r.numbertime)] = "false"
+                        dayarr[int(r.numbertime) + 1] = "false"
+                        dayarr[int(r.numbertime) + 2] = "false"
+                        dayarr[int(r.numbertime) + 3] = "false"
+                    if r.timereserv == '5':
+                        dayarr[int(r.numbertime)] = "false"
+                        dayarr[int(r.numbertime) + 1] = "false"
+                        dayarr[int(r.numbertime) + 2] = "false"
+                        dayarr[int(r.numbertime) + 3] = "false"
+                        dayarr[int(r.numbertime) + 4] = "false"
+                    if r.timereserv == '6':
+                        dayarr[int(r.numbertime)] = "false"
+                        dayarr[int(r.numbertime) + 1] = "false"
+                        dayarr[int(r.numbertime) + 2] = "false"
+                        dayarr[int(r.numbertime) + 3] = "false"
+                        dayarr[int(r.numbertime) + 4] = "false"
+                        dayarr[int(r.numbertime) + 5] = "false"
+        # # ---------------------------------------------اگر کاری مه انتخاب شده بیش از نیم ساعت باشه یعنی دو تا نیم ساغت یا سه  یا پهارتا یا پنج تا نیم ساعت باشه-----------
+        # # ------باید چک شود که تا تایم های اینده اش  به همون اندازه که وقت میخواد وقت باشه ---------------------------------------
+        #
+        print(selectprocedure[3])
+        if selectprocedure[3] == "2":
+            for hh in range(19):
+                hh += 1
+                if dayarr[int(hh) + 1] == "false":
+                    dayarr[int(hh)] = "false"
+            dayarr[40] = "false"
+        if selectprocedure[3] == "3":
+            for hh in range(18):
+                hh += 1
+                if dayarr[int(hh) + 1] == "false":
+                    dayarr[int(hh)] = "false"
+                if dayarr[int(hh) + 2] == "false":
+                    dayarr[int(hh)] = "false"
+            dayarr[39] = "false"
+            dayarr[40] = "false"
+        if selectprocedure[3] == "4":
+            for hh in range(17):
+                hh += 1
+                if dayarr[int(hh) + 1] == "false":
+                    dayarr[int(hh)] = "false"
+                if dayarr[int(hh) + 2] == "false":
+                    dayarr[int(hh)] = "false"
+                if dayarr[int(hh) + 3] == "false":
+                    dayarr[int(hh)] = "false"
+            dayarr[38] = "false"
+            dayarr[39] = "false"
+            dayarr[40] = "false"
+        if selectprocedure[3] == "5":
+            for hh in range(16):
+                hh += 1
+                if dayarr[int(hh) + 1] == "false":
+                    dayarr[int(hh)] = "false"
+                if dayarr[int(hh) + 2] == "false":
+                    dayarr[int(hh)] = "false"
+                if dayarr[int(hh) + 3] == "false":
+                    dayarr[int(hh)] = "false"
+                if dayarr[int(hh) + 4] == "false":
+                    dayarr[int(hh)] = "false"
+            dayarr[37] = "false"
+            dayarr[38] = "false"
+            dayarr[39] = "false"
+            dayarr[40] = "false"
+        if selectprocedure[3] == "6":
+            for hh in range(15):
+                hh += 1
+                if dayarr[int(hh) + 1] == "false":
+                    dayarr[int(hh)] = "false"
+                if dayarr[int(hh) + 2] == "false":
+                    dayarr[int(hh)] = "false"
+                if dayarr[int(hh) + 3] == "false":
+                    dayarr[int(hh)] = "false"
+                if dayarr[int(hh) + 4] == "false":
+                    dayarr[int(hh)] = "false"
+                if dayarr[int(hh) + 5] == "false":
+                    dayarr[int(hh)] = "false"
+            dayarr[36] = "false"
+            dayarr[37] = "false"
+            dayarr[38] = "false"
+            dayarr[39] = "false"
+            dayarr[40] = "false"
+
+        #
+        timesel = [0]
+        timesel.clear()
+        for i in range(41):
+            if dayarr[i] == "false":
+                timesel.append(i-1)
+        return timesel
+    return []
 def reservdef(request):
     if 1 == 1:
 # ---------اگر فردی که وارد شده است login  کرده باشد اینجا برایش در reservmodeltest  یک object ساخته میشود-----------
@@ -174,13 +631,20 @@ def reservdef(request):
         ww.pop(0)
         bers = esmekalamodel.objects.all()
 #**********************انتخاب کاربر به صورت یک عدد از forloop  از وب میاد و در اینجا اون عدد تبدیل میشه به انتخاب اصلی و در  f  ریخته میشه**************
+        workselectid = "None"
+        try:
+            workselectid = int(str(save_selection(request)).split('+')[0])
+        except:
+            workselectid = "None"
+
         c = 0
         personelmelicode = '0'
         berand = ''
-        if inputwork != None:
+        if workselectid != "None":
             reservposition[0] = "1"
             for f in works :
-                if int(c) == int(inputwork) :
+                if workselectid == f.id:
+                    print(workselectid)
                     selectprocedure.clear()
                     selectprocedure.append(f.work)
                     selectprocedure.append(f.detalework)
@@ -394,7 +858,7 @@ def reservdef(request):
 # -----ولی اگه بخوایم این کار رو بکنیم باید ارایه های شمسی و میلادی هم از دوتا دور تر خونده بشن یغنی یغنی خط.ط 301 و 302 عوض شنبه جای اینکه از اول خوانده بشن از دوتا جلوتر خوانده بشن
             # day.pop(0)
             # day.pop(0)
-            return render(request,'timereserv.html',context={
+            return render(request,'new_timereserv.html',context={
                                                              'day':day,
                                                              'person':" رزرو وقت برای " + selectprocedure[0] +" "+ selectprocedure[1] + ' '+ berand +' '+ "(" + selectprocedure[2] + ")",
                                                              })
@@ -651,10 +1115,14 @@ def reservdef(request):
                                                                             "lastname": lastname,
                                                                             "berand":b,
                                                                         })
+
+
+        nationalcode = request.user.username
         return render(request,'new_reserv.html',context={
             'works':works,
             'job':ww,
             'shamsiarray':shamsiarray,
+            'nationalcode':nationalcode,
             'bers':bers,
              })
     else:

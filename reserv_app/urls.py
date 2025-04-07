@@ -8,4 +8,6 @@ urlpatterns = [
     path('reserver/',views.reserverdef),
     path('dashbord/',views.dashborddef),
     path('reservdasti/',views.reservdasti),
-    ]
+    path('save_selection/', views.save_selection, name='save_selection'),
+    path('new_timereserv/', views.new_timereserv_view, name='new_timereserv_page'),
+]
