@@ -12,13 +12,19 @@
 </head>
 <body>
 <h1>انتخاب روز و زمان برای نوبت‌دهی</h1>
-<h2>بوتاکس زیر بغل توسط مهدی اسدپور</h2>  
+<h2>بوتاکس زیر بغل توسط مهدی اسدپور</h2>
 <div class="calendar-container" id="calendarContainer"></div>
   
   <!-- برچسب نمایش تاریخ انتخاب شده جهت تایم‌ها -->
   <div id="timeDayLabel"></div>
   
   <div class="time-grid" id="timeGrid"></div>
+
+<script>
+  // از escapejs برای جلوگیری از مشکلات احتمالی استفاده می‌کنیم
+  window.reservedTimes = JSON.parse('{{ reserved_times_json|escapejs }}');
+  console.log("Reserved Times:", window.reservedTimes);
+</script>
   <script src="{% static '/js/new_timereserv.js' %}"></script>
 </body>
 </html>

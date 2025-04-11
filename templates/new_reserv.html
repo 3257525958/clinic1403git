@@ -17,9 +17,9 @@
                     <img src="{% static 'logo.png' %}" alt="لوگوی مطب">
                 </div>
                 <div class="user-info">
-                    <span class="user-name-display">{{profilestatus }}</span>
+                    <span class="user-name-display">{{ profilestatus }}</span>
                     <div class="profile-circle">
-                        <img src="{% static "/img/img3.jpeg" %}" alt="User Profile" class="profile-image">
+                        <img src="{% static '/img/img3.jpeg' %}" alt="User Profile" class="profile-image">
                     </div>
                     <div class="profile-upload">
                         <i class="fas fa-user"></i>
@@ -35,7 +35,6 @@
             {% for service in job %}
             <div class="service-card" data-service-id="{{ service }}">
                 <div class="card-header">
-{#                    <i class="{{ service.icon_class }}"></i>#}
                     <div class="card-title">{{ service }}</div>
                 </div>
                 <div class="options-container">
@@ -43,8 +42,8 @@
                       {% if option.work == service %}
                         {% if option.hidde != 'hidde' %}
                     <div class="option-item" 
-                         data-service-id="{{ service }}"
-                         data-option-id="{{ option.work }} {{ option.detalework }} برند {{ option.berand }}">
+                         data-service-id="{{ service.id }}+job"
+                         data-option-id="{{ option.id }}+work">
                         {{ option.work }} {{ option.detalework }} برند {{ option.berand }}
                         <div class="option-info">
                             <span class="option-price">{{ option.cast }} تومان</span>
@@ -59,11 +58,13 @@
             {% endfor %}
         </div>
 
+        <!-- سایر قسمت‌های صفحه مانند تقویم -->
+        <div id="calendarContainer"></div>
+        <div id="timeGrid"></div>
+        <div id="timeDayLabel"></div>
         <div id="toastContainer"></div>
     </div>
-
-        
-
+    <input type="hidden" id="nationalcode" value="{{ nationalcode }}">
     <script src="{% static '/js/new_reserv.js' %}"></script>
 </body>
 </html>
