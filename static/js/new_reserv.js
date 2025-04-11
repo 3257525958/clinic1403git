@@ -142,7 +142,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            fetch('http://localhost:8000/reserv/save_selection/', {
+            // fetch('http://localhost:8000/reserv/save_selection/', {
+            fetch('http://drmahdiasadpour.ir/reserv/save_selection/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

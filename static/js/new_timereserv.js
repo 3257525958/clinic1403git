@@ -79,7 +79,8 @@ function generateTimeSlots(date) {
 // ارسال شماره روز به سرور با متد POST
 function sendDateToBackend(dayIndex) {
   console.log("Sending day index:", dayIndex);
-  fetch('http://localhost:8000/reserv/new_timereserv/', {
+  // fetch('http://localhost:8000/reserv/new_timereserv/', {
+  fetch('http://drmahdiasadpour.ir/reserv/new_timereserv/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -111,7 +112,8 @@ function sendDateToBackend(dayIndex) {
 
 // ارسال شماره تایم به همراه شماره روز به سرور با متد POST
 function sendTimeToBackend(dayIndex, timeNumber) {
-  fetch('http://localhost:8000/reserv/new_timereserv/', {
+  // fetch('http://localhost:8000/reserv/new_timereserv/', {
+  fetch('http://drmahdiasadpour.ir/reserv/new_timereserv/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

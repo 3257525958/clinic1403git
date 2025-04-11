@@ -236,7 +236,6 @@ def new_timereserv_view(request):
             workselectid = "None"
 
         reserved_times = timebefor('1', workselectid, melicod)
-        print(reserved_times)
         reserved_times_json = json.dumps(reserved_times)
 
         # آماده‌سازی context برای ارسال به قالب HTML
