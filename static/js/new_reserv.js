@@ -143,7 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             fetch('/reserv/save_selection/', {
-            // fetch('http://drmahdiasadpour.ir/reserv/save_selection/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -35,7 +35,9 @@ function generateCalendar() {
       const dayIndex = i + 1; // اگر خانه دوم کلیک شود، dayIndex برابر با 2 خواهد بود
 
       // به‌روزرسانی برچسب تایم روز با شماره روز (مثلاً "تایم‌های روز 2")
-      timeDayLabel.innerText = 'تایم‌های روز ' + dayIndex;
+      const a =moment().add(dayIndex+1,'days').startOf('day').format('jYYYY/jMM/jDD')
+      const b =moment().add(dayIndex+1,'days').startOf('day').format('dddd')
+      timeDayLabel.innerText = 'تایم‌های روز ' + b + a;
 
       // ارسال شماره روز به سرور به جای تاریخ کامل
       sendDateToBackend(dayIndex);
@@ -80,7 +82,6 @@ function generateTimeSlots(date) {
 function sendDateToBackend(dayIndex) {
   console.log("Sending day index:", dayIndex);
   fetch('/reserv/new_timereserv/', {
-  // fetch('http://drmahdiasadpour.ir/reserv/new_timereserv/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -112,8 +113,7 @@ function sendDateToBackend(dayIndex) {
 
 // ارسال شماره تایم به همراه شماره روز به سرور با متد POST
 function sendTimeToBackend(dayIndex, timeNumber) {
-  fetch('http://localhost:8000/reserv/new_timereserv/', {
-  // fetch('http://drmahdiasadpour.ir/reserv/new_timereserv/', {
+  fetch('/reserv/new_timereserv/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -160,6 +160,9 @@ const firstCell = calendarContainer.querySelector('.day-cell');
 if (firstCell) {
   firstCell.classList.add('selected');
 }
-timeDayLabel.innerText = 'تایم‌های روز ' + 1;  // اولین خانه برابر 1 است
+      const aa =moment().add(2,'days').startOf('day').format('jYYYY/jMM/jDD')
+      const bb =moment().add(2,'days').startOf('day').format('dddd')
+
+timeDayLabel.innerText = 'تایم‌های روز ' + bb + aa;  // اولین خانه برابر 1 است
 sendDateToBackend(1);
 generateTimeSlots(startDate);

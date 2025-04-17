@@ -183,6 +183,24 @@ def save_selection(request):
             print("Error:", e)
             return JsonResponse({'error': str(e)}, status=400)
     return JsonResponse({'error': 'Invalid request'}, status=400)
+# def save_selection(request):
+#     if request.method == 'POST':
+#         try:
+#             data = json.loads(request.body.decode('utf-8'))
+#             service = data.get('service')
+#             option = data.get('option')
+#             procedureselect = option
+#             request.session['procedureselect'] = procedureselect
+#             # ارسال URL صفحه جدید به کلاینت
+#             return JsonResponse({
+#                 'redirect_url': reverse('new_timereserv_page')  # نام URL صفحه جدید
+#             })
+#             # return (option)
+#             # # return JsonResponse({'status': 'success'})
+#         except Exception as e:
+#             print("Error:", e)
+#             return JsonResponse({'error': str(e)}, status=400)
+#     return JsonResponse({'error': 'Invalid request'}, status=400)
 def convert(t):
     y = convert_english_to_persian(stry(t))
     m = convert_english_to_persian(strbadd(t))
@@ -190,6 +208,9 @@ def convert(t):
     return (y+'/'+m+'/'+d)
 
 
+import json
+import datetime
+from django.http import JsonResponse
 from django.shortcuts import render
 
 
@@ -209,6 +230,7 @@ def new_timereserv_view(request):
             data = json.loads(request.body.decode('utf-8'))
             selected_date = data.get('selected_date')
             selected_time = data.get('datetime')
+            print(selected_time)
             try:
                 workselectid = int(procedureselect.split('+')[0])
             except Exception as e:
@@ -236,6 +258,7 @@ def new_timereserv_view(request):
             workselectid = "None"
 
         reserved_times = timebefor('1', workselectid, melicod)
+        print(reserved_times)
         reserved_times_json = json.dumps(reserved_times)
 
         # آماده‌سازی context برای ارسال به قالب HTML
