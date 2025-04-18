@@ -67,6 +67,7 @@ function generateTimeSlots(date) {
       timeSlot.classList.add('disabled');
     } else {
       timeSlot.addEventListener('click', () => {
+        const dayIndex = Math.floor(date.diff(startDate, 'days')) + 1;
         // حذف کلاس active از تمامی تایم‌ها و افزودن به تایم انتخاب‌شده
         document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('active'));
         timeSlot.classList.add('active');
@@ -113,24 +114,52 @@ function sendDateToBackend(dayIndex) {
 
 // ارسال شماره تایم به همراه شماره روز به سرور با متد POST
 function sendTimeToBackend(dayIndex, timeNumber) {
-  fetch('/reserv/new_timereserv/', {
+  fetch('/reserv/timeselct/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'X-CSRFToken': getCookie('csrftoken')
     },
-    body: JSON.stringify({ dateday: dayIndex, datetime: timeNumber })
+    credentials: 'same-origin',
+    body: JSON.stringify({ day: dayIndex, time: timeNumber })
   })
   .then(response => {
-    if (response.ok) {
-      console.log('تایم ارسال شد:', dayIndex, timeNumber);
+    if (!response.ok) {
+      throw new Error('خطا در ارسال: ' + response.status);
+    }
+    return response.json();  // تبدیل به JSON
+  })
+  .then(data => {
+    if (data.redirect_url) {
+      // هدایت کاربر به آدرس دریافتی
+      window.location.href = data.redirect_url;
     } else {
-      console.error('خطا در ارسال تایم');
+      console.error('آدرس ریدایرکت دریافت نشد');
     }
   })
   .catch(error => console.error('خطا:', error));
 }
-
+// function sendTimeToBackend(dayIndex, timeNumber){
+//     fetch('/reserv/timeselct/', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'X-CSRFToken': getCookie('csrftoken')
+//     },
+//     body: JSON.stringify({
+//       day: dayIndex,
+//       time: timeNumber
+//     })
+//   })
+//   .then(response => {
+//     if (response.ok) {
+//       console.log('ارسال موفق:', dayIndex, timeNumber);
+//     } else {
+//       console.error('خطا در ارسال');
+//     }
+//   })
+//   .catch(error => console.error('خطا:', error));
+// }
 // تبدیل اعداد انگلیسی به فارسی
 function toPersianNumbers(str) {
   const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];

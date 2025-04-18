@@ -2,18 +2,16 @@ from django.shortcuts import render, redirect
 from cantact_app.views import dateset,stry,strd,strb
 from cash_app.models import bankmodel
 from jobs_app.models import *
-from cantact_app.models import accuntmodel
-from file_app.form import *
-import datetime
 from jalali_date import date2jalali,datetime2jalali
-from datetime import timedelta
 import matplotlib
 from reserv_app.models import *
 from cantact_app.models import accuntmodel
-from file_app.models import *
 from accountancy_app.models import *
 from kavenegar import *
 import random
+import datetime
+from datetime import timedelta
+
 ww = ['t']
 shamsiarray = ['t']
 miladiarray = ['t']
@@ -156,11 +154,203 @@ def convert_english_to_persian(number):
     return ''.join([translation_dict.get(c, c) for c in num_str])
 
 
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.urls import reverse
 
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.urls import reverse
+import json
+
+
+
+
+from django.shortcuts import render
+from django.http import HttpRequest, HttpResponse
+
+def summary_view(request: HttpRequest) -> HttpResponse:
+    # مثال: خواندن داده‌های ذخیره‌شده در سشن
+    s = request.session.get('selected_service_id')
+    procedureselect = request.session.get('selected_option_id')
+    melicod = request.session.get('national_code')
+    selected_day = request.session.get('selected_day')
+    selected_time = request.session.get('selected_time')
+
+    print(selected_day, selected_time)
+    print(procedureselect, melicod)
+    # --مثلا وقتی select_day  عدد 1 زا نشان دهد یعنی دو روز بعد پس میشود به روش زیر از عدد select_day یه تایم انتهابی برسم----------
+    select_day_date = datetime.datetime.now()
+    select_day_date += timedelta(days= selected_day + 1)
+    request.session['dateshamsireserv'] = stradb(select_day_date)
+    request.session['datemiladireserv'] = select_day_date.strftime('%a %d %b %y')
+    request.session['yearshamsi'] = stry(datetime.datetime.now())
+    request.session['numbertime'] = selected_time
+
+    a = reservemodeltest.objects.filter(mellicode=request.user.username)
+    a.update(
+        dateshamsireserv=stradb(select_day_date),
+        datemiladireserv=select_day_date.strftime('%a %d %b %y'),
+        yearshamsi=stry(datetime.datetime.now()),
+        numbertime=selected_time,
+    )
+    selectprocedure.append(stradb(select_day_date))
+    selectprocedure.append(select_day_date.strftime('%a %d %b %y'))
+    selectprocedure.append(stry(datetime.datetime.now()))
+    selectprocedure.append(selected_time)
+    print(selected_time)
+    s = ""
+    if selected_time == 1:
+        s = "10"
+        selectprocedure.append("10:00")
+    if selected_time == 2:
+        s = "10:15"
+        selectprocedure.append("10:15")
+    if selected_time == 3:
+        s = "10:30"
+        selectprocedure.append("10:30")
+    if selected_time == 4:
+        s = "10:45"
+        selectprocedure.append("10:45")
+    if selected_time == 5:
+        s = "11"
+        selectprocedure.append("11:00")
+    if selected_time == 6:
+        s = "11:15"
+        selectprocedure.append("11:15")
+    if selected_time == 7:
+        s = "11:30"
+        selectprocedure.append("11:30")
+    if selected_time == 8:
+        s = "11:45"
+        selectprocedure.append("11:5")
+    if selected_time == 9:
+        s = "12"
+        selectprocedure.append("12:00")
+    if selected_time == 10:
+        s = "12:15"
+        selectprocedure.append("12:15")
+    if selected_time == 11:
+        s = "12:30"
+        selectprocedure.append("12:30")
+    if selected_time == 12:
+        s = "12:45"
+        selectprocedure.append("12:45")
+    if selected_time == 13:
+        s = "13"
+        selectprocedure.append("13:00")
+    if selected_time == 14:
+        s = "13:15"
+        selectprocedure.append("13:15")
+    if selected_time == 15:
+        s = "13:30"
+        selectprocedure.append("13:30")
+    if selected_time == 16:
+        s = "13:45"
+        selectprocedure.append("13:45")
+    if selected_time == 17:
+        s = "14"
+        selectprocedure.append("14:00")
+    if selected_time == 18:
+        s = "14:15"
+        selectprocedure.append("14:15")
+    if selected_time == 19:
+        s = "14:30"
+        selectprocedure.append("14:30")
+    if selected_time == 20:
+        s = "14:45"
+        selectprocedure.append("14:45")
+    if selected_time == 21:
+        s = "15"
+        selectprocedure.append("15:00")
+    if selected_time == 22:
+        s = "15:15"
+        selectprocedure.append("15:15")
+    if selected_time == 23:
+        s = "15:30"
+        selectprocedure.append("15:30")
+    if selected_time == 24:
+        s = "15:45"
+        selectprocedure.append("15:45")
+    if selected_time == 25:
+        s = "16"
+        selectprocedure.append("16:00")
+    if selected_time == 26:
+        s = "16:15"
+        selectprocedure.append("16:15")
+    if selected_time == 27:
+        s = "16:30"
+        selectprocedure.append("16:30")
+    if selected_time == 28:
+        s = "16:45"
+        selectprocedure.append("16:45")
+    if selected_time == 29:
+        s = "17"
+        selectprocedure.append("17:00")
+    if selected_time == 30:
+        s = "17:15"
+        selectprocedure.append("17:15")
+    if selected_time == 31:
+        s = "17:30"
+        selectprocedure.append("17:30")
+    if selected_time == 32:
+        s = "17:45"
+        selectprocedure.append("17:45")
+    if selected_time == 33:
+        s = "18"
+        selectprocedure.append("18:00")
+    if selected_time == 34:
+        s = "18:15"
+        selectprocedure.append("18:15")
+    if selected_time == 35:
+        s = "18:30"
+        selectprocedure.append("18:30")
+    if selected_time == 36:
+        s = "18:45"
+        selectprocedure.append("18:45")
+    if selected_time == 37:
+        s = "19"
+        selectprocedure.append("19:00")
+    if selected_time == 38:
+        s = "19:15"
+        selectprocedure.append("19:15")
+    if selected_time == 39:
+        s = "19:30"
+        selectprocedure.append("19:30")
+    if selected_time == 40:
+        s = "19:45"
+        selectprocedure.append("19:45")
+    print(s)
+    request.session['hourreserv'] = s
+    a = reservemodeltest.objects.filter(mellicode=request.user.username)
+    a.update(hourreserv=s)
+    works = workmodel.objects.all()
+    for work in works:
+        if int(work.id) == int(procedureselect) :
+            context = {
+            'work' : work.work,
+            'detalework' : work.detalework,
+            'personwork' : work.person,
+            'dateshamsi' : stradb(select_day_date),
+            'hoursreserv' : s,
+
+            }
+    # فرض بر این است که قالب summary.html را زیر پوشه templates/reserv_app دارید
+    return render(request, 'new_reserv_end.html', context)
+@csrf_exempt  # در محیط تولید از توکن CSRF استفاده کنید
+def timeselct(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            selected_day = data.get('day')
+            selected_time = data.get('time')
+            request.session['selected_day'] = selected_day
+            request.session['selected_time'] = selected_time
+            # هر عملیات دلخواه دیگر...
+            # ارسال آدرس صفحه HTML بعدی
+            return JsonResponse({
+                'redirect_url': reverse('reservation_summary')
+            })
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
 @csrf_exempt  # در محیط تولیدی پیشنهاد می‌شود مدیریت CSRF به روش امن‌تر انجام شود.
 def save_selection(request):
     if request.method == 'POST':
@@ -169,10 +359,14 @@ def save_selection(request):
             service_id = data.get('service')
             option_id = data.get('option')
             national_code = data.get('nationalcode')
+            try:
+                workselectid = int(option_id.split('+')[0])
+            except Exception as e:
+                workselectid = "None"
 
             # ذخیره اطلاعات در session به نحوی که در ادامه بتوانید از آن‌ها استفاده کنید
             request.session['selected_service_id'] = service_id
-            request.session['selected_option_id'] = option_id
+            request.session['selected_option_id'] = workselectid
             request.session['national_code'] = national_code
 
             # ارسال URL صفحه new_timereserv به کلاینت
@@ -183,37 +377,11 @@ def save_selection(request):
             print("Error:", e)
             return JsonResponse({'error': str(e)}, status=400)
     return JsonResponse({'error': 'Invalid request'}, status=400)
-# def save_selection(request):
-#     if request.method == 'POST':
-#         try:
-#             data = json.loads(request.body.decode('utf-8'))
-#             service = data.get('service')
-#             option = data.get('option')
-#             procedureselect = option
-#             request.session['procedureselect'] = procedureselect
-#             # ارسال URL صفحه جدید به کلاینت
-#             return JsonResponse({
-#                 'redirect_url': reverse('new_timereserv_page')  # نام URL صفحه جدید
-#             })
-#             # return (option)
-#             # # return JsonResponse({'status': 'success'})
-#         except Exception as e:
-#             print("Error:", e)
-#             return JsonResponse({'error': str(e)}, status=400)
-#     return JsonResponse({'error': 'Invalid request'}, status=400)
 def convert(t):
     y = convert_english_to_persian(stry(t))
     m = convert_english_to_persian(strbadd(t))
     d = convert_english_to_persian(strd(t))
     return (y+'/'+m+'/'+d)
-
-
-import json
-import datetime
-from django.http import JsonResponse
-from django.shortcuts import render
-
-
 # فرض کنید توابع convert و timebefor در فایل utils یا ماژول مربوطه موجود باشند.
 # از مثال‌های زیر استفاده کنید:
 # from .utils import convert, timebefor
@@ -230,7 +398,6 @@ def new_timereserv_view(request):
             data = json.loads(request.body.decode('utf-8'))
             selected_date = data.get('selected_date')
             selected_time = data.get('datetime')
-            print(selected_time)
             try:
                 workselectid = int(procedureselect.split('+')[0])
             except Exception as e:
@@ -238,7 +405,6 @@ def new_timereserv_view(request):
 
             # دریافت زمان‌های رزرو شده با استفاده از تابع timebefor
             reserved_times = timebefor(selected_date, workselectid, melicod)
-            print(reserved_times)
 
             return JsonResponse({'reserved_times': reserved_times})
         except Exception as e:
@@ -258,7 +424,6 @@ def new_timereserv_view(request):
             workselectid = "None"
 
         reserved_times = timebefor('1', workselectid, melicod)
-        print(reserved_times)
         reserved_times_json = json.dumps(reserved_times)
 
         # آماده‌سازی context برای ارسال به قالب HTML
@@ -268,85 +433,6 @@ def new_timereserv_view(request):
             'reserved_times_json': reserved_times_json,
         }
         return render(request, 'new_timereserv.html', context)
-
-
-
-
-
-
-
-
-import json
-import datetime
-from django.http import JsonResponse
-
-
-# def new_timereserv_view(request):
-#     print("1")
-#     procedureselect = request.session.get('procedureselect')
-#     print(procedureselect)
-#     print("lllllllll")
-#     if request.method == 'POST':
-#         print("2")
-#         try:
-#             print("3")
-#             data = json.loads(request.body.decode('utf-8'))
-#             print("4")
-#             selected_date = data.get('selected_date')
-#             print("5")
-#             # در صورتی که تاریخ انتخاب شده ارسال شده باشد از آن استفاده کنید
-#             if selected_date:
-#                 print('6')
-#                 jalali_date = selected_date  # فرض کنید تاریخ به فرمت شمسی صحیح است
-#             else:
-#                 print('7')
-#                 default_date = datetime.datetime.now() + datetime.timedelta(days=2)
-#                 jalali_date = convert(default_date)  # تابع convert تاریخ میلادی را به شمسی تبدیل می‌کند
-#
-#             procedureselect = request.session.get('procedureselect')
-#             if 'procedureselect' in request.session:
-#                 del request.session['procedureselect']
-#
-#             try:
-#                 workselectid = int(procedureselect.split('+')[0])
-#             except Exception as e:
-#                 workselectid = "None"
-#
-#             # دریافت آرایه reserved_times از تابع timebefor
-#             reserved_times = timebefor(jalali_date, workselectid, request.user.username)
-#             # در اینجا می‌توانید در صورت نیاز اطلاعات دیگری هم بفرستید
-#
-#             return JsonResponse({
-#                 'reserved_times': reserved_times
-#             })
-#         except Exception as e:
-#             return JsonResponse({'error': str(e)}, status=400)
-#
-#     # در صورت دریافت درخواست GET، می‌توانید صفحه اولیه را render کنید
-#     else:
-#         print('8')
-#         # تاریخ پیش‌فرض: دو روز بعد از امروز
-#         default_date = datetime.datetime.now() + datetime.timedelta(days=2)
-#         jalali_date = convert(default_date)
-#
-#         procedureselect = request.session.get('procedureselect')
-#         if 'procedureselect' in request.session:
-#             del request.session['procedureselect']
-#
-#         try:
-#             workselectid = int(procedureselect.split('+')[0])
-#         except Exception as e:
-#             workselectid = "None"
-#
-#         reserved_times = timebefor(jalali_date, workselectid, request.user.username)
-#         reserved_times_json = json.dumps(reserved_times)
-#
-#         return render(request, 'new_timereserv.html', {
-#             'workselectid': workselectid,
-#             'melicode': request.user.username,
-#             'reserved_times_json': reserved_times_json,
-#         })
-
 
 def timebefor(namberdate, workselectid,melicode):
     # مثال: اگر کد خدمت 'A' و تاریخ '۱۴۰۴/۰۱/۱۰' باشد، تایم‌های رزرو شده مشخص شود.3
@@ -568,533 +654,452 @@ def timebefor(namberdate, workselectid,melicode):
         return timesel
     return []
 def reservdef(request):
-    if 1 == 1:
 # ---------اگر فردی که وارد شده است login  کرده باشد اینجا برایش در reservmodeltest  یک object ساخته میشود-----------
-        melicodcheck = "false"
-        rtotal = reservemodeltest.objects.all()
-        for r in rtotal :
-            if r.mellicode == request.user.username:
-                melicodcheck = "true"
+    melicodcheck = "false"
+    rtotal = reservemodeltest.objects.all()
+    for r in rtotal :
+        if r.mellicode == request.user.username:
+            melicodcheck = "true"
 
-        if melicodcheck == "false" :
-            reservemodeltest.objects.create(
-                mellicode= request.user.username
+    if melicodcheck == "false" :
+        reservemodeltest.objects.create(
+            mellicode= request.user.username,
             )
 # ----------با توجه به کد ملی فرد login شده اسم کوچک و بزرگ او را پیدا میکنیم---------------------------
-        users = accuntmodel.objects.all()
-        for user in users:
-            if user.melicode == request.user.username:
-                level[0] = user.level
-                ferstname_user = user.firstname
-                lastname_user = user.lastname
-                mellicoduser[0] = user.melicode
-
-                a = reservemodeltest.objects.filter(mellicode=request.user.username)
-                a.update(fiestname=user.firstname, lastname=user.lastname , phonnumber=user.phonnumber)
-        filesendbutton = request.POST.get("filesendbutton")
-        inject_botax  = request.POST.get("r1")
-        illnes  = request.POST.get("r2")
-        drug = request.POST.get("drug")
-        sensivety  = request.POST.get("r3")
-        pregnancy  = request.POST.get("r4")
-        date_finaly = request.POST.get("date_finaly")
-        image_show = request.POST.get("c1")
-        satisfact = request.POST.get("c4")
-        inputwork = request.POST.get("inputwork")
-        timeselect = request.POST.get("timeselect")
+    users = accuntmodel.objects.all()
+    for user in users:
+        if user.melicode == request.user.username:
+            level[0] = user.level
+            mellicoduser[0] = user.melicode
+            a = reservemodeltest.objects.filter(mellicode=request.user.username)
+            a.update(fiestname=user.firstname, lastname=user.lastname , phonnumber=user.phonnumber)
+    filesendbutton = request.POST.get("filesendbutton")
+    inject_botax  = request.POST.get("r1")
+    illnes  = request.POST.get("r2")
+    drug = request.POST.get("drug")
+    sensivety  = request.POST.get("r3")
+    pregnancy  = request.POST.get("r4")
+    date_finaly = request.POST.get("date_finaly")
+    image_show = request.POST.get("c1")
+    satisfact = request.POST.get("c4")
+    inputwork = request.POST.get("inputwork")
+    timeselect = request.POST.get("timeselect")
 # ______________________________کلید صفحه reserv___________________________
-        backbuttonfianal = request.POST.get("backbuttonfianal")
-        if backbuttonfianal =="accept":
-            # return redirect('http://127.0.0.1:8000/')
-            return redirect("/")
+    backbuttonfianal = request.POST.get("backbuttonfianal")
+    if backbuttonfianal =="accept":
+        # return redirect('http://127.0.0.1:8000/')
+        return redirect("/")
 
 # +++++++++++++++++++++++++++++کلید های صفحه reserv_end.html++همون که بزنی میره برا پرداخت+++++++++++++++++++++++++++
-        peymentbutton = request.POST.get("peymentbutton")
-        backbutton = request.POST.get("backbutton")
-        if backbutton =="accept":
-            # return redirect('http://127.0.0.1:8000/')
-            return redirect("/")
-        if peymentbutton == "accept":
-            # return redirect('http://127.0.0.1:8000/zib/zibal/')
-            return redirect('https://drmahdiasadpour.ir/zib/zibal/')
-        # *******************************************************ساختن آرایه ها برای نمایش خدمتها در صفحه وب********************************************
-        works = workmodel.objects.all()
-        ww.clear()
-        ww.append('start')
-        for w in works :
-            a = 0
-            for x in ww :
-                if x ==  w.work :
-                    a = 1
-            if a == 0 :
-                ww.append(w.work)
-        ww.pop(0)
-        bers = esmekalamodel.objects.all()
+    peymentbutton = request.POST.get("peymentbutton")
+    backbutton = request.POST.get("backbutton")
+    if backbutton =="accept":
+        # return redirect('http://127.0.0.1:8000/')
+        return redirect("/")
+    if peymentbutton == "accept":
+        # return redirect('http://127.0.0.1:8000/zib/zibal/')
+        return redirect('https://drmahdiasadpour.ir/zib/zibal/')
+    # *******************************************************ساختن آرایه ها برای نمایش خدمتها در صفحه وب********************************************
+    works = workmodel.objects.all()
+    ww.clear()
+    ww.append('start')
+    for w in works :
+        a = 0
+        for x in ww :
+            if x ==  w.work :
+                a = 1
+        if a == 0 :
+            ww.append(w.work)
+    ww.pop(0)
+    # bers = esmekalamodel.objects.all()
 #**********************انتخاب کاربر به صورت یک عدد از forloop  از وب میاد و در اینجا اون عدد تبدیل میشه به انتخاب اصلی و در  f  ریخته میشه**************
+    workselectid = "None"
+    try:
+        workselectid = int(str(save_selection(request)).split('+')[0])
+    except:
         workselectid = "None"
-        try:
-            workselectid = int(str(save_selection(request)).split('+')[0])
-        except:
-            workselectid = "None"
 
-        c = 0
-        personelmelicode = '0'
-        berand = ''
-        if workselectid != "None":
-            reservposition[0] = "1"
-            for f in works :
-                if workselectid == f.id:
-                    print(workselectid)
-                    selectprocedure.clear()
-                    selectprocedure.append(f.work)
-                    selectprocedure.append(f.detalework)
-                    selectprocedure.append(f.person)
-                    berand = f.berand
-                    personelmelicode = f.melicodpersonel
-                    a = reservemodeltest.objects.filter(mellicode=request.user.username)
-                    a.update(jobreserv=f.work,
-                             detalereserv=f.detalework,
-                             personreserv=f.person,
-                             vahed=f.vahed,
-                             idwork=f.id
-                             )
-                    sel = ''
-                    if f.time == "زمان کمی میبرد" :
-                        sel = "0"
-                        selectprocedure.append("0")
-                    if f.time == "پانزده دقیقه" :
-                        sel = "1"
-                        selectprocedure.append("1")
-                    if f.time == "سی دقیقه" :
-                        sel = "2"
-                        selectprocedure.append("2")
-                    if f.time =="چهل و پنج دقیقه" :
-                        sel = "3"
-                        selectprocedure.append("3")
-                    if f.time == "یک ساعت" :
-                        sel = "4"
-                        selectprocedure.append("4")
-                    if f.time == "یک ساعت و پانزده دقیقه" :
-                        sel = "5"
-                        selectprocedure.append("5")
-                    if f.time == "یک ساعت و نیم" :
-                        sel = "6"
-                        selectprocedure.append("6")
-                    selectprocedure.append(f.cast)
-                    a = reservemodeltest.objects.filter(mellicode=request.user.username)
-                    a.update(
-                             timereserv=sel,
-                             castreserv=f.cast,
-                             )
+    c = 0
+    personelmelicode = '0'
+    berand = ''
+    if workselectid != "None":
+        reservposition[0] = "1"
+        for f in works :
+            if workselectid == f.id:
+                selectprocedure.clear()
+                selectprocedure.append(f.work)
+                selectprocedure.append(f.detalework)
+                selectprocedure.append(f.person)
+                berand = f.berand
+                personelmelicode = f.melicodpersonel
+                a = reservemodeltest.objects.filter(mellicode=request.user.username)
+                a.update(jobreserv=f.work,
+                         detalereserv=f.detalework,
+                         personreserv=f.person,
+                         vahed=f.vahed,
+                         idwork=f.id
+                         )
+                sel = ''
+                if f.time == "زمان کمی میبرد" :
+                    sel = "0"
+                    selectprocedure.append("0")
+                if f.time == "پانزده دقیقه" :
+                    sel = "1"
+                    selectprocedure.append("1")
+                if f.time == "سی دقیقه" :
+                    sel = "2"
+                    selectprocedure.append("2")
+                if f.time =="چهل و پنج دقیقه" :
+                    sel = "3"
+                    selectprocedure.append("3")
+                if f.time == "یک ساعت" :
+                    sel = "4"
+                    selectprocedure.append("4")
+                if f.time == "یک ساعت و پانزده دقیقه" :
+                    sel = "5"
+                    selectprocedure.append("5")
+                if f.time == "یک ساعت و نیم" :
+                    sel = "6"
+                    selectprocedure.append("6")
+                selectprocedure.append(f.cast)
+                a = reservemodeltest.objects.filter(mellicode=request.user.username)
+                a.update(
+                         timereserv=sel,
+                         castreserv=f.cast,
+                         )
 
-                c +=1
+            c +=1
 
-            shamsiarray.clear()
-            miladiarray.clear()
-            day.clear()
-            reservmovaghats = reservemodeltest.objects.all()
-            # ___________در این قسمت تعداد روزهایی که قرار هستش به مراجعه کننده نشون بدیم مشخص میشه____
-            tedaderooz = 10
-            # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
-            t = datetime.datetime.now()
-            t += timedelta(days=1)
-            for i in range(tedaderooz) :
-                shamsiarray.append(stradb(t))
-                miladiarray.append(t.strftime('%a %d %b %y'))
+        shamsiarray.clear()
+        miladiarray.clear()
+        day.clear()
+        reservmovaghats = reservemodeltest.objects.all()
+        # ___________در این قسمت تعداد روزهایی که قرار هستش به مراجعه کننده نشون بدیم مشخص میشه____
+        tedaderooz = 10
+        # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
+        t = datetime.datetime.now()
+        t += timedelta(days=1)
+        for i in range(tedaderooz) :
+            shamsiarray.append(stradb(t))
+            miladiarray.append(t.strftime('%a %d %b %y'))
 
 # ____________در آرایه ی dayarr  بیست تا true مسازه که برای هر روز نشانه ازاد بودن بیست تایم ده صبح تا 8 شب هستش________
 # _________بعد میاد محدودیتها رو اعمال میکنه و هذ تایم رو براساس محدودتها ممکنه false کنه یا true نگه داره_________
-                dayarr = ['t']
-                dayarr.clear()
-                dayarr.append(stradb(t))
-                for h in range(40):
-                    dayarr.append('true')
+            dayarr = ['t']
+            dayarr.clear()
+            dayarr.append(stradb(t))
+            for h in range(40):
+                dayarr.append('true')
 # _____برسی مرخصی ها و حضور اپراتوری که انتخاب شده_________
-                ls = leavemodel.objects.all()
-                for l in ls :
-                    if int(l.personelmelicod) == int(personelmelicode):
-                        if l.muont == strb(t) :
-                            s = l.leave.split(",")
-                            a = 2
-                            for iii in range(int(len(s))):
-                                if a <= len(s):
-                                    if s[a] == strd(t):
-                                        dayarr[int(s[a-1])] = "false"
-                                    a += 2
-                                else:
-                                    break
+            ls = leavemodel.objects.all()
+            for l in ls :
+                if int(l.personelmelicod) == int(personelmelicode):
+                    if l.muont == strb(t) :
+                        s = l.leave.split(",")
+                        a = 2
+                        for iii in range(int(len(s))):
+                            if a <= len(s):
+                                if s[a] == strd(t):
+                                    dayarr[int(s[a-1])] = "false"
+                                a += 2
+                            else:
+                                break
 # ---------وقتی یه نفر یه کاری رو انتخاب میکنه تا قبل از پرداخت براش رزرو میشه تا کس دیگه ای تو این فاصله نتونه رزروش کنه--------
-                for reservmovaghat in reservmovaghats:
-                    if reservmovaghat.personreserv == selectprocedure[2]:
-                        if reservmovaghat.dateshamsireserv == stradb(t):
-                            if reservmovaghat.timereserv == '1':
-                                dayarr[int(reservmovaghat.numbertime)] = "false"
-                            if reservmovaghat.timereserv == '2':
-                                dayarr[int(reservmovaghat.numbertime)] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-                            if reservmovaghat.timereserv == '3':
-                                dayarr[int(reservmovaghat.numbertime)] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 2] = "false"
-                            if reservmovaghat.timereserv == '4':
-                                dayarr[int(reservmovaghat.numbertime)] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 2] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 3] = "false"
-                            if reservmovaghat.timereserv == '5':
-                                dayarr[int(reservmovaghat.numbertime)] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 2] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 3] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 4] = "false"
-                            if reservmovaghat.timereserv == '6':
-                                dayarr[int(reservmovaghat.numbertime)] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 2] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 3] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 4] = "false"
-                                dayarr[int(reservmovaghat.numbertime) + 5] = "false"
+            for reservmovaghat in reservmovaghats:
+                if reservmovaghat.personreserv == selectprocedure[2]:
+                    if reservmovaghat.dateshamsireserv == stradb(t):
+                        if reservmovaghat.timereserv == '1':
+                            dayarr[int(reservmovaghat.numbertime)] = "false"
+                        if reservmovaghat.timereserv == '2':
+                            dayarr[int(reservmovaghat.numbertime)] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                        if reservmovaghat.timereserv == '3':
+                            dayarr[int(reservmovaghat.numbertime)] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+                        if reservmovaghat.timereserv == '4':
+                            dayarr[int(reservmovaghat.numbertime)] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+                        if reservmovaghat.timereserv == '5':
+                            dayarr[int(reservmovaghat.numbertime)] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 4] = "false"
+                        if reservmovaghat.timereserv == '6':
+                            dayarr[int(reservmovaghat.numbertime)] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 4] = "false"
+                            dayarr[int(reservmovaghat.numbertime) + 5] = "false"
 
-        # -------------------------اینجا رزرو های قبلی رو چک میکنه---------
-                res = reservemodel.objects.all()
-                for r in res :
-                    if r.personreserv == selectprocedure[2] :
-                        if r.dateshamsireserv == stradb(t) :
-                            if r.timereserv == '1' :
-                                dayarr[int(r.numbertime)] = "false"
-                            if r.timereserv == '2' :
-                                dayarr[int(r.numbertime)] = "false"
-                                dayarr[int(r.numbertime) + 1] = "false"
-                            if r.timereserv == '3' :
-                                dayarr[int(r.numbertime)] = "false"
-                                dayarr[int(r.numbertime) + 1] = "false"
-                                dayarr[int(r.numbertime) + 2] = "false"
-                            if r.timereserv == '4' :
-                                dayarr[int(r.numbertime)] = "false"
-                                dayarr[int(r.numbertime) + 1] = "false"
-                                dayarr[int(r.numbertime) + 2] = "false"
-                                dayarr[int(r.numbertime) + 3] = "false"
-                            if r.timereserv == '5' :
-                                dayarr[int(r.numbertime)] = "false"
-                                dayarr[int(r.numbertime) + 1] = "false"
-                                dayarr[int(r.numbertime) + 2] = "false"
-                                dayarr[int(r.numbertime) + 3] = "false"
-                                dayarr[int(r.numbertime) + 4] = "false"
-                            if r.timereserv == '6':
-                                dayarr[int(r.numbertime)] = "false"
-                                dayarr[int(r.numbertime) + 1] = "false"
-                                dayarr[int(r.numbertime) + 2] = "false"
-                                dayarr[int(r.numbertime) + 3] = "false"
-                                dayarr[int(r.numbertime) + 4] = "false"
-                                dayarr[int(r.numbertime) + 5] = "false"
-                # # ---------------------------------------------اگر کاری مه انتخاب شده بیش از نیم ساعت باشه یعنی دو تا نیم ساغت یا سه  یا پهارتا یا پنج تا نیم ساعت باشه-----------
+    # -------------------------اینجا رزرو های قبلی رو چک میکنه---------
+            res = reservemodel.objects.all()
+            for r in res :
+                if r.personreserv == selectprocedure[2] :
+                    if r.dateshamsireserv == stradb(t) :
+                        if r.timereserv == '1' :
+                            dayarr[int(r.numbertime)] = "false"
+                        if r.timereserv == '2' :
+                            dayarr[int(r.numbertime)] = "false"
+                            dayarr[int(r.numbertime) + 1] = "false"
+                        if r.timereserv == '3' :
+                            dayarr[int(r.numbertime)] = "false"
+                            dayarr[int(r.numbertime) + 1] = "false"
+                            dayarr[int(r.numbertime) + 2] = "false"
+                        if r.timereserv == '4' :
+                            dayarr[int(r.numbertime)] = "false"
+                            dayarr[int(r.numbertime) + 1] = "false"
+                            dayarr[int(r.numbertime) + 2] = "false"
+                            dayarr[int(r.numbertime) + 3] = "false"
+                        if r.timereserv == '5' :
+                            dayarr[int(r.numbertime)] = "false"
+                            dayarr[int(r.numbertime) + 1] = "false"
+                            dayarr[int(r.numbertime) + 2] = "false"
+                            dayarr[int(r.numbertime) + 3] = "false"
+                            dayarr[int(r.numbertime) + 4] = "false"
+                        if r.timereserv == '6':
+                            dayarr[int(r.numbertime)] = "false"
+                            dayarr[int(r.numbertime) + 1] = "false"
+                            dayarr[int(r.numbertime) + 2] = "false"
+                            dayarr[int(r.numbertime) + 3] = "false"
+                            dayarr[int(r.numbertime) + 4] = "false"
+                            dayarr[int(r.numbertime) + 5] = "false"
+            # # ---------------------------------------------اگر کاری مه انتخاب شده بیش از نیم ساعت باشه یعنی دو تا نیم ساغت یا سه  یا پهارتا یا پنج تا نیم ساعت باشه-----------
 # # ------باید چک شود که تا تایم های اینده اش  به همون اندازه که وقت میخواد وقت باشه ---------------------------------------
 #
-                if selectprocedure[3] == "2" :
-                    for hh in range(19) :
-                        hh += 1
-                        if dayarr[int(hh) + 1] == "false" :
-                            dayarr[int(hh)] = "false"
-                    dayarr[40] = "false"
-                if selectprocedure[3] == "3" :
-                    for hh in range(18) :
-                        hh += 1
-                        if dayarr[int(hh) + 1] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 2] == "false":
-                            dayarr[int(hh)] = "false"
-                    dayarr[39] = "false"
-                    dayarr[40] = "false"
-                if selectprocedure[3] == "4" :
-                    for hh in range(17) :
-                        hh += 1
-                        if dayarr[int(hh) + 1] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 2] == "false":
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 3] == "false":
-                            dayarr[int(hh)] = "false"
-                    dayarr[38] = "false"
-                    dayarr[39] = "false"
-                    dayarr[40] = "false"
-                if selectprocedure[3] == "5" :
-                    for hh in range(16) :
-                        hh += 1
-                        if dayarr[int(hh) + 1] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 2] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 3] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 4] == "false" :
-                            dayarr[int(hh)] = "false"
-                    dayarr[37] = "false"
-                    dayarr[38] = "false"
-                    dayarr[39] = "false"
-                    dayarr[40] = "false"
-                if selectprocedure[3] == "6" :
-                    for hh in range(15) :
-                        hh += 1
-                        if dayarr[int(hh) + 1] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 2] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 3] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 4] == "false" :
-                            dayarr[int(hh)] = "false"
-                        if dayarr[int(hh) + 5] == "false":
-                            dayarr[int(hh)] = "false"
-                    dayarr[36] = "false"
-                    dayarr[37] = "false"
-                    dayarr[38] = "false"
-                    dayarr[39] = "false"
-                    dayarr[40] = "false"
+            if selectprocedure[3] == "2" :
+                for hh in range(19) :
+                    hh += 1
+                    if dayarr[int(hh) + 1] == "false" :
+                        dayarr[int(hh)] = "false"
+                dayarr[40] = "false"
+            if selectprocedure[3] == "3" :
+                for hh in range(18) :
+                    hh += 1
+                    if dayarr[int(hh) + 1] == "false" :
+                        dayarr[int(hh)] = "false"
+                    if dayarr[int(hh) + 2] == "false":
+                        dayarr[int(hh)] = "false"
+                dayarr[39] = "false"
+                dayarr[40] = "false"
+            if selectprocedure[3] == "4" :
+                for hh in range(17) :
+                    hh += 1
+                    if dayarr[int(hh) + 1] == "false" :
+                        dayarr[int(hh)] = "false"
+                    if dayarr[int(hh) + 2] == "false":
+                        dayarr[int(hh)] = "false"
+                    if dayarr[int(hh) + 3] == "false":
+                        dayarr[int(hh)] = "false"
+                dayarr[38] = "false"
+                dayarr[39] = "false"
+                dayarr[40] = "false"
+            if selectprocedure[3] == "5" :
+                for hh in range(16) :
+                    hh += 1
+                    if dayarr[int(hh) + 1] == "false" :
+                        dayarr[int(hh)] = "false"
+                    if dayarr[int(hh) + 2] == "false" :
+                        dayarr[int(hh)] = "false"
+                    if dayarr[int(hh) + 3] == "false" :
+                        dayarr[int(hh)] = "false"
+                    if dayarr[int(hh) + 4] == "false" :
+                        dayarr[int(hh)] = "false"
+                dayarr[37] = "false"
+                dayarr[38] = "false"
+                dayarr[39] = "false"
+                dayarr[40] = "false"
+            if selectprocedure[3] == "6" :
+                for hh in range(15) :
+                    hh += 1
+                    if dayarr[int(hh) + 1] == "false" :
+                        dayarr[int(hh)] = "false"
+                    if dayarr[int(hh) + 2] == "false" :
+                        dayarr[int(hh)] = "false"
+                    if dayarr[int(hh) + 3] == "false" :
+                        dayarr[int(hh)] = "false"
+                    if dayarr[int(hh) + 4] == "false" :
+                        dayarr[int(hh)] = "false"
+                    if dayarr[int(hh) + 5] == "false":
+                        dayarr[int(hh)] = "false"
+                dayarr[36] = "false"
+                dayarr[37] = "false"
+                dayarr[38] = "false"
+                dayarr[39] = "false"
+                dayarr[40] = "false"
 
 #
-                t += timedelta(days=1)
-                day.append(dayarr)
+            t += timedelta(days=1)
+            day.append(dayarr)
 # --------------------------اگر ابن دوخظ انجام شه دو دیتای اول در ارایه ی روزها پاک خواهد شد یعنی ار دو روز بعد میتونن نوبا بگیرن--------------
 # -----ولی اگه بخوایم این کار رو بکنیم باید ارایه های شمسی و میلادی هم از دوتا دور تر خونده بشن یغنی یغنی خط.ط 301 و 302 عوض شنبه جای اینکه از اول خوانده بشن از دوتا جلوتر خوانده بشن
-            # day.pop(0)
-            # day.pop(0)
-            return render(request,'new_timereserv.html',context={
-                                                             'day':day,
-                                                             'person':" رزرو وقت برای " + selectprocedure[0] +" "+ selectprocedure[1] + ' '+ berand +' '+ "(" + selectprocedure[2] + ")",
-                                                             })
+        # day.pop(0)
+        # day.pop(0)
+        return render(request,'new_timereserv.html',context={
+                                                         'day':day,
+                                                         'person':" رزرو وقت برای " + selectprocedure[0] +" "+ selectprocedure[1] + ' '+ berand +' '+ "(" + selectprocedure[2] + ")",
+                                                         })
 # _______انتخاب یه تایم برای خدمت مورد نظر__________
-        if (timeselect != None) and (timeselect != '') :
-            # reservposition[0] = 2
-            s = timeselect
-            stime = s.split(",")
-            ttime = datetime.datetime.now()
+    if (timeselect != None) and (timeselect != '') :
+        # reservposition[0] = 2
+        s = timeselect
+        stime = s.split(",")
+        ttime = datetime.datetime.now()
+        ttime += timedelta(days=1)
+        for tt in range(int(stime[1])) :
             ttime += timedelta(days=1)
-            for tt in range(int(stime[1])) :
-                ttime += timedelta(days=1)
-            ttime -= timedelta(days=1)
-            a = reservemodeltest.objects.filter(mellicode=request.user.username)
-            a.update(
-                dateshamsireserv=stradb(ttime),
-                datemiladireserv=ttime.strftime('%a %d %b %y'),
-                yearshamsi=stry(datetime.datetime.now()),
-                numbertime=stime[0],
-            )
-            selectprocedure.append(stradb(ttime))
-            selectprocedure.append(ttime.strftime('%a %d %b %y'))
-            selectprocedure.append(stry(datetime.datetime.now()))
-            selectprocedure.append(stime[0])
-            s = ""
-            if stime[0] == "1"  :
-                s ="10"
-                selectprocedure.append("10:00")
-            if stime[0] == "2"  :
-                s ="10:15"
-                selectprocedure.append("10:15")
-            if stime[0] == "3"  :
-                s ="10:30"
-                selectprocedure.append("10:30")
-            if stime[0] == "4"  :
-                s ="10:45"
-                selectprocedure.append("10:45")
-            if stime[0] == "5"  :
-                s ="11"
-                selectprocedure.append("11:00")
-            if stime[0] == "6"  :
-                s ="11:15"
-                selectprocedure.append("11:15")
-            if stime[0] == "7"  :
-                s ="11:30"
-                selectprocedure.append("11:30")
-            if stime[0] == "8"  :
-                s ="11:45"
-                selectprocedure.append("11:45")
-            if stime[0] == "9"  :
-                s ="12"
-                selectprocedure.append("12:00")
-            if stime[0] == "10"  :
-                s ="12:15"
-                selectprocedure.append("12:15")
-            if stime[0] == "11"  :
-                s ="12:30"
-                selectprocedure.append("12:30")
-            if stime[0] == "12"  :
-                s ="12:45"
-                selectprocedure.append("12:45")
-            if stime[0] == "13"  :
-                s ="13"
-                selectprocedure.append("13:00")
-            if stime[0] == "14"  :
-                s ="13:15"
-                selectprocedure.append("13:15")
-            if stime[0] == "15"  :
-                s ="13:30"
-                selectprocedure.append("13:30")
-            if stime[0] == "16"  :
-                s ="13:45"
-                selectprocedure.append("13:45")
-            if stime[0] == "17"  :
-                s ="14"
-                selectprocedure.append("14:00")
-            if stime[0] == "18"  :
-                s ="14:15"
-                selectprocedure.append("14:15")
-            if stime[0] == "19"  :
-                s ="14:30"
-                selectprocedure.append("14:30")
-            if stime[0] == "20"  :
-                s ="14:45"
-                selectprocedure.append("14:45")
-            if stime[0] == "21"  :
-                s ="15"
-                selectprocedure.append("15:00")
-            if stime[0] == "22"  :
-                s ="15:15"
-                selectprocedure.append("15:15")
-            if stime[0] == "23"  :
-                s ="15:30"
-                selectprocedure.append("15:30")
-            if stime[0] == "24"  :
-                s ="15:45"
-                selectprocedure.append("15:45")
-            if stime[0] == "25"  :
-                s ="16"
-                selectprocedure.append("16:00")
-            if stime[0] == "26"  :
-                s ="16:15"
-                selectprocedure.append("16:15")
-            if stime[0] == "27"  :
-                s ="16:30"
-                selectprocedure.append("16:30")
-            if stime[0] == "28"  :
-                s ="16:45"
-                selectprocedure.append("16:45")
-            if stime[0] == "29"  :
-                s ="17"
-                selectprocedure.append("17:00")
-            if stime[0] == "30"  :
-                s ="17:15"
-                selectprocedure.append("17:15")
-            if stime[0] == "31"  :
-                s ="17:30"
-                selectprocedure.append("17:30")
-            if stime[0] == "32"  :
-                s ="17:45"
-                selectprocedure.append("17:45")
-            if stime[0] == "33"  :
-                s ="18"
-                selectprocedure.append("18:00")
-            if stime[0] == "34"  :
-                s ="18:15"
-                selectprocedure.append("18:15")
-            if stime[0] == "35"  :
-                s ="18:30"
-                selectprocedure.append("18:30")
-            if stime[0] == "36"  :
-                s ="18:45"
-                selectprocedure.append("18:45")
-            if stime[0] == "37"  :
-                s ="19"
-                selectprocedure.append("19:00")
-            if stime[0] == "38"  :
-                s ="19:15"
-                selectprocedure.append("19:15")
-            if stime[0] == "39"  :
-                s ="19:30"
-                selectprocedure.append("19:30")
-            if stime[0] == "40"  :
-                s ="19:45"
-                selectprocedure.append("19:45")
-            a = reservemodeltest.objects.filter(mellicode=request.user.username)
-            a.update(hourreserv=s)
-            reservs = reservemodel.objects.all()
-            reservetebar[0] = 'succes'
-            filepage1 = "false"
-            page =filepage1model.objects.all()
-            for p in page :
-                if p.mellicode == request.user.username :
-                    filepage1 = "true"
-            if filepage1 == "false" :
-                return render(request,'add_userfilebotax.html')
-            else:
-                rtotal = reservemodeltest.objects.all()
-                for r in rtotal:
-                    if r.mellicode == request.user.username:
-                        work = r.jobreserv
-                        detalework = r.detalereserv
-                        personwork = r.personreserv
-                        dateshamsi = r.dateshamsireserv
-                        hoursreserv = r.hourreserv
-                        firstname = r.fiestname
-                        lastname = r.lastname
-
-                return render(request, 'reserv_end.html', context={
-                                                                                "work" : work,
-                                                                                "detalework" : detalework,
-                                                                                "personwork" :personwork,
-                                                                                "dateshamsi" : dateshamsi,
-                                                                                "hoursreserv" :hoursreserv,
-                                                                                "firstname" : firstname,
-                                                                                "firstname" : firstname,
-                                                                                "lastname" : lastname,
-                                                                                })
-
-# ___________________تشکیل پرونده___________
-        if filesendbutton == "accept" :
-            reservposition[0] = "3"
-            if (inject_botax == "yes") or (inject_botax == "no") :
-                file_botax[0] = inject_botax
-            else:
-                error = "inject_botax"
-                return render(request, 'add_userfilebotax.html', context={"error": error,
-                                                                                       'f':timeselect,
-                                                                                      })
-            if (illnes == "yes") or (illnes == "no"):
-                file_botax[1] = illnes
-            else:
-                error = "illnes"
-                return render(request, 'add_userfilebotax.html', context={"error": error})
-            file_botax[2] = drug
-            if (sensivety == "yes") or (sensivety == "no"):
-                file_botax[3] = sensivety
-            else:
-                error = "sensivety"
-                return render(request, 'add_userfilebotax.html', context={"error": error})
-            if (pregnancy == "yes") or (pregnancy == "no"):
-                file_botax[4] = pregnancy
-            else:
-                error = "pregnancy"
-                return render(request, 'add_userfilebotax.html', context={"error": error})
-            file_botax[5] = date_finaly
-            if (image_show == "با انتشار تصویرم به صورت واضح در فضای مجازی مشکل ندارم") or (image_show == "با انتشار تصویرم به صورت غیرواضح در فضای مجازی مشکل ندارم") or (image_show == "با انتشار تصویرم در فضای مجازی مشکل دارم"):
-                file_botax[6] = image_show
-            else:
-                error = "imgshow"
-                return render(request, 'add_userfilebotax.html', context={"error": error})
-            if satisfact == "yes":
-                file_botax[9] = satisfact
-            else:
-                error = "satisfact"
-                return render(request, 'add_userfilebotax.html', context={"error": error})
-            filepage1model.objects.create(
-                mellicode=mellicoduser[0],
-                inject_botax=inject_botax,
-                illnes=illnes,
-                drug = drug,
-                sensivety = sensivety,
-                pregnancy = pregnancy,
-                date_finaly = date_finaly,
-                image_show = image_show,
-                satisfact = satisfact,
-                                           )
-
-            b = ''
+        ttime -= timedelta(days=1)
+        a = reservemodeltest.objects.filter(mellicode=request.user.username)
+        a.update(
+            dateshamsireserv=stradb(ttime),
+            datemiladireserv=ttime.strftime('%a %d %b %y'),
+            yearshamsi=stry(datetime.datetime.now()),
+            numbertime=stime[0],
+        )
+        selectprocedure.append(stradb(ttime))
+        selectprocedure.append(ttime.strftime('%a %d %b %y'))
+        selectprocedure.append(stry(datetime.datetime.now()))
+        selectprocedure.append(stime[0])
+        s = ""
+        if stime[0] == "1"  :
+            s ="10"
+            selectprocedure.append("10:00")
+        if stime[0] == "2"  :
+            s ="10:15"
+            selectprocedure.append("10:15")
+        if stime[0] == "3"  :
+            s ="10:30"
+            selectprocedure.append("10:30")
+        if stime[0] == "4"  :
+            s ="10:45"
+            selectprocedure.append("10:45")
+        if stime[0] == "5"  :
+            s ="11"
+            selectprocedure.append("11:00")
+        if stime[0] == "6"  :
+            s ="11:15"
+            selectprocedure.append("11:15")
+        if stime[0] == "7"  :
+            s ="11:30"
+            selectprocedure.append("11:30")
+        if stime[0] == "8"  :
+            s ="11:45"
+            selectprocedure.append("11:45")
+        if stime[0] == "9"  :
+            s ="12"
+            selectprocedure.append("12:00")
+        if stime[0] == "10"  :
+            s ="12:15"
+            selectprocedure.append("12:15")
+        if stime[0] == "11"  :
+            s ="12:30"
+            selectprocedure.append("12:30")
+        if stime[0] == "12"  :
+            s ="12:45"
+            selectprocedure.append("12:45")
+        if stime[0] == "13"  :
+            s ="13"
+            selectprocedure.append("13:00")
+        if stime[0] == "14"  :
+            s ="13:15"
+            selectprocedure.append("13:15")
+        if stime[0] == "15"  :
+            s ="13:30"
+            selectprocedure.append("13:30")
+        if stime[0] == "16"  :
+            s ="13:45"
+            selectprocedure.append("13:45")
+        if stime[0] == "17"  :
+            s ="14"
+            selectprocedure.append("14:00")
+        if stime[0] == "18"  :
+            s ="14:15"
+            selectprocedure.append("14:15")
+        if stime[0] == "19"  :
+            s ="14:30"
+            selectprocedure.append("14:30")
+        if stime[0] == "20"  :
+            s ="14:45"
+            selectprocedure.append("14:45")
+        if stime[0] == "21"  :
+            s ="15"
+            selectprocedure.append("15:00")
+        if stime[0] == "22"  :
+            s ="15:15"
+            selectprocedure.append("15:15")
+        if stime[0] == "23"  :
+            s ="15:30"
+            selectprocedure.append("15:30")
+        if stime[0] == "24"  :
+            s ="15:45"
+            selectprocedure.append("15:45")
+        if stime[0] == "25"  :
+            s ="16"
+            selectprocedure.append("16:00")
+        if stime[0] == "26"  :
+            s ="16:15"
+            selectprocedure.append("16:15")
+        if stime[0] == "27"  :
+            s ="16:30"
+            selectprocedure.append("16:30")
+        if stime[0] == "28"  :
+            s ="16:45"
+            selectprocedure.append("16:45")
+        if stime[0] == "29"  :
+            s ="17"
+            selectprocedure.append("17:00")
+        if stime[0] == "30"  :
+            s ="17:15"
+            selectprocedure.append("17:15")
+        if stime[0] == "31"  :
+            s ="17:30"
+            selectprocedure.append("17:30")
+        if stime[0] == "32"  :
+            s ="17:45"
+            selectprocedure.append("17:45")
+        if stime[0] == "33"  :
+            s ="18"
+            selectprocedure.append("18:00")
+        if stime[0] == "34"  :
+            s ="18:15"
+            selectprocedure.append("18:15")
+        if stime[0] == "35"  :
+            s ="18:30"
+            selectprocedure.append("18:30")
+        if stime[0] == "36"  :
+            s ="18:45"
+            selectprocedure.append("18:45")
+        if stime[0] == "37"  :
+            s ="19"
+            selectprocedure.append("19:00")
+        if stime[0] == "38"  :
+            s ="19:15"
+            selectprocedure.append("19:15")
+        if stime[0] == "39"  :
+            s ="19:30"
+            selectprocedure.append("19:30")
+        if stime[0] == "40"  :
+            s ="19:45"
+            selectprocedure.append("19:45")
+        a = reservemodeltest.objects.filter(mellicode=request.user.username)
+        a.update(hourreserv=s)
+        reservs = reservemodel.objects.all()
+        reservetebar[0] = 'succes'
+        filepage1 = "false"
+        page =filepage1model.objects.all()
+        for p in page :
+            if p.mellicode == request.user.username :
+                filepage1 = "true"
+        if filepage1 == "false" :
+            return render(request,'add_userfilebotax.html')
+        else:
             rtotal = reservemodeltest.objects.all()
             for r in rtotal:
                 if r.mellicode == request.user.username:
-                    wo = workmodel.objects.all()
-                    for woo in wo:
-                        if int(r.idwork) == woo.id:
-                            b = woo.berand
                     work = r.jobreserv
                     detalework = r.detalereserv
                     personwork = r.personreserv
@@ -1103,31 +1108,107 @@ def reservdef(request):
                     firstname = r.fiestname
                     lastname = r.lastname
 
-
             return render(request, 'reserv_end.html', context={
-                                                                            "work": work,
-                                                                            "detalework": detalework,
-                                                                            "personwork": personwork,
-                                                                            "dateshamsi": dateshamsi,
-                                                                            "hoursreserv": hoursreserv,
-                                                                            "firstname": firstname,
-                                                                            "firstname": firstname,
-                                                                            "lastname": lastname,
-                                                                            "berand":b,
-                                                                        })
+                                                                            "work" : work,
+                                                                            "detalework" : detalework,
+                                                                            "personwork" :personwork,
+                                                                            "dateshamsi" : dateshamsi,
+                                                                            "hoursreserv" :hoursreserv,
+                                                                            "firstname" : firstname,
+                                                                            "firstname" : firstname,
+                                                                            "lastname" : lastname,
+                                                                            })
+
+# ___________________تشکیل پرونده___________
+    if filesendbutton == "accept" :
+        reservposition[0] = "3"
+        if (inject_botax == "yes") or (inject_botax == "no") :
+            file_botax[0] = inject_botax
+        else:
+            error = "inject_botax"
+            return render(request, 'add_userfilebotax.html', context={"error": error,
+                                                                                   'f':timeselect,
+                                                                                  })
+        if (illnes == "yes") or (illnes == "no"):
+            file_botax[1] = illnes
+        else:
+            error = "illnes"
+            return render(request, 'add_userfilebotax.html', context={"error": error})
+        file_botax[2] = drug
+        if (sensivety == "yes") or (sensivety == "no"):
+            file_botax[3] = sensivety
+        else:
+            error = "sensivety"
+            return render(request, 'add_userfilebotax.html', context={"error": error})
+        if (pregnancy == "yes") or (pregnancy == "no"):
+            file_botax[4] = pregnancy
+        else:
+            error = "pregnancy"
+            return render(request, 'add_userfilebotax.html', context={"error": error})
+        file_botax[5] = date_finaly
+        if (image_show == "با انتشار تصویرم به صورت واضح در فضای مجازی مشکل ندارم") or (image_show == "با انتشار تصویرم به صورت غیرواضح در فضای مجازی مشکل ندارم") or (image_show == "با انتشار تصویرم در فضای مجازی مشکل دارم"):
+            file_botax[6] = image_show
+        else:
+            error = "imgshow"
+            return render(request, 'add_userfilebotax.html', context={"error": error})
+        if satisfact == "yes":
+            file_botax[9] = satisfact
+        else:
+            error = "satisfact"
+            return render(request, 'add_userfilebotax.html', context={"error": error})
+        filepage1model.objects.create(
+            mellicode=mellicoduser[0],
+            inject_botax=inject_botax,
+            illnes=illnes,
+            drug = drug,
+            sensivety = sensivety,
+            pregnancy = pregnancy,
+            date_finaly = date_finaly,
+            image_show = image_show,
+            satisfact = satisfact,
+                                       )
+
+        b = ''
+        rtotal = reservemodeltest.objects.all()
+        for r in rtotal:
+            if r.mellicode == request.user.username:
+                wo = workmodel.objects.all()
+                for woo in wo:
+                    if int(r.idwork) == woo.id:
+                        b = woo.berand
+                work = r.jobreserv
+                detalework = r.detalereserv
+                personwork = r.personreserv
+                dateshamsi = r.dateshamsireserv
+                hoursreserv = r.hourreserv
+                firstname = r.fiestname
+                lastname = r.lastname
 
 
-        nationalcode = request.user.username
-        return render(request,'new_reserv.html',context={
-            'works':works,
-            'job':ww,
-            'shamsiarray':shamsiarray,
-            'nationalcode':nationalcode,
-            'bers':bers,
-             })
-    else:
-        loginetebar[0] = "false"
-        return render(request,'home.html',context={"loginetebar":loginetebar[0]})
+        return render(request, 'reserv_end.html', context={
+                                                                        "work": work,
+                                                                        "detalework": detalework,
+                                                                        "personwork": personwork,
+                                                                        "dateshamsi": dateshamsi,
+                                                                        "hoursreserv": hoursreserv,
+                                                                        "firstname": firstname,
+                                                                        "firstname": firstname,
+                                                                        "lastname": lastname,
+                                                                        "berand":b,
+                                                                    })
+
+
+    nationalcode = request.user.username
+    return render(request,'new_reserv.html',context={
+        'works':works,
+        'job':ww,
+        # 'shamsiarray':shamsiarray,
+        'nationalcode':nationalcode,
+        # 'bers':bers,
+         })
+    # else:
+    #     loginetebar[0] = "false"
+    #     return render(request,'home.html',context={"loginetebar":loginetebar[0]})
 
 # _________________________اینجا کارمندان تایمهایی که قرار هست نیان سر کار رو مشخص میکن و در leavemodel.leave_ ذخیره میکنن_____________
 leaveshamsi = ['0']

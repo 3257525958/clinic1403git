@@ -10,4 +10,6 @@ urlpatterns = [
     path('reservdasti/',views.reservdasti),
     path('save_selection/', views.save_selection, name='save_selection'),
     path('new_timereserv/', views.new_timereserv_view, name='new_timereserv_page'),
+    path('timeselct/', views.timeselct, name='timeselct'),
+    path('summary/', views.summary_view, name='reservation_summary'),
 ]
