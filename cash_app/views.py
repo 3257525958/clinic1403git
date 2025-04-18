@@ -26,44 +26,68 @@ ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
 ZIB_API_TOKEN = 'https://gateway.zibal.ir/v1/verify'
 
-# callbackzibalurl = 'http://127.0.0.1:8000/zib/verifyzibal/'
-# merchanzibal = 'zibal'
+# CALLBACK_ZIBAL_URL = 'http://127.0.0.1:8000/zib/verifyzibal/'
+# MERCHANT_ZIBAL = 'zibal'
 # ENDURL = "http://127.0.0.1:8000"
 
 ENDURL = "https://drmahdiasadpour.ir"
-callbackzibalurl = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
-merchanzibal = '64c2047fcbbc270017f4c6b2'
+CALLBACK_ZIBAL_URL = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
+MERCHANT_ZIBAL = '64c2047fcbbc270017f4c6b2'
 
 def orderzibal(request):
-    peyment = 50000
-    phonnumber = "0"
-    if request.user.is_authenticated:
-        allmodel = reservemodeltest.objects.all()
-        for oneobject in allmodel:
-            if oneobject.mellicode == request.user.username :
-                peyment = int(oneobject.castreserv) // 5
-                phonnumber = str(oneobject.phonnumber)
-        data = {
-            "merchant": merchanzibal,
-            "amount": peyment,
-            "callbackUrl": callbackzibalurl,
-            "description": "بیعانه جهت رزرو",
-            "orderId": "ZBL-7799",
-            "mobile": phonnumber
-        }
-        data = json.dumps(data)
-        headers = {'content-type': 'application/json', 'content-length': str(len(data))}
-        res = requests.post(ZIB_API_REQUEST, data=data, headers=headers)
-        r = res.json()
-        if res.status_code == 200:
-            if r['result'] == 100:
-                a = reservemodeltest.objects.filter(mellicode=request.user.username)
-                a.update(rahgiricod=str(r['trackId']))
-                url = f"{ZIB_API_STARTPAY}{r['trackId']}"
-                return redirect(url)
-        else:
-            return HttpResponse(str(res.json()['errors']))
+    # ۱. بارگذاری اطلاعات رزرو و محاسبه مبلغ و موبایل
+    try:
+        reserve = reservemodeltest.objects.get(mellicode=request.user.username)
+        peyment     = int(reserve.castreserv) // 5
+        phonnumber  = str(reserve.phonnumber)
+    except reservemodeltest.DoesNotExist:
+        return HttpResponse("رزرو یافت نشد.", status=404)
 
+    # ۲. آماده‌سازی payload برای درگاه
+    payload = {
+        "merchant":    MERCHANT_ZIBAL,
+        "amount":      peyment,
+        "callbackUrl": CALLBACK_ZIBAL_URL,
+        "description": "بیعانه جهت رزرو",
+        "orderId":     f"ZBL-{reserve.id}",
+        "mobile":      phonnumber
+    }
+    headers = {
+        'Content-Type':   'application/json',
+        'Content-Length': str(len(json.dumps(payload)))
+    }
+
+    # ۳. ارسال درخواست به درگاه با timeout
+    try:
+        response = requests.post(
+            ZIB_API_REQUEST,
+            json=payload,
+            headers=headers,
+            timeout=30
+        )
+    except requests.RequestException as e:
+        # هر خطای شبکه‌ای یا timeout را با 502 برمی‌گردانیم
+        return HttpResponse(f"خطا در ارتباط با سرویس پرداخت: {e}", status=502)
+
+    # ۴. پردازش پاسخ درگاه
+    if response.status_code == 200:
+        result = response.json()
+        if result.get('result') == 100:
+            # موفق: ذخیره کد رهگیری و ریدایرکت به صفحه پرداخت 2
+            reservemodeltest.objects.filter(
+                mellicode=request.user.username
+            ).update(rahgiricod=str(result['trackId']))
+            return redirect(f"{ZIB_API_STARTPAY}{result['trackId']}")
+        else:
+            # نتیجه ناموفق ولی پاسخ از سرور آمده است
+            error_msg = result.get('message', 'خطای نامشخص در پرداخت')
+            return HttpResponse(f"پرداخت انجام نشد: {error_msg}", status=400)
+    else:
+        # هر کد وضعیت غیر 200 از درگاه را پاس می‌دهیم
+        return HttpResponse(
+            f"خطای سرور درگاه ({response.status_code})",
+            status=response.status_code
+        )
 
 def callbackzibal(request):
     backbutton = request.GET.get('backbutton')
