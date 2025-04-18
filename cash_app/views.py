@@ -36,12 +36,15 @@ MERCHANT_ZIBAL = '64c2047fcbbc270017f4c6b2'
 
 def orderzibal(request):
     # ۱. بارگذاری اطلاعات رزرو و محاسبه مبلغ و موبایل
-    try:
-        reserve = reservemodeltest.objects.get(mellicode=request.user.username)
-        peyment     = int(reserve.castreserv) // 5
-        phonnumber  = str(reserve.phonnumber)
-    except reservemodeltest.DoesNotExist:
-        return HttpResponse("رزرو یافت نشد.", status=404)
+    work = workmodel.objects.all()
+    for w in work:
+        if w.id == int(request.session.get('selected_option_id')):
+            peyment     = int(w.cast) // 5
+            phonnumber  = str(w)
+    users = accuntmodel.objects.all()
+    for u in users:
+        if int(u.melicode) == int(request.session.get('national_code')):
+            phonnumber  = str(u.phonnumber)
 
     # ۲. آماده‌سازی payload برای درگاه
     payload = {
@@ -49,7 +52,7 @@ def orderzibal(request):
         "amount":      peyment,
         "callbackUrl": CALLBACK_ZIBAL_URL,
         "description": "بیعانه جهت رزرو",
-        "orderId":     f"ZBL-{reserve.id}",
+        "orderId":     f"ZBL",
         "mobile":      phonnumber
     }
     headers = {
@@ -98,7 +101,7 @@ def callbackzibal(request):
 
     trac = request.GET['trackId']
     data = {
-        "merchant": merchanzibal,
+        "merchant": MERCHANT_ZIBAL,
         "trackId": trac
     }
     data = json.dumps(data)
