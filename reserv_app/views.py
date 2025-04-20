@@ -399,7 +399,7 @@ def new_timereserv_view(request):
             selected_date = data.get('selected_date')
             selected_time = data.get('datetime')
             try:
-                workselectid = int(procedureselect.split('+')[0])
+                workselectid = int(procedureselect)
             except Exception as e:
                 workselectid = "None"
 
