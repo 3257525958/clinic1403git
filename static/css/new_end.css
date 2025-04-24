@@ -1,0 +1,45 @@
+/* استایل های جدید */
+.success-message {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.success-message svg {
+  width: 60px;
+  height: 60px;
+  color: #4CAF50;
+  margin-bottom: 1rem;
+}
+
+.success-message h3 {
+  color: #4CAF50;
+  font-size: 1.4rem;
+}
+
+.tracking-code {
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+.timer {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+}
+
+#countdown {
+  font-weight: bold;
+  color: var(--accent-color);
+  margin-left: 5px;
+}
+
+.success-btn {
+  background: #4CAF50 !important;
+  color: var(--text-light) !important;
+}
+
+.success-btn:hover {
+  background: #45a049 !important;
+}

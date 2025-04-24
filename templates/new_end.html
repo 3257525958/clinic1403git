@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>پرداخت موفق - کلینیک زیبایی دکتر اسدپور</title>
+  <link rel="stylesheet" href="{% static 'css/new_reserv_end.css' %}">
+  <link rel="stylesheet" href="{% static 'css/new_end.css' %}">
+</head>
+<body>
+  <div class="container-wrapper">
+    <div class="confirmation-container">
+      <div class="header-section">
+        <img src="{% static 'img/logo.jpg' %}" alt="لوگوی کلینیک" class="logo">
+        <h2 class="title">پرداخت موفق</h2>
+      </div>
+
+      <div class="details-box">
+        <div class="success-message">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+          </svg>
+          <h3>پرداخت با موفقیت انجام شد!</h3>
+        </div>
+
+        <div class="detail-item">
+          <span class="label">کد رهگیری:</span>
+          <span class="value tracking-code">{{ tracking_code }}</span>
+        </div>
+
+        <div class="timer">
+          <span id="countdown">۱۰</span>
+          <span>ثانیه تا بازگشت خودکار</span>
+        </div>
+      </div>
+
+      <div class="buttons-group">
+        <button type="button" class="btn success-btn" onclick="redirectHome()">
+          متوجه شدم
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // شمارشگر معکوس
+    let seconds = 10;
+    const countdownElement = document.getElementById('countdown');
+    
+    const countdownInterval = setInterval(() => {
+      seconds--;
+      countdownElement.textContent = seconds.toLocaleString('fa-IR');
+      
+      if(seconds <= 0) {
+        clearInterval(countdownInterval);
+        window.location.href = '/';
+      }
+    }, 1000);
+
+    // تابع بازگشت به خانه
+    function redirectHome() {
+      clearInterval(countdownInterval);
+      window.location.href = '/';
+    }
+  </script>
+</body>
+</html>

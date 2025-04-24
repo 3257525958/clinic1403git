@@ -97,7 +97,6 @@ def orderzibal(request):
         return redirect('/cantact/login/')
 
 def callbackzibal(request):
-    print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
     backbutton = request.GET.get('backbutton')
     if (backbutton != "") and (backbutton != None) :
         ur = f"{ENDURL}/?r={backbutton}"
@@ -150,40 +149,31 @@ def callbackzibal(request):
                                                         vaziyatereserv='قطعی',
                                                         bankpeyment="-1",
                     )
-                    # a = reservemodeltest.objects.filter(rahgiricod=rahgiricode)
-                    # a.delete()
-                    message = f"دکتر_اسدپور_"
+                    a = reservemodeltest.objects.filter(rahgiricod=rahgiricode)
+                    a.delete()
 
-                    # try:
-                    #     api = KavenegarAPI(
-                    #         '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-                    #     params = {
-                    #         'receptor': "09122852099",
-                    #         'template': 'test',
-                    #         'token': message,
-                    #         'type': 'sms',
-                    #     }
-                    #     # response = api.verify_lookup(params)
-                    #     # return render(request, 'end.html', context={"result": 'endresult', })
-                    # except APIException as e:
-                    #     m = 'tellerror'
-                    #     # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-                    #     return render(request, 'end.html', context={"result": 'endresult', })
-                    # except HTTPException as e:
-                    #     m = 'neterror'
-                    #     # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-                    #     # return render(request, 'add_cantact.html')
-                    #     return render(request, 'end.html', context={"result": 'endresult', })
+                    users = accuntmodel.objects.all()
+                    for user in users:
+                        if int(user.melicode) == int (oneobj.mellicode) :
+                            smstext = user.firstname+' '+ user.lastname + ' ' + 'عزیز' + '\n' + 'رزرو شما قطعی شد' + '\n' +'کد رهگیری پرداخت شما' + ' ' + rahgiricode +'\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+                            try:
+                                api = KavenegarAPI(
+                                    '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                                params = {
+                                    'sender': '9982003178',  # optional
+                                    'receptor': user.phonnumber,  # multiple mobile number, split by comma
+                                    'message': smstext,
+                                }
+                                response = api.sms_send(params)
+                            except APIException as e:
+                                m = 'tellerror'
+                            except HTTPException as e:
+                                m = 'neterror'
 
                     # requests.request('GET',"https://drmahdiasadpour.ir")
-                    return render(request,'end.html',
+                    return render(request,'new_end.html',
                                   context={
-                                                                "firstname":firstname,
-                                                                "lastname":lastname,
-                                                                "rahgiricode":rahgiricode,
-                                                                "kolkhedmat":kolkhedmat,
-                                                                "day":day,
-                                                                "houre":houre,
+                                                                "tracking_code":rahgiricode,
                                                                 }
                     )
         else:
