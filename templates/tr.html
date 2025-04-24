@@ -10,7 +10,7 @@
 </head>
 <body>
   <form  action=""  method="POST">
-      {% csrf_token %}
+            {% csrf_token %}
   <div class="container-wrapper">
     <div class="confirmation-container">
       <div class="header-section">
@@ -24,9 +24,8 @@
             کد ۴ رقمی به شماره 
             <span class="spanclass">۰۹۱۲XXX۱۲۳۴</span>
             ارسال شد
-          </p>
+          </p>          
           <input type="text" 
-                 name="inputcode_regester"
                  id="verificationCode" 
                  maxlength="4" 
                  placeholder=" ــ  ــ  ــ  ــ"
@@ -40,9 +39,8 @@
           </div>
         </div>
       </div>
-        
-        
-        <div class="buttons-group">
+
+      <div class="buttons-group">
         <button type="submit" 
                 name="buttoncode_repeat" 
                 value="accept"
@@ -58,17 +56,16 @@
                 onclick="move()">
           تأیید کد
         </button>
-        </div>
+      </div>
     </div>
-  </div>  
-    <label id="etebar"  hidden>{{ etebar }}</label>
-      <div id="myBar" class="w3" hidden>0%</div>
+  </div>
+          <label id="etebar"  hidden>{{ etebar }}</label>
+        <div id="myBar" class="w3" hidden>0%</div>
 
   </form>
-    <script src="{% static "js/materialize.min.js" %}"></script>
-    <label id="etebar"  hidden>{{ etebar }}</label>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src = "{% static "js/codetimer_cantact.js" %}"></script>
-
+<label id="etebar"  hidden>{{ etebar }}</label>
+{#<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>#}
+{#<script src = "{% static "js/codetimer_cantact.js" %}"></script>#}
+<script src={%  static "/js/new_code_cantact.js" %}></script>
 </body>
 </html>

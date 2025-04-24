@@ -46,7 +46,7 @@ startTimer();
 
 
         console.log(etebar.innerHTML);
-    if ( etebar.innerHTML == 'succes' ){
+if ( etebar.innerHTML == 'succes' ){
         Swal.fire({
           position: 'top-end',
           icon: 'success',
