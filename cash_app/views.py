@@ -21,6 +21,7 @@ from cantact_app.models import accuntmodel
 from cantact_app.views import *
 from file_app.models import *
 from accountancy_app.models import *
+
 ZIB_API_REQUEST = "https://gateway.zibal.ir/v1/request"
 ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
@@ -35,64 +36,68 @@ CALLBACK_ZIBAL_URL = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
 MERCHANT_ZIBAL = '64c2047fcbbc270017f4c6b2'
 
 def orderzibal(request):
-    # ۱. بارگذاری اطلاعات رزرو و محاسبه مبلغ و موبایل
-    work = workmodel.objects.all()
-    for w in work:
-        if w.id == int(request.session.get('selected_option_id')):
-            peyment     = int(w.cast) // 5
-            phonnumber  = str(w)
-    users = accuntmodel.objects.all()
-    for u in users:
-        if int(u.melicode) == int(request.session.get('national_code')):
-            phonnumber  = str(u.phonnumber)
+    if request.user.is_authenticated:
+        # ۱. بارگذاری اطلاعات رزرو و محاسبه مبلغ و موبایل
+        work = workmodel.objects.all()
+        for w in work:
+            if w.id == int(request.session.get('selected_option_id')):
+                peyment     = int(w.cast) // 5
+                phonnumber  = str(w)
+        users = accuntmodel.objects.all()
+        for u in users:
+            if int(u.melicode) == int(request.session.get('national_code')):
+                phonnumber  = str(u.phonnumber)
 
-    # ۲. آماده‌سازی payload برای درگاه
-    payload = {
-        "merchant":    MERCHANT_ZIBAL,
-        "amount":      peyment,
-        "callbackUrl": CALLBACK_ZIBAL_URL,
-        "description": "بیعانه جهت رزرو",
-        "orderId":     f"ZBL",
-        "mobile":      phonnumber
-    }
-    headers = {
-        'Content-Type':   'application/json',
-        'Content-Length': str(len(json.dumps(payload)))
-    }
+        # ۲. آماده‌سازی payload برای درگاه
+        payload = {
+            "merchant":    MERCHANT_ZIBAL,
+            "amount":      peyment,
+            "callbackUrl": CALLBACK_ZIBAL_URL,
+            "description": "بیعانه جهت رزرو",
+            "orderId":     "ZBL",
+            "mobile":      phonnumber
+        }
+        headers = {
+            'Content-Type':   'application/json',
+            'Content-Length': str(len(json.dumps(payload)))
+        }
 
-    # ۳. ارسال درخواست به درگاه با timeout
-    try:
-        response = requests.post(
-            ZIB_API_REQUEST,
-            json=payload,
-            headers=headers,
-            timeout=30
-        )
-    except requests.RequestException as e:
-        # هر خطای شبکه‌ای یا timeout را با 502 برمی‌گردانیم
-        return HttpResponse(f"خطا در ارتباط با سرویس پرداخت: {e}", status=502)
+        # ۳. ارسال درخواست به درگاه با timeout
+        try:
+            response = requests.post(
+                ZIB_API_REQUEST,
+                json=payload,
+                headers=headers,
+                timeout=30
+            )
+        except requests.RequestException as e:
+            # هر خطای شبکه‌ای یا timeout را با 502 برمی‌گردانیم
+            return HttpResponse(f"خطا در ارتباط با سرویس پرداخت: {e}", status=502)
 
-    # ۴. پردازش پاسخ درگاه
-    if response.status_code == 200:
-        result = response.json()
-        if result.get('result') == 100:
-            # موفق: ذخیره کد رهگیری و ریدایرکت به صفحه پرداخت 2
-            reservemodeltest.objects.filter(
-                mellicode=request.user.username
-            ).update(rahgiricod=str(result['trackId']))
-            return redirect(f"{ZIB_API_STARTPAY}{result['trackId']}")
+        # ۴. پردازش پاسخ درگاه
+        if response.status_code == 200:
+            result = response.json()
+            if result.get('result') == 100:
+                # موفق: ذخیره کد رهگیری و ریدایرکت به صفحه پرداخت 2
+                reservemodeltest.objects.filter(
+                    mellicode=request.user.username
+                ).update(rahgiricod=str(result['trackId']))
+                return redirect(f"{ZIB_API_STARTPAY}{result['trackId']}")
+            else:
+                # نتیجه ناموفق ولی پاسخ از سرور آمده است
+                error_msg = result.get('message', 'خطای نامشخص در پرداخت')
+                return HttpResponse(f"پرداخت انجام نشد: {error_msg}", status=400)
         else:
-            # نتیجه ناموفق ولی پاسخ از سرور آمده است
-            error_msg = result.get('message', 'خطای نامشخص در پرداخت')
-            return HttpResponse(f"پرداخت انجام نشد: {error_msg}", status=400)
+            # هر کد وضعیت غیر 200 از درگاه را پاس می‌دهیم
+            return HttpResponse(
+                f"خطای سرور درگاه ({response.status_code})",
+                status=response.status_code
+            )
     else:
-        # هر کد وضعیت غیر 200 از درگاه را پاس می‌دهیم
-        return HttpResponse(
-            f"خطای سرور درگاه ({response.status_code})",
-            status=response.status_code
-        )
+        return redirect('/cantact/login/')
 
 def callbackzibal(request):
+    print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
     backbutton = request.GET.get('backbutton')
     if (backbutton != "") and (backbutton != None) :
         ur = f"{ENDURL}/?r={backbutton}"
@@ -145,40 +150,42 @@ def callbackzibal(request):
                                                         vaziyatereserv='قطعی',
                                                         bankpeyment="-1",
                     )
-                    a = reservemodeltest.objects.filter(rahgiricod=rahgiricode)
-                    a.delete()
+                    # a = reservemodeltest.objects.filter(rahgiricod=rahgiricode)
+                    # a.delete()
                     message = f"دکتر_اسدپور_"
 
-                    try:
-                        api = KavenegarAPI(
-                            '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-                        params = {
-                            'receptor': "09122852099",
-                            'template': 'test',
-                            'token': message,
-                            'type': 'sms',
-                        }
-                        # response = api.verify_lookup(params)
-                        # return render(request, 'end.html', context={"result": 'endresult', })
-                    except APIException as e:
-                        m = 'tellerror'
-                        # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-                        return render(request, 'end.html', context={"result": 'endresult', })
-                    except HTTPException as e:
-                        m = 'neterror'
-                        # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-                        # return render(request, 'add_cantact.html')
-                        return render(request, 'end.html', context={"result": 'endresult', })
+                    # try:
+                    #     api = KavenegarAPI(
+                    #         '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                    #     params = {
+                    #         'receptor': "09122852099",
+                    #         'template': 'test',
+                    #         'token': message,
+                    #         'type': 'sms',
+                    #     }
+                    #     # response = api.verify_lookup(params)
+                    #     # return render(request, 'end.html', context={"result": 'endresult', })
+                    # except APIException as e:
+                    #     m = 'tellerror'
+                    #     # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+                    #     return render(request, 'end.html', context={"result": 'endresult', })
+                    # except HTTPException as e:
+                    #     m = 'neterror'
+                    #     # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+                    #     # return render(request, 'add_cantact.html')
+                    #     return render(request, 'end.html', context={"result": 'endresult', })
 
                     # requests.request('GET',"https://drmahdiasadpour.ir")
-                    return render(request,'end.html',context={
+                    return render(request,'end.html',
+                                  context={
                                                                 "firstname":firstname,
                                                                 "lastname":lastname,
                                                                 "rahgiricode":rahgiricode,
                                                                 "kolkhedmat":kolkhedmat,
                                                                 "day":day,
                                                                 "houre":houre,
-                                                                })
+                                                                }
+                    )
         else:
             a = reservemodeltest.objects.filter(mellicode=request.user.username)
             a.delete()
@@ -192,10 +199,10 @@ def callbackzibal(request):
         return redirect(ENDURL)
 
 def end(request):
-    # backbutton = request.GET.get('backbutton')
-    # if backbutton == "accept" :
-    #     ur = f"{'http://127.0.0.1:8000'}/?{'r=33'}"
-    #     return redirect(ur)
+    backbutton = request.GET.get('backbutton')
+    if backbutton == "accept" :
+        ur = f"{'http://127.0.0.1:8000'}/?{'r=33'}"
+        return redirect(ur)
 
     message = f"دکتر_اسدپور_"
 
@@ -216,9 +223,10 @@ def end(request):
         return render(request, 'end.html', context={"result": 'endresult', })
     except HTTPException as e:
         m = 'neterror'
-        # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-        # return render(request, 'add_cantact.html')
-        return render(request, 'end.html', context={"result": 'endresult', })
+        messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+        return render(request, 'add_cantact.html')
+    print('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
+    return render(request, 'end.html', context={"result": 'endresult', })
 
 
 

@@ -174,9 +174,7 @@ def summary_view(request: HttpRequest) -> HttpResponse:
     selected_day = request.session.get('selected_day')
     selected_time = request.session.get('selected_time')
 
-    print(selected_day, selected_time)
-    print(procedureselect, melicod)
-    # --مثلا وقتی select_day  عدد 1 زا نشان دهد یعنی دو روز بعد پس میشود به روش زیر از عدد select_day یه تایم انتهابی برسم----------
+
     select_day_date = datetime.datetime.now()
     select_day_date += timedelta(days= selected_day + 1)
     request.session['dateshamsireserv'] = stradb(select_day_date)
@@ -184,18 +182,17 @@ def summary_view(request: HttpRequest) -> HttpResponse:
     request.session['yearshamsi'] = stry(datetime.datetime.now())
     request.session['numbertime'] = selected_time
 
-    a = reservemodeltest.objects.filter(mellicode=request.user.username)
-    a.update(
-        dateshamsireserv=stradb(select_day_date),
-        datemiladireserv=select_day_date.strftime('%a %d %b %y'),
-        yearshamsi=stry(datetime.datetime.now()),
-        numbertime=selected_time,
-    )
+    # a = reservemodeltest.objects.filter(mellicode=request.user.username)
+    # a.update(
+    #     dateshamsireserv=stradb(select_day_date),
+    #     datemiladireserv=select_day_date.strftime('%a %d %b %y'),
+    #     yearshamsi=stry(datetime.datetime.now()),
+    #     numbertime=selected_time,
+    # )
     selectprocedure.append(stradb(select_day_date))
     selectprocedure.append(select_day_date.strftime('%a %d %b %y'))
     selectprocedure.append(stry(datetime.datetime.now()))
     selectprocedure.append(selected_time)
-    print(selected_time)
     s = ""
     if selected_time == 1:
         s = "10"
@@ -317,10 +314,9 @@ def summary_view(request: HttpRequest) -> HttpResponse:
     if selected_time == 40:
         s = "19:45"
         selectprocedure.append("19:45")
-    print(s)
     request.session['hourreserv'] = s
-    a = reservemodeltest.objects.filter(mellicode=request.user.username)
-    a.update(hourreserv=s)
+    # a = reservemodeltest.objects.filter(mellicode=request.user.username)
+    # a.update(hourreserv=s)
     works = workmodel.objects.all()
     for work in works:
         if int(work.id) == int(procedureselect) :
@@ -332,6 +328,77 @@ def summary_view(request: HttpRequest) -> HttpResponse:
             'hoursreserv' : s,
 
             }
+    print('ooooooooooooooooooooooo')
+    print(request.session['national_code'])
+    print(request.session['datemiladireserv'])
+    print(procedureselect)
+
+    j = ''
+    d = ''
+    p = ''
+    t = ''
+    c = ''
+    f = ''
+    ll = ''
+    p = ''
+    v = ''
+
+    for work in works:
+        if work.id == int(procedureselect) :
+            j = work.work
+            d = work.detalework
+            p = work.melicodpersonel
+            c = work.cast
+            v = work.vahed
+            if work.time == "زمان کمی میبرد":
+                t = "0"
+                selectprocedure.append("0")
+            if work.time == "پانزده دقیقه":
+                t = "1"
+                selectprocedure.append("1")
+            if work.time == "سی دقیقه":
+                t = "2"
+                selectprocedure.append("2")
+            if work.time == "چهل و پنج دقیقه":
+                t = "3"
+                selectprocedure.append("3")
+            if work.time == "یک ساعت":
+                t = "4"
+                selectprocedure.append("4")
+            if work.time == "یک ساعت و پانزده دقیقه":
+                t = "5"
+                selectprocedure.append("5")
+            if work.time == "یک ساعت و نیم":
+                t = "6"
+
+    users = accuntmodel.objects.all()
+    for user in users:
+        if int(user.melicode) == int(request.session['national_code']):
+            f = user.firstname
+            ll = user.lastname
+            ph = user.phonnumber
+
+
+    reservemodeltest.objects.create(
+        mellicode = request.session['national_code'],
+        jobreserv = j,
+        detalereserv = d,
+        personreserv = p,
+        timereserv = t,
+        castreserv = c,
+        numbertime = request.session['selected_time'],
+        hourreserv = request.session['hourreserv'],
+        dateshamsireserv = stradb(select_day_date),
+        datemiladireserv = select_day_date.strftime('%a %d %b %y'),
+        yearshamsi = stry(select_day_date),
+        phonnumber = ph,
+        fiestname = f,
+        lastname = ll,
+        vahed = v,
+        idwork = str(procedureselect)
+        # bankpeyment = models.CharField(max_length=200, default='-3',null=True)
+    )
+
     # فرض بر این است که قالب summary.html را زیر پوشه templates/reserv_app دارید
     return render(request, 'new_reserv_end.html', context)
 @csrf_exempt  # در محیط تولید از توکن CSRF استفاده کنید
@@ -661,18 +728,19 @@ def reservdef(request):
         if r.mellicode == request.user.username:
             melicodcheck = "true"
 
-    if melicodcheck == "false" :
-        reservemodeltest.objects.create(
-            mellicode= request.user.username,
-            )
+    # if melicodcheck == "false" :
+    #     print()
+    #     reservemodeltest.objects.create(
+    #         mellicode= request.user.username,
+    #         )
 # ----------با توجه به کد ملی فرد login شده اسم کوچک و بزرگ او را پیدا میکنیم---------------------------
     users = accuntmodel.objects.all()
     for user in users:
         if user.melicode == request.user.username:
             level[0] = user.level
             mellicoduser[0] = user.melicode
-            a = reservemodeltest.objects.filter(mellicode=request.user.username)
-            a.update(fiestname=user.firstname, lastname=user.lastname , phonnumber=user.phonnumber)
+            # a = reservemodeltest.objects.filter(mellicode=request.user.username)
+            # a.update(fiestname=user.firstname, lastname=user.lastname , phonnumber=user.phonnumber)
     filesendbutton = request.POST.get("filesendbutton")
     inject_botax  = request.POST.get("r1")
     illnes  = request.POST.get("r2")
@@ -732,13 +800,13 @@ def reservdef(request):
                 selectprocedure.append(f.person)
                 berand = f.berand
                 personelmelicode = f.melicodpersonel
-                a = reservemodeltest.objects.filter(mellicode=request.user.username)
-                a.update(jobreserv=f.work,
-                         detalereserv=f.detalework,
-                         personreserv=f.person,
-                         vahed=f.vahed,
-                         idwork=f.id
-                         )
+                # a = reservemodeltest.objects.filter(mellicode=request.user.username)
+                # a.update(jobreserv=f.work,
+                #          detalereserv=f.detalework,
+                #          personreserv=f.person,
+                #          vahed=f.vahed,
+                #          idwork=f.id
+                #          )
                 sel = ''
                 if f.time == "زمان کمی میبرد" :
                     sel = "0"
@@ -762,11 +830,11 @@ def reservdef(request):
                     sel = "6"
                     selectprocedure.append("6")
                 selectprocedure.append(f.cast)
-                a = reservemodeltest.objects.filter(mellicode=request.user.username)
-                a.update(
-                         timereserv=sel,
-                         castreserv=f.cast,
-                         )
+                # a = reservemodeltest.objects.filter(mellicode=request.user.username)
+                # a.update(
+                #          timereserv=sel,
+                #          castreserv=f.cast,
+                #          )
 
             c +=1
 
@@ -953,13 +1021,13 @@ def reservdef(request):
         for tt in range(int(stime[1])) :
             ttime += timedelta(days=1)
         ttime -= timedelta(days=1)
-        a = reservemodeltest.objects.filter(mellicode=request.user.username)
-        a.update(
-            dateshamsireserv=stradb(ttime),
-            datemiladireserv=ttime.strftime('%a %d %b %y'),
-            yearshamsi=stry(datetime.datetime.now()),
-            numbertime=stime[0],
-        )
+        # a = reservemodeltest.objects.filter(mellicode=request.user.username)
+        # a.update(
+        #     dateshamsireserv=stradb(ttime),
+        #     datemiladireserv=ttime.strftime('%a %d %b %y'),
+        #     yearshamsi=stry(datetime.datetime.now()),
+        #     numbertime=stime[0],
+        # )
         selectprocedure.append(stradb(ttime))
         selectprocedure.append(ttime.strftime('%a %d %b %y'))
         selectprocedure.append(stry(datetime.datetime.now()))
@@ -1085,8 +1153,8 @@ def reservdef(request):
         if stime[0] == "40"  :
             s ="19:45"
             selectprocedure.append("19:45")
-        a = reservemodeltest.objects.filter(mellicode=request.user.username)
-        a.update(hourreserv=s)
+        # a = reservemodeltest.objects.filter(mellicode=request.user.username)
+        # a.update(hourreserv=s)
         reservs = reservemodel.objects.all()
         reservetebar[0] = 'succes'
         filepage1 = "false"
