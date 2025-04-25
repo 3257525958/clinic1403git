@@ -10,7 +10,13 @@ from kavenegar import *
 import random
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login, logout
+# ابتدا ماژول‌های استاندارد
+import os
+from pathlib import Path
 
+# سپس ماژول‌های جانبی
+import torch
+from django.core.files import File
 
 
 
@@ -224,9 +230,116 @@ def dateset(datejalalifarsi):
         if day == '09':
             day = '9'
     return (year,mounth,day)
+
+
+# def addcantactdef(request):
+#     # ...[کدهای قبلی بدون تغییر]...
+#
+#     # مدیریت تایید کد
+#     if request.POST.get('buttoncode_send'):
+#         input_code = request.POST.get('inputcode_regester')
+#         saved_code = savecodphon.objects.filter(code=input_code).first()
+#
+#         if saved_code:
+#             try:
+#                 # بررسی نهایی یکتایی کاربر
+#                 if User.objects.filter(username=saved_code.melicode).exists():
+#                     raise ValueError('این کاربر قبلاً ثبت نام کرده است')
+#
+#                 # ایجاد حساب کاربری اصلی
+#                 new_user = accuntmodel.objects.create(
+#                     # ...[پارامترها بدون تغییر]...
+#                 )
+#
+#                 # ایجاد کاربر در سیستم احراز هویت جنگو
+#                 django_user = User.objects.create_user(
+#                     username=saved_code.melicode,
+#                     password=saved_code.phonnumber,
+#                     first_name=saved_code.firstname,
+#                     last_name=saved_code.lastname
+#                 )
+#
+#                 # احراز هویت و ورود به سیستم
+#                 auth_user = authenticate(
+#                     request,
+#                     username=saved_code.melicode,
+#                     password=saved_code.phonnumber
+#                 )
+#
+#                 if auth_user is not None:
+#                     login(request, auth_user)
+#                     saved_code.delete()
+#                     return redirect('/')
+#                 else:
+#                     # حذف رکوردهای ایجاد شده در صورت خطا
+#                     new_user.delete()
+#                     django_user.delete()
+#                     return render(request, 'error.html', {'message': 'خطا در احراز هویت'})
+#
+#             except Exception as e:
+#                 # مدیریت خطاهای عمومی
+#                 return render(request, 'new_addcontact.html', {
+#                     'melicod_etebar': 'error',
+#                     'error_message': str(e),
+#                     # ...[بقیه پارامترها]...
+#                 })
+
+    # ...[بقیه کدها]...
+
+import os
+import shutil
+from django.conf import settings
+
+
+def move_images():
+    # تنظیمات مسیرها
+    source_dir = os.path.join(settings.MEDIA_ROOT, 'profilepicstest')
+    destination_dir = os.path.join(settings.MEDIA_ROOT, 'profilepics')
+
+    # لیست پسوندهای مجاز برای تصاویر
+    image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']
+
+    # ایجاد پوشه مقصد اگر وجود نداشته باشد
+    os.makedirs(destination_dir, exist_ok=True)
+
+    # بررسی وجود پوشه مبدا
+    if not os.path.exists(source_dir):
+        print(f"notfile {source_dir}")
+        return
+
+    moved_files = 0
+    errors = 0
+
+    # پیمایش همه فایلهای پوشه مبدا
+    for filename in os.listdir(source_dir):
+        # بررسی پسوند فایل
+        file_ext = os.path.splitext(filename)[1].lower()
+
+        if file_ext in image_extensions:
+            source_path = os.path.join(source_dir, filename)
+            destination_path = os.path.join(destination_dir, filename)
+
+            try:
+                # انتقال فایل
+                shutil.move(source_path, destination_path)
+                print(f"sucses {filename}")
+                moved_files += 1
+            except Exception as e:
+                print(f"error {filename}: {str(e)}")
+                errors += 1
+
+
+def modify_url(image_field_file):
+    # استخراج نام فایل از شیء ImageFieldFile
+    filename = image_field_file.name.split('/')[-1]
+    # ساخت آدرس جدید
+    new_url = f"profilepics/{filename}"
+    return new_url
+
+
 def addcantactdef(request):
     logout(request)
-
+    profile_pic = request.FILES.get('profile_picture')
     mounth_number[0] = request.POST.get('mbtn')
     if mounth_number[0] == None :
         mounth_number[0] == ''
@@ -336,24 +449,26 @@ def addcantactdef(request):
             # randomcode = 'سلام شما به مهمانی دعوت شده اید منتظرتان هستیم'
             # randomcode=randomcode.split(' ')
 
-            savecodphon.objects.create(firstname=firstname_r[0], lastname=lastname_r[0],melicode=str(melicod_r[0]),
+            instans = savecodphon.objects.create(firstname=firstname_r[0], lastname=lastname_r[0],melicode=str(melicod_r[0]),
                                        phonnumber=str(phonnumber_r[0]),
                                        berthdayyear =str(yearj),
                                        berthdayday=str(dayj),
                                        berthdaymounth=str(mounthj),
                                        code=str(randomcode),
                                        expaiercode="2",
+                                       profile_picture=profile_pic
                                        )
+            instans.save()
+            smstext = firstname_r[0] + ' ' + lastname_r[0] + ' ' + 'عزیز' + '\n' + 'کد چهاررقمی شما برای ثبت نام در سایت ' + ' ' + str(randomcode) + '\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
             try:
                 api = KavenegarAPI(
                     '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
                 params = {
-                    'receptor': phonnumber_r[0],
-                    'template': 'login',
-                    'token': randomcode,
-                    'type': 'sms',
-                    }
-                response = api.verify_lookup(params)
+                    'sender': '9982003178',  # optional
+                    'receptor': phonnumber_r[0],  # multiple mobile number, split by comma
+                    'message': smstext,
+                }
+                response = api.sms_send(params)
                 return render(request, 'code_cantact.html')
             except APIException as e:
                 m = 'tellerror'
@@ -385,6 +500,7 @@ def addcantactdef(request):
         savecods = savecodphon.objects.all()
         for savecode in savecods :
             if int(savecode.code) == int(inputcode_regester):
+                print(inputcode_regester)
                 yj = savecode.berthdayyear
                 dj = savecode.berthdayday
                 mj = savecode.berthdaymounth
@@ -401,8 +517,15 @@ def addcantactdef(request):
                 while int(strd(time)) != int(dj):
                     time += timedelta(days=1)
 
+                if User.objects.filter(username=savecode.melicode).exists():
+                    a = accuntmodel.objects.filter(melicode=savecode.melicode)
+                    a.delete()
+                    b = User.objects.filter(username=savecode.melicode)
+                    b.delete()
+                # if __name__ == '__main__':
+                move_images()
 
-                accuntmodel.objects.create(
+                ins = accuntmodel.objects.create(
                                 firstname=savecode.firstname,
                                 lastname=savecode.lastname,
                                 melicode=savecode.melicode,
@@ -412,15 +535,14 @@ def addcantactdef(request):
                                 dayb= savecode.berthdayday,
                                 mountb= savecode.berthdaymounth,
                                 yearb=savecode.berthdayyear,
-                                )
-
-                User.objects.create_user(
-                                                username=savecode.melicode,
-                                                password=savecode.phonnumber,
-                                                first_name=savecode.firstname,
-                                                last_name=savecode.lastname,
+                                profile_picture=modify_url(savecode.profile_picture),
+                )
+                ins.save()
+                User.objects.create_user(username=savecode.melicode,
+                                        password=savecode.phonnumber,
+                                        first_name=savecode.firstname,
+                                        last_name=savecode.lastname,
                                             )
-
                 user_login =authenticate(request,
                                              username=savecode.melicode,
                                              password=savecode.phonnumber,
@@ -433,8 +555,6 @@ def addcantactdef(request):
                 a.delete()
 
                 return render(request,'code_cantact.html',context={'etebar':e},)
-                        # return redirect('/')
-            # return render(request, 'cod_of_phon.html')
             else:
                 e = 'false'
                 return render(request, 'code_cantact.html', context={'etebar': e}, )
@@ -456,10 +576,6 @@ def addcantactdef(request):
                                                                     })
 
 
-    # return render(request, 'add_cantact.html', context={'melicod_etebar': melicod_etebar[0],
-    #                                                     "yearcant": yearcant,
-    #                                                     "day": day,
-    #                                                     })
 login_etebar = ['f']
 
 

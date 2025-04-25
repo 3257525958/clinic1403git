@@ -95,24 +95,6 @@ profilestatus =['']
 loglevel = ['']
 def home(request):
     btndate = request.POST.get('btndate')
-    # if btndate == 'accept':
-    #     try:
-    #         api = KavenegarAPI(
-    #             '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
-    #         params = {
-    #             'sender': '9982003178',  # optional
-    #             'receptor': '09122852099',  # multiple mobile number, split by comma
-    #             'message':" سلام",
-    #         }
-    #         response = api.sms_send(params)
-    #         # return render(request, 'code_cantact.html')
-    #     except APIException as e:
-    #         m = 'tellerror'
-    #         return render(request, 'closecash.html', context={'melicod_etebar': m})
-    #     except HTTPException as e:
-    #         m = 'neterror'
-    #         return render(request, 'closecash.html', context={'melicod_etebar': m}, )
-
     r = request.GET.get("r")
     loglevel[0] = [""]
     profilestatus = ['']
@@ -131,12 +113,20 @@ def home(request):
                             login(request, user_login)
                             # return redirect('https://drmahdiasadpour.ir')
                             return redirect('http://127.0.0.1:8000')
+    img = ''
     if request.user.is_authenticated:
         us = accuntmodel.objects.all()
         for u in us:
             if u.melicode == request.user.username:
                 profilestatus[0] = f"{u.firstname} {u.lastname}  "
+                if u.profile_picture and hasattr(u.profile_picture, 'url'):
+                    img = u.profile_picture.url
+                else:
+                    img = '/static/img/login.jpg'
+                #     # مسیر به تصویر پیش‌فرض در پوشه static
+                # img = u.profile_picture
                 loglevel[0] = u.level
+                user_profile = u
                 break;
             # else:
             #     profilestatus[0] = 'ورود به کاربری'
@@ -163,14 +153,8 @@ def home(request):
     return render(request,'new_home.html',context={
                                                                 'loglevel':loglevel[0],
                                                                 'profilestatus': profilestatus[0],
+                                                                'img':img,
                                                                 })
-    # return render(request,'home.html',context={ 'loglevel':loglevel[0],
-    #                                             'profilestatus':profilestatus[0],
-    #                                             'images':images,
-    #                                             'imagesari':imagesari,
-    #                                             'imgmobile':imgmobile,
-    #                                             'bsize':d,
-    # })
 
 def logute(request):
     logout(request)

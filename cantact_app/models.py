@@ -12,6 +12,8 @@ class accuntmodel(models.Model):
     dayb = models.CharField(max_length=3 , default='0',null=True)
     mountb = models.CharField(max_length=20 , default='0',null=True)
     yearb = models.CharField(max_length=5, default='0',null=True)
+    profile_picture = models.ImageField(upload_to='profilepics/', null=True, blank=True,)
+
 
     def __str__(self):
         return f"{self.melicode}"
@@ -25,6 +27,7 @@ class savecodphon(models.Model):
     berthdaymounth = models.CharField(max_length=100)
     code = models.CharField(max_length=20)
     expaiercode = models.CharField(max_length=20)
+    profile_picture = models.ImageField(upload_to='profilepicstest/', null=True, blank=True)
     def __str__(self):
         return f"{self.melicode}"
 

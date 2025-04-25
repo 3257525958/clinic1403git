@@ -24,7 +24,7 @@
       <h2 class="title">ثبت نام در سامانه</h2>
     </div>
 
-    <form method="POST" class="signup-form">
+    <form method="POST" class="signup-form" enctype="multipart/form-data">
       {% csrf_token %}
 
       <!-- فیلد نام -->
@@ -62,7 +62,13 @@
       <input type="hidden" id="month" name="month">
       <input type="hidden" id="year" name="year">
 
-      <!-- بخش قوانین -->
+        <!-- قبل از بخش قوانین -->
+        <div class="input-field">
+            <i class="fas fa-camera icon"></i>
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+            <label for="profile_picture" class="file-label">عکس پروفایل (اختیاری)</label>
+        </div>      
+     <!-- بخش قوانین -->
       <div class="terms-section">
         <label>
           <input type="checkbox" required>

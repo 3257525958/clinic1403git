@@ -200,12 +200,12 @@
     <div class="user-info">
       <span class="user-name-display">{{profilestatus }}</span>
       <div class="profile-circle">
-        <img src="{% static "/img/img3.jpeg" %}" alt="User Profile" class="profile-image">
+        <img src="{{ img }}" alt="User Profile" class="profile-image">
         </div>
-      <div class="profile-upload">
-        <i class="fas fa-user"></i>
-        <input type="file" id="profilePicInput" style="display: none;">
-      </div>
+{#      <div class="profile-upload">#}
+{#        <i class="fas fa-user"></i>#}
+{#        <input type="file" id="profilePicInput" style="display: none;">#}
+{#      </div>#}
     </div>
         {% endif %}
   </header>
