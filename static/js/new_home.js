@@ -299,3 +299,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// در فایل new_home.js
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.quick_item.disabled').forEach(item => {
+    item.addEventListener('click', e => {
+      if (!isLoggedIn) {
+        e.preventDefault();
+        M.toast({html: 'لطفاً ابتدا وارد حساب کاربری خود شوید', classes: 'rounded'});
+      }
+    });
+  });
+});

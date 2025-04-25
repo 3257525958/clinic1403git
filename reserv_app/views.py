@@ -1267,7 +1267,22 @@ def reservdef(request):
 
 
     nationalcode = request.user.username
+
+    profilestatus = ''
+    img = ''
+    us = accuntmodel.objects.all()
+    for u in us:
+        if u.melicode == request.user.username:
+            profilestatus = f"{u.firstname} {u.lastname}  "
+            if u.profile_picture and hasattr(u.profile_picture, 'url'):
+                img = u.profile_picture.url
+            else:
+                img = '/static/img/login.jpg'
+            break;
+
     return render(request,'new_reserv.html',context={
+        'img':img,
+        'profilestatus':profilestatus,
         'works':works,
         'job':ww,
         # 'shamsiarray':shamsiarray,

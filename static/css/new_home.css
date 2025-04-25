@@ -574,3 +574,72 @@ nav .brand-logo img{
 .sidenav-trigger{
     height: 5px !important;
 }
+
+
+/* اضافه کردن این استایل به فایل new_home.css */
+.quick_item.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.quick_item.disabled::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+}
+
+
+
+
+/* استایل جدید برای متن اسلایدها */
+.text_style {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 2.5rem;
+  text-align: center;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 15px 30px;
+  background: linear-gradient(45deg, rgba(156, 39, 176, 0.7), rgba(233, 30, 99, 0.7));
+  border-radius: 15px;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* انیمیشن هنگام فعال شدن اسلاید */
+.carousel-item.active .text_style {
+  opacity: 1;
+  animation: textSlide 0.8s ease-out;
+}
+
+/* ریسپانسیو برای موبایل */
+@media (max-width: 600px) {
+  .text_style {
+    font-size: 1.5rem;
+    bottom: 10%;
+    padding: 10px 20px;
+  }
+}
+
+/* انیمیشن اختصاصی */
+@keyframes textSlide {
+  from {
+    transform: translate(-50%, 30px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}

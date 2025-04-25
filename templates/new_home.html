@@ -10,7 +10,8 @@
     <link rel="stylesheet" type="text/css" href="{% static  "/css/materialize-rtl.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "/fontawesome/css/all.css" %}">
   <link rel="stylesheet" type="text/css" href="{% static '/css/new_home.css' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="body">
 <div class="loading-overlay" id="loadingOverlay">
@@ -23,6 +24,7 @@
 </div>
   <!-- پوشش راهنما -->
 {#<--------------------------------------------------------------------------------------------------------->#}
+{% if login_user == 'true' %}
 <ul id="dropdown1" class="dropdown-content hide-on-med-and-down faseleazbala">
                 <li id="m7"><a  href="zib/cast/" >دریافت</a></li>
                 <li id="m19"><a  href="reserv/reserver/" >رزروشن </a></li>
@@ -176,6 +178,7 @@
 {#            <li id="m3131" hidden><a class="menu_links_desktop"  href="zib/sakhthesab/" >ثبت دریافت</a></li>#}
 {#                <li id="m3232" hidden="hidden" ><a class="menu_links_desktop" href="mobile.html">پردازش تصویر</a></li>#}
     </ul>
+{% endif %}      
 {#    <ul class="sidenav" id="mobile-demo">#}
 {#      <li><a href="sass.html"></a></li>#}
 {#    </ul>#}
@@ -202,10 +205,6 @@
       <div class="profile-circle">
         <img src="{{ img }}" alt="User Profile" class="profile-image">
         </div>
-{#      <div class="profile-upload">#}
-{#        <i class="fas fa-user"></i>#}
-{#        <input type="file" id="profilePicInput" style="display: none;">#}
-{#      </div>#}
     </div>
         {% endif %}
   </header>
@@ -215,15 +214,15 @@
     <div class="carousel slider">
       <div class="carousel-item active">
         <img src="{% static "/img/login.jpg" %}" alt="تصویر اسلاید 1">
-        <div class="text_style">تصویر اسلاید 1</div>
+        <div class="text_style">پاکسازی</div>
       </div>
       <div class="carousel-item">
         <img src="{% static "/img/images (1).jpg" %}" alt="تصویر اسلاید 2">
-        <div class="text_style">تصویر اسلاید 2</div>
+        <div class="text_style">لیزر موی زائد</div>
       </div>
       <div class="carousel-item">
         <img src="{% static "/img/images (2).jpg" %}" alt="تصویر اسلاید 3">
-        <div class="text_style">تصویر اسلاید 3</div>
+        <div class="text_style">جوانسازی و درمان پوست</div>
       </div>
     </div>
   </section>
@@ -231,64 +230,70 @@
 <!-- منوی سریع -->
 <section id="quick_section">
   <div class="row menosari">
-    <!-- هر آیتم منو را به تگ a تغییر دهید -->
+    <!-- آیتم ورود همیشه فعال -->
     <a href="cantact/login/" class="quick_item">
       <i class="fas fa-sign-in-alt quick-icon"></i>
       <span>ورود</span>
     </a>
 
-    <a href="reserv/reserv/" class="quick_item">
+    <!-- سایر آیتم‌ها با شرط فعال بودن -->
+    <a href="{% if profilestatus %}reserv/reserv/{% else %}#{% endif %}" 
+       class="quick_item {% if not profilestatus %}disabled{% endif %}">
       <i class="fas fa-calendar-check quick-icon"></i>
       <span>رزرو آنلاین</span>
     </a>
 
-    <a href="آدرس_مورد_نظر" class="quick_item">
+    <a href="{% if profilestatus %}آدرس_مورد_نظر{% else %}#{% endif %}" 
+       class="quick_item {% if not profilestatus %}disabled{% endif %}">
       <i class="fas fa-photo-video quick-icon"></i>
       <span>نمونه کارها</span>
     </a>
 
-    <a href="آدرس_مورد_نظر" class="quick_item">
+    <a href="{% if profilestatus %}آدرس_مورد_نظر{% else %}#{% endif %}" 
+       class="quick_item {% if not profilestatus %}disabled{% endif %}">
       <i class="fas fa-video quick-icon"></i>
       <span>فیلم آموزشی</span>
     </a>
 
-    <a href="آدرس_مورد_نظر" class="quick_item">
+    <a href="{% if profilestatus %}آدرس_مورد_نظر{% else %}#{% endif %}" 
+       class="quick_item {% if not profilestatus %}disabled{% endif %}">
       <i class="fas fa-file-invoice-dollar quick-icon"></i>
       <span>صورت حساب</span>
     </a>
 
-    <a href="آدرس_مورد_نظر" class="quick_item">
+    <a href="{% if profilestatus %}آدرس_مورد_نظر{% else %}#{% endif %}" 
+       class="quick_item {% if not profilestatus %}disabled{% endif %}">
       <i class="fas fa-tachometer-alt quick-icon"></i>
       <span>داشبورد من</span>
     </a>
   </div>
 </section>
   <!-- بخش اخبار -->
-  <section id="news_section">
-    <div class="news-container">
-      <div class="news-box">
-        <img src="news1.jpg" alt="خبر ۱">
-        <div class="news-content">
-          <h3>عنوان خبر اول</h3>
-          <p>متن خبر اول. اینجا متن خبر می‌تواند بسیار طولانی بوده و فضای کافی برای توضیحات داشته باشد.</p>
-        </div>
-      </div>
-      <div class="news-box">
-        <img src="news2.jpg" alt="خبر ۲">
-        <div class="news-content">
-          <h3>عنوان خبر دوم</h3>
-          <p>متن خبر دوم. اینجا متن خبر می‌تواند بسیار طولانی بوده و فضای کافی برای توضیحات داشته باشد.</p>
-        </div>
-      </div>
-      <div class="news-box">
-        <img src="news3.jpg" alt="خبر ۳">
-        <div class="news-content">
-          <h3>عنوان خبر سوم</h3>
-          <p>متن خبر سوم. اینجا متن خبر می‌تواند بسیار طولانی بوده و فضای کافی برای توضیحات داشته باشد.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+{#  <section id="news_section">#}
+{#    <div class="news-container">#}
+{#      <div class="news-box">#}
+{#        <img src="news1.jpg" alt="خبر ۱">#}
+{#        <div class="news-content">#}
+{#          <h3>عنوان خبر اول</h3>#}
+{#          <p>متن خبر اول. اینجا متن خبر می‌تواند بسیار طولانی بوده و فضای کافی برای توضیحات داشته باشد.</p>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="news-box">#}
+{#        <img src="news2.jpg" alt="خبر ۲">#}
+{#        <div class="news-content">#}
+{#          <h3>عنوان خبر دوم</h3>#}
+{#          <p>متن خبر دوم. اینجا متن خبر می‌تواند بسیار طولانی بوده و فضای کافی برای توضیحات داشته باشد.</p>#}
+{#        </div>#}
+{#      </div>#}
+{#      <div class="news-box">#}
+{#        <img src="news3.jpg" alt="خبر ۳">#}
+{#        <div class="news-content">#}
+{#          <h3>عنوان خبر سوم</h3>#}
+{#          <p>متن خبر سوم. اینجا متن خبر می‌تواند بسیار طولانی بوده و فضای کافی برای توضیحات داشته باشد.</p>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+{#  </section>#}
     <!-- ------- شروع پیگیری صفحات مجازی--------------- -->
     <section class="row top-20" >
       <div class="">

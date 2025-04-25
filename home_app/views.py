@@ -114,7 +114,9 @@ def home(request):
                             # return redirect('https://drmahdiasadpour.ir')
                             return redirect('http://127.0.0.1:8000')
     img = ''
+    login_user = 'false'
     if request.user.is_authenticated:
+        login_user = 'true'
         us = accuntmodel.objects.all()
         for u in us:
             if u.melicode == request.user.username:
@@ -154,6 +156,7 @@ def home(request):
                                                                 'loglevel':loglevel[0],
                                                                 'profilestatus': profilestatus[0],
                                                                 'img':img,
+                                                                'login_user':login_user,
                                                                 })
 
 def logute(request):

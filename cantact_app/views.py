@@ -10,6 +10,11 @@ from kavenegar import *
 import random
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login, logout
+from PIL import Image
+import os
+import shutil
+from django.conf import settings
+
 # ابتدا ماژول‌های استاندارد
 import os
 from pathlib import Path
@@ -231,102 +236,128 @@ def dateset(datejalalifarsi):
             day = '9'
     return (year,mounth,day)
 
-
-# def addcantactdef(request):
-#     # ...[کدهای قبلی بدون تغییر]...
-#
-#     # مدیریت تایید کد
-#     if request.POST.get('buttoncode_send'):
-#         input_code = request.POST.get('inputcode_regester')
-#         saved_code = savecodphon.objects.filter(code=input_code).first()
-#
-#         if saved_code:
-#             try:
-#                 # بررسی نهایی یکتایی کاربر
-#                 if User.objects.filter(username=saved_code.melicode).exists():
-#                     raise ValueError('این کاربر قبلاً ثبت نام کرده است')
-#
-#                 # ایجاد حساب کاربری اصلی
-#                 new_user = accuntmodel.objects.create(
-#                     # ...[پارامترها بدون تغییر]...
-#                 )
-#
-#                 # ایجاد کاربر در سیستم احراز هویت جنگو
-#                 django_user = User.objects.create_user(
-#                     username=saved_code.melicode,
-#                     password=saved_code.phonnumber,
-#                     first_name=saved_code.firstname,
-#                     last_name=saved_code.lastname
-#                 )
-#
-#                 # احراز هویت و ورود به سیستم
-#                 auth_user = authenticate(
-#                     request,
-#                     username=saved_code.melicode,
-#                     password=saved_code.phonnumber
-#                 )
-#
-#                 if auth_user is not None:
-#                     login(request, auth_user)
-#                     saved_code.delete()
-#                     return redirect('/')
-#                 else:
-#                     # حذف رکوردهای ایجاد شده در صورت خطا
-#                     new_user.delete()
-#                     django_user.delete()
-#                     return render(request, 'error.html', {'message': 'خطا در احراز هویت'})
-#
-#             except Exception as e:
-#                 # مدیریت خطاهای عمومی
-#                 return render(request, 'new_addcontact.html', {
-#                     'melicod_etebar': 'error',
-#                     'error_message': str(e),
-#                     # ...[بقیه پارامترها]...
-#                 })
-
-    # ...[بقیه کدها]...
-
-import os
-import shutil
-from django.conf import settings
+def format_phone_number(input_str):
+    print(input_str)
+    persian_numbers = {
+        '0': '۰',
+        '1': '۱',
+        '2': '۲',
+        '3': '۳',
+        '4': '۴',
+        '5': '۵',
+        '6': '۶',
+        '7': '۷',
+        '8': '۸',
+        '9': '۹'
+    }
+    result = []
+    for char in input_str:
+        if char in persian_numbers:
+            result.append(persian_numbers[char])
+    while len(result) < 11:
+         result.insert(0,"0")
+    telhide = result[0]+result[1]+result[2]+result[3]+result[4]+result[5]+'XXX'+result[9]+result[10]
+    return telhide
 
 
-def move_images():
+def compress_and_move_images():
     # تنظیمات مسیرها
     source_dir = os.path.join(settings.MEDIA_ROOT, 'profilepicstest')
     destination_dir = os.path.join(settings.MEDIA_ROOT, 'profilepics')
 
-    # لیست پسوندهای مجاز برای تصاویر
+    # تنظیمات فشردهسازی
+    COMPRESSION_SETTINGS = {
+        'JPEG_QUALITY': 85,  # بین 1-100 (بالاتر=کیفیت بهتر)
+        'WEBP_QUALITY': 80,  # بین 0-100
+        'PNG_COMPRESSION': 6,  # بین 0-9 (بالاتر=فشردهتر)
+        'MAX_WIDTH': 1920,  # حداکثر عرض تصویر
+        'MAX_HEIGHT': 1080  # حداکثر ارتفاع تصویر
+    }
+
+    # لیست پسوندهای مجاز
     image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']
 
-    # ایجاد پوشه مقصد اگر وجود نداشته باشد
+    # ایجاد پوشه مقصد
     os.makedirs(destination_dir, exist_ok=True)
 
-    # بررسی وجود پوشه مبدا
     if not os.path.exists(source_dir):
-        print(f"notfile {source_dir}")
+        print(f"Error: Source directory not found: {source_dir}")
         return
 
-    moved_files = 0
+    processed_files = 0
     errors = 0
 
-    # پیمایش همه فایلهای پوشه مبدا
     for filename in os.listdir(source_dir):
-        # بررسی پسوند فایل
         file_ext = os.path.splitext(filename)[1].lower()
+        if file_ext not in image_extensions:
+            continue
 
-        if file_ext in image_extensions:
-            source_path = os.path.join(source_dir, filename)
-            destination_path = os.path.join(destination_dir, filename)
+        source_path = os.path.join(source_dir, filename)
+        base_name = os.path.splitext(filename)[0]
 
-            try:
-                # انتقال فایل
+        try:
+            # تعیین نام فایل مقصد
+            if file_ext == '.bmp':
+                dest_ext = '.jpg'
+            else:
+                dest_ext = file_ext
+
+            destination_path = os.path.join(destination_dir, f"{base_name}{dest_ext}")
+
+            # پردازش بر اساس نوع فایل
+            if file_ext == '.gif':
+                # انتقال فایلهای GIF بدون تغییر
                 shutil.move(source_path, destination_path)
-                print(f"sucses {filename}")
-                moved_files += 1
-            except Exception as e:
-                print(f"error {filename}: {str(e)}")
-                errors += 1
+            else:
+                with Image.open(source_path) as img:
+                    # تغییر سایز اگر لازم باشد
+                    img.thumbnail(
+                        (COMPRESSION_SETTINGS['MAX_WIDTH'],
+                         COMPRESSION_SETTINGS['MAX_HEIGHT']),
+                        Image.LANCZOS
+                    )
+
+                    # تبدیل به RGB برای فرمتهای غیر شفاف
+                    if img.mode in ('RGBA', 'P'):
+                        img = img.convert('RGB')
+
+                    # ذخیره با تنظیمات فشردهسازی
+                    if dest_ext in ('.jpg', '.jpeg'):
+                        img.save(
+                            destination_path,
+                            quality=COMPRESSION_SETTINGS['JPEG_QUALITY'],
+                            optimize=True,
+                            progressive=True
+                        )
+                    elif dest_ext == '.png':
+                        img.save(
+                            destination_path,
+                            optimize=True,
+                            compress_level=COMPRESSION_SETTINGS['PNG_COMPRESSION']
+                        )
+                    elif dest_ext == '.webp':
+                        img.save(
+                            destination_path,
+                            quality=COMPRESSION_SETTINGS['WEBP_QUALITY'],
+                            method=6
+                        )
+                    else:
+                        img.save(destination_path)
+
+                # حذف فایل مبدا پس از پردازش موفق
+                os.remove(source_path)
+
+            processed_files += 1
+            print(f"Successfully processed: {filename}")
+
+        except Exception as e:
+            errors += 1
+            print(f"Error processing {filename}: {str(e)}")
+
+    print(f"\nOperation summary:")
+    print(f"Total processed: {processed_files}")
+    print(f"Successful: {processed_files - errors}")
+    print(f"Errors: {errors}")
 
 
 def modify_url(image_field_file):
@@ -469,7 +500,8 @@ def addcantactdef(request):
                     'message': smstext,
                 }
                 response = api.sms_send(params)
-                return render(request, 'code_cantact.html')
+                telhide = format_phone_number(phonnumber_r[0])
+                return render(request, 'code_cantact.html',context={'telhide':telhide})
             except APIException as e:
                 m = 'tellerror'
                 return render(request, 'add_cantact.html', context={'melicod_etebar': m})
@@ -523,8 +555,7 @@ def addcantactdef(request):
                     b = User.objects.filter(username=savecode.melicode)
                     b.delete()
                 # if __name__ == '__main__':
-                move_images()
-
+                compress_and_move_images()
                 ins = accuntmodel.objects.create(
                                 firstname=savecode.firstname,
                                 lastname=savecode.lastname,
@@ -681,18 +712,19 @@ def ignordef(request):
                 if user.melicode == melicod_ignor[0] :
                     name = user.firstname +" "+user.lastname
                     randomcode = random.randint(1000, 9999)
-                    message = randomcode
+                    smstext = firstname_r[0] + ' ' + lastname_r[
+                        0] + ' ' + 'عزیز' + '\n' + 'کد چهاررقمی شما برای تغیر رمز ورود ' + ' ' + str(
+                        randomcode) + '\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
                     try:
                         api = KavenegarAPI(
                             '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
                         params = {
-                            'receptor': user.phonnumber,
-                            'template': 'chengpass',
-                            'token': message,
-                            'token20':name,
-                            'type': 'sms',
+                            'sender': '9982003178',  # optional
+                            'receptor': user.phonnumber,  # multiple mobile number, split by comma
+                            'message': smstext,
                         }
-                        response = api.verify_lookup(params)
+                        response = api.sms_send(params)
+
                         a = accuntmodel.objects.filter(melicode=user.melicode)
                         a.update(pasword=randomcode)
                         b = User.objects.filter(username=user.melicode)
@@ -704,16 +736,17 @@ def ignordef(request):
                             last_name=user.lastname,
                         )
 
-                        return render(request, 'code_cantact.html')
+                        telhide = format_phone_number(str(user.phonnumber))
+                        return render(request, 'code_cantact.html', context={'telhide': telhide})
                     except APIException as e:
                         m = 'tellerror'
                         # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
-                        return render(request, 'add_cantact.html',context={'melicod_etebar':m})
+                        return render(request, 'new_addcontact.html',context={'melicod_etebar':m})
                     except HTTPException as e:
                         m = 'neterror'
                         # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
                         # return render(request, 'add_cantact.html')
-                        return render(request, 'add_cantact.html', context={'melicod_etebar': m},)
+                        return render(request, 'new_addcontact.html', context={'melicod_etebar': m},)
 
     return render(request,'ignor_cantact.html',context={'ignor_etebar':ignor_etebar[0],})
 
