@@ -1297,141 +1297,141 @@ def reservdef(request):
 leaveshamsi = ['0']
 leavemiladi = ['0']
 leavearray = ['0']
-def leave(request):
-    mounthchek ='true'
-    mounth =request.POST.get('mounth')
-    sabt = request.POST.get('sabt')
-    etebar = 'false'
-    m = ''
-    tnowe = ''
-    if sabt == 'accept' :
-        etebar ='true'
-        return render(request, 'leave.html', context={
-            'mounthchek': mounthchek,
-            'etebar':etebar})
-
-    if (mounth != None)  and (mounth != '') and (mounth != None) :
-        timeleave = request.POST.get("timeleave")
-        t = datetime.datetime.now()
-        i = 0
-        while strb(t) != mounth:
-            t += timedelta(days=1)
-            i = i + 1
-            if i > 32:
-                mounthchek = 'false'
-                return render(request, 'leaav_selectmounth.html', context={
-                    'mounthchek': mounthchek,
-                    ' etebar': etebar,
-                })
-        tnowe = t
-        # ***************با زدن هر تاریخ اون به فایل مرخصی**************
-        if (timeleave != None) and (timeleave != ''):
-
-            leavepersonals = leavemodel.objects.all()
-            e = 0
-    #*************************************************اگر e=0 باشه  یعنی تا به حال این فرد تایم کاری نداده یا برای این ماه نداده و پس میره پایین براش یه object ساخته میشه*****
-    # ******************************اگر قبلا تایم داده یا در حال تایم دادن هستش دو تا اتفاق ممکنه اینکه بخواد تایم داده شده رو حذف کنه یا تایم جدید بده**
-    # *****اول چک میشه که اون تایمی که انتخاب شده آیا در لیست تایم های ثبت شده در leave هستش   یا نه اگر بود میره اونو حذف میکنه و leave جدید میسازه*******
-            for personel in leavepersonals:
-                if (personel.personelmelicod == request.user.username) and (personel.muont == mounth):
-                    e = 1
-             # ________________شروع چک برای اینکه ببینه تکراریه یا نه_____اگه تکراری باشه e =2 میشه____________________
-                    leave = personel.leave
-
-                    s = personel.leave.split(",")
-                    s_inter = timeleave.split(",")
-                    d_save = ['t']
-                    d_save.clear()
-                    a = 2
-                    for i in range(int(len(s))) :
-                        if a <= len(s) :
-                            d_save.append(s[int(a)])
-                            a +=2
-                    for i in range(int(len(d_save))) :
-                        if s_inter[1] == d_save[i] :
-                            if s_inter[0] == s[((i*2)+1)] :
-                                s.pop(((i*2)+1))
-                                s.pop(((i*2)+1))
-                                d = "0"
-                                for i in s :
-                                    if i != "0":
-                                        d = d +","+ i
-                                l = leavemodel.objects.filter(personelmelicod=request.user.username)
-                                l.update(leave=d)
-                                e = 2
-                                break
-            # _____________اگه e=2 نباشه یعنی اون تایم انتخاب شده جدید هست و باید به leave قبلی اضافه بشه_____________
-                    if e == 1 :
-                        a = 2
-                        for i in range(int(len(s))):
-                            if a <= len(s):
-                                if (int(s[a]) ==s_inter[1]) and (int(s[a-1]) == s_inter[0]):
-                                    leavearray[int(s[a]) - 1][int(s[a - 1])] = "false"
-                                a += 2
-                            else:
-                                break
-
-                        leave = leave + ',' + timeleave
-                        l = leavemodel.objects.filter(personelmelicod=request.user.username)
-                        l.update(leave=leave)
-            # ________________اگر e=2 و e=1 نباشه و همون صفر باقی مانده باشه یعنی ماه جدیده یا فرد جدیده___________
-            if e == 0:
-                leavemodel.objects.create(personelmelicod=str(request.user.username),
-                                          dateshamsi=stradby(tnowe),
-                                          datemiladi=datetime.datetime.now().strftime('%a %d %b %y'),
-                                          muont = strb(tnowe),
-                                          leave='0' + ',' + timeleave)
-
-            s = timeleave
-            stime = s.split(",")
-
-        # ***********ماه رو میسازه و یه آرایه درست میکنه شامل روز و بیست تاtrue ***********
-        # t = datetime.datetime.now()
-        m = strb(t)
-        leavearray.clear()
-        for i in range(31) :
-            if m != strb(t) :
-                break
-            t -= timedelta(days=1)
-
-        t += timedelta(days=1)
-        for i in range(31):
-            dayleave = ['t']
-            dayleave.clear()
-            dayleave.append(stradb(t))
-            for h in range(40):
-                dayleave.append('true')
-            leavearray.append(dayleave)
-            t += timedelta(days=1)
-            if m != strb(t) :
-                break
-    # **************************************************************************************
-        leavepersonals = leavemodel.objects.all()
-        s = ""
-        for personel in leavepersonals :
-            if personel.personelmelicod == request.user.username:
-                m = mounth
-                if personel.muont == mounth:
-                    s = personel.leave.split(",")
-        a = 2
-        for i in range(int(len(s))) :
-            if a <= len(s):
-                leavearray[int(s[a]) - 1][int(s[a - 1])] = "false"
-                a += 2
-            else:
-                break
-        return render(request, 'leave.html', context={
-                                                      "leavearray": leavearray,
-                                                      'mounth': mounth,
-                                                        ' etebar': etebar,
-                                                        'mounthchek': mounthchek,
-                                                    })
-
-    return render(request,'leaav_selectmounth.html',context={
-                                                                            'mounth':mounth,
-                                                                            'mounthchek': mounthchek,
-                                                                            ' etebar': etebar,
-                                                                        })
+# def leave(request):
+#     mounthchek ='true'
+#     mounth =request.POST.get('mounth')
+#     sabt = request.POST.get('sabt')
+#     etebar = 'false'
+#     m = ''
+#     tnowe = ''
+#     if sabt == 'accept' :
+#         etebar ='true'
+#         return render(request, 'leave.html', context={
+#             'mounthchek': mounthchek,
+#             'etebar':etebar})
+#
+#     if (mounth != None)  and (mounth != '') and (mounth != None) :
+#         timeleave = request.POST.get("timeleave")
+#         t = datetime.datetime.now()
+#         i = 0
+#         while strb(t) != mounth:
+#             t += timedelta(days=1)
+#             i = i + 1
+#             if i > 32:
+#                 mounthchek = 'false'
+#                 return render(request, 'leaav_selectmounth.html', context={
+#                     'mounthchek': mounthchek,
+#                     ' etebar': etebar,
+#                 })
+#         tnowe = t
+#         # ***************با زدن هر تاریخ اون به فایل مرخصی**************
+#         if (timeleave != None) and (timeleave != ''):
+#
+#             leavepersonals = leavemodel.objects.all()
+#             e = 0
+#     #*************************************************اگر e=0 باشه  یعنی تا به حال این فرد تایم کاری نداده یا برای این ماه نداده و پس میره پایین براش یه object ساخته میشه*****
+#     # ******************************اگر قبلا تایم داده یا در حال تایم دادن هستش دو تا اتفاق ممکنه اینکه بخواد تایم داده شده رو حذف کنه یا تایم جدید بده**
+#     # *****اول چک میشه که اون تایمی که انتخاب شده آیا در لیست تایم های ثبت شده در leave هستش   یا نه اگر بود میره اونو حذف میکنه و leave جدید میسازه*******
+#             for personel in leavepersonals:
+#                 if (personel.personelmelicod == request.user.username) and (personel.muont == mounth):
+#                     e = 1
+#              # ________________شروع چک برای اینکه ببینه تکراریه یا نه_____اگه تکراری باشه e =2 میشه____________________
+#                     leave = personel.leave
+#
+#                     s = personel.leave.split(",")
+#                     s_inter = timeleave.split(",")
+#                     d_save = ['t']
+#                     d_save.clear()
+#                     a = 2
+#                     for i in range(int(len(s))) :
+#                         if a <= len(s) :
+#                             d_save.append(s[int(a)])
+#                             a +=2
+#                     for i in range(int(len(d_save))) :
+#                         if s_inter[1] == d_save[i] :
+#                             if s_inter[0] == s[((i*2)+1)] :
+#                                 s.pop(((i*2)+1))
+#                                 s.pop(((i*2)+1))
+#                                 d = "0"
+#                                 for i in s :
+#                                     if i != "0":
+#                                         d = d +","+ i
+#                                 l = leavemodel.objects.filter(personelmelicod=request.user.username)
+#                                 l.update(leave=d)
+#                                 e = 2
+#                                 break
+#             # _____________اگه e=2 نباشه یعنی اون تایم انتخاب شده جدید هست و باید به leave قبلی اضافه بشه_____________
+#                     if e == 1 :
+#                         a = 2
+#                         for i in range(int(len(s))):
+#                             if a <= len(s):
+#                                 if (int(s[a]) ==s_inter[1]) and (int(s[a-1]) == s_inter[0]):
+#                                     leavearray[int(s[a]) - 1][int(s[a - 1])] = "false"
+#                                 a += 2
+#                             else:
+#                                 break
+#
+#                         leave = leave + ',' + timeleave
+#                         l = leavemodel.objects.filter(personelmelicod=request.user.username)
+#                         l.update(leave=leave)
+#             # ________________اگر e=2 و e=1 نباشه و همون صفر باقی مانده باشه یعنی ماه جدیده یا فرد جدیده___________
+#             if e == 0:
+#                 leavemodel.objects.create(personelmelicod=str(request.user.username),
+#                                           dateshamsi=stradby(tnowe),
+#                                           datemiladi=datetime.datetime.now().strftime('%a %d %b %y'),
+#                                           muont = strb(tnowe),
+#                                           leave='0' + ',' + timeleave)
+#
+#             s = timeleave
+#             stime = s.split(",")
+#
+#         # ***********ماه رو میسازه و یه آرایه درست میکنه شامل روز و بیست تاtrue ***********
+#         # t = datetime.datetime.now()
+#         m = strb(t)
+#         leavearray.clear()
+#         for i in range(31) :
+#             if m != strb(t) :
+#                 break
+#             t -= timedelta(days=1)
+#
+#         t += timedelta(days=1)
+#         for i in range(31):
+#             dayleave = ['t']
+#             dayleave.clear()
+#             dayleave.append(stradb(t))
+#             for h in range(40):
+#                 dayleave.append('true')
+#             leavearray.append(dayleave)
+#             t += timedelta(days=1)
+#             if m != strb(t) :
+#                 break
+#     # **************************************************************************************
+#         leavepersonals = leavemodel.objects.all()
+#         s = ""
+#         for personel in leavepersonals :
+#             if personel.personelmelicod == request.user.username:
+#                 m = mounth
+#                 if personel.muont == mounth:
+#                     s = personel.leave.split(",")
+#         a = 2
+#         for i in range(int(len(s))) :
+#             if a <= len(s):
+#                 leavearray[int(s[a]) - 1][int(s[a - 1])] = "false"
+#                 a += 2
+#             else:
+#                 break
+#         return render(request, 'leave.html', context={
+#                                                       "leavearray": leavearray,
+#                                                       'mounth': mounth,
+#                                                         ' etebar': etebar,
+#                                                         'mounthchek': mounthchek,
+#                                                     })
+#
+#     return render(request,'new_leal.html',context={
+#                                                                             'mounth':mounth,
+#                                                                             'mounthchek': mounthchek,
+#                                                                             ' etebar': etebar,
+#                                                                         })
 
 def reserverdef(request):
     etebarreservdasti = 'false'
@@ -2563,4 +2563,20 @@ def reservdasti(request):
 
 
 
+
+
+
+
+
+
+
+import json
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from .models import WeeklyLeave, MonthlyLeave, OneTimeLeave
+from django.contrib.auth.decorators import login_required
+
+def leave(request):
+    return render(request,'new_leave.html')
 

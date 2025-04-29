@@ -1,0 +1,73 @@
+/* استایل پایه */
+.leave-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  justify-content: center;
+  gap: 15px;
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 0 15px;
+  width: fit-content;
+}
+
+.leave-type {
+  width: 220px;
+  height: 60px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'BYekan', sans-serif;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* حالت فعال */
+.leave-type.active {
+  background: #388E3C;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.24);
+  transform: scale(1);
+}
+
+/* ریسپانسیو برای دستگاه‌های مختلف */
+@media (max-width: 768px) {
+  .leave-types {
+    grid-template-columns: 1fr;
+    width: 100%;
+    padding: 0 10px;
+    max-width: 400px;
+  }
+
+  .leave-type {
+    width: 100%;
+    max-width: 400px;
+    height: 55px;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .leave-types {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .leave-type:nth-child(3) {
+    grid-column: span 2;
+    width: 50%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1025px) {
+  .leave-types {
+    grid-template-columns: repeat(3, 220px);
+    gap: 20px;
+  }
+}
