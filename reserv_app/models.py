@@ -127,23 +127,23 @@ class fpeseshktestmodel(models.Model):
 
 
 
-
-from django.db import models
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
-
-class WeeklyLeave(models.Model):
-    operator = models.ForeignKey(User, on_delete=models.CASCADE)
-    weekday = models.IntegerField(choices=[(i, d) for i, d in enumerate(['شنبه','یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنج‌شنبه','جمعه'])])
-    slot_index = models.IntegerField()
-
-class MonthlyLeave(models.Model):
-    operator = models.ForeignKey(User, on_delete=models.CASCADE)
-    day = models.IntegerField()  # از 1 تا 31
-    slot_index = models.IntegerField()
-
-class OneTimeLeave(models.Model):
-    operator = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField()
-    slot_index = models.IntegerField()
+#
+# from django.db import models
+# from django.contrib.auth import get_user_model
+#
+# User = get_user_model()
+#
+# class WeeklyLeave(models.Model):
+#     operator = models.ForeignKey(User, on_delete=models.CASCADE)
+#     weekday = models.IntegerField(choices=[(i, d) for i, d in enumerate(['شنبه','یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنج‌شنبه','جمعه'])])
+#     slot_index = models.IntegerField()
+#
+# class MonthlyLeave(models.Model):
+#     operator = models.ForeignKey(User, on_delete=models.CASCADE)
+#     day = models.IntegerField()  # از 1 تا 31
+#     slot_index = models.IntegerField()
+#
+# class OneTimeLeave(models.Model):
+#     operator = models.ForeignKey(User, on_delete=models.CASCADE)
+#     date = models.DateField()
+#     slot_index = models.IntegerField()

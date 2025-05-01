@@ -2574,7 +2574,7 @@ import json
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from .models import WeeklyLeave, MonthlyLeave, OneTimeLeave
+# from .models import WeeklyLeave, MonthlyLeave, OneTimeLeave
 from django.contrib.auth.decorators import login_required
 
 def leave(request):
