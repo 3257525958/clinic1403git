@@ -27,10 +27,10 @@ SECRET_KEY = 'django-insecure-2g&%dn06my3m55@+8_9%po(ro$qavn=d!7px(#zkqk6xwkz&^*
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://drmahdiasadpour.ir']
-CSRF_TRUSTED_ORIGINS = ["https://drmahdiasadpour.ir",'http://drmahdiasadpour.ir','https://www.drmahdiasadpour.ir','http://www.drmahdiasadpour.ir']
+# ALLOWED_HOSTS = ['http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://drmahdiasadpour.ir']
+# CSRF_TRUSTED_ORIGINS = ["https://drmahdiasadpour.ir",'http://drmahdiasadpour.ir','https://www.drmahdiasadpour.ir','http://www.drmahdiasadpour.ir']
 
-# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'accountancy_app.apps.AccountancyAppConfig',
     'file_app.apps.FileAppConfig',
+    'image_processing.apps.ImageProcessingConfig'
 ]
 JALALI_DATE_DEFAULTS = {
    'Strftime': {
@@ -117,24 +118,24 @@ WSGI_APPLICATION = 'clinic1403.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'd1403-6qbg_db',
-        'USER': 'root',
-        'PASSWORD': 'krOenXvXrTN8WwUpr57q',
-        'HOST': 'd1403-6-sjp-service',
-
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'd1403-6qbg_db',
+#         'USER': 'root',
+#         'PASSWORD': 'krOenXvXrTN8WwUpr57q',
+#         'HOST': 'd1403-6-sjp-service',
+#
+#     }
+# }
 
 
 # Password validation
@@ -181,8 +182,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
 STATIC_ROOT='/static/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
-
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
