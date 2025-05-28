@@ -51,10 +51,10 @@ class reservemodeltest(models.Model):
 
 class leavemodel(models.Model):
     personelmelicod = models.CharField(max_length=11,default='0')
-    dateshamsi = models.CharField(max_length=50,default='0')
-    datemiladi = models.CharField(max_length=50,default='0')
-    muont = models.CharField(max_length=50,default='0')
-    leave = models.TextField (max_length=10000000000,default='0')
+    date = models.CharField(max_length=50,default='0')
+    leave = models.TextField (max_length=10000,default='0')
+    def __str__(self):
+        return f"{self.personelmelicod}"
 
 
 class neursemodel(models.Model):
@@ -128,22 +128,22 @@ class fpeseshktestmodel(models.Model):
 
 
 
-from django.db import models
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
-
-class WeeklyLeave(models.Model):
-    operator = models.ForeignKey(User, on_delete=models.CASCADE)
-    weekday = models.IntegerField(choices=[(i, d) for i, d in enumerate(['شنبه','یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنج‌شنبه','جمعه'])])
-    slot_index = models.IntegerField()
-
-class MonthlyLeave(models.Model):
-    operator = models.ForeignKey(User, on_delete=models.CASCADE)
-    day = models.IntegerField()  # از 1 تا 31
-    slot_index = models.IntegerField()
-
-class OneTimeLeave(models.Model):
-    operator = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField()
-    slot_index = models.IntegerField()
+# from django.db import models
+# from django.contrib.auth import get_user_model
+#
+# User = get_user_model()
+#
+# class WeeklyLeave(models.Model):
+#     operator = models.ForeignKey(User, on_delete=models.CASCADE)
+#     weekday = models.IntegerField(choices=[(i, d) for i, d in enumerate(['شنبه','یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنج‌شنبه','جمعه'])])
+#     slot_index = models.IntegerField()
+#
+# class MonthlyLeave(models.Model):
+#     operator = models.ForeignKey(User, on_delete=models.CASCADE)
+#     day = models.IntegerField()  # از 1 تا 31
+#     slot_index = models.IntegerField()
+#
+# class OneTimeLeave(models.Model):
+#     operator = models.ForeignKey(User, on_delete=models.CASCADE)
+#     date = models.DateField()
+#     slot_index = models.IntegerField()

@@ -21,10 +21,6 @@
                     <div class="profile-circle">
                         <img src="{{ img }}" alt="User Profile" class="profile-image">
                     </div>
-{#                    <div class="profile-upload">#}
-{#                        <i class="fas fa-user"></i>#}
-{#                        <input type="file" id="profilePicInput" style="display: none;">#}
-{#                    </div>#}
                 </div>
             </div>
         </div>
@@ -41,9 +37,7 @@
                     {% for option in works %}
                       {% if option.work == service %}
                         {% if option.hidde != 'hidde' %}
-                    <div class="option-item" 
-                         data-service-id="{{ service.id }}+job"
-                         data-option-id="{{ option.id }}+work">
+                    <div class="option-item" data-service-id="{{ service.id }}+job" data-option-id="{{ option.id }}+work">
                         {{ option.work }} {{ option.detalework }} برند {{ option.berand }}
                         <div class="option-info">
                             <span class="option-price">{{ option.cast }} تومان</span>

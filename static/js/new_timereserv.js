@@ -79,6 +79,9 @@ function generateTimeSlots(date) {
   }
 }
 
+
+
+
 // ارسال شماره روز به سرور با متد POST
 function sendDateToBackend(dayIndex) {
   console.log("Sending day index:", dayIndex);

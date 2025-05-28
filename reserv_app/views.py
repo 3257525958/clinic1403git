@@ -1,3 +1,9 @@
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.urls import reverse
+import json
+from django.shortcuts import render
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from cantact_app.views import dateset,stry,strd,strb
 from cash_app.models import bankmodel
@@ -152,20 +158,6 @@ def convert_english_to_persian(number):
     }
     num_str = str(number)
     return ''.join([translation_dict.get(c, c) for c in num_str])
-
-
-
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-from django.urls import reverse
-import json
-
-
-
-
-from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse
-
 def summary_view(request: HttpRequest) -> HttpResponse:
     # مثال: خواندن داده‌های ذخیره‌شده در سشن
     s = request.session.get('selected_service_id')
@@ -328,11 +320,6 @@ def summary_view(request: HttpRequest) -> HttpResponse:
             'hoursreserv' : s,
 
             }
-    print('ooooooooooooooooooooooo')
-    print(request.session['national_code'])
-    print(request.session['datemiladireserv'])
-    print(procedureselect)
-
     j = ''
     d = ''
     p = ''
@@ -516,7 +503,7 @@ def timebefor(namberdate, workselectid,melicode):
                 selectprocedure.clear()
                 selectprocedure.append(f.work)
                 selectprocedure.append(f.detalework)
-                selectprocedure.append(f.person)
+                selectprocedure.append(f.melicodpersonel)
                 berand = f.berand
                 personelmelicode = f.melicodpersonel
                 a = reservemodeltest.objects.filter(mellicode=melicode)
@@ -650,7 +637,6 @@ def timebefor(namberdate, workselectid,melicode):
         # # ---------------------------------------------اگر کاری مه انتخاب شده بیش از نیم ساعت باشه یعنی دو تا نیم ساغت یا سه  یا پهارتا یا پنج تا نیم ساعت باشه-----------
         # # ------باید چک شود که تا تایم های اینده اش  به همون اندازه که وقت میخواد وقت باشه ---------------------------------------
         #
-        print(selectprocedure[3])
         if selectprocedure[3] == "2":
             for hh in range(19):
                 hh += 1
@@ -1285,9 +1271,7 @@ def reservdef(request):
         'profilestatus':profilestatus,
         'works':works,
         'job':ww,
-        # 'shamsiarray':shamsiarray,
         'nationalcode':nationalcode,
-        # 'bers':bers,
          })
     # else:
     #     loginetebar[0] = "false"
@@ -1297,141 +1281,6 @@ def reservdef(request):
 leaveshamsi = ['0']
 leavemiladi = ['0']
 leavearray = ['0']
-# def leave(request):
-#     mounthchek ='true'
-#     mounth =request.POST.get('mounth')
-#     sabt = request.POST.get('sabt')
-#     etebar = 'false'
-#     m = ''
-#     tnowe = ''
-#     if sabt == 'accept' :
-#         etebar ='true'
-#         return render(request, 'leave.html', context={
-#             'mounthchek': mounthchek,
-#             'etebar':etebar})
-#
-#     if (mounth != None)  and (mounth != '') and (mounth != None) :
-#         timeleave = request.POST.get("timeleave")
-#         t = datetime.datetime.now()
-#         i = 0
-#         while strb(t) != mounth:
-#             t += timedelta(days=1)
-#             i = i + 1
-#             if i > 32:
-#                 mounthchek = 'false'
-#                 return render(request, 'leaav_selectmounth.html', context={
-#                     'mounthchek': mounthchek,
-#                     ' etebar': etebar,
-#                 })
-#         tnowe = t
-#         # ***************با زدن هر تاریخ اون به فایل مرخصی**************
-#         if (timeleave != None) and (timeleave != ''):
-#
-#             leavepersonals = leavemodel.objects.all()
-#             e = 0
-#     #*************************************************اگر e=0 باشه  یعنی تا به حال این فرد تایم کاری نداده یا برای این ماه نداده و پس میره پایین براش یه object ساخته میشه*****
-#     # ******************************اگر قبلا تایم داده یا در حال تایم دادن هستش دو تا اتفاق ممکنه اینکه بخواد تایم داده شده رو حذف کنه یا تایم جدید بده**
-#     # *****اول چک میشه که اون تایمی که انتخاب شده آیا در لیست تایم های ثبت شده در leave هستش   یا نه اگر بود میره اونو حذف میکنه و leave جدید میسازه*******
-#             for personel in leavepersonals:
-#                 if (personel.personelmelicod == request.user.username) and (personel.muont == mounth):
-#                     e = 1
-#              # ________________شروع چک برای اینکه ببینه تکراریه یا نه_____اگه تکراری باشه e =2 میشه____________________
-#                     leave = personel.leave
-#
-#                     s = personel.leave.split(",")
-#                     s_inter = timeleave.split(",")
-#                     d_save = ['t']
-#                     d_save.clear()
-#                     a = 2
-#                     for i in range(int(len(s))) :
-#                         if a <= len(s) :
-#                             d_save.append(s[int(a)])
-#                             a +=2
-#                     for i in range(int(len(d_save))) :
-#                         if s_inter[1] == d_save[i] :
-#                             if s_inter[0] == s[((i*2)+1)] :
-#                                 s.pop(((i*2)+1))
-#                                 s.pop(((i*2)+1))
-#                                 d = "0"
-#                                 for i in s :
-#                                     if i != "0":
-#                                         d = d +","+ i
-#                                 l = leavemodel.objects.filter(personelmelicod=request.user.username)
-#                                 l.update(leave=d)
-#                                 e = 2
-#                                 break
-#             # _____________اگه e=2 نباشه یعنی اون تایم انتخاب شده جدید هست و باید به leave قبلی اضافه بشه_____________
-#                     if e == 1 :
-#                         a = 2
-#                         for i in range(int(len(s))):
-#                             if a <= len(s):
-#                                 if (int(s[a]) ==s_inter[1]) and (int(s[a-1]) == s_inter[0]):
-#                                     leavearray[int(s[a]) - 1][int(s[a - 1])] = "false"
-#                                 a += 2
-#                             else:
-#                                 break
-#
-#                         leave = leave + ',' + timeleave
-#                         l = leavemodel.objects.filter(personelmelicod=request.user.username)
-#                         l.update(leave=leave)
-#             # ________________اگر e=2 و e=1 نباشه و همون صفر باقی مانده باشه یعنی ماه جدیده یا فرد جدیده___________
-#             if e == 0:
-#                 leavemodel.objects.create(personelmelicod=str(request.user.username),
-#                                           dateshamsi=stradby(tnowe),
-#                                           datemiladi=datetime.datetime.now().strftime('%a %d %b %y'),
-#                                           muont = strb(tnowe),
-#                                           leave='0' + ',' + timeleave)
-#
-#             s = timeleave
-#             stime = s.split(",")
-#
-#         # ***********ماه رو میسازه و یه آرایه درست میکنه شامل روز و بیست تاtrue ***********
-#         # t = datetime.datetime.now()
-#         m = strb(t)
-#         leavearray.clear()
-#         for i in range(31) :
-#             if m != strb(t) :
-#                 break
-#             t -= timedelta(days=1)
-#
-#         t += timedelta(days=1)
-#         for i in range(31):
-#             dayleave = ['t']
-#             dayleave.clear()
-#             dayleave.append(stradb(t))
-#             for h in range(40):
-#                 dayleave.append('true')
-#             leavearray.append(dayleave)
-#             t += timedelta(days=1)
-#             if m != strb(t) :
-#                 break
-#     # **************************************************************************************
-#         leavepersonals = leavemodel.objects.all()
-#         s = ""
-#         for personel in leavepersonals :
-#             if personel.personelmelicod == request.user.username:
-#                 m = mounth
-#                 if personel.muont == mounth:
-#                     s = personel.leave.split(",")
-#         a = 2
-#         for i in range(int(len(s))) :
-#             if a <= len(s):
-#                 leavearray[int(s[a]) - 1][int(s[a - 1])] = "false"
-#                 a += 2
-#             else:
-#                 break
-#         return render(request, 'leave.html', context={
-#                                                       "leavearray": leavearray,
-#                                                       'mounth': mounth,
-#                                                         ' etebar': etebar,
-#                                                         'mounthchek': mounthchek,
-#                                                     })
-#
-#     return render(request,'new_leal.html',context={
-#                                                                             'mounth':mounth,
-#                                                                             'mounthchek': mounthchek,
-#                                                                             ' etebar': etebar,
-#                                                                         })
 
 def reserverdef(request):
     etebarreservdasti = 'false'
@@ -2095,6 +1944,7 @@ def reserverdef(request):
     })
 
 def dashborddef(request):
+
     users = accuntmodel.objects.all()
     namedashbord = ''
     dastrasi = ''
@@ -2102,267 +1952,269 @@ def dashborddef(request):
         if user.melicode == request.user.username:
             namedashbord = user.firstname + ' ' + user.lastname
             dastrasi = user.level
-    tres =request.POST.get("tres")
-    timeselect = request.POST.get('timeselect')
-    karray = ['']
-    iunit = ['']
-    idkalaarray = ['']
-    berandkalaarray = ['']
-    if ( timeselect != None ) and ( timeselect != '' ):
-        se = timeselect.split(",")
-        reservs = reservemodel.objects.all()
-        for reserv in reservs:
-            if str(int(se[0])) == "41":
-                if str(reserv.id) == str(int(se[1])):
-                    n = ''
-                    qs = accuntmodel.objects.all()
-                    for q in qs:
-                        if q.melicode == reserv.melicod:
-                            n = q.firstname + " " + q.lastname
-                    karray.clear()
-                    workse = workmodel.objects.all()
-                    for work in workse:
-                        if int(reserv.idwork) == int(work.id):
-                            jobs = jobsmodel.objects.all()
-                            for job in jobs:
-                                if int(work.idjob) == int(job.id):
-                                    esmes = esmekalamodel.objects.all()
-                                    for esme in esmes:
-                                        if int(esme.jobid) == int(job.id):
-                                            karray.append(esme.id)
-
-
-            else:
-                if reserv.personreserv == namedashbord:
-                    if reserv.datemiladireserv == tres:
-                        if int(se[0]) == int(reserv.numbertime) :
-                            n = ''
-                            qs = accuntmodel.objects.all()
-                            for q in qs:
-                                if q.melicode == reserv.melicod:
-                                    n = q.firstname + " " + q.lastname
-                            karray.clear()
-                            workse = workmodel.objects.all()
-                            for work in workse:
-                                if int(reserv.idwork) == int(work.id):
-                                    jobs = jobsmodel.objects.all()
-                                    for job in jobs:
-                                        if int(work.idjob) == int(job.id):
-                                            esmes = esmekalamodel.objects.all()
-                                            for esme in esmes:
-                                                if int(esme.jobid) == int(job.id):
-                                                    karray.append(esme.id)
-        arrayselect = ['']
-        arrayselect.clear()
-        iunit = ['']
-        idkalaarray = ['']
-        iunit.clear()
-        idkalaarray.clear()
-        for i in range(int(len(karray))):
-            s = "tickkala"+str(i)
-            d = "valueunit"+str(i)
-            # tickkala = request.POST.get(s)
-            valueunit = request.POST.get(d)
-            if (valueunit == '') or (valueunit == None):
-                valueunit = '0'
-            # if (tickkala != None) and (tickkala != ''):
-            iunit.append(valueunit)
-            idkalaarray.append(karray[int(i)])
-    dayconterstr = request.POST.get("dayconter")
-    button_next = request.POST.get("button_next")
-    button_back = request.POST.get("button_back")
-
-    dayreserv = ['t']
-    dayreserv.clear()
-
-
-    t = datetime.datetime.now()
-    if (dayconterstr == None) or (dayconterstr == ""):
-        dayconter = 0
-    else:
-        dayconter = int(dayconterstr)
-    if button_next == 'accept' :
-        dayconter += 1
-    if button_back == 'accept' :
-        dayconter -= 1
-    if dayconter < 0 :
-        dayconterm = dayconter * (-1)
-        for i in range(dayconterm):
-            t -= timedelta(days=1)
-    if dayconter > 0 :
-        for i in range(dayconter):
-            t += timedelta(days=1)
-
-    dayarr = ['t']
-    dayarr.clear()
-    dayarr.append(stradb(t))
-    for h in range(41):
-        dayarr.append('')
-    rs = reservemodel.objects.all()
-    name = ''
-    for r in rs:
-        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == namedashbord ) and (r.checking != 'true') :
-            us = accuntmodel.objects.all()
-            for u in us:
-                if r.melicod == u.melicode :
-                    name = u.firstname + " " + u.lastname
-            dayarr[int(r.numbertime)] = name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment
-            i = 1
-            while i < int(r.timereserv):
-                dayarr[int(r.numbertime)+i] = "false"
-                i += 1
-    dayreserv.append(dayarr)
-
-    dastiarray = ['']
-    dastiarray.clear()
-    rs = reservemodel.objects.all()
-    for r in rs:
-        if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == namedashbord ) and (r.numbertime == "41"):
-            us = accuntmodel.objects.all()
-            for u in us:
-                if r.melicod == u.melicode :
-                    name = u.firstname + " " + u.lastname
-            dastiarray.append([(name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment),str(r.id)])
-
-
-    reservid = request.POST.get("reservid")
-    fpezeshkibottom = request.POST.get("fpezeshkibottom")
-    vahedeobject = request.POST.get("vahedeobject")
-    vahedeobjectname = request.POST.get("vahedeobjectname")
-    description = request.POST.get("description")
-    if fpezeshkibottom == "accept" :
-        ws = reservemodel.objects.all()
-        for w in ws:
-            cast = w.castreserv
-            if int(w.id) == int(reservid) :
-                if (vahedeobject != None) and (vahedeobject != ''):
-                    cast = str(int(float(w.castreserv) * float(vahedeobject)))
-                else:
-                    vahedeobject = '1'
-                fpeseshktestmodel.objects.create(
-                    melicod=w.melicod,
-                    jobreserv = w.jobreserv,
-                    detalereserv = w.detalereserv,
-                    personreserv = w.personreserv,
-                    timereserv =w.timereserv,
-                    castreserv =cast,
-                    numbertime =w.numbertime,
-                    hourreserv =w.hourreserv,
-                    dateshamsireserv =w.dateshamsireserv,
-                    datemiladireserv =w.datemiladireserv,
-                    yearshamsi =w.yearshamsi,
-                    cardnumber =w.cardnumber,
-                    pyment =w.pyment,
-                    trakingcod =w.trakingcod,
-                    bank =w.bank,
-                    checking =w.checking,
-                    vahedeobject = vahedeobject,
-                    vahedeobjectname = w.vahed,
-                    reservid = reservid,
-                    coment=description,
-                    materiyal=idkalaarray,
-                    valueunit=iunit,
-                    bankpeyment=w.bankpeyment,
-                )
-                for z in range(len(idkalaarray)):
-                    if (iunit[z] != '') and (iunit[z] != None):
-                        anbars = anbarmodel.objects.all()
-                        for ii in anbars:
-                            if int(ii.kalaid) == int(idkalaarray[z]):
-                                newvale = int(ii.value) - int(iunit[z])
-                                a=anbarmodel.objects.filter(kalaid=str(ii.kalaid))
-                                a.update(value=str(newvale))
-
-                a = reservemodel.objects.filter(id=int(reservid))
-                a.delete()
-                return redirect('/')
-
-    if ( timeselect != None ) and ( timeselect != '' ):
-        se = timeselect.split(",")
-        reservs = reservemodel.objects.all()
-        for reserv in reservs:
-            if str(int(se[0])) == "41":
-                if str(reserv.id) == str(int(se[1])):
-                    n = ''
-                    qs = accuntmodel.objects.all()
-                    for q in qs:
-                        if q.melicode == reserv.melicod:
-                            n = q.firstname + " " + q.lastname
-                    kalaarray = ['']
-                    kalaarray.clear()
-                    workse = workmodel.objects.all()
-                    for work in workse:
-                        if int(reserv.idwork) == int(work.id):
-                            jobs = jobsmodel.objects.all()
-                            for job in jobs:
-                                if int(work.idjob) == int(job.id):
-                                    esmes = esmekalamodel.objects.all()
-                                    for esme in esmes:
-                                        if int(esme.jobid) == int(job.id):
-                                            a = ['']
-                                            a.clear()
-                                            a.append(esme.esmekala)
-                                            a.append(esme.berand)
-                                            a.append(esme.unit)
-                                            a.append(esme.id)
-                                            kalaarray.append(a)
-                                            lenkalaarray = len(kalaarray)
-
-                    return render(request,'f1_pezeshk.html',context={
-                        'name':n,
-                        'procedure':reserv.jobreserv + " " + reserv.detalereserv,
-                        'id':reserv.id,
-                        'vahed':reserv.vahed,
-                        'kalaarray': kalaarray,
-                        'timeselect': timeselect,
-                        'tres':tres,
-                    })
-            else:
-                if reserv.personreserv == namedashbord:
-                    if reserv.datemiladireserv == tres:
-                        if int(se[0]) == int(reserv.numbertime) :
-                            n = ''
-                            qs = accuntmodel.objects.all()
-                            for q in qs:
-                                if q.melicode == reserv.melicod:
-                                    n = q.firstname + " " + q.lastname
-                            kalaarray = ['']
-                            kalaarray.clear()
-                            workse = workmodel.objects.all()
-                            for work in workse:
-                                if int(reserv.idwork) == int(work.id):
-                                    jobs = jobsmodel.objects.all()
-                                    for job in jobs:
-                                        if int(work.idjob) == int(job.id):
-                                            esmes = esmekalamodel.objects.all()
-                                            for esme in esmes:
-                                                if int(esme.jobid) == int(job.id):
-                                                    a = ['']
-                                                    a.clear()
-                                                    a.append(esme.esmekala)
-                                                    a.append(esme.berand)
-                                                    a.append(esme.unit)
-                                                    a.append(esme.id)
-                                                    kalaarray.append(a)
-                                                    lenkalaarray = len(kalaarray)
-
-                            return render(request,'f1_pezeshk.html',context={
-                                'name':n,
-                                'procedure':reserv.jobreserv + " " + reserv.detalereserv,
-                                'id':reserv.id,
-                                'vahed':reserv.vahed,
-                                'kalaarray': kalaarray,
-                                # 'lenkalaarray':lenkalaarray,
-                                'timeselect':timeselect,
-                                'tres': tres,
-                            })
-
-    return render(request,'dashbord.html',context={
-                                                                'dastiarray':dastiarray,
-                                                                'day': dayreserv,
-                                                                'dayconter':dayconter,
-                                                                't':t.strftime('%a %d %b %y')
-                                                                })
+            if dastrasi == 'منشی':
+                return render(request,'secretary_dashboard.html',context={})
+    # tres =request.POST.get("tres")
+    # timeselect = request.POST.get('timeselect')
+    # karray = ['']
+    # iunit = ['']
+    # idkalaarray = ['']
+    # berandkalaarray = ['']
+    # if ( timeselect != None ) and ( timeselect != '' ):
+    #     se = timeselect.split(",")
+    #     reservs = reservemodel.objects.all()
+    #     for reserv in reservs:
+    #         if str(int(se[0])) == "41":
+    #             if str(reserv.id) == str(int(se[1])):
+    #                 n = ''
+    #                 qs = accuntmodel.objects.all()
+    #                 for q in qs:
+    #                     if q.melicode == reserv.melicod:
+    #                         n = q.firstname + " " + q.lastname
+    #                 karray.clear()
+    #                 workse = workmodel.objects.all()
+    #                 for work in workse:
+    #                     if int(reserv.idwork) == int(work.id):
+    #                         jobs = jobsmodel.objects.all()
+    #                         for job in jobs:
+    #                             if int(work.idjob) == int(job.id):
+    #                                 esmes = esmekalamodel.objects.all()
+    #                                 for esme in esmes:
+    #                                     if int(esme.jobid) == int(job.id):
+    #                                         karray.append(esme.id)
+    #
+    #
+    #         else:
+    #             if reserv.personreserv == namedashbord:
+    #                 if reserv.datemiladireserv == tres:
+    #                     if int(se[0]) == int(reserv.numbertime) :
+    #                         n = ''
+    #                         qs = accuntmodel.objects.all()
+    #                         for q in qs:
+    #                             if q.melicode == reserv.melicod:
+    #                                 n = q.firstname + " " + q.lastname
+    #                         karray.clear()
+    #                         workse = workmodel.objects.all()
+    #                         for work in workse:
+    #                             if int(reserv.idwork) == int(work.id):
+    #                                 jobs = jobsmodel.objects.all()
+    #                                 for job in jobs:
+    #                                     if int(work.idjob) == int(job.id):
+    #                                         esmes = esmekalamodel.objects.all()
+    #                                         for esme in esmes:
+    #                                             if int(esme.jobid) == int(job.id):
+    #                                                 karray.append(esme.id)
+    #     arrayselect = ['']
+    #     arrayselect.clear()
+    #     iunit = ['']
+    #     idkalaarray = ['']
+    #     iunit.clear()
+    #     idkalaarray.clear()
+    #     for i in range(int(len(karray))):
+    #         s = "tickkala"+str(i)
+    #         d = "valueunit"+str(i)
+    #         # tickkala = request.POST.get(s)
+    #         valueunit = request.POST.get(d)
+    #         if (valueunit == '') or (valueunit == None):
+    #             valueunit = '0'
+    #         # if (tickkala != None) and (tickkala != ''):
+    #         iunit.append(valueunit)
+    #         idkalaarray.append(karray[int(i)])
+    # dayconterstr = request.POST.get("dayconter")
+    # button_next = request.POST.get("button_next")
+    # button_back = request.POST.get("button_back")
+    #
+    # dayreserv = ['t']
+    # dayreserv.clear()
+    #
+    #
+    # t = datetime.datetime.now()
+    # if (dayconterstr == None) or (dayconterstr == ""):
+    #     dayconter = 0
+    # else:
+    #     dayconter = int(dayconterstr)
+    # if button_next == 'accept' :
+    #     dayconter += 1
+    # if button_back == 'accept' :
+    #     dayconter -= 1
+    # if dayconter < 0 :
+    #     dayconterm = dayconter * (-1)
+    #     for i in range(dayconterm):
+    #         t -= timedelta(days=1)
+    # if dayconter > 0 :
+    #     for i in range(dayconter):
+    #         t += timedelta(days=1)
+    #
+    # dayarr = ['t']
+    # dayarr.clear()
+    # dayarr.append(stradb(t))
+    # for h in range(41):
+    #     dayarr.append('')
+    # rs = reservemodel.objects.all()
+    # name = ''
+    # for r in rs:
+    #     if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == namedashbord ) and (r.checking != 'true') :
+    #         us = accuntmodel.objects.all()
+    #         for u in us:
+    #             if r.melicod == u.melicode :
+    #                 name = u.firstname + " " + u.lastname
+    #         dayarr[int(r.numbertime)] = name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment
+    #         i = 1
+    #         while i < int(r.timereserv):
+    #             dayarr[int(r.numbertime)+i] = "false"
+    #             i += 1
+    # dayreserv.append(dayarr)
+    #
+    # dastiarray = ['']
+    # dastiarray.clear()
+    # rs = reservemodel.objects.all()
+    # for r in rs:
+    #     if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.personreserv == namedashbord ) and (r.numbertime == "41"):
+    #         us = accuntmodel.objects.all()
+    #         for u in us:
+    #             if r.melicod == u.melicode :
+    #                 name = u.firstname + " " + u.lastname
+    #         dastiarray.append([(name + " " + r.jobreserv + " " + r.detalereserv + " " + r.personreserv + " " + "بیعانه:" + " " + r.pyment),str(r.id)])
+    #
+    #
+    # reservid = request.POST.get("reservid")
+    # fpezeshkibottom = request.POST.get("fpezeshkibottom")
+    # vahedeobject = request.POST.get("vahedeobject")
+    # vahedeobjectname = request.POST.get("vahedeobjectname")
+    # description = request.POST.get("description")
+    # if fpezeshkibottom == "accept" :
+    #     ws = reservemodel.objects.all()
+    #     for w in ws:
+    #         cast = w.castreserv
+    #         if int(w.id) == int(reservid) :
+    #             if (vahedeobject != None) and (vahedeobject != ''):
+    #                 cast = str(int(float(w.castreserv) * float(vahedeobject)))
+    #             else:
+    #                 vahedeobject = '1'
+    #             fpeseshktestmodel.objects.create(
+    #                 melicod=w.melicod,
+    #                 jobreserv = w.jobreserv,
+    #                 detalereserv = w.detalereserv,
+    #                 personreserv = w.personreserv,
+    #                 timereserv =w.timereserv,
+    #                 castreserv =cast,
+    #                 numbertime =w.numbertime,
+    #                 hourreserv =w.hourreserv,
+    #                 dateshamsireserv =w.dateshamsireserv,
+    #                 datemiladireserv =w.datemiladireserv,
+    #                 yearshamsi =w.yearshamsi,
+    #                 cardnumber =w.cardnumber,
+    #                 pyment =w.pyment,
+    #                 trakingcod =w.trakingcod,
+    #                 bank =w.bank,
+    #                 checking =w.checking,
+    #                 vahedeobject = vahedeobject,
+    #                 vahedeobjectname = w.vahed,
+    #                 reservid = reservid,
+    #                 coment=description,
+    #                 materiyal=idkalaarray,
+    #                 valueunit=iunit,
+    #                 bankpeyment=w.bankpeyment,
+    #             )
+    #             for z in range(len(idkalaarray)):
+    #                 if (iunit[z] != '') and (iunit[z] != None):
+    #                     anbars = anbarmodel.objects.all()
+    #                     for ii in anbars:
+    #                         if int(ii.kalaid) == int(idkalaarray[z]):
+    #                             newvale = int(ii.value) - int(iunit[z])
+    #                             a=anbarmodel.objects.filter(kalaid=str(ii.kalaid))
+    #                             a.update(value=str(newvale))
+    #
+    #             a = reservemodel.objects.filter(id=int(reservid))
+    #             a.delete()
+    #             return redirect('/')
+    #
+    # if ( timeselect != None ) and ( timeselect != '' ):
+    #     se = timeselect.split(",")
+    #     reservs = reservemodel.objects.all()
+    #     for reserv in reservs:
+    #         if str(int(se[0])) == "41":
+    #             if str(reserv.id) == str(int(se[1])):
+    #                 n = ''
+    #                 qs = accuntmodel.objects.all()
+    #                 for q in qs:
+    #                     if q.melicode == reserv.melicod:
+    #                         n = q.firstname + " " + q.lastname
+    #                 kalaarray = ['']
+    #                 kalaarray.clear()
+    #                 workse = workmodel.objects.all()
+    #                 for work in workse:
+    #                     if int(reserv.idwork) == int(work.id):
+    #                         jobs = jobsmodel.objects.all()
+    #                         for job in jobs:
+    #                             if int(work.idjob) == int(job.id):
+    #                                 esmes = esmekalamodel.objects.all()
+    #                                 for esme in esmes:
+    #                                     if int(esme.jobid) == int(job.id):
+    #                                         a = ['']
+    #                                         a.clear()
+    #                                         a.append(esme.esmekala)
+    #                                         a.append(esme.berand)
+    #                                         a.append(esme.unit)
+    #                                         a.append(esme.id)
+    #                                         kalaarray.append(a)
+    #                                         lenkalaarray = len(kalaarray)
+    #
+    #                 return render(request,'f1_pezeshk.html',context={
+    #                     'name':n,
+    #                     'procedure':reserv.jobreserv + " " + reserv.detalereserv,
+    #                     'id':reserv.id,
+    #                     'vahed':reserv.vahed,
+    #                     'kalaarray': kalaarray,
+    #                     'timeselect': timeselect,
+    #                     'tres':tres,
+    #                 })
+    #         else:
+    #             if reserv.personreserv == namedashbord:
+    #                 if reserv.datemiladireserv == tres:
+    #                     if int(se[0]) == int(reserv.numbertime) :
+    #                         n = ''
+    #                         qs = accuntmodel.objects.all()
+    #                         for q in qs:
+    #                             if q.melicode == reserv.melicod:
+    #                                 n = q.firstname + " " + q.lastname
+    #                         kalaarray = ['']
+    #                         kalaarray.clear()
+    #                         workse = workmodel.objects.all()
+    #                         for work in workse:
+    #                             if int(reserv.idwork) == int(work.id):
+    #                                 jobs = jobsmodel.objects.all()
+    #                                 for job in jobs:
+    #                                     if int(work.idjob) == int(job.id):
+    #                                         esmes = esmekalamodel.objects.all()
+    #                                         for esme in esmes:
+    #                                             if int(esme.jobid) == int(job.id):
+    #                                                 a = ['']
+    #                                                 a.clear()
+    #                                                 a.append(esme.esmekala)
+    #                                                 a.append(esme.berand)
+    #                                                 a.append(esme.unit)
+    #                                                 a.append(esme.id)
+    #                                                 kalaarray.append(a)
+    #                                                 lenkalaarray = len(kalaarray)
+    #
+    #                         return render(request,'f1_pezeshk.html',context={
+    #                             'name':n,
+    #                             'procedure':reserv.jobreserv + " " + reserv.detalereserv,
+    #                             'id':reserv.id,
+    #                             'vahed':reserv.vahed,
+    #                             'kalaarray': kalaarray,
+    #                             # 'lenkalaarray':lenkalaarray,
+    #                             'timeselect':timeselect,
+    #                             'tres': tres,
+    #                         })
+    #
+    # return render(request,'dashbord.html',context={
+    #                                                             'dastiarray':dastiarray,
+    #                                                             'day': dayreserv,
+    #                                                             'dayconter':dayconter,
+    #                                                             't':t.strftime('%a %d %b %y')
+    #                                                             })
 def reservdasti(request):
     namepersonel = request.POST.get("namepersonel")
     job = request.POST.get("job")
@@ -2565,18 +2417,117 @@ def reservdasti(request):
 
 
 
-
-
-
-
-
-import json
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods
-from .models import WeeklyLeave, MonthlyLeave, OneTimeLeave
-from django.contrib.auth.decorators import login_required
-
 def leave(request):
-    return render(request,'new_leave.html')
+    context={'user' : request.user.username}
+    return render(request,'new_leave.html',context)
 
+
+def new_timeleav_view(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            selected_date = data.get('selected_date')
+            nationalcode = data.get('nationalcode')
+            day = data.get('day')
+            timeselect = data.get('time')
+
+            # اعتبارسنجی داده‌های ورودی
+            if not nationalcode:
+                return JsonResponse({'error': 'کد ملی الزامی است'}, status=400)
+
+            if timeselect:
+                timeselect = int(timeselect)
+                if timeselect < 1 or timeselect > 40:
+                    return JsonResponse({'error': 'زمان انتخاب شده نامعتبر است'}, status=400)
+
+            if day:
+                day = int(day)
+                if day < 1 or day > 30:
+                    return JsonResponse({'error': 'روز انتخاب شده نامعتبر است'}, status=400)
+
+            # پردازش درخواست
+            reserved_times = []
+
+            if timeselect and day:
+                reserved_times = listleav(day, timeselect, nationalcode)
+            elif selected_date:
+                reserved_times = listleav(selected_date, None, nationalcode)
+            elif day:
+                reserved_times = listleav(day, None, nationalcode)
+
+            return JsonResponse({'reserved_times': reserved_times})
+
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'داده‌های ارسالی نامعتبر است'}, status=400)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    # حالت GET
+    default_date = datetime.datetime.now() + datetime.timedelta(days=2)
+    jalali_date = convert(default_date)
+    context = {
+        'melicode': request.user.username,
+    }
+    return render(request, 'new_timereserv.html', context)
+
+
+def listleav(dayy, timeselect, nationalcode):
+    try:
+        # محاسبه تاریخ
+        select_day_date = datetime.datetime.now() + datetime.timedelta(days=int(dayy) + 1)
+        dateleav = stry(select_day_date) + strd(select_day_date) + strbadd(select_day_date)
+
+        # تبدیل به عدد صحیح
+        nationalcode = int(nationalcode)
+
+        # مدیریت زمان‌ها
+        if timeselect is not None:
+            time_index = int(timeselect) - 1  # تبدیل به اندیس 0-39
+
+            # بررسی وجود رکورد
+            try:
+                record = leavemodel.objects.get(
+                    personelmelicod=nationalcode,
+                    date=dateleav
+                )
+                current_times = [int(t.strip()) for t in record.leave.split(',') if t.strip()]
+
+                # Toggle وضعیت مرخصی
+                if time_index in current_times:
+                    current_times.remove(time_index)
+                else:
+                    current_times.append(time_index)
+
+                record.leave = ','.join(map(str, sorted(current_times)))
+                record.save()
+
+            except leavemodel.DoesNotExist:
+                # ایجاد رکورد جدید
+                leavemodel.objects.create(
+                    personelmelicod=nationalcode,
+                    date=dateleav,
+                    leave=str(time_index)
+                )
+                current_times = [time_index]
+
+            return sorted(current_times)
+
+        else:
+            # فقط دریافت لیست
+            try:
+                record = leavemodel.objects.get(
+                    personelmelicod=nationalcode,
+                    date=dateleav
+                )
+                return sorted([int(t.strip()) for t in record.leave.split(',') if t.strip()])
+            except leavemodel.DoesNotExist:
+                return []
+
+    except Exception as e:
+        print(f"Error in listleav: {str(e)}")
+        raise
+
+def finalize_leave(request):
+    # انجام عملیات نهایی و اعتبارسنجی
+    # ...
+    return JsonResponse({'status': 'success'})

@@ -51,45 +51,67 @@ function generateCalendar() {
 
 // تولید تایم‌ها برای روز انتخاب‌شده
 function generateTimeSlots(date) {
-  timeGrid.innerHTML = '';
-  const baseTime = moment(date.format('YYYY-MM-DD') + ' 10:00', 'YYYY-MM-DD HH:mm');
-  const slotsCount = 40; // از ساعت ۱۰:۰۰ تا ۲۰:۰۰ با فاصله ۱۵ دقیقه
+    timeGrid.innerHTML = '';
+    const baseTime = moment(date.format('YYYY-MM-DD') + ' 10:00', 'YYYY-MM-DD HH:mm');
+    const slotsCount = 40;
 
-  for (let i = 0; i < slotsCount; i++) {
-    const slotTime = baseTime.clone().add(i * 15, 'minutes');
-    const timeStr = slotTime.format(1+'H:mm');
-    const timeSlot = document.createElement('div');
-    timeSlot.className = 'time-slot';
-    timeSlot.innerText = "ساعت " + toPersianNumbers(timeStr);
+    for (let i = 0; i < slotsCount; i++) {
+        const slotTime = baseTime.clone().add(i * 15, 'minutes');
+        const timeStr = slotTime.format('H:mm');
+        const timeSlot = document.createElement('div');
+        timeSlot.className = 'time-slot';
+        timeSlot.dataset.timeIndex = i; // ذخیره اندیس تایم
+        timeSlot.innerText = "ساعت " + toPersianNumbers(timeStr);
 
-    // بررسی اینکه آیا این اندیس در آرایه window.reservedTimes قرار دارد یا خیر
-    if (window.reservedTimes && window.reservedTimes.includes(i)) {
-      timeSlot.classList.add('disabled');
-    } else {
-      timeSlot.addEventListener('click', () => {
-        const dayIndex = Math.floor(date.diff(startDate, 'days')) + 1;
-        // حذف کلاس active از تمامی تایم‌ها و افزودن به تایم انتخاب‌شده
-        document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('active'));
-        timeSlot.classList.add('active');
-        const slotIndex = i + 1; // شماره تایم (اندیس + 1)
-        sendTimeToBackend(dayIndex, slotIndex);
-      });
+        // بررسی وضعیت تایم (رزرو شده یا آزاد)
+        const isReserved = window.reservedTimes && window.reservedTimes.includes(i);
+
+        if (isReserved) {
+            timeSlot.classList.add('reserved');
+        } else {
+            timeSlot.classList.add('available');
+        }
+
+        // اضافه کردن قابلیت کلیک برای همه تایم‌ها
+        timeSlot.addEventListener('click', async () => {
+            const dayIndex = Math.floor(date.diff(startDate, 'days')) + 1;
+            const slotIndex = i + 1; // تبدیل به اندیس 1-40
+
+            // دریافت وضعیت فعلی
+            const wasReserved = timeSlot.classList.contains('reserved');
+
+            // ارسال درخواست به سرور
+            const success = await sendTimeToBackend(dayIndex, slotIndex);
+
+            if (success) {
+                // تغییر وضعیت UI
+                timeSlot.classList.toggle('reserved', !wasReserved);
+                timeSlot.classList.toggle('available', wasReserved);
+
+                // به‌روزرسانی لیست reservedTimes
+                if (wasReserved) {
+                    const index = window.reservedTimes.indexOf(i);
+                    if (index !== -1) window.reservedTimes.splice(index, 1);
+                } else {
+                    if (!window.reservedTimes) window.reservedTimes = [];
+                    window.reservedTimes.push(i);
+                }
+            }
+        });
+
+        timeGrid.appendChild(timeSlot);
     }
-    timeGrid.appendChild(timeSlot);
-  }
-}
-
-// ارسال شماره روز به سرور با متد POST
-function sendDateToBackend(dayIndex) {
+}function sendDateToBackend(dayIndex) {
+  const nationalcode = document.getElementById('nationalcode').value;
   console.log("Sending day index:", dayIndex);
-  fetch('/reserv/new_timereserv/', {
+  fetch('/reserv/new_timeleave/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'X-CSRFToken': getCookie('csrftoken')
     },
     credentials: 'same-origin',  // اطمینان از ارسال کوکی‌ها (session) به سرور
-    body: JSON.stringify({ selected_date: dayIndex })
+    body: JSON.stringify({ selected_date: dayIndex , nationalcode: nationalcode})
   })
   .then(response => {
     if (!response.ok) {
@@ -113,53 +135,65 @@ function sendDateToBackend(dayIndex) {
 }
 
 // ارسال شماره تایم به همراه شماره روز به سرور با متد POST
-function sendTimeToBackend(dayIndex, timeNumber) {
-  fetch('/reserv/timeselct/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken')
-    },
-    credentials: 'same-origin',
-    body: JSON.stringify({ day: dayIndex, time: timeNumber })
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('خطا در ارسال: ' + response.status);
+async function sendTimeToBackend(dayIndex, timeNumber) {
+    const nationalcode = document.getElementById('nationalcode').value;
+
+    try {
+        // پیدا کردن عنصر مربوطه
+        const timeSlotElement = document.querySelector('.time-slot[data-time-index="${timeNumber - 1}"]');
+        let originalText = '';
+
+        if (timeSlotElement) {
+            originalText = timeSlotElement.innerText;
+            timeSlotElement.innerText = 'در حال پردازش...';
+        }
+
+        // ارسال درخواست
+        const response = await fetch('/reserv/new_timeleave/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify({
+                day: dayIndex,
+                time: timeNumber,
+                nationalcode: nationalcode
+            })
+        });
+
+        // بازگردانی متن اصلی
+        if (timeSlotElement) {
+            timeSlotElement.innerText = originalText;
+        }
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error("خطای سرور: ${response.status} - ${errorText}");
+        }
+
+        const data = await response.json();
+
+        // بررسی وجود خطا در پاسخ سرور
+        if (data.error) {
+            throw new Error(data.error);
+        }
+
+        // به‌روزرسانی لیست reservedTimes با داده‌های جدید از سرور
+        if (data.reserved_times) {
+            window.reservedTimes = data.reserved_times;
+            return true;
+        }
+
+        throw new Error('پاسخ سرور نامعتبر است');
+
+    } catch (error) {
+        console.error('خطا در ارتباط با سرور:', error);
+        alert('خطا: ${error.message}');
+        return false;
     }
-    return response.json();  // تبدیل به JSON
-  })
-  .then(data => {
-    if (data.redirect_url) {
-      // هدایت کاربر به آدرس دریافتی
-      window.location.href = data.redirect_url;
-    } else {
-      console.error('آدرس ریدایرکت دریافت نشد');
-    }
-  })
-  .catch(error => console.error('خطا:', error));
 }
-// function sendTimeToBackend(dayIndex, timeNumber){
-//     fetch('/reserv/timeselct/', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'X-CSRFToken': getCookie('csrftoken')
-//     },
-//     body: JSON.stringify({
-//       day: dayIndex,
-//       time: timeNumber
-//     })
-//   })
-//   .then(response => {
-//     if (response.ok) {
-//       console.log('ارسال موفق:', dayIndex, timeNumber);
-//     } else {
-//       console.error('خطا در ارسال');
-//     }
-//   })
-//   .catch(error => console.error('خطا:', error));
-// }
 // تبدیل اعداد انگلیسی به فارسی
 function toPersianNumbers(str) {
   const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
@@ -183,64 +217,38 @@ function getCookie(name) {
 }
 
 // اجرای اولیه: تولید تقویم، پیش‌انتخاب اولین روز و تولید تایم‌های آن
+// اجرای اولیه: تولید تقویم، پیش‌انتخاب اولین روز و تولید تایم‌های آن
 generateCalendar();
 selectedDate = startDate.clone();
 const firstCell = calendarContainer.querySelector('.day-cell');
 if (firstCell) {
-  firstCell.classList.add('selected');
+    firstCell.classList.add('selected');
+    firstCell.click(); // فعال‌سازی کلیک خودکار روی روز اول
 }
       const aa =moment().add(2,'days').startOf('day').format('jYYYY/jMM/jDD')
       const bb =moment().add(2,'days').startOf('day').format('dddd')
 
 timeDayLabel.innerText = 'تایم‌های روز ' + bb + aa;  // اولین خانه برابر 1 است
 sendDateToBackend(1);
-generateTimeSlots(startDate);
-
-
-
-
-
-
-
-
-
-// تغییر در مدیریت رویدادها با ترتیب جدید
-document.getElementById('weeklyLeave').addEventListener('click', function() {
-  // پنهان کردن المان‌های تاریخ‌دهی
-  document.getElementById('calendarContainer').classList.add('hidden');
-  document.getElementById('timeDayLabel').classList.add('hidden');
-  document.getElementById('timeGrid').classList.add('hidden');
-
-  // فعال‌سازی دکمه و پیاده‌سازی منطق هفتگی
-  setActiveButton(this);
-  alert('این بخش در حال توسعه است!');
+// generateTimeSlots(startDate);
+// مدیریت دکمه‌ها
+document.getElementById('confirmBtn').addEventListener('click', () => {
+    if (confirm('آیا از ثبت مرخصی‌ها اطمینان دارید؟')) {
+        alert('مرخصی با موفقیت ثبت شد!');
+        // ارسال درخواست نهایی به سرور
+        fetch('/reserv/finalize_leave/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        }).then(() => {
+            window.location.href = '/';
+        });
+    }
 });
 
-document.getElementById('monthlyLeave').addEventListener('click', function() {
-  // پنهان کردن المان‌های تاریخ‌دهی
-  document.getElementById('calendarContainer').classList.add('hidden');
-  document.getElementById('timeDayLabel').classList.add('hidden');
-  document.getElementById('timeGrid').classList.add('hidden');
-
-  // فعال‌سازی دکمه و پیاده‌سازی منطق ماهانه
-  setActiveButton(this);
-  alert('این بخش در حال توسعه است!');
+document.getElementById('cancelBtn').addEventListener('click', () => {
+    if (confirm('آیا مایل به لغو تغییرات هستید؟')) {
+        window.history.back();
+    }
 });
-
-document.getElementById('singleLeave').addEventListener('click', function() {
-  // نمایش المان‌های مربوطه
-  document.getElementById('calendarContainer').classList.remove('hidden');
-  document.getElementById('timeDayLabel').classList.remove('hidden');
-  document.getElementById('timeGrid').classList.remove('hidden');
-
-  // فعال‌سازی دکمه
-  setActiveButton(this);
-});
-
-// تابع کمکی بدون تغییر
-function setActiveButton(activeBtn) {
-  document.querySelectorAll('.leave-type').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  activeBtn.classList.add('active');
-}
