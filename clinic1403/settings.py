@@ -27,10 +27,10 @@ SECRET_KEY = 'django-insecure-2g&%dn06my3m55@+8_9%po(ro$qavn=d!7px(#zkqk6xwkz&^*
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# ALLOWED_HOSTS = ['http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://drmahdiasadpour.ir']
-# CSRF_TRUSTED_ORIGINS = ["https://drmahdiasadpour.ir",'http://drmahdiasadpour.ir','https://www.drmahdiasadpour.ir','http://www.drmahdiasadpour.ir']
+ALLOWED_HOSTS = ['http://drmahdiasadpour.ir','drmahdiasadpour.ir','www.drmahdiasadpour.ir','https://drmahdiasadpour.ir']
+CSRF_TRUSTED_ORIGINS = ["https://drmahdiasadpour.ir",'http://drmahdiasadpour.ir','https://www.drmahdiasadpour.ir','http://www.drmahdiasadpour.ir']
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -244,3 +244,16 @@ AZ_IRANIAN_BANK_GATEWAYS = {
 
 MERCHANT = '021de8d3-3eb3-40ba-b0e3-01883a6575e1'
 SANDBOX = True
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'root': {
+#         'handlers': ['console'],
+#         'level': 'DEBUG',
+#     },
+# }
