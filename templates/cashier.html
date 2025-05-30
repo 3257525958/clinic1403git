@@ -1,0 +1,208 @@
+{% load static humanize %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صندوق - {{ member.firstname }} {{ member.lastname }}</title>
+    <link rel="stylesheet" href="{% static 'css/cashier.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>صندوق - {{ member.firstname }} {{ member.lastname }}</h1>
+            <a href="{% url 'secretary_dashboard' %}" class="btn-back">بازگشت به داشبورد</a>
+        </header>
+        
+        <div class="cashier-container">
+            <!-- اطلاعات عضو -->
+            <div class="member-info">
+                <h2>{{ member.firstname }} {{ member.lastname }}</h2>
+                <p>کد ملی: {{ member.melicode }}</p>
+                <p>تلفن: {{ member.phonnumber }}</p>
+            </div>
+            
+            <!-- لیست خدمات -->
+            <table class="services-table">
+                <thead>
+                    <tr>
+                        <th>عنوان خدمت</th>
+                        <th>اپراتور</th>
+                        <th>مبلغ خدمت (ریال)</th>
+                        <th>تخفیف (ریال)</th>
+                        <th>بیعانه (ریال)</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for service in services %}
+                    <tr>
+                        <td>{{ service.jobreserv }} - {{ service.detalereserv }}</td>
+                        <td>{{ service.personreserv }}</td>
+                        <td>{{ service.calculated_total|intcomma }}</td>
+                        <td>
+                            <input type="number" id="discount_{{ service.id }}" 
+                                   value="{{ service.calculated_offer }}" 
+                                   min="0" max="{{ service.calculated_total }}"
+                                   class="discount-input">
+                        </td>
+                        <td>
+                            <span id="advance_display_{{ service.id }}">
+                                {{ service.calculated_pyment|intcomma }}
+                            </span>
+                            <button class="btn-edit-advance" 
+                                    data-service-id="{{ service.id }}"
+                                    data-current-advance="{{ service.calculated_pyment }}"
+                                    data-bank-id="{{ service.bankpeyment|default:'' }}">
+                                ویرایش
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn-add-payment" 
+                                    data-service-id="{{ service.id }}"
+                                    data-max-amount="{{ service.payable_amount }}">
+                                افزودن پرداخت
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <!-- جمع‌بندی -->
+            <div class="summary">
+                <div class="summary-item">
+                    <span>جمع خدمات:</span>
+                    <span>{{ total_service|intcomma }} ریال</span>
+                </div>
+                <div class="summary-item">
+                    <span>جمع تخفیف:</span>
+                    <span>{{ total_discount|intcomma }} ریال</span>
+                </div>
+                <div class="summary-item">
+                    <span>جمع بیعانه:</span>
+                    <span>{{ total_advance|intcomma }} ریال</span>
+                </div>
+                <div class="summary-item highlight">
+                    <span>قابل پرداخت:</span>
+                    <span id="total-payable-amount" data-value="{{ total_payable }}">
+                        {{ total_payable|intcomma }}
+                    </span>
+                    <span>ریال ({{ total_payable_words }})</span>
+                </div>
+            </div>
+            
+            <!-- لیست پرداخت‌ها -->
+            <div class="payments-section">
+                <h3>پرداخت‌ها</h3>
+                <table class="payments-table" id="payments-table">
+                    <thead>
+                        <tr>
+                            <th>خدمت</th>
+                            <th>مبلغ (ریال)</th>
+                            <th>مبلغ (تومان)</th>
+                            <th>حساب بانکی</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- پرداخت‌ها با JS اضافه می‌شوند -->
+                    </tbody>
+                </table>
+                
+                <div class="payment-total">
+                    <span>مجموع پرداخت‌ها:</span>
+                    <span id="total-paid">0</span>
+                    <span>ریال</span>
+                </div>
+                
+                <div class="payment-remaining">
+                    <span>مانده قابل پرداخت:</span>
+                    <span id="remaining-amount">{{ total_payable|intcomma }}</span>
+                    <span>ریال</span>
+                </div>
+            </div>
+            
+            <!-- دکمه ثبت نهایی -->
+            <button id="submit-payment" class="btn-primary" disabled>
+                ثبت پرداخت‌ها
+            </button>
+        </div>
+    </div>
+    
+    <!-- مودال بیعانه -->
+    <div class="modal" id="advance-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>ویرایش بیعانه</h2>
+            <input type="hidden" id="modal-service-id">
+            
+            <div class="form-group">
+                <label for="advance-amount">مبلغ بیعانه (ریال):</label>
+                <input type="number" id="advance-amount" min="0">
+            </div>
+            
+            <div class="form-group">
+                <label for="advance-bank">حساب بانکی:</label>
+                <select id="advance-bank">
+                    {% for bank in banks %}
+                    <option value="{{ bank.id }}">{{ bank.onvan }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="amount-in-words">
+                <span>مبلغ به تومان:</span>
+                <span id="advance-toman-words"></span>
+            </div>
+            
+            <button id="save-advance" class="btn-primary">ذخیره بیعانه</button>
+        </div>
+    </div>
+    
+    <!-- مودال پرداخت -->
+    <div class="modal" id="payment-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>ثبت پرداخت</h2>
+            <input type="hidden" id="payment-service-id">
+            
+            <div class="form-group">
+                <label for="payment-amount">مبلغ پرداختی (ریال):</label>
+                <input type="number" id="payment-amount" min="1">
+            </div>
+            
+            <div class="form-group">
+                <label for="payment-bank">حساب بانکی:</label>
+                <select id="payment-bank">
+                    {% for bank in banks %}
+                    <option value="{{ bank.id }}">{{ bank.onvan }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="amount-in-words">
+                <span>مبلغ به تومان:</span>
+                <span id="payment-toman-words"></span>
+            </div>
+            
+            <button id="add-payment" class="btn-primary">افزودن پرداخت</button>
+        </div>
+    </div>
+    
+    <!-- داده‌های پنهان برای جاوااسکریپت -->
+    <script id="banks-data" type="application/json">
+        {{ banks_json|safe }}
+    </script>
+    
+    <script>
+        // تعریف متغیرهای جهانی برای جاوااسکریپت
+        const updateAdvanceUrl = "{% url 'update_advance' %}";
+        const submitPaymentUrl = "{% url 'submit_payment' %}";
+        const csrfToken = "{{ csrf_token }}";
+    </script>
+    
+    <!-- لینک به فایل‌های خارجی -->
+    <script src="{% static 'js/cashier.js' %}"></script>
+</body>
+</html>

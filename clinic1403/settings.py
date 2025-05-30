@@ -55,7 +55,9 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'accountancy_app.apps.AccountancyAppConfig',
     'file_app.apps.FileAppConfig',
-    'image_processing.apps.ImageProcessingConfig'
+    # 'image_processing.apps.ImageProcessingConfig'
+    'django.contrib.humanize',
+
 ]
 JALALI_DATE_DEFAULTS = {
    'Strftime': {
@@ -257,3 +259,4 @@ SANDBOX = True
 #         'level': 'DEBUG',
 #     },
 # }
+

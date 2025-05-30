@@ -6,7 +6,6 @@ urlpatterns = [
     path('reserv/',views.reservdef),
     path('leave/',views.leave),
     path('reserver/',views.reserverdef),
-    path('dashbord/',views.dashborddef),
     path('reservdasti/',views.reservdasti),
     path('save_selection/', views.save_selection, name='save_selection'),
     path('new_timereserv/', views.new_timereserv_view, name='new_timereserv_page'),
@@ -15,4 +14,19 @@ urlpatterns = [
     # path('timeselctleave/', views.timeselctleave, name='timeselctleave'),
     path('summary/', views.summary_view, name='reservation_summary'),
     path('finalize_leave/', views.finalize_leave, name='finalize_leave'),
+
+    # path('today_reservations/', views.today_reservations, name='today_reservations'),
+    # path('dashbord/',views.dashborddef, name='secretary_dashboard'),
+    # path('search_members/', views.search_members, name='search_members'),
+    # path('member_select/', views.member_select, name='member_select'),
+    # path('member_profile/', views.member_profile, name='member_profile'),
+    path('dashboard/', views.dashborddef, name='secretary_dashboard'),
+    path('search_members/', views.search_members, name='search_members'),
+    path('member_profile/', views.member_profile, name='member_profile'),
+
+    path('cashier/', views.cashier_view, name='cashier_view'),
+    path('update_advance/', views.update_advance, name='update_advance'),
+    path('submit_payment/', views.submit_payment, name='submit_payment'),
+    path('start_cashier_session/', views.start_cashier_session, name='start_cashier_session'),
+
 ]

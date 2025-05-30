@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>انتخاب حساب بانکی</title>
+    <link rel="stylesheet" href="{% static 'css/secretary.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>انتخاب حساب بانکی برای بیعانه</h1>
+            <a href="{% url 'cashier' member.id %}" class="btn-logout">بازگشت</a>
+        </header>
+        
+        <div class="card">
+            <h2>لیست حساب‌های بانکی</h2>
+            
+            <div class="bank-list">
+                {% for bank in banks %}
+                <div class="bank-item" data-bank-id="{{ bank.id }}">
+                    <div class="bank-icon">
+                        <img src="{% static 'img/bank-icon.png' %}" alt="بانک">
+                    </div>
+                    <div class="bank-details">
+                        <h3>{{ bank.onvan }}</h3>
+                        <p>شماره حساب: {{ bank.account_number }}</p>
+                        <p>شبا: {{ bank.sheba }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="action-buttons">
+                <button id="confirmBankBtn" class="btn-primary" disabled>تأیید و ثبت بیعانه</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedBankId = null;
+        
+        document.querySelectorAll('.bank-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // حذف انتخاب قبلی
+                document.querySelectorAll('.bank-item').forEach(i => {
+                    i.classList.remove('selected');
+                });
+                
+                // انتخاب جدید
+                this.classList.add('selected');
+                selectedBankId = this.dataset.bankId;
+                document.getElementById('confirmBankBtn').disabled = false;
+            });
+        });
+        
+        document.getElementById('confirmBankBtn').addEventListener('click', function() {
+            if (!selectedBankId) return;
+            
+            fetch('/reserv/register_deposit/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({
+                    member_id: {{ member.id }},
+                    bank_id: selectedBankId,
+                    // ارسال اطلاعات بیعانه‌ها
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('بیعانه با موفقیت ثبت شد');
+                    window.location.href = "{% url 'member_profile' member.id %}";
+                } else {
+                    alert('خطا در ثبت بیعانه: ' + data.error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

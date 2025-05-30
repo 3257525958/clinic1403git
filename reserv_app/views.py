@@ -1943,17 +1943,17 @@ def reserverdef(request):
         'e':e,
     })
 
-def dashborddef(request):
 
-    users = accuntmodel.objects.all()
-    namedashbord = ''
-    dastrasi = ''
-    for user in users:
-        if user.melicode == request.user.username:
-            namedashbord = user.firstname + ' ' + user.lastname
-            dastrasi = user.level
-            if dastrasi == 'منشی':
-                return render(request,'secretary_dashboard.html',context={})
+
+    # users = accuntmodel.objects.all()
+    # namedashbord = ''
+    # dastrasi = ''
+    # for user in users:
+    #     if user.melicode == request.user.username:
+    #         namedashbord = user.firstname + ' ' + user.lastname
+    #         dastrasi = user.level
+    #         if dastrasi == 'noshi':
+    #             return render(request,'secretary_dashboard.html',context={})
     # tres =request.POST.get("tres")
     # timeselect = request.POST.get('timeselect')
     # karray = ['']
@@ -2417,6 +2417,16 @@ def reservdasti(request):
 
 
 
+
+
+
+
+
+
+
+
+
+
 def leave(request):
     context={'user' : request.user.username}
     return render(request,'new_leave.html',context)
@@ -2531,3 +2541,250 @@ def finalize_leave(request):
     # انجام عملیات نهایی و اعتبارسنجی
     # ...
     return JsonResponse({'status': 'success'})
+
+
+
+
+
+
+
+
+
+
+
+# --------------------------------داشبورد-----
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
+from cantact_app.models import accuntmodel
+
+
+# نمایش داشبورد منشی
+def dashborddef(request):
+    return render(request, 'secretary_dashboard.html')
+
+
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse, HttpResponse
+from cantact_app.models import accuntmodel
+from reserv_app.models import fpeseshktestmodel
+from cash_app.models import bankmodel , castmodel
+from num2words import num2words
+import json
+import jdatetime
+from datetime import datetime
+from django.core.serializers import serialize
+from django.db.models import Q
+
+
+@csrf_exempt
+def search_members(request):
+    query = request.GET.get('q', '').strip()
+
+    if len(query) < 2:
+        return JsonResponse({'members': []})
+
+    members = accuntmodel.objects.filter(
+        Q(firstname__icontains=query) |
+        Q(lastname__icontains=query) |
+        Q(melicode__icontains=query) |
+        Q(phonnumber__icontains=query)
+    ).values('id', 'firstname', 'lastname', 'melicode', 'phonnumber')[:10]
+
+    return JsonResponse({'members': list(members)})
+
+
+@csrf_exempt
+def member_profile(request):
+    if request.method == 'POST':
+        member_id = request.POST.get('member_id')
+        if not member_id:
+            return redirect('/reserv/dashboard/')
+
+        try:
+            member = accuntmodel.objects.get(id=member_id)
+            context = {'member': member}
+            return render(request, 'member_profile.html', context)
+        except accuntmodel.DoesNotExist:
+            return redirect('/reserv/dashboard/')
+    return redirect('/reserv/dashboard/')
+
+
+@csrf_exempt
+def cashier_view(request):
+    # دریافت member_id از session
+    member_id = request.session.get('cashier_member_id')
+
+    if not member_id:
+        return redirect('secretary_dashboard')
+
+    try:
+        member = accuntmodel.objects.get(id=member_id)
+        services = fpeseshktestmodel.objects.filter(melicod=member.melicode)
+        banks = bankmodel.objects.all()
+
+        # محاسبه قیمت هر سرویس و مبالغ قابل پرداخت
+        total_service = 0
+        total_discount = 0
+        total_advance = 0
+
+        for service in services:
+            try:
+                # تبدیل مقادیر به عدد
+                castreserv = int(service.castreserv) if service.castreserv and service.castreserv.isdigit() else 0
+                vahedeobject = int(
+                    service.vahedeobject) if service.vahedeobject and service.vahedeobject.isdigit() else 1
+                offer = int(service.offer) if service.offer and service.offer.isdigit() else 0
+                pyment = int(service.pyment) if service.pyment and service.pyment.isdigit() else 0
+
+                # محاسبات
+                service_total = castreserv * vahedeobject
+                total_service += service_total
+                total_discount += offer
+                total_advance += pyment
+
+                # ذخیره در آبجکت برای استفاده در تمپلیت
+                service.calculated_total = service_total
+                service.calculated_offer = offer
+                service.calculated_pyment = pyment
+                service.payable_amount = service_total - offer - pyment
+
+            except Exception as e:
+                service.calculated_total = 0
+                service.calculated_offer = 0
+                service.calculated_pyment = 0
+                service.payable_amount = 0
+
+        total_payable = total_service - total_discount - total_advance
+
+        # تبدیل به حروف
+        def rial_to_toman_words(amount):
+            try:
+                toman = amount // 10
+                return num2words(toman, lang='fa') + " تومان"
+            except:
+                return ""
+
+        total_payable_words = rial_to_toman_words(total_payable)
+
+        # آماده‌سازی بانک‌ها برای جاوااسکریپت
+        banks_json = serialize('json', banks)
+
+        context = {
+            'member': member,
+            'services': services,
+            'banks': banks,
+            'total_service': total_service,
+            'total_discount': total_discount,
+            'total_advance': total_advance,
+            'total_payable': total_payable,
+            'total_payable_words': total_payable_words,
+            'banks_json': banks_json,
+        }
+        return render(request, 'cashier.html', context)
+    except accuntmodel.DoesNotExist:
+        return redirect('secretary_dashboard')
+    except Exception as e:
+        return redirect('secretary_dashboard')
+
+
+@csrf_exempt
+def update_advance(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            service_id = data.get('service_id')
+            advance_amount = data.get('advance_amount')
+            bank_id = data.get('bank_id')
+
+            service = fpeseshktestmodel.objects.get(id=service_id)
+            bank = bankmodel.objects.get(id=bank_id)
+
+            service.pyment = str(advance_amount)
+            service.bankpeyment = str(bank.id)
+            service.save()
+
+            return JsonResponse({
+                'status': 'success',
+                'new_advance': advance_amount,
+                'bank_name': bank.onvan
+            })
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
+    return JsonResponse({'status': 'error'}, status=400)
+
+
+@csrf_exempt
+def start_cashier_session(request):
+    if request.method == 'POST':
+        member_id = request.POST.get('member_id')
+        if not member_id:
+            return redirect('secretary_dashboard')
+
+        # ذخیره member_id در session
+        request.session['cashier_member_id'] = member_id
+        return redirect('cashier_view')
+    return redirect('secretary_dashboard')
+
+
+@csrf_exempt
+def submit_payment(request):
+    if request.method == 'POST':
+        member_id = request.session.get('cashier_member_id')
+        if not member_id:
+            return redirect('secretary_dashboard')
+
+        try:
+            member = accuntmodel.objects.get(id=member_id)
+            services = fpeseshktestmodel.objects.filter(melicod=member.melicode)
+
+            # تاریخ‌های شمسی و میلادی
+            now = datetime.now()
+            date_shamsi = jdatetime.datetime.fromgregorian(datetime=now).strftime('%Y/%m/%d')
+            date_miladi = now.strftime('%Y-%m-%d')
+
+            # پردازش تخفیف‌ها
+            for service in services:
+                discount_key = f'discount_{service.id}'
+                new_discount = request.POST.get(discount_key, service.offer)
+
+                if new_discount != service.offer:
+                    service.offer = new_discount
+                    service.save()
+
+            # پردازش پرداخت‌ها
+            payments = json.loads(request.POST.get('payments', '[]'))
+
+            for payment in payments:
+                service_id = payment['service_id']
+                amount = payment['amount']
+                bank_id = payment['bank_id']
+
+                service = fpeseshktestmodel.objects.get(id=service_id)
+                bank = bankmodel.objects.get(id=bank_id)
+
+                # ایجاد رکورد پرداخت
+                castmodel.objects.create(
+                    idf=str(service.id),
+                    melicodvarizande=member.melicode,
+                    dateshamsi=date_shamsi,
+                    datemiladi=date_miladi,
+                    mablagh=str(amount),
+                    bankpeyment=str(bank.id),
+                    filenumber='0',
+                    cashmethodname='0',
+                    cashmethodid='0',
+                    melicodeoperatore='0',
+                    dateshamsieditor='0'
+                )
+
+            # حذف session پس از تکمیل پرداخت
+            if 'cashier_member_id' in request.session:
+                del request.session['cashier_member_id']
+
+            return redirect('member_profile', member_id=member_id)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
+    return redirect('cashier_view')

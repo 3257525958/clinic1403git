@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروفایل عضو - {{ member.firstname }} {{ member.lastname }}</title>
+    <link rel="stylesheet" href="{% static 'css/member_profile.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>پروفایل عضو</h1>
+            <a href="{% url 'secretary_dashboard' %}" class="btn-logout">بازگشت</a>
+        </header>
+        
+        <div class="profile-grid">
+            <!-- اطلاعات اصلی -->
+            <section class="card profile-info">
+                <div class="profile-header">
+                    <div class="profile-pic">
+                        {% if member.profile_pic %}
+                            <img src="{{ member.profile_pic.url }}" alt="عکس پروفایل">
+                        {% else %}
+                            <div class="default-pic">
+                                <span class="initials">{{ member.firstname|first|upper }}{{ member.lastname|first|upper }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="profile-details">
+                        <h2>{{ member.firstname }} {{ member.lastname }}</h2>
+                        <p><strong>کد ملی:</strong> {{ member.melicode }}</p>
+                        <p><strong>تلفن:</strong> {{ member.phonnumber }}</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- دکمه‌های عملیاتی -->
+            <section class="card profile-actions">
+                <h2>عملیات‌ها</h2>
+                <div class="action-buttons">
+{#                    <button id="cashierBtn" class="btn-primary">صندوق</button>#}
+                    <form action="{% url 'start_cashier_session' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="member_id" value="{{ member.id }}">
+                        <button type="submit" class="btn-primary">صندوق</button>
+                    </form>
+                    <button id="nextReservationBtn" class="btn-primary">رزرو وقت بعدی</button>
+                    <button id="editReservationsBtn" class="btn-primary">ویرایش تایم‌های رزرو شده</button>
+                    <button id="editProfileBtn" class="btn-primary">ویرایش پروفایل</button>
+                    <button id="workHistoryBtn" class="btn-primary">لیست کارهای انجام شده</button>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
