@@ -24,50 +24,60 @@
             
             <!-- لیست خدمات -->
             <table class="services-table">
-                <thead>
-                    <tr>
-                        <th>عنوان خدمت</th>
-                        <th>اپراتور</th>
-                        <th>مبلغ خدمت (ریال)</th>
-                        <th>تخفیف (ریال)</th>
-                        <th>بیعانه (ریال)</th>
-                        <th>عملیات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for service in services %}
-                    <tr>
-                        <td>{{ service.jobreserv }} - {{ service.detalereserv }}</td>
-                        <td>{{ service.personreserv }}</td>
-                        <td>{{ service.calculated_total|intcomma }}</td>
-                        <td>
-                            <input type="number" id="discount_{{ service.id }}" 
-                                   value="{{ service.calculated_offer }}" 
-                                   min="0" max="{{ service.calculated_total }}"
-                                   class="discount-input">
-                        </td>
-                        <td>
-                            <span id="advance_display_{{ service.id }}">
-                                {{ service.calculated_pyment|intcomma }}
-                            </span>
-                            <button class="btn-edit-advance" 
-                                    data-service-id="{{ service.id }}"
-                                    data-current-advance="{{ service.calculated_pyment }}"
-                                    data-bank-id="{{ service.bankpeyment|default:'' }}">
-                                ویرایش
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn-add-payment" 
-                                    data-service-id="{{ service.id }}"
-                                    data-max-amount="{{ service.payable_amount }}">
-                                افزودن پرداخت
-                            </button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+<thead>
+    <tr>
+        <th>حذف</th> <!-- ستون جدید -->
+        <th>عنوان خدمت</th>
+        <th>اپراتور</th>
+        <th>مبلغ خدمت (ریال)</th>
+        <th>تخفیف (ریال)</th>
+        <th>بیعانه (ریال)</th>
+        <th>عملیات</th>
+    </tr>
+</thead>
+<tbody>
+    {% for service in services %}
+    <tr id="service-row-{{ service.id }}">
+        <td> <!-- سلول جدید برای دکمه حذف -->
+            <button class="btn-remove-service" 
+                    data-service-id="{{ service.id }}">
+                حذف
+            </button>
+        </td>
+        <td>{{ service.jobreserv }} - {{ service.detalereserv }}</td>
+        <td>{{ service.personreserv }}</td>
+        <td>{{ service.calculated_total|intcomma }}</td>
+        <td>
+            <input type="number" id="discount_{{ service.id }}" 
+                   value="{{ service.calculated_offer }}" 
+                   min="0" max="{{ service.calculated_total }}"
+                   class="discount-input">
+            <div class="discount-display">
+                <span class="toman-amount">{{ service.offer_toman|intcomma }} تومان</span>
+                <span class="words-amount">{{ service.offer_words }}</span>
+            </div>
+        </td>
+        <td>
+            <span id="advance_display_{{ service.id }}">
+                {{ service.calculated_pyment|intcomma }}
+            </span>
+            <button class="btn-edit-advance" 
+                    data-service-id="{{ service.id }}"
+                    data-current-advance="{{ service.calculated_pyment }}"
+                    data-bank-id="{{ service.bankpeyment|default:'' }}">
+                ویرایش
+            </button>
+        </td>
+        <td>
+            <button class="btn-add-payment" 
+                    data-service-id="{{ service.id }}"
+                    data-max-amount="{{ service.payable_amount }}">
+                افزودن پرداخت
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>            </table>
             
             <!-- جمع‌بندی -->
             <div class="summary">
