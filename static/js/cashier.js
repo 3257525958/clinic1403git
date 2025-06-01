@@ -234,9 +234,7 @@ function submitPayment() {
     // ارسال فرم
     document.body.appendChild(form);
     form.submit();
-}
-
-// تابع کمکی برای دریافت کوکی
+}// تابع کمکی برای دریافت کوکی
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -257,6 +255,15 @@ function initCashier() {
     // مقداردهی متغیرهای جهانی
     totalPayable = parseInt(document.getElementById('total-payable-amount').dataset.value);
     banks = JSON.parse(document.getElementById('banks-data').textContent);
+    document.querySelectorAll('.btn-remove-service').forEach(button => {
+        button.addEventListener('click', () => {
+            const serviceId = button.dataset.serviceId;
+            if (confirm('آیا مطمئنید می‌خواهید این خدمت را از فاکتور حذف کنید؟')) {
+                removeService(serviceId);
+            }
+        });
+    });
+
 
     // رویدادهای دکمه‌ها
     document.querySelectorAll('.btn-edit-advance').forEach(button => {
@@ -302,3 +309,20 @@ function initCashier() {
 
 // اجرای تابع مقداردهی اولیه پس از بارگذاری صفحه
 document.addEventListener('DOMContentLoaded', initCashier);
+// تابع حذف سرویس از لیست
+function removeService(serviceId) {
+    // حذف سطر از جدول
+    const row = document.getElementById(`service-row-${serviceId}`);
+    if (row) {
+        row.remove();
+
+        // حذف از لیست محاسبات
+        const serviceIndex = services.findIndex(s => s.id === serviceId);
+        if (serviceIndex !== -1) {
+            services.splice(serviceIndex, 1);
+        }
+
+        // به‌روزرسانی جمع‌بندی
+        updateSummary();
+    }
+}

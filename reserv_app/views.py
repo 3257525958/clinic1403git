@@ -2622,9 +2622,10 @@ def cashier_view(request):
 
     try:
         member = accuntmodel.objects.get(id=member_id)
-        services = fpeseshktestmodel.objects.filter(melicod=member.melicode)
-        banks = bankmodel.objects.all()
+        # فقط خدمات پرداخت نشده را فیلتر می‌کنیم (cheking=False)
+        services = fpeseshktestmodel.objects.filter(melicod=member.melicode, checking = 'false')
 
+        banks = bankmodel.objects.all()
         # محاسبه قیمت هر سرویس و مبالغ قابل پرداخت
         total_service = 0
         total_discount = 0
@@ -2668,6 +2669,10 @@ def cashier_view(request):
                 return ""
 
         total_payable_words = rial_to_toman_words(total_payable)
+        # تبدیل تخفیف به تومان و حروف برای هر سرویس
+        for service in services:
+            service.offer_toman = service.calculated_offer // 10
+            service.offer_words = num2words(service.offer_toman, lang='fa') + " تومان"
 
         # آماده‌سازی بانک‌ها برای جاوااسکریپت
         banks_json = serialize('json', banks)
@@ -2738,8 +2743,6 @@ def submit_payment(request):
 
         try:
             member = accuntmodel.objects.get(id=member_id)
-            services = fpeseshktestmodel.objects.filter(melicod=member.melicode)
-
             # تاریخ‌های شمسی و میلادی
             now = datetime.now()
             date_shamsi = jdatetime.datetime.fromgregorian(datetime=now).strftime('%Y/%m/%d')
@@ -2756,6 +2759,7 @@ def submit_payment(request):
 
             # پردازش پرداخت‌ها
             payments = json.loads(request.POST.get('payments', '[]'))
+            paid_service_ids = []
 
             for payment in payments:
                 service_id = payment['service_id']
@@ -2779,6 +2783,11 @@ def submit_payment(request):
                     melicodeoperatore='0',
                     dateshamsieditor='0'
                 )
+
+                # علامت گذاری سرویس به عنوان پرداخت شده
+                service.cheking = True
+                service.save()
+                paid_service_ids.append(service_id)
 
             # حذف session پس از تکمیل پرداخت
             if 'cashier_member_id' in request.session:

@@ -288,3 +288,25 @@ tr:hover {
         margin: 10% auto;
     }
 }
+
+
+/* استایل نمایش تخفیف */
+.discount-display {
+    margin-top: 5px;
+    padding: 5px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.toman-amount {
+    display: block;
+    font-weight: bold;
+    color: #2c662d;
+}
+
+.words-amount {
+    display: block;
+    font-style: italic;
+    color: #555;
+}
