@@ -120,24 +120,24 @@ WSGI_APPLICATION = 'clinic1403.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'd1403-6qbg_db',
-#         'USER': 'root',
-#         'PASSWORD': 'krOenXvXrTN8WwUpr57q',
-#         'HOST': 'd1403-6-sjp-service',
-#
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'd1403-6qbg_db',
+        'USER': 'root',
+        'PASSWORD': 'krOenXvXrTN8WwUpr57q',
+        'HOST': 'd1403-6-sjp-service',
+
+    }
+}
 
 
 # Password validation

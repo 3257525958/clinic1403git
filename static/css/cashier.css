@@ -1,4 +1,44 @@
-/* ==================== استایل‌های پایه ==================== */
+/*==================== استایل‌های پایه ==================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'BYekan', 'Vazir', Tahoma, sans-serif;
+    direction: rtl;
+    background-color: #f0f5f0;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ==================== استایل هدر ==================== */
+header {
+    background: #4d774e;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+/* ==================== دکمه بازگشت ============…
+[05:01, 6/3/2025] m: /* ==================== استایل‌های پایه ==================== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -261,35 +301,6 @@ tr:hover {
     font-style: italic;
 }
 
-/* ==================== واکنش‌گرایی ==================== */
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
-
-    header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .btn-back {
-        margin-top: 10px;
-    }
-
-    table {
-        font-size: 0.9rem;
-    }
-
-    th, td {
-        padding: 8px 10px;
-    }
-
-    .modal-content {
-        margin: 10% auto;
-    }
-}
-
-
 /* استایل نمایش تخفیف */
 .discount-display {
     margin-top: 5px;
@@ -309,4 +320,87 @@ tr:hover {
     display: block;
     font-style: italic;
     color: #555;
+}
+
+/* ==================== واکنش‌گرایی ==================== */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .btn-back {
+        margin-top: 10px;
+    }
+
+    table {
+        font-size: 0.9rem;
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    th, td {
+        padding: 8px 10px;
+        min-width: 100px; /* حداقل عرض برای سلول‌ها */
+    }
+
+    /* چرخش 90 درجه برای ستون‌های عنوان خدمت و اپراتور */
+    .services-table thead th:nth-child(2),
+    .services-table thead th:nth-child(3),
+    .services-table tbody td:nth-child(2),
+    .services-table tbody td:nth-child(3) {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        text-align: center;
+        vertical-align: middle;
+        min-width: 50px; /* عرض مناسب برای متن چرخیده */
+        white-space: nowrap;
+    }
+
+    /* تنظیمات ستون بیعانه */
+    .services-table td:nth-child(6),
+    .services-table th:nth-child(6) {
+        min-width: 120px; /* عرض مناسب برای بیعانه */
+    }
+
+    /* تنظیمات ستون عملیات */
+    .services-table td:nth-child(7),
+    .services-table th:nth-child(7) {
+        min-width: 150px; /* عرض مناسب برای دکمه‌ها */
+    }
+
+    /* بهینه‌سازی دکمه‌ها */
+    .btn-edit-advance,
+    .btn-add-payment {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+        margin-top: 3px;
+    }
+
+    .modal-content {
+        margin: 10% auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .services-table td:nth-child(6),
+    .services-table th:nth-child(6) {
+        min-width: 100px;
+    }
+
+    .services-table td:nth-child(7),
+    .services-table th:nth-child(7) {
+        min-width: 130px;
+    }
+
+    .btn-edit-advance,
+    .btn-add-payment {
+        padding: 5px 6px;
+        font-size: 0.75rem;
+    }
 }
