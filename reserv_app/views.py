@@ -1367,7 +1367,7 @@ def reserverdef(request):
 # - اینچا یه رایه میسازه و همون بیست تایم رو توش میذاره و بعد ار reservmodel رزرو ها و خارج از نوبت ها رو میاره بعد
     # کلید روز بغد و روز قبل رو هدلیت میکنه و اینکه چند روز از امروز جلوتر رفتیم یا عقب تر رفتیم رو در dayconter میریزه---
 
-    t = datetime.datetime.now()
+    t = dt.now()
     a = 0
     dayconterstr = request.POST.get("dayconter")
     if (dayconterstr == None) or (dayconterstr == "") or (dayconterstr == 'None'):
@@ -1481,7 +1481,7 @@ def reserverdef(request):
     personreserv = ''
     if button_send == 'accept':
         intdayconter = int(dayconter)
-        tm = datetime.datetime.now()
+        tm = dt.now()
         while intdayconter > 0:
             tm += timedelta(days=1)
             intdayconter -= 1
@@ -1628,7 +1628,7 @@ def reserverdef(request):
             hourreserv = s,
             dateshamsireserv = stradb(tm),
             datemiladireserv = tm.strftime('%a %d %b %y'),
-            yearshamsi = stry(datetime.datetime.now()),
+            yearshamsi = stry(dt.now()),
             vahed = vahed,
             idwork=detalework,
             pyment=pey,
@@ -1656,7 +1656,7 @@ def reserverdef(request):
                 except HTTPException as e:
                     m = 'neterror'
 
-        tcheck = datetime.datetime.now()
+        tcheck = dt.now()
         etebartime = 'false'
         for i in range(400):
             tcheck += timedelta(days=1)
@@ -1706,7 +1706,7 @@ def reserverdef(request):
         timesel = int(se[0])
 
         intdayconter = int(dayconter)
-        time = datetime.datetime.now()
+        time = dt.now()
         while intdayconter > 0:
             time += timedelta(days=1)
             intdayconter -= 1
@@ -2360,9 +2360,9 @@ def reservdasti(request):
     if button_send == 'accept':
         numbertime = '41'
         hourreserv = 'timeout'
-        dateshamsireserv = stradby(datetime.datetime.now())
-        datemiladireserv = datetime.datetime.now().strftime('%a %d %b %y')
-        yearshamsi = stry(datetime.datetime.now())
+        dateshamsireserv = stradby(dt.now())
+        datemiladireserv = dt.now().strftime('%a %d %b %y')
+        yearshamsi = stry(dt.now())
         ws = workmodel.objects.all()
         timereserv = "0"
         vahed = ''
@@ -2468,9 +2468,9 @@ def new_timeleav_view(request):
             return JsonResponse({'reserved_times': reserved_times})
 
         except json.JSONDecodeError:
-            return JsonResponse({'error': 'داده‌های ارسالی نامعتبر است'}, status=400)
+            return JsonResponse({'err': 'داده‌های ارسالی نامعتبر است'}, status=400)
         except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
+            return JsonResponse({'er': str(e)}, status=500)
 
     # حالت GET
     default_date = dt.now() + timedelta(days=2)
@@ -2576,7 +2576,6 @@ from cash_app.models import bankmodel , castmodel
 from num2words import num2words
 import json
 import jdatetime
-from datetime import datetime
 from django.core.serializers import serialize
 from django.db.models import Q
 
