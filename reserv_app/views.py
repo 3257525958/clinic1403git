@@ -15,9 +15,8 @@ from cantact_app.models import accuntmodel
 from accountancy_app.models import *
 from kavenegar import *
 import random
-import datetime
+from datetime import datetime as dt
 from datetime import timedelta
-
 ww = ['t']
 shamsiarray = ['t']
 miladiarray = ['t']
@@ -167,11 +166,11 @@ def summary_view(request: HttpRequest) -> HttpResponse:
     selected_time = request.session.get('selected_time')
 
 
-    select_day_date = datetime.datetime.now()
+    select_day_date = dt.now()
     select_day_date += timedelta(days= selected_day + 1)
     request.session['dateshamsireserv'] = stradb(select_day_date)
     request.session['datemiladireserv'] = select_day_date.strftime('%a %d %b %y')
-    request.session['yearshamsi'] = stry(datetime.datetime.now())
+    request.session['yearshamsi'] = stry(dt.now())
     request.session['numbertime'] = selected_time
 
     # a = reservemodeltest.objects.filter(mellicode=request.user.username)
@@ -183,7 +182,7 @@ def summary_view(request: HttpRequest) -> HttpResponse:
     # )
     selectprocedure.append(stradb(select_day_date))
     selectprocedure.append(select_day_date.strftime('%a %d %b %y'))
-    selectprocedure.append(stry(datetime.datetime.now()))
+    selectprocedure.append(stry(dt.now()))
     selectprocedure.append(selected_time)
     s = ""
     if selected_time == 1:
@@ -465,7 +464,7 @@ def new_timereserv_view(request):
             return JsonResponse({'error': str(e)}, status=400)
 
     else:  # حالت GET
-        default_date = datetime.datetime.now() + datetime.timedelta(days=2)
+        default_date = dt.now() + timedelta(days=2)
         jalali_date = convert(default_date)
 
         # حذف داده از session پس از استفاده
@@ -546,7 +545,7 @@ def timebefor(namberdate, workselectid,melicode):
         reservmovaghats = reservemodeltest.objects.all()
         # ___________در این قسمت تعداد روزهایی که قرار هستش به مراجعه کننده نشون بدیم مشخص میشه____
         # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
-        t = datetime.datetime.now()
+        t = dt.now()
         t += timedelta(days=1+int(namberdate))
         # ____________در آرایه ی dayarr  بیست تا true مسازه که برای هر روز نشانه ازاد بودن بیست تایم ده صبح تا 8 شب هستش________
         # _________بعد میاد محدودیتها رو اعمال میکنه و هذ تایم رو براساس محدودتها ممکنه false کنه یا true نگه داره_________
@@ -831,7 +830,7 @@ def reservdef(request):
         # ___________در این قسمت تعداد روزهایی که قرار هستش به مراجعه کننده نشون بدیم مشخص میشه____
         tedaderooz = 10
         # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
-        t = datetime.datetime.now()
+        t = dt.now()
         t += timedelta(days=1)
         for i in range(tedaderooz) :
             shamsiarray.append(stradb(t))
@@ -1002,7 +1001,7 @@ def reservdef(request):
         # reservposition[0] = 2
         s = timeselect
         stime = s.split(",")
-        ttime = datetime.datetime.now()
+        ttime = dt.now()
         ttime += timedelta(days=1)
         for tt in range(int(stime[1])) :
             ttime += timedelta(days=1)
@@ -1016,7 +1015,7 @@ def reservdef(request):
         # )
         selectprocedure.append(stradb(ttime))
         selectprocedure.append(ttime.strftime('%a %d %b %y'))
-        selectprocedure.append(stry(datetime.datetime.now()))
+        selectprocedure.append(stry(dt.now()))
         selectprocedure.append(stime[0])
         s = ""
         if stime[0] == "1"  :
