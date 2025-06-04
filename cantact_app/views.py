@@ -480,7 +480,9 @@ def addcantactdef(request):
             # randomcode = 'سلام شما به مهمانی دعوت شده اید منتظرتان هستیم'
             # randomcode=randomcode.split(' ')
 
-            instans = savecodphon.objects.create(firstname=firstname_r[0], lastname=lastname_r[0],melicode=str(melicod_r[0]),
+            instans = savecodphon.objects.create(firstname=firstname_r[0],
+                                       lastname=lastname_r[0],
+                                       melicode=str(melicod_r[0]),
                                        phonnumber=str(phonnumber_r[0]),
                                        berthdayyear =str(yearj),
                                        berthdayday=str(dayj),
@@ -813,3 +815,128 @@ def saveaccantdef(request):
                                     yearb = '1',
                                     )
     return render(request,'addreserv_cantact.html',context={'etebar': etebar, })
+
+
+# -----------------------------ویرایش پروفایل----------------------------------------------------------
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from .models import accuntmodel
+from .forms import accuntform
+# from  import modify_url, compress_and_move_images, format_phone_number, dateset
+import datetime
+
+
+@login_required
+def edit_profile(request):
+    firstname = request.POST.get("firstname")
+    lastname = request.POST.get("lastname")
+    melicode = request.POST.get("melicode")
+    phonnumber = request.POST.get("phonnumber")
+    birthdate = request.POST.get("birthdate")
+    year, mounth, day = dateset(birthdate)
+    profile_pic = request.FILES.get('profile_picture')
+
+
+
+    # دریافت اطلاعات کاربر فعلی
+    user = request.user
+    try:
+        profile = accuntmodel.objects.get(melicode=user.username)
+    except accuntmodel.DoesNotExist:
+        return render(request, 'error.html', {'message': 'پروفایل یافت نشد'})
+
+    if request.method == 'POST':
+        instans = savecodphon.objects.create(firstname=firstname,
+                                             lastname=lastname,
+                                             melicode=melicode,
+                                             phonnumber=phonnumber,
+                                             berthdayyear=year,
+                                             berthdayday=day,
+                                             berthdaymounth=mounth,
+                                             code='110',
+                                             expaiercode="110",
+                                             profile_picture=profile_pic
+                                             )
+        instans.save()
+        savecods = savecodphon.objects.all()
+        for savecode in savecods :
+            if int(savecode.code) == int('110'):
+                yj = savecode.berthdayyear
+                dj = savecode.berthdayday
+                mj = savecode.berthdaymounth
+                time = datetime.datetime.now()
+                q = '14'
+                while int(str(q + stry(time))) >= int(yj):
+                    time -= timedelta(days=30)
+                    if int(stry(time)) == int('99'):
+                        q = '13'
+                while int(str(q + stry(time))) == int(yj):
+                    time += timedelta(days=1)
+                while strb(time) != mj:
+                    time += timedelta(days=1)
+                while int(strd(time)) != int(dj):
+                    time += timedelta(days=1)
+
+                if User.objects.filter(username=savecode.melicode).exists():
+                    a = accuntmodel.objects.filter(melicode=savecode.melicode)
+                    a.delete()
+                    b = User.objects.filter(username=savecode.melicode)
+                    b.delete()
+                # if __name__ == '__main__':
+                compress_and_move_images()
+                ins = accuntmodel.objects.create(
+                                firstname=savecode.firstname,
+                                lastname=savecode.lastname,
+                                melicode=savecode.melicode,
+                                phonnumber=savecode.phonnumber,
+                                savesabt=stradby(datetime.datetime.now()),
+                                pasword=savecode.phonnumber,
+                                dayb= savecode.berthdayday,
+                                mountb= savecode.berthdaymounth,
+                                yearb=savecode.berthdayyear,
+                                profile_picture=modify_url(savecode.profile_picture),
+                )
+                ins.save()
+                User.objects.create_user(username=savecode.melicode,
+                                        password=savecode.phonnumber,
+                                        first_name=savecode.firstname,
+                                        last_name=savecode.lastname,
+                                            )
+                user_login =authenticate(request,
+                                             username=savecode.melicode,
+                                             password=savecode.phonnumber,
+                                             )
+
+                login (request,user_login)
+                e = 'succes'
+
+                a = savecodphon.objects.filter(melicode=savecode.melicode)
+                a.delete()
+
+                return render(request,'code_cantact.html',context={'etebar':e},)
+
+    else:
+        # فرمت تاریخ تولد برای نمایش در فرم
+        birthdate_str = ""
+        # if profile.yearb and profile.mountb and profile.dayb:
+        #     # تبدیل نام ماه به عدد
+        #     month_num = PERSIAN_MONTHS.get(profile.mountb, 1)
+        #     birthdate_str = f"{profile.yearb}/{month_num:02d}/{int(profile.dayb):02d}"
+
+        initial_data = {
+            'firstname': profile.firstname,
+            'lastname': profile.lastname,
+            'melicod': profile.melicode,
+            'phonnumber': profile.phonnumber,
+            'birthdate': birthdate_str,
+        }
+        form = accuntform(initial=initial_data, instance=profile)
+
+    telhide = format_phone_number(profile.phonnumber) if profile.phonnumber else ""
+
+    return render(request, 'new_profile_edit.html', {
+        # 'form': form,
+        'profile': profile,
+        'telhide': telhide
+    })
+

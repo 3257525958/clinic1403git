@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ویرایش پروفایل - کلینیک زیبایی دکتر اسدپور</title>
+  <link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/persian-datepicker@latest/dist/css/persian-datepicker.min.css">
+</head>
+<body>
+
+<div class="container-wrapper">
+  <div class="image-section">
+    <img src="{% static 'img/profile-edit.jpg' %}" alt="ویرایش پروفایل">
+  </div>
+
+  <div class="edit-container">
+    <div class="header-section">
+      <img src="{% static 'img/logo.jpg' %}" alt="لوگوی کلینیک" class="logo">
+      <h2 class="title">ویرایش اطلاعات پروفایل</h2>
+    </div>
+
+    <form method="POST" class="edit-form" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <!-- نمایش تصویر فعلی -->
+      <div class="current-profile">
+        {% if profile.profile_picture %}
+          <img src="{{ profile.profile_picture.url }}" alt="تصویر پروفایل فعلی">
+        {% else %}
+          <div class="default-avatar">
+            <i class="fas fa-user-circle"></i>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- فیلد نام -->
+      <div class="input-field">
+        <i class="fas fa-user icon"></i>
+        <input type="text" id="first_name" name="firstname" placeholder="نام" value="{{ form.firstname.value }}" required>
+      </div>
+
+      <!-- فیلد نام خانوادگی -->
+      <div class="input-field">
+        <i class="fas fa-user icon"></i>
+        <input type="text" id="last_name" name="lastname" placeholder="نام خانوادگی" value="{{ form.lastname.value }}" required>
+      </div>
+
+      <!-- فیلد کدملی (غیرقابل ویرایش) -->
+      <div class="input-field disabled-field">
+        <i class="fas fa-id-card icon"></i>
+        <input type="text" id="national_code" value="{{ profile.melicode }}" readonly>
+        <span class="hint">کدملی قابل ویرایش نیست</span>
+      </div>
+
+      <!-- فیلد تلفن -->
+      <div class="input-field">
+        <i class="fas fa-phone icon"></i>
+        <input type="tel" id="phone" name="phonnumber" placeholder="تلفن" pattern="09\d{9}" value="{{ form.phonnumber.value }}" required>
+      </div>
+      <p class="current-phone">شماره فعلی: {{ telhide }}</p>
+
+      <!-- فیلد تاریخ تولد -->
+      <div class="input-field">
+        <i class="fas fa-calendar-alt icon" id="calendar-icon"></i>
+        <input type="text" id="birthdate" name="birthdate" class="persian-date-input" placeholder="تاریخ تولد (شمسی)" value="{{ form.birthdate.value }}" readonly>
+      </div>
+
+      <!-- فیلد عکس پروفایل -->
+      <div class="file-upload-field">
+        <i class="fas fa-camera icon"></i>
+        <div class="file-input-container">
+          <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+          <label for="profile_picture" class="file-label">
+            <span class="file-text">تغییر عکس پروفایل</span>
+            <span class="browse-btn">انتخاب فایل</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- دکمه‌های اقدام -->
+      <div class="action-buttons">
+        <button type="submit" class="submit-btn">
+          <i class="fas fa-save"></i>
+          ذخیره تغییرات
+        </button>
+        <a href="{% url 'profile' %}" class="cancel-btn">
+          <i class="fas fa-times"></i>
+          انصراف
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- کتابخانه‌های مورد نیاز -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/persian-date@latest/dist/persian-date.min.js"></script>
+<script src="https://unpkg.com/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>
+<script src="{% static 'js/edit_profile.js' %}"></script>
+</body>
+</html>

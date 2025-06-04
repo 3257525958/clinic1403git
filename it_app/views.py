@@ -555,3 +555,23 @@ t3 = Thread(target=tim,args="3")
 # t1.start()
 t2.start()
 t3.start()
+
+
+
+def sendmessage(number,texte):
+    try:
+        api = KavenegarAPI(
+            '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+        params = {
+            'sender': '9982003178',  # optional
+            'receptor': number,  # multiple mobile number, split by comma
+            'message': texte,
+        }
+        response = api.sms_send(params)
+    except APIException as e:
+        m = 'tellerror'
+        # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+    except HTTPException as e:
+        m = 'neterror'
+        # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+        # return render(request, 'add_cantact.html')

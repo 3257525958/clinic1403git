@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // دکمه‌های عملیاتی
         elements.newMemberBtn.addEventListener('click', () => {
-            window.location.href = '/reserv/new_member/';
+            window.location.href = '/cantact/edit-profile/';
         });
 
         elements.closeCashBtn.addEventListener('click', () => {
@@ -192,3 +192,17 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.searchResults.style.display = 'block';
     }
 });
+
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     // سایر کدهای موجود...
+//
+//     // اضافه کردن event listener به دکمه
+//     const newMemberBtn = document.getElementById('newMemberBtn');
+//     if (newMemberBtn) {
+//         newMemberBtn.addEventListener('click', function() {
+//             window.location.href = "{% url 'secretary_add_member' %}";
+//         });
+//     }
+// });

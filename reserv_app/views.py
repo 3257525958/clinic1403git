@@ -2468,9 +2468,9 @@ def new_timeleav_view(request):
             return JsonResponse({'reserved_times': reserved_times})
 
         except json.JSONDecodeError:
-            return JsonResponse({'err': 'داده‌های ارسالی نامعتبر است'}, status=400)
+            return JsonResponse({'error': 'داده‌های ارسالی نامعتبر است'}, status=400)
         except Exception as e:
-            return JsonResponse({'er': str(e)}, status=500)
+            return JsonResponse({'error': str(e)}, status=500)
 
     # حالت GET
     default_date = dt.now() + timedelta(days=2)
@@ -2745,7 +2745,7 @@ def submit_payment(request):
         try:
             member = accuntmodel.objects.get(id=member_id)
             # تاریخ‌های شمسی و میلادی
-            now = datetime.now()
+            now = dt.now()
             date_shamsi = jdatetime.datetime.fromgregorian(datetime=now).strftime('%Y/%m/%d')
             date_miladi = now.strftime('%Y-%m-%d')
 

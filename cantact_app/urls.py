@@ -8,4 +8,7 @@ urlpatterns = [
     path('ignor/',views.ignordef),
     path('addphon/',views.addphone),
     path('addreservecantact/',views.saveaccantdef),
+
+    path('edit-profile/', views.edit_profile, name='edit_profile'),
+
 ]
