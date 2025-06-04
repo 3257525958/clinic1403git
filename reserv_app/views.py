@@ -2426,6 +2426,7 @@ def reservdasti(request):
 
 
 
+
 def leave(request):
     context={'user' : request.user.username}
     return render(request,'new_leave.html',context)
