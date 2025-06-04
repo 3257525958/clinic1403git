@@ -2430,7 +2430,7 @@ def leave(request):
     context={'user' : request.user.username}
     return render(request,'new_leave.html',context)
 
-
+@csrf_exempt
 def new_timeleav_view(request):
     if request.method == 'POST':
         try:
@@ -2472,18 +2472,19 @@ def new_timeleav_view(request):
             return JsonResponse({'error': str(e)}, status=500)
 
     # حالت GET
-    default_date = datetime.datetime.now() + datetime.timedelta(days=2)
+    default_date = dt.now() + timedelta(days=2)
     jalali_date = convert(default_date)
     context = {
         'melicode': request.user.username,
     }
     return render(request, 'new_timereserv.html', context)
 
+@csrf_exempt
 
 def listleav(dayy, timeselect, nationalcode):
     try:
         # محاسبه تاریخ
-        select_day_date = datetime.datetime.now() + datetime.timedelta(days=int(dayy) + 1)
+        select_day_date = dt.now() + timedelta(days=int(dayy) + 1)
         dateleav = stry(select_day_date) + strd(select_day_date) + strbadd(select_day_date)
 
         # تبدیل به عدد صحیح
@@ -2536,6 +2537,7 @@ def listleav(dayy, timeselect, nationalcode):
         print(f"Error in listleav: {str(e)}")
         raise
 
+@csrf_exempt
 def finalize_leave(request):
     # انجام عملیات نهایی و اعتبارسنجی
     # ...
