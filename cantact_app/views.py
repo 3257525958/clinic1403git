@@ -786,21 +786,17 @@ def addphone(request):
 
 
 def saveaccantdef(request):
-    etebar = 'false'
+    etebar = ''
     firstname = request.POST.get("firstname")
-    if firstname == None :
-        firstname = ''
     lastname = request.POST.get("lastname")
-    if lastname == None :
-        lastname = ''
     phonnumber = request.POST.get("phonnumber")
-    if (phonnumber == None ) or (phonnumber == '') or (phonnumber == "None") :
-        phonnumber = 0
     button_send =request.POST.get("button_send")
-    users = accuntmodel.objects.all()
-    for user in users:
-        if int(user.melicode) == int(phonnumber) or (user.phonnumber == phonnumber):
-            etebar = "repeat"
+    if (phonnumber != None ) and (phonnumber != '') and (phonnumber != "None") :
+        users = accuntmodel.objects.all()
+        for user in users:
+            if int(user.melicode) == int(phonnumber) or (user.phonnumber == phonnumber):
+                etebar = "repeat"
+
     if (button_send == 'accept') and ( etebar != "repeat" ):
         etebar = 'true'
         accuntmodel.objects.create( firstname = firstname,
@@ -814,7 +810,8 @@ def saveaccantdef(request):
                                     mountb = '1',
                                     yearb = '1',
                                     )
-    return render(request,'addreserv_cantact.html',context={'etebar': etebar, })
+        return redirect('/')
+    return render(request,'new_addreserv_cantact.html',context={'etebar': etebar, })
 
 
 # -----------------------------ویرایش پروفایل----------------------------------------------------------
