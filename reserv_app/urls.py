@@ -15,11 +15,6 @@ urlpatterns = [
     path('summary/', views.summary_view, name='reservation_summary'),
     path('finalize_leave/', views.finalize_leave, name='finalize_leave'),
 
-    # path('today_reservations/', views.today_reservations, name='today_reservations'),
-    # path('dashbord/',views.dashborddef, name='secretary_dashboard'),
-    # path('search_members/', views.search_members, name='search_members'),
-    # path('member_select/', views.member_select, name='member_select'),
-    # path('member_profile/', views.member_profile, name='member_profile'),
     path('dashboard/', views.dashborddef, name='secretary_dashboard'),
     path('search_members/', views.search_members, name='search_members'),
     path('member_profile/', views.member_profile, name='member_profile'),

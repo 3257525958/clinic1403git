@@ -65,43 +65,60 @@ function generateTimeSlots(date) {
 
         // بررسی وضعیت تایم (رزرو شده یا آزاد)
         const isReserved = window.reservedTimes && window.reservedTimes.includes(i);
+        const isReservedByOthers = window.rar && window.rar.includes(i);
 
         if (isReserved) {
             timeSlot.classList.add('reserved');
+        } else if (isReservedByOthers) {
+            timeSlot.classList.add('reserved-by-others');
+            timeSlot.classList.add('disabled');
         } else {
             timeSlot.classList.add('available');
         }
 
-        // اضافه کردن قابلیت کلیک برای همه تایم‌ها
-        timeSlot.addEventListener('click', async () => {
-            const dayIndex = Math.floor(date.diff(startDate, 'days')) + 1;
-            const slotIndex = i + 1; // تبدیل به اندیس 1-40
 
-            // دریافت وضعیت فعلی
-            const wasReserved = timeSlot.classList.contains('reserved');
+        if (isReserved) {
+            timeSlot.classList.add('reserved');
+        } else if (isReservedByOthers) {
+            timeSlot.classList.add('reserved-by-others');
+            timeSlot.classList.add('disabled');
+        } else {
+            timeSlot.classList.add('available');
+        }
 
-            // ارسال درخواست به سرور
-            const success = await sendTimeToBackend(dayIndex, slotIndex);
+        // فقط برای تایم‌های قابل تغییر (غیر رزرو شده توسط دیگران) event listener اضافه می‌کنیم
+        if (!isReservedByOthers) {
+            timeSlot.addEventListener('click', async () => {
+                const dayIndex = Math.floor(date.diff(startDate, 'days')) + 1;
+                const slotIndex = i + 1; // تبدیل به اندیس 1-40
 
-            if (success) {
-                // تغییر وضعیت UI
-                timeSlot.classList.toggle('reserved', !wasReserved);
-                timeSlot.classList.toggle('available', wasReserved);
+                // دریافت وضعیت فعلی
+                const wasReserved = timeSlot.classList.contains('reserved');
 
-                // به‌روزرسانی لیست reservedTimes
-                if (wasReserved) {
-                    const index = window.reservedTimes.indexOf(i);
-                    if (index !== -1) window.reservedTimes.splice(index, 1);
-                } else {
-                    if (!window.reservedTimes) window.reservedTimes = [];
-                    window.reservedTimes.push(i);
+                // ارسال درخواست به سرور
+                const success = await sendTimeToBackend(dayIndex, slotIndex);
+
+                if (success) {
+                    // تغییر وضعیت UI
+                    timeSlot.classList.toggle('reserved', !wasReserved);
+                    timeSlot.classList.toggle('available', wasReserved);
+
+                    // به‌روزرسانی لیست reservedTimes
+                    if (wasReserved) {
+                        const index = window.reservedTimes.indexOf(i);
+                        if (index !== -1) window.reservedTimes.splice(index, 1);
+                    } else {
+                        if (!window.reservedTimes) window.reservedTimes = [];
+                        window.reservedTimes.push(i);
+                    }
                 }
-            }
-        });
+            });
+        }
 
         timeGrid.appendChild(timeSlot);
     }
-}function sendDateToBackend(dayIndex) {
+}
+function sendDateToBackend(dayIndex) {
   const nationalcode = document.getElementById('nationalcode').value;
   console.log("Sending day index:", dayIndex);
   fetch('/reserv/new_timeleave/', {
@@ -123,6 +140,8 @@ function generateTimeSlots(date) {
     if (data.reserved_times) {
       window.reservedTimes = data.reserved_times;
       console.log('Updated Reserved Times:', window.reservedTimes);
+      window.rar = data.rar;
+      console.log('Updated Reserved Times:', window.rar);
       // به‌روزرسانی مجدد تایم‌ها با تاریخ انتخاب‌شده
       if (selectedDate) {
         generateTimeSlots(selectedDate);

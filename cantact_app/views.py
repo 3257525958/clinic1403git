@@ -828,14 +828,16 @@ import datetime
 
 @login_required
 def edit_profile(request):
-    print('helo')
     member = request.session.get('member_id')
+    user = ''
     if (member == None) or (member == '') or (member == 'None'):
         if request.method == 'GET':
+            user = 'my_user'
             member_id = request.user.username
             request.session['member_id'] = member_id
             member = request.session.get('member_id')
         else:
+            user = 'anther_user'
             member_id = request.POST.get('member')
             if (member_id != None) and (member_id != '') and (member_id != 'None'):
                 request.session['member_id'] = member_id
@@ -926,23 +928,26 @@ def edit_profile(request):
                                 profile_picture=modify_url(savecode.profile_picture),
                 )
                 ins.save()
-                User.objects.create_user(username=savecode.melicode,
-                                        password=savecode.phonnumber,
-                                        first_name=savecode.firstname,
-                                        last_name=savecode.lastname,
-                                            )
-                user_login =authenticate(request,
-                                             username=savecode.melicode,
-                                             password=savecode.phonnumber,
-                                             )
+                if user == 'my_user':
+                    User.objects.create_user(username=savecode.melicode,
+                                            password=savecode.phonnumber,
+                                            first_name=savecode.firstname,
+                                            last_name=savecode.lastname,
+                                                )
+                    user_login =authenticate(request,
+                                                 username=savecode.melicode,
+                                                 password=savecode.phonnumber,
+                                                 )
 
-                login (request,user_login)
-                e = 'succes'
+                    login (request,user_login)
+                    e = 'succes'
+                    a = savecodphon.objects.filter(melicode=savecode.melicode)
+                    a.delete()
 
-                a = savecodphon.objects.filter(melicode=savecode.melicode)
-                a.delete()
+                    return render(request,'code_cantact.html',context={'etebar':e},)
+                else:
+                    return render(request, 'secretary_dashboard.html')
 
-                return render(request,'code_cantact.html',context={'etebar':e},)
 
     else:
         # فرمت تاریخ تولد برای نمایش در فرم

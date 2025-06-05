@@ -26,11 +26,13 @@
   <input type="hidden" id="nationalcode" value="{{ user }}">
 
 <script>
-  // از escapejs برای جلوگیری از مشکلات احتمالی استفاده می‌کنیم
-  window.reservedTimes = JSON.parse('{{ reserved_times_json|escapejs }}');
+  window.reservedTimes = JSON.parse('{{ reserved_times_json|escapejs }}') || [];
+  window.rar = JSON.parse('{{ rar_json|escapejs }}') || [];
   console.log("Reserved Times:", window.reservedTimes);
+  console.log("Booked Times:", window.rar);
 </script>
-  <script src="{% static '/js/new_leave.js' %}"></script>
+
+<script src="{% static '/js/new_leave.js' %}"></script>
 
 </body>
 </html>

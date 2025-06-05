@@ -1,22 +1,25 @@
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
 from django.urls import reverse
-import json
-from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect
 from cantact_app.views import dateset,stry,strd,strb
-from cash_app.models import bankmodel
 from jobs_app.models import *
 from jalali_date import date2jalali,datetime2jalali
 import matplotlib
 from reserv_app.models import *
-from cantact_app.models import accuntmodel
-from accountancy_app.models import *
 from kavenegar import *
 import random
 from datetime import datetime as dt
 from datetime import timedelta
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse, HttpResponse
+from cantact_app.models import accuntmodel
+from reserv_app.models import fpeseshktestmodel
+from cash_app.models import bankmodel , castmodel
+from num2words import num2words
+import json
+import jdatetime
+from django.core.serializers import serialize
+from django.db.models import Q
 ww = ['t']
 shamsiarray = ['t']
 miladiarray = ['t']
@@ -173,13 +176,6 @@ def summary_view(request: HttpRequest) -> HttpResponse:
     request.session['yearshamsi'] = stry(dt.now())
     request.session['numbertime'] = selected_time
 
-    # a = reservemodeltest.objects.filter(mellicode=request.user.username)
-    # a.update(
-    #     dateshamsireserv=stradb(select_day_date),
-    #     datemiladireserv=select_day_date.strftime('%a %d %b %y'),
-    #     yearshamsi=stry(datetime.datetime.now()),
-    #     numbertime=selected_time,
-    # )
     selectprocedure.append(stradb(select_day_date))
     selectprocedure.append(select_day_date.strftime('%a %d %b %y'))
     selectprocedure.append(stry(dt.now()))
@@ -556,19 +552,18 @@ def timebefor(namberdate, workselectid,melicode):
             dayarr.append('true')
 
         # _____برسی مرخصی ها و حضور اپراتوری که انتخاب شده_________
+        ss = [1]
+        ss.clear()
         ls = leavemodel.objects.all()
         for l in ls:
             if int(l.personelmelicod) == int(personelmelicode):
-                if l.muont == strb(t):
+                if int(l.date) == int(stry(t) + strbadd(t) + strd(t)):
                     s = l.leave.split(",")
-                    a = 2
-                    for iii in range(int(len(s))):
-                        if a <= len(s):
-                            if s[a] == strd(t):
-                                dayarr[int(s[a - 1])] = "false"
-                            a += 2
-                        else:
-                            break
+                    for i in s:
+                        b = int(i)+1
+                        ss.append(int(b))
+        for i in ss :
+            dayarr[i] = 'false'
         # ---------وقتی یه نفر یه کاری رو انتخاب میکنه تا قبل از پرداخت براش رزرو میشه تا کس دیگه ای تو این فاصله نتونه رزروش کنه--------
         for reservmovaghat in reservmovaghats:
             if reservmovaghat.personreserv == selectprocedure[2]:
@@ -705,6 +700,21 @@ def timebefor(namberdate, workselectid,melicode):
                 timesel.append(i-1)
         return timesel
     return []
+def timebeforreserv(numberday,melicod):
+    t = dt.now()
+    t += timedelta(days=1 + int(numberday))
+    reservs = reservemodel.objects.all()
+    reservarray = []
+    reservarray.clear()
+    for reserv in reservs:
+        if (int(reserv.personreserv) == int(melicod)) and (reserv.datemiladireserv == t.strftime('%a %d %b %y')):
+            reservarray.append(reserv.numbertime)
+            for i in range(int(reserv.timereserv)):
+                a = int(reserv.timereserv) + 1
+                reservarray.append(a)
+
+    return reservarray
+
 def reservdef(request):
 # ---------اگر فردی که وارد شده است login  کرده باشد اینجا برایش در reservmodeltest  یک object ساخته میشود-----------
     melicodcheck = "false"
@@ -2426,7 +2436,8 @@ def reservdasti(request):
 
 
 
-
+# ---------------------------------------------------مرخصی-----------------------------------------
+# --------------------------------------------------------------------------------------------
 def leave(request):
     context={'user' : request.user.username}
     return render(request,'new_leave.html',context)
@@ -2457,15 +2468,24 @@ def new_timeleav_view(request):
 
             # پردازش درخواست
             reserved_times = []
+            rar = []
 
             if timeselect and day:
                 reserved_times = listleav(day, timeselect, nationalcode)
+                # rar = timebeforreserv(day,nationalcode)
+
             elif selected_date:
                 reserved_times = listleav(selected_date, None, nationalcode)
+                # rar = timebeforreserv(selected_date,nationalcode)
             elif day:
                 reserved_times = listleav(day, None, nationalcode)
+                # rar = timebeforreserv(day,nationalcode)
 
-            return JsonResponse({'reserved_times': reserved_times})
+            # reserved_times = [1 , 2 ,3]
+            rar = [0]
+            return JsonResponse({'reserved_times': reserved_times,
+                                 'rar': rar
+                                 })
 
         except json.JSONDecodeError:
             return JsonResponse({'error': 'داده‌های ارسالی نامعتبر است'}, status=400)
@@ -2486,7 +2506,7 @@ def listleav(dayy, timeselect, nationalcode):
     try:
         # محاسبه تاریخ
         select_day_date = dt.now() + timedelta(days=int(dayy) + 1)
-        dateleav = stry(select_day_date) + strd(select_day_date) + strbadd(select_day_date)
+        dateleav = stry(select_day_date) + strbadd(select_day_date) + strd(select_day_date)
 
         # تبدیل به عدد صحیح
         nationalcode = int(nationalcode)
@@ -2544,40 +2564,9 @@ def finalize_leave(request):
     # ...
     return JsonResponse({'status': 'success'})
 
-
-
-
-
-
-
-
-
-
-
-# --------------------------------داشبورد-----
-from django.shortcuts import render, redirect
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.db.models import Q
-from cantact_app.models import accuntmodel
-
-
-# نمایش داشبورد منشی
+# نمایش داشبورد منشی-------------------------------------------------------------------------------------------------------
 def dashborddef(request):
     return render(request, 'secretary_dashboard.html')
-
-
-from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse, HttpResponse
-from cantact_app.models import accuntmodel
-from reserv_app.models import fpeseshktestmodel
-from cash_app.models import bankmodel , castmodel
-from num2words import num2words
-import json
-import jdatetime
-from django.core.serializers import serialize
-from django.db.models import Q
 
 
 @csrf_exempt
