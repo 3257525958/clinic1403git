@@ -828,24 +828,53 @@ import datetime
 
 @login_required
 def edit_profile(request):
+    print('helo')
+    member = request.session.get('member_id')
+    if (member == None) or (member == '') or (member == 'None'):
+        if request.method == 'GET':
+            member_id = request.user.username
+            request.session['member_id'] = member_id
+            member = request.session.get('member_id')
+        else:
+            member_id = request.POST.get('member')
+            if (member_id != None) and (member_id != '') and (member_id != 'None'):
+                request.session['member_id'] = member_id
+                member = request.session.get('member_id')
     firstname = request.POST.get("firstname")
     lastname = request.POST.get("lastname")
     melicode = request.POST.get("melicode")
     phonnumber = request.POST.get("phonnumber")
     birthdate = request.POST.get("birthdate")
-    year, mounth, day = dateset(birthdate)
+    year = ''
+    mounth = ''
+    day = ''
+    if (birthdate != None) and (birthdate != '') and (birthdate != 'None'):
+        year, mounth, day = dateset(birthdate)
     profile_pic = request.FILES.get('profile_picture')
-
-
+    button_send = request.POST.get('button_send')
 
     # دریافت اطلاعات کاربر فعلی
     user = request.user
     try:
-        profile = accuntmodel.objects.get(melicode=user.username)
+        profile = accuntmodel.objects.get(melicode=member)
     except accuntmodel.DoesNotExist:
         return render(request, 'error.html', {'message': 'پروفایل یافت نشد'})
 
-    if request.method == 'POST':
+    if button_send == 'accept':
+        if (firstname == None) or (firstname == '') or (firstname == 'None'):
+            firstname = profile.firstname
+        if (lastname == None) or (lastname == '') or (lastname == 'None'):
+            lastname = profile.lastname
+        if (melicode == None) or (melicode == '') or (melicode == 'None'):
+            melicode = profile.melicode
+        if (day == None) or (day == '') or (day == 'None'):
+            day = profile.dayb
+        if (mounth == None) or (mounth == '') or (mounth == 'None'):
+            mounth = profile.mountb
+        if (year == None) or (year == '') or (year == 'None'):
+            year = profile.yearb
+
+    if (request.method == 'POST') and (button_send == 'accept'):
         instans = savecodphon.objects.create(firstname=firstname,
                                              lastname=lastname,
                                              melicode=melicode,
@@ -939,4 +968,11 @@ def edit_profile(request):
         'profile': profile,
         'telhide': telhide
     })
+
+
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 

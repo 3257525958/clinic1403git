@@ -9,7 +9,7 @@
 :root {
   --primary-color: #a3c293;
   --secondary-color: #8aa87e;
-  --accent-color: #6b8e23;
+  --accent-color: #4d774e;
   --text-dark: #2f4f4f;
   --text-light: #ffffff;
   --input-bg: rgba(255, 255, 255, 0.95);
@@ -124,7 +124,7 @@ body {
 }
 
 .submit-btn:hover {
-  background: #5a7a1b;
+  background: #3a5c3a;
 }
 
 .terms-section {
@@ -228,7 +228,7 @@ input[type="file"] {
 }
 
 .browse-btn:hover {
-    background: #5a7a1b;
+    background: #3a5c3a;
 }
 
 /* در حالت موبایل */

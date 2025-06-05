@@ -32,6 +32,8 @@ var m28 =document.getElementById("m28");
 var m29 =document.getElementById("m29");
 var m30 =document.getElementById("m30");
 var m31 =document.getElementById("m31");
+var m32 =document.getElementById("m32");
+var m33 =document.getElementById("m33");
 
 // var m33 = document.getElementById("m33");
 // var m44 = document.getElementById("m44");
@@ -62,6 +64,8 @@ var m2828 = document.getElementById("m2828");
 var m2929 = document.getElementById("m2929");
 var m3030 = document.getElementById("m3030");
 var m3131 = document.getElementById("m3131");
+var m3232 = document.getElementById("m3232");
+var m3333 = document.getElementById("m3333");
 
 var l = document.getElementById("loglevel").innerHTML;
     if ( l == "مدیر");{
