@@ -825,20 +825,18 @@ import datetime
 
 @login_required
 def edit_profile(request):
-    member = request.session.get('member_id')
-    user = ''
-    if (member == None) or (member == '') or (member == 'None'):
-        if request.method == 'GET':
-            user = 'my_user'
-            member_id = request.user.username
-            request.session['member_id'] = member_id
-            member = request.session.get('member_id')
-        else:
-            user = 'anther_user'
-            member_id = request.POST.get('member')
-            if (member_id != None) and (member_id != '') and (member_id != 'None'):
-                request.session['member_id'] = member_id
-                member = request.session.get('member_id')
+    userr =request.POST.get('user')
+    if (userr != None) and (userr != '') and (userr != 'None'):
+        request.session['userr'] = userr
+    userr = request.session.get('userr')
+    e = 'hello'
+    if userr == 'my':
+        member_melicod = request.user.username
+    else:
+        member_melicod = request.POST.get('member')
+    if (member_melicod != None) and (member_melicod != '') and (member_melicod != 'None'):
+        request.session['member_id'] = member_melicod
+    member = request.session['member_id']
     firstname = request.POST.get("firstname")
     lastname = request.POST.get("lastname")
     melicode = request.POST.get("melicode")
@@ -850,12 +848,13 @@ def edit_profile(request):
     if (birthdate != None) and (birthdate != '') and (birthdate != 'None'):
         year, mounth, day = dateset(birthdate)
     profile_pic = request.FILES.get('profile_picture')
+
     button_send = request.POST.get('button_send')
 
     # دریافت اطلاعات کاربر فعلی
     user = request.user
     try:
-        profile = accuntmodel.objects.get(melicode=member)
+        profile = accuntmodel.objects.get(melicode=str(member))
     except accuntmodel.DoesNotExist:
         return render(request, 'error.html', {'message': 'پروفایل یافت نشد'})
 
@@ -872,8 +871,6 @@ def edit_profile(request):
             mounth = profile.mountb
         if (year == None) or (year == '') or (year == 'None'):
             year = profile.yearb
-
-    if (request.method == 'POST') and (button_send == 'accept'):
         instans = savecodphon.objects.create(firstname=firstname,
                                              lastname=lastname,
                                              melicode=melicode,
@@ -906,12 +903,12 @@ def edit_profile(request):
                     time += timedelta(days=1)
 
                 if User.objects.filter(username=savecode.melicode).exists():
-                    a = accuntmodel.objects.filter(melicode=savecode.melicode)
-                    a.delete()
                     b = User.objects.filter(username=savecode.melicode)
                     b.delete()
                 # if __name__ == '__main__':
                 compress_and_move_images()
+                a = accuntmodel.objects.filter(melicode=str(member))
+                a.delete()
                 ins = accuntmodel.objects.create(
                                 firstname=savecode.firstname,
                                 lastname=savecode.lastname,
@@ -925,27 +922,35 @@ def edit_profile(request):
                                 profile_picture=modify_url(savecode.profile_picture),
                 )
                 ins.save()
-                if user == 'my_user':
-                    User.objects.create_user(username=savecode.melicode,
-                                            password=savecode.phonnumber,
-                                            first_name=savecode.firstname,
-                                            last_name=savecode.lastname,
-                                                )
+                User.objects.create_user(username=savecode.melicode,
+                                        password=savecode.phonnumber,
+                                        first_name=savecode.firstname,
+                                        last_name=savecode.lastname,
+                                            )
+                e = 'ok'
+                if userr == 'my':
+                    print('1')
                     user_login =authenticate(request,
                                                  username=savecode.melicode,
                                                  password=savecode.phonnumber,
                                                  )
 
                     login (request,user_login)
-                    e = 'succes'
+
+                    # e = 'succes'
                     a = savecodphon.objects.filter(melicode=savecode.melicode)
                     a.delete()
-
-                    return render(request,'code_cantact.html',context={'etebar':e},)
-                else:
-                    return render(request, 'secretary_dashboard.html')
-
-
+                    a = savecodphon.objects.filter(melicode=str(member))
+                    a.delete()
+                    # request.session.flush()
+                    return redirect('/')
+                    # return render(request,'new_profile_edit.html',context={'etebar_edit':e})
+    #             a = savecodphon.objects.filter(melicode=savecode.melicode)
+    #             a.delete()
+    #             a = savecodphon.objects.filter(melicode=str(member))
+    #             a.delete()
+    #             request.session.flush()
+            return render(request,'new_profile_edit.html',context={'etebar_edit':e})
     else:
         # فرمت تاریخ تولد برای نمایش در فرم
         birthdate_str = ""
@@ -966,6 +971,7 @@ def edit_profile(request):
     telhide = format_phone_number(profile.phonnumber) if profile.phonnumber else ""
 
     return render(request, 'new_profile_edit.html', {
+        'etebar_edit': e,
         # 'form': form,
         'profile': profile,
         'telhide': telhide

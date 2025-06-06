@@ -67,7 +67,7 @@
                 <li id="m17"><a  href="accountanc/laghv/" >لغو قرارداد </a></li>
 </ul>
 <ul id="dropdown6" class="dropdown-content hide-on-med-and-down faseleazbala">
-                <li id="m32"><a  href="cantact/edit-profile/" >ویرایش </a></li>
+                <li id="m32"><a href="#" onclick="document.getElementById('myForm').submit()">ویرایش</a></li>
                 <li id="m33"><a  href="cantact/logout/" >خروج </a></li>
 </ul>
 <ul id="dropdown11" class="dropdown-content  faseleazbalamobile">
@@ -112,11 +112,16 @@
                 <li id="m17"><a  href="accountanc/laghv/" >لغو قرارداد </a></li>
 </ul>
 <ul id="dropdown66" class="dropdown-content  faseleazbalamobile">
-                <li id="m3232"><a  href="cantact/edit-profile/" >ویرایش </a></li>
+                <li id="m3232"> <a href="#" onclick="document.getElementById('myForm').submit()">ویرایش</a></li>
                 <li id="m3333"><a  href="cantact/logout/" >خروج </a></li>
 </ul>
 
 
+<!-- فرم مخفی با متد POST -->
+<form id="myForm" action="cantact/edit-profile/" method="post" style="display:none;">
+    {% csrf_token %}
+  <input type="hidden" name="user" value="my">
+</form>
     
   <!-- منوی بالایی -->
   <nav class="top-menu">
