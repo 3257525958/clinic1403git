@@ -44,7 +44,12 @@
                         <input type="hidden" name="member_id" value="{{ member.id }}">
                         <button type="submit" class="btn-primary">صندوق</button>
                     </form>
-                    <button id="nextReservationBtn" class="btn-primary">رزرو وقت بعدی</button>
+                    <form action="/reserv/reserv/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="member" value="{{ member.melicode }}">
+                        <button id="nextReservationBtn" type="submit" class="btn-primary">رزرو وقت بعدی</button>
+                    </form> 
+{#                    <button id="nextReservationBtn" class="btn-primary">رزرو وقت بعدی</button>#}
                     <button id="editReservationsBtn" class="btn-primary">ویرایش تایم‌های رزرو شده</button>
 {#                    <button id="editProfileBtn" class="btn-primary">ویرایش پروفایل</button>#}
                     <form action="/cantact/edit-profile/" method="POST">

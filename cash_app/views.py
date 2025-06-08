@@ -27,16 +27,18 @@ ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
 ZIB_API_TOKEN = 'https://gateway.zibal.ir/v1/verify'
 
-# CALLBACK_ZIBAL_URL = 'http://127.0.0.1:8000/zib/verifyzibal/'
-# MERCHANT_ZIBAL = 'zibal'
-# ENDURL = "http://127.0.0.1:8000"
+CALLBACK_ZIBAL_URL = 'http://127.0.0.1:8000/zib/verifyzibal/'
+MERCHANT_ZIBAL = 'zibal'
+ENDURL = "http://127.0.0.1:8000"
 
-ENDURL = "https://drmahdiasadpour.ir"
-CALLBACK_ZIBAL_URL = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
-MERCHANT_ZIBAL = '64c2047fcbbc270017f4c6b2'
+# ENDURL = "https://drmahdiasadpour.ir"
+# CALLBACK_ZIBAL_URL = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
+# MERCHANT_ZIBAL = '64c2047fcbbc270017f4c6b2'
 
 def orderzibal(request):
     if request.user.is_authenticated:
+        request.session['melicode'] = request.user.username
+        print(request.user.username)
         # ۱. بارگذاری اطلاعات رزرو و محاسبه مبلغ و موبایل
         work = workmodel.objects.all()
         for w in work:
@@ -171,18 +173,32 @@ def callbackzibal(request):
                                 m = 'neterror'
 
                     # requests.request('GET',"https://drmahdiasadpour.ir")
-                    return render(request,'new_end.html',
-                                  context={
-                                                                "tracking_code":rahgiricode,
-                                                                }
+                    print('1')
+                    print(oneobj.mellicode)
+                    users = accuntmodel.objects.all()
+                    for user in users:
+                        if user.melicode == oneobj.mellicode :
+                            user_login = authenticate(request,
+                                                      username=user.melicode,
+                                                      password=user.pasword,
+                                                      )
+                            if user_login is not None:
+                                login(request, user_login)
+
+                            return render(request,'new_end.html',
+                                          context={
+                                                                        "tracking_code":rahgiricode,
+                                                                        }
                     )
         else:
+            print('2')
             a = reservemodeltest.objects.filter(mellicode=request.user.username)
             a.delete()
 
             return redirect(ENDURL)
 
     else:
+        print('3')
         a = reservemodeltest.objects.filter(mellicode=request.user.username)
         a.delete()
 
@@ -213,9 +229,8 @@ def end(request):
         return render(request, 'end.html', context={"result": 'endresult', })
     except HTTPException as e:
         m = 'neterror'
-        messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+        # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
         return render(request, 'add_cantact.html')
-    print('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
     return render(request, 'end.html', context={"result": 'endresult', })
 
 

@@ -24,4 +24,6 @@ urlpatterns = [
     path('submit_payment/', views.submit_payment, name='submit_payment'),
     path('start_cashier_session/', views.start_cashier_session, name='start_cashier_session'),
 
+    path('start_reserv_profile/', views.save_reserv_profiles, name='reserv_profile'),
+
 ]

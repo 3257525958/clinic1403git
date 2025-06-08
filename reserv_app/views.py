@@ -20,6 +20,9 @@ import json
 import jdatetime
 from django.core.serializers import serialize
 from django.db.models import Q
+from it_app.views import sendmessage
+from django.contrib.auth import authenticate,login, logout
+
 ww = ['t']
 shamsiarray = ['t']
 miladiarray = ['t']
@@ -380,9 +383,63 @@ def summary_view(request: HttpRequest) -> HttpResponse:
         idwork = str(procedureselect)
         # bankpeyment = models.CharField(max_length=200, default='-3',null=True)
     )
-
+    if request.session.get('recive-of') == 'profile':
+        return render(request, 'reserv_end_profile.html', context)
     # فرض بر این است که قالب summary.html را زیر پوشه templates/reserv_app دارید
     return render(request, 'new_reserv_end.html', context)
+def save_reserv_profiles(request):
+    member = request.session.get('member')
+    allreserv = reservemodeltest.objects.all()
+    for oneobj in allreserv:
+        if oneobj.mellicode == member:
+            firstname = oneobj.fiestname
+            lastname = oneobj.lastname
+            rahgiricode = oneobj.rahgiricod
+            kolkhedmat = oneobj.jobreserv + " " + oneobj.detalereserv + " توسط " + oneobj.personreserv
+            day = oneobj.dateshamsireserv
+            houre = oneobj.hourreserv
+            melicode_reserver = oneobj.personreserv
+            reservemodel.objects.create(
+                melicod=oneobj.mellicode,
+                jobreserv=oneobj.jobreserv,
+                detalereserv=oneobj.detalereserv,
+                personreserv=oneobj.personreserv,
+                timereserv=oneobj.timereserv,
+                castreserv=oneobj.castreserv,
+                numbertime=oneobj.numbertime,
+                hourreserv=oneobj.hourreserv,
+                dateshamsireserv=oneobj.dateshamsireserv,
+                datemiladireserv=oneobj.datemiladireserv,
+                yearshamsi=oneobj.yearshamsi,
+                cardnumber=oneobj.cardnumber,
+                pyment=str(int(oneobj.castreserv) // 5),
+                trakingcod=oneobj.rahgiricod,
+                bank="zibal",
+                vahed=oneobj.vahed,
+                idwork=oneobj.idwork,
+                vaziyatereserv='قطعی',
+                bankpeyment="-1",
+            )
+            a = reservemodeltest.objects.filter(mellicode=member)
+            a.delete()
+            request.session.flush()
+            users = accuntmodel.objects.all()
+            for user in users:
+                if int(user.melicode) == int(oneobj.mellicode):
+                    smstext = user.firstname + ' ' + user.lastname + ' ' + 'عزیز' + '\n' + 'رزرو شما قطعی شد' + '\n' + 'کد رهگیری پرداخت شما' + ' ' + rahgiricode + '\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+                    sendmessage(user.phonnumber,smstext)
+                    for user in users:
+                        if user.melicode == melicode_reserver:
+                            user_login = authenticate(request,
+                                                     username=user.melicode,
+                                                     password=user.pasword,
+                                                     )
+                            if user_login is not None:
+                                login(request, user_login)
+                            return redirect('/')
+    return render(request,'secretary_dashboard.html')
+
+
 @csrf_exempt  # در محیط تولید از توکن CSRF استفاده کنید
 def timeselct(request):
     if request.method == 'POST':
@@ -717,10 +774,18 @@ def timebeforreserv(numberday,melicod):
 
 def reservdef(request):
 # ---------اگر فردی که وارد شده است login  کرده باشد اینجا برایش در reservmodeltest  یک object ساخته میشود-----------
-    melicodcheck = "false"
+    request.session['member'] = None
+    member = request.POST.get('member')
+    if (member != None) and (member != 'None' ) and (member != '' ):
+        request.session['member'] = member
+        request.session['recive-of'] = 'profile'
+    else:
+        request.session['member'] = request.user.username
+        request.session['recive-of'] = 'my_reserv'
+    melicode_reserv = request.session.get('member')
     rtotal = reservemodeltest.objects.all()
     for r in rtotal :
-        if r.mellicode == request.user.username:
+        if r.mellicode == melicode_reserv:
             melicodcheck = "true"
 
     # if melicodcheck == "false" :
@@ -731,7 +796,7 @@ def reservdef(request):
 # ----------با توجه به کد ملی فرد login شده اسم کوچک و بزرگ او را پیدا میکنیم---------------------------
     users = accuntmodel.objects.all()
     for user in users:
-        if user.melicode == request.user.username:
+        if user.melicode == melicode_reserv:
             level[0] = user.level
             mellicoduser[0] = user.melicode
             # a = reservemodeltest.objects.filter(mellicode=request.user.username)
@@ -1155,14 +1220,14 @@ def reservdef(request):
         filepage1 = "false"
         page =filepage1model.objects.all()
         for p in page :
-            if p.mellicode == request.user.username :
+            if p.mellicode == melicode_reserv :
                 filepage1 = "true"
         if filepage1 == "false" :
             return render(request,'add_userfilebotax.html')
         else:
             rtotal = reservemodeltest.objects.all()
             for r in rtotal:
-                if r.mellicode == request.user.username:
+                if r.mellicode == melicode_reserv:
                     work = r.jobreserv
                     detalework = r.detalereserv
                     personwork = r.personreserv
@@ -1234,7 +1299,7 @@ def reservdef(request):
         b = ''
         rtotal = reservemodeltest.objects.all()
         for r in rtotal:
-            if r.mellicode == request.user.username:
+            if r.mellicode == melicode_reserv:
                 wo = workmodel.objects.all()
                 for woo in wo:
                     if int(r.idwork) == woo.id:
@@ -1261,13 +1326,13 @@ def reservdef(request):
                                                                     })
 
 
-    nationalcode = request.user.username
+    nationalcode = melicode_reserv
 
     profilestatus = ''
     img = ''
     us = accuntmodel.objects.all()
     for u in us:
-        if u.melicode == request.user.username:
+        if u.melicode == melicode_reserv:
             profilestatus = f"{u.firstname} {u.lastname}  "
             if u.profile_picture and hasattr(u.profile_picture, 'url'):
                 img = u.profile_picture.url
@@ -2420,20 +2485,6 @@ def reservdasti(request):
         'bank': hesabs,
 
     })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # ---------------------------------------------------مرخصی-----------------------------------------
