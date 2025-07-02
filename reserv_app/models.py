@@ -49,7 +49,6 @@ class reservemodeltest(models.Model):
     def __str__(self):
         return f"{self.personreserv}"
 
-
 class leavemodel(models.Model):
     personelmelicod = models.CharField(max_length=11,default='0')
     date = models.CharField(max_length=50,default='0')
