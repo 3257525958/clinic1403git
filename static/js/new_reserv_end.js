@@ -237,6 +237,7 @@ amountInput.addEventListener('input', function() {
         });
     });
 
+
     // تابع دریافت کوکی CSRF
     function getCookie(name) {
         let cookieValue = null;

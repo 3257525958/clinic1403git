@@ -167,7 +167,6 @@ def convert_english_to_persian(number):
     num_str = str(number)
     return ''.join([translation_dict.get(c, c) for c in num_str])
 def summary_view(request: HttpRequest) -> HttpResponse:
-    print('oooooooooooooooooooooooooooooooooooooooooooooooommmmmmmmmmmmmmmm')
     # مثال: خواندن داده‌های ذخیره‌شده در سشن
     s = request.session.get('selected_service_id')
     procedureselect = request.session.get('selected_option_id')
@@ -175,7 +174,6 @@ def summary_view(request: HttpRequest) -> HttpResponse:
     selected_day = request.session.get('selected_day')
     selected_time = request.session.get('selected_time')
     select_day_date = dt.now()
-    print(selected_day)
     try:
         select_day_date += timedelta(days= int(selected_day) + 1)
     except:
@@ -391,9 +389,7 @@ def summary_view(request: HttpRequest) -> HttpResponse:
         # bankpeyment = models.CharField(max_length=200, default='-3',null=True)
     )
     if request.session.get('recive-of') == 'profile':
-        print('pppppppppppppppooooooooooooooiiiiiiiiiiiiiuuuuuuuuuuuuuuuuuu')
         return render(request, 'reserv_end_profile.html', context)
-    print('kkkkkkkkkkkkkkkkkkkkkk')
     return render(request, 'new_reserv_end.html', context)
 
 @csrf_exempt  # در محیط تولید از توکن CSRF استفاده کنید
@@ -2868,21 +2864,12 @@ def save_reserv_profiles(request):
             elif action == 'finalize':
                 # دریافت مبلغ بیعانه از session
                 deposit_amount = request.session.get('deposit_amount')
-                print(deposit_amount)
-
-                # چاپ مبلغ بیعانه
-                print('llkikolkmjnu777777777')
-                # s = request.session.get('selected_service_id')
                 procedureselect = request.session.get('selected_option_id')
-                print(procedureselect)
                 melicod = request.session.get('national_code')
                 amount = request.session.get('amount')
                 selected_day = request.session.get('selected_day')
                 selected_time = request.session.get('selected_time')
                 select_day_date = dt.now()
-                print(selected_day)
-                print(melicod)
-                print(amount)
                 try:
                     select_day_date += timedelta(days=int(selected_day) + 1)
                 except:
