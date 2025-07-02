@@ -142,27 +142,6 @@ function sendTimeToBackend(dayIndex, timeNumber) {
   })
   .catch(error => console.error('خطا:', error));
 }
-// function sendTimeToBackend(dayIndex, timeNumber){
-//     fetch('/reserv/timeselct/', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'X-CSRFToken': getCookie('csrftoken')
-//     },
-//     body: JSON.stringify({
-//       day: dayIndex,
-//       time: timeNumber
-//     })
-//   })
-//   .then(response => {
-//     if (response.ok) {
-//       console.log('ارسال موفق:', dayIndex, timeNumber);
-//     } else {
-//       console.error('خطا در ارسال');
-//     }
-//   })
-//   .catch(error => console.error('خطا:', error));
-// }
 // تبدیل اعداد انگلیسی به فارسی
 function toPersianNumbers(str) {
   const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];

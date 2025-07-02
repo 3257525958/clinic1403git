@@ -22,6 +22,9 @@ from django.core.serializers import serialize
 from django.db.models import Q
 from it_app.views import sendmessage
 from django.contrib.auth import authenticate,login, logout
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
 
 ww = ['t']
 shamsiarray = ['t']
@@ -164,16 +167,19 @@ def convert_english_to_persian(number):
     num_str = str(number)
     return ''.join([translation_dict.get(c, c) for c in num_str])
 def summary_view(request: HttpRequest) -> HttpResponse:
+    print('oooooooooooooooooooooooooooooooooooooooooooooooommmmmmmmmmmmmmmm')
     # مثال: خواندن داده‌های ذخیره‌شده در سشن
     s = request.session.get('selected_service_id')
     procedureselect = request.session.get('selected_option_id')
     melicod = request.session.get('national_code')
     selected_day = request.session.get('selected_day')
     selected_time = request.session.get('selected_time')
-
-
     select_day_date = dt.now()
-    select_day_date += timedelta(days= selected_day + 1)
+    print(selected_day)
+    try:
+        select_day_date += timedelta(days= int(selected_day) + 1)
+    except:
+        a=1
     request.session['dateshamsireserv'] = stradb(select_day_date)
     request.session['datemiladireserv'] = select_day_date.strftime('%a %d %b %y')
     request.session['yearshamsi'] = stry(dt.now())
@@ -305,9 +311,9 @@ def summary_view(request: HttpRequest) -> HttpResponse:
         s = "19:45"
         selectprocedure.append("19:45")
     request.session['hourreserv'] = s
-    # a = reservemodeltest.objects.filter(mellicode=request.user.username)
-    # a.update(hourreserv=s)
     works = workmodel.objects.all()
+    banks = bankmodel.objects.all()
+    context = {'l':'l'}
     for work in works:
         if int(work.id) == int(procedureselect) :
             context = {
@@ -316,6 +322,7 @@ def summary_view(request: HttpRequest) -> HttpResponse:
             'personwork' : work.person,
             'dateshamsi' : stradb(select_day_date),
             'hoursreserv' : s,
+            'banks':banks,
 
             }
     j = ''
@@ -384,61 +391,10 @@ def summary_view(request: HttpRequest) -> HttpResponse:
         # bankpeyment = models.CharField(max_length=200, default='-3',null=True)
     )
     if request.session.get('recive-of') == 'profile':
+        print('pppppppppppppppooooooooooooooiiiiiiiiiiiiiuuuuuuuuuuuuuuuuuu')
         return render(request, 'reserv_end_profile.html', context)
-    # فرض بر این است که قالب summary.html را زیر پوشه templates/reserv_app دارید
+    print('kkkkkkkkkkkkkkkkkkkkkk')
     return render(request, 'new_reserv_end.html', context)
-def save_reserv_profiles(request):
-    member = request.session.get('member')
-    allreserv = reservemodeltest.objects.all()
-    for oneobj in allreserv:
-        if oneobj.mellicode == member:
-            firstname = oneobj.fiestname
-            lastname = oneobj.lastname
-            rahgiricode = oneobj.rahgiricod
-            kolkhedmat = oneobj.jobreserv + " " + oneobj.detalereserv + " توسط " + oneobj.personreserv
-            day = oneobj.dateshamsireserv
-            houre = oneobj.hourreserv
-            melicode_reserver = oneobj.personreserv
-            reservemodel.objects.create(
-                melicod=oneobj.mellicode,
-                jobreserv=oneobj.jobreserv,
-                detalereserv=oneobj.detalereserv,
-                personreserv=oneobj.personreserv,
-                timereserv=oneobj.timereserv,
-                castreserv=oneobj.castreserv,
-                numbertime=oneobj.numbertime,
-                hourreserv=oneobj.hourreserv,
-                dateshamsireserv=oneobj.dateshamsireserv,
-                datemiladireserv=oneobj.datemiladireserv,
-                yearshamsi=oneobj.yearshamsi,
-                cardnumber=oneobj.cardnumber,
-                pyment=str(int(oneobj.castreserv) // 5),
-                trakingcod=oneobj.rahgiricod,
-                bank="zibal",
-                vahed=oneobj.vahed,
-                idwork=oneobj.idwork,
-                vaziyatereserv='قطعی',
-                bankpeyment="-1",
-            )
-            a = reservemodeltest.objects.filter(mellicode=member)
-            a.delete()
-            request.session.flush()
-            users = accuntmodel.objects.all()
-            for user in users:
-                if int(user.melicode) == int(oneobj.mellicode):
-                    smstext = user.firstname + ' ' + user.lastname + ' ' + 'عزیز' + '\n' + 'رزرو شما قطعی شد' + '\n' + 'کد رهگیری پرداخت شما' + ' ' + rahgiricode + '\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
-                    sendmessage(user.phonnumber,smstext)
-                    for user in users:
-                        if user.melicode == melicode_reserver:
-                            user_login = authenticate(request,
-                                                     username=user.melicode,
-                                                     password=user.pasword,
-                                                     )
-                            if user_login is not None:
-                                login(request, user_login)
-                            return redirect('/')
-    return render(request,'secretary_dashboard.html')
-
 
 @csrf_exempt  # در محیط تولید از توکن CSRF استفاده کنید
 def timeselct(request):
@@ -2838,3 +2794,198 @@ def submit_payment(request):
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
     return redirect('cashier_view')
+
+
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt
+def submit_deposit(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            deposit_amount = data.get('deposit_amount')
+            print("مبلغ بیعانه دریافت‌شده:", deposit_amount)  # در ترمینال چاپ میشه
+            return JsonResponse({'status': 'success', 'message': 'پرداخت بیعانه ثبت شد'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': 'خطا در پردازش داده‌ها'})
+    return JsonResponse({'status': 'error', 'message': 'درخواست نامعتبر'})
+# ----------------------------------------------------------------------------------------
+# reservations/views.py
+
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render
+from django.views.decorators.http import require_POST
+import json
+import logging
+
+logger = logging.getLogger(__name__)
+
+def reservation_summary(request):
+    context = {
+        'work': 'خدمت نمونه',
+        'detalework': 'جزئیات خدمت',
+        'personwork': 'اپراتور نمونه',
+        'dateshamsi': '۱۴۰۳/۰۳/۲۲',
+        'hoursreserv': '۱۴:۳۰',
+        'banks': [
+            {'id': 1, 'onvan': 'بانک ملت - ۱۲۳۴'},
+            {'id': 2, 'onvan': 'بانک صادرات - ۵۶۷۸'},
+        ]
+    }
+    return render(request, 'new_reserv_end.html', context)
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+
+@csrf_exempt
+def save_reserv_profiles(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            action = data.get('action')
+            # بخش ثبت بیعانه
+            if action == 'deposit':
+                amount = data.get('amount')
+                bank_id = data.get('bank_id')
+                # ذخیره مبلغ در session برای استفاده بعدی
+                request.session['deposit_amount'] = amount
+                request.session['bank_id'] = bank_id
+
+
+                # TODO: ذخیره‌سازی در مدل‌های شما
+                return JsonResponse({
+                    'success': True,
+                    'message': f'بیعانه {amount} ریال ثبت شد'
+                })
+
+            # بخش ثبت نهایی رزرو
+            elif action == 'finalize':
+                # دریافت مبلغ بیعانه از session
+                deposit_amount = request.session.get('deposit_amount')
+                print(deposit_amount)
+
+                # چاپ مبلغ بیعانه
+                print('llkikolkmjnu777777777')
+                # s = request.session.get('selected_service_id')
+                procedureselect = request.session.get('selected_option_id')
+                print(procedureselect)
+                melicod = request.session.get('national_code')
+                amount = request.session.get('amount')
+                selected_day = request.session.get('selected_day')
+                selected_time = request.session.get('selected_time')
+                select_day_date = dt.now()
+                print(selected_day)
+                print(melicod)
+                print(amount)
+                try:
+                    select_day_date += timedelta(days=int(selected_day) + 1)
+                except:
+                    a = 1
+                request.session['dateshamsireserv'] = stradb(select_day_date)
+                request.session['datemiladireserv'] = select_day_date.strftime('%a %d %b %y')
+                request.session['yearshamsi'] = stry(dt.now())
+                request.session['numbertime'] = selected_time
+
+                # TODO: عملیات نهایی‌سازی رزرو
+                works = workmodel.objects.all()
+                j = ''
+                d = ''
+                p = ''
+                t = ''
+                c = ''
+                f = ''
+                ll = ''
+                p = ''
+                v = ''
+
+                for work in works:
+                    if work.id == int(procedureselect) :
+                        j = work.work
+                        d = work.detalework
+                        p = work.melicodpersonel
+                        c = work.cast
+                        v = work.vahed
+                        if work.time == "زمان کمی میبرد":
+                            t = "0"
+                            selectprocedure.append("0")
+                        if work.time == "پانزده دقیقه":
+                            t = "1"
+                            selectprocedure.append("1")
+                        if work.time == "سی دقیقه":
+                            t = "2"
+                            selectprocedure.append("2")
+                        if work.time == "چهل و پنج دقیقه":
+                            t = "3"
+                            selectprocedure.append("3")
+                        if work.time == "یک ساعت":
+                            t = "4"
+                            selectprocedure.append("4")
+                        if work.time == "یک ساعت و پانزده دقیقه":
+                            t = "5"
+                            selectprocedure.append("5")
+                        if work.time == "یک ساعت و نیم":
+                            t = "6"
+
+                users = accuntmodel.objects.all()
+                for user in users:
+                    if int(user.melicode) == int(request.session['national_code']):
+                        f = user.firstname
+                        ll = user.lastname
+                        ph = user.phonnumber
+                #
+                #
+                reservemodel.objects.create(
+                melicod = melicod,
+                vaziyatereserv = 'هماهنگی روز قبل انجام نشده است' ,
+                jobreserv = j,
+                detalereserv = d,
+                personreserv = p,
+                timereserv = t,
+                castreserv = c,
+                numbertime = request.session['selected_time'],
+                hourreserv = request.session['hourreserv'],
+                dateshamsireserv = stradb(select_day_date),
+                datemiladireserv = select_day_date.strftime('%a %d %b %y'),
+                yearshamsi = stry(select_day_date),
+                # cardnumber = models.CharField(max_length=20, default='0')
+                pyment = request.session.get('deposit_amount'),
+                # trakingcod = models.CharField(max_length=20, default='0')
+                # bank =
+                # checking = models.CharField(max_length=20, default='false')
+                vahed = v,
+                idwork = str(procedureselect),
+                bankpeyment = request.session.get('bank_id'),
+                )
+
+                request.session['deposit_amount'] = 0
+                request.session['bank_id'] = 'بیعانه پرداخت نشده است'
+                return JsonResponse({
+                    'success': True,
+                    'message': 'رزرو با موفقیت ثبت شد'
+                })
+
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=500)
+
+    return JsonResponse({
+        'success': False,
+        'error': 'عملیات نامعتبر'
+    }, status=400)
+
+
+def reserv_profile(request):
+    # TODO: پیاده‌سازی صفحه پروفایل رزرو
+    pass
+
+def reserv_profile(request):
+    # TODO: پیاده‌سازی صفحه پروفایل رزرو
+    pass

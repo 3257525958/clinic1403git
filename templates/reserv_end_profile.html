@@ -1,3 +1,5 @@
+<!-- templates/new_reserv_end.html -->
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -18,7 +20,7 @@
       <div class="details-box">
         <div class="detail-item">
           <span class="label">خدمت انتخاب شده:</span>
-          <span class="value">{{work }}  {{ detalework }}</span>
+          <span class="value">{{ work }} {{ detalework }}</span>
         </div>
         <div class="detail-item">
           <span class="label">اپراتور:</span>
@@ -33,17 +35,53 @@
           <span class="value">{{ hoursreserv }}</span>
         </div>
       </div>
-melicode_reserv
+
       <div class="buttons-group">
-        <button type="button" class="btn cancel-btn" onclick="window.location.href='/'">
-          انصراف
-        </button>
-        <button type="button" class="btn pay-btn" onclick="window.location.href='{% url 'reserv_profile' %}'">
-         ثبت ررزرو
-        </button>
+        <button type="button" class="btn cancel-btn" onclick="window.location.href='/'">انصراف</button>
+        <button type="button" class="btn deposit-btn" id="open-deposit-modal">پرداخت بیعانه</button>
+        <button type="button" class="btn pay-btn" id="submit-reservation">ثبت رزرو</button>
       </div>
     </div>
   </div>
 
+  <!-- مودال پرداخت بیعانه -->
+  <div class="modal" id="deposit-modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>پرداخت بیعانه</h2>
+      <div class="form-group">
+        <label for="bank-select">حساب بانکی:</label>
+        <select id="bank-select" class="form-control">
+          {% for bank in banks %}
+          <option value="{{ bank.id }}">{{ bank.onvan }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="deposit-amount">مبلغ بیعانه (ریال):</label>
+        <input type="number" id="deposit-amount" class="form-control" min="100000" placeholder="حداقل 100,000 ریال">
+      </div>
+      <div class="amount-display">
+        <div class="amount-box">
+          <span class="amount-label">مبلغ به تومان:</span>
+          <span id="toman-amount" class="amount-value">0 تومان</span>
+        </div>
+        <div class="amount-box">
+          <span class="amount-label">مبلغ به حروف:</span>
+          <span id="words-amount" class="amount-value">صفر تومان</span>
+        </div>
+      </div>
+      <button id="submit-deposit" class="btn-primary">ثبت پرداخت</button>
+    </div>
+  </div>
+
+  <script>
+    window.APP_CONFIG = {
+      SAVE_RESERV_PROFILES_URL: "{% url 'save_reserv_profiles' %}",
+      RESERV_PROFILE_URL: "{% url 'reserv_profile' %}"
+    };
+  </script>
+  <script src="{% static 'js/new_reserv_end.js' %}"></script>
+  <script src="{% static 'js/moment.js' %}"></script>
 </body>
 </html>
