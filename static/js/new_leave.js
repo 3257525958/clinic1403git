@@ -57,7 +57,7 @@ function generateTimeSlots(date) {
 
     for (let i = 0; i < slotsCount; i++) {
         const slotTime = baseTime.clone().add(i * 15, 'minutes');
-        const timeStr = slotTime.format('H:mm');
+        const timeStr = slotTime.format(1+'H:mm');
         const timeSlot = document.createElement('div');
         timeSlot.className = 'time-slot';
         timeSlot.dataset.timeIndex = i; // ذخیره اندیس تایم

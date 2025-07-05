@@ -493,60 +493,11 @@ def new_timereserv_view(request):
         return render(request, 'new_timereserv.html', context)
 
 def timebefor(namberdate, workselectid,melicode):
-    # مثال: اگر کد خدمت 'A' و تاریخ '۱۴۰۴/۰۱/۱۰' باشد، تایم‌های رزرو شده مشخص شود.3
-    # y,m,d = dateset(jalali_date)
-    # melicode = melicode
     works = workmodel.objects.all()
     c = 0
     personelmelicode = '0'
     berand = ''
     if workselectid != "None":
-        reservposition[0] = "1"
-        for f in works:
-            if workselectid == f.id:
-                selectprocedure.clear()
-                selectprocedure.append(f.work)
-                selectprocedure.append(f.detalework)
-                selectprocedure.append(f.melicodpersonel)
-                berand = f.berand
-                personelmelicode = f.melicodpersonel
-                a = reservemodeltest.objects.filter(mellicode=melicode)
-                a.update(jobreserv=f.work,
-                         detalereserv=f.detalework,
-                         personreserv=f.person,
-                         vahed=f.vahed,
-                         idwork=f.id
-                         )
-                sel = ''
-                if f.time == "زمان کمی میبرد":
-                    sel = "0"
-                    selectprocedure.append("0")
-                if f.time == "پانزده دقیقه":
-                    sel = "1"
-                    selectprocedure.append("1")
-                if f.time == "سی دقیقه":
-                    sel = "2"
-                    selectprocedure.append("2")
-                if f.time == "چهل و پنج دقیقه":
-                    sel = "3"
-                    selectprocedure.append("3")
-                if f.time == "یک ساعت":
-                    sel = "4"
-                    selectprocedure.append("4")
-                if f.time == "یک ساعت و پانزده دقیقه":
-                    sel = "5"
-                    selectprocedure.append("5")
-                if f.time == "یک ساعت و نیم":
-                    sel = "6"
-                    selectprocedure.append("6")
-                selectprocedure.append(f.cast)
-                a = reservemodeltest.objects.filter(mellicode=melicode)
-                a.update(
-                    timereserv=sel,
-                    castreserv=f.cast,
-                )
-
-            c += 1
         reservmovaghats = reservemodeltest.objects.all()
         # ___________در این قسمت تعداد روزهایی که قرار هستش به مراجعه کننده نشون بدیم مشخص میشه____
         # __________آرایه shmsiarray_ساخته میشه به تعداد tedaderooz  به ترتیب از امروز روز میچینه تو خودش________
@@ -565,7 +516,7 @@ def timebefor(namberdate, workselectid,melicode):
         ss.clear()
         ls = leavemodel.objects.all()
         for l in ls:
-            if int(l.personelmelicod) == int(personelmelicode):
+            if int(l.personelmelicod) == int(melicode):
                 if int(l.date) == int(stry(t) + strbadd(t) + strd(t)):
                     s = l.leave.split(",")
                     for i in s:
@@ -574,41 +525,42 @@ def timebefor(namberdate, workselectid,melicode):
         for i in ss :
             dayarr[i] = 'false'
         # ---------وقتی یه نفر یه کاری رو انتخاب میکنه تا قبل از پرداخت براش رزرو میشه تا کس دیگه ای تو این فاصله نتونه رزروش کنه--------
-        for reservmovaghat in reservmovaghats:
-            if reservmovaghat.personreserv == selectprocedure[2]:
-                if reservmovaghat.dateshamsireserv == stradb(t):
-                    if reservmovaghat.timereserv == '1':
-                        dayarr[int(reservmovaghat.numbertime)] = "false"
-                    if reservmovaghat.timereserv == '2':
-                        dayarr[int(reservmovaghat.numbertime)] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-                    if reservmovaghat.timereserv == '3':
-                        dayarr[int(reservmovaghat.numbertime)] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 2] = "false"
-                    if reservmovaghat.timereserv == '4':
-                        dayarr[int(reservmovaghat.numbertime)] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 2] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 3] = "false"
-                    if reservmovaghat.timereserv == '5':
-                        dayarr[int(reservmovaghat.numbertime)] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 2] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 3] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 4] = "false"
-                    if reservmovaghat.timereserv == '6':
-                        dayarr[int(reservmovaghat.numbertime)] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 2] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 3] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 4] = "false"
-                        dayarr[int(reservmovaghat.numbertime) + 5] = "false"
+        # for reservmovaghat in reservmovaghats:
+        #     if int(reservmovaghat.personreserv) == int(melicode):
+        #         if reservmovaghat.dateshamsireserv == stradb(t):
+        #             if reservmovaghat.timereserv == '1':
+        #                 dayarr[int(reservmovaghat.numbertime)] = "false"
+        #             if reservmovaghat.timereserv == '2':
+        #                 dayarr[int(reservmovaghat.numbertime)] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+        #             if reservmovaghat.timereserv == '3':
+        #                 dayarr[int(reservmovaghat.numbertime)] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+        #             if reservmovaghat.timereserv == '4':
+        #                 dayarr[int(reservmovaghat.numbertime)] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+        #             if reservmovaghat.timereserv == '5':
+        #                 dayarr[int(reservmovaghat.numbertime)] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 4] = "false"
+        #             if reservmovaghat.timereserv == '6':
+        #                 dayarr[int(reservmovaghat.numbertime)] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 4] = "false"
+        #                 dayarr[int(reservmovaghat.numbertime) + 5] = "false"
 
-        # -------------------------اینجا رزرو های قبلی رو چک میکنه---------
+
+# -------------------------اینجا رزرو های قبلی رو چک میکنه---------
         res = reservemodel.objects.all()
         for r in res:
-            if r.personreserv == selectprocedure[2]:
+            if int(r.personreserv) == int(melicode):
                 if r.dateshamsireserv == stradb(t):
                     if r.timereserv == '1':
                         dayarr[int(r.numbertime)] = "false"
@@ -637,17 +589,41 @@ def timebefor(namberdate, workselectid,melicode):
                         dayarr[int(r.numbertime) + 3] = "false"
                         dayarr[int(r.numbertime) + 4] = "false"
                         dayarr[int(r.numbertime) + 5] = "false"
-        # # ---------------------------------------------اگر کاری مه انتخاب شده بیش از نیم ساعت باشه یعنی دو تا نیم ساغت یا سه  یا پهارتا یا پنج تا نیم ساعت باشه-----------
-        # # ------باید چک شود که تا تایم های اینده اش  به همون اندازه که وقت میخواد وقت باشه ---------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------------------
+
+
+# # ---------------------------------------------اگر کاری مه انتخاب شده بیش از15دقیقه باشه یعنی دو تا 15 دقیقه یا سه  یا پهارتا یا پنج تا 15 دقیقه باشه-----------
+# # ------باید چک شود که تا تایم های اینده اش  به همون اندازه که وقت میخواد وقت باشه ---------------------------------------
         #
-        if selectprocedure[3] == "2":
-            for hh in range(19):
+        ws = workmodel.objects.all()
+
+        sel = ''
+        for f in ws:
+            if int(workselectid) == int(f.id):
+                if f.time == "زمان کمی میبرد":
+                    sel = "0"
+                if f.time == "پانزده دقیقه":
+                    sel = "1"
+                if f.time == "سی دقیقه":
+                    sel = "2"
+                if f.time == "چهل و پنج دقیقه":
+                    sel = "3"
+                if f.time == "یک ساعت":
+                    sel = "4"
+                if f.time == "یک ساعت و پانزده دقیقه":
+                    sel = "5"
+                if f.time == "یک ساعت و نیم":
+                    sel = "6"
+
+        #
+        if sel == "2":
+            for hh in range(39):
                 hh += 1
                 if dayarr[int(hh) + 1] == "false":
                     dayarr[int(hh)] = "false"
             dayarr[40] = "false"
-        if selectprocedure[3] == "3":
-            for hh in range(18):
+        if sel == "3":
+            for hh in range(38):
                 hh += 1
                 if dayarr[int(hh) + 1] == "false":
                     dayarr[int(hh)] = "false"
@@ -655,8 +631,8 @@ def timebefor(namberdate, workselectid,melicode):
                     dayarr[int(hh)] = "false"
             dayarr[39] = "false"
             dayarr[40] = "false"
-        if selectprocedure[3] == "4":
-            for hh in range(17):
+        if sel == "4":
+            for hh in range(37):
                 hh += 1
                 if dayarr[int(hh) + 1] == "false":
                     dayarr[int(hh)] = "false"
@@ -667,8 +643,8 @@ def timebefor(namberdate, workselectid,melicode):
             dayarr[38] = "false"
             dayarr[39] = "false"
             dayarr[40] = "false"
-        if selectprocedure[3] == "5":
-            for hh in range(16):
+        if sel == "5":
+            for hh in range(36):
                 hh += 1
                 if dayarr[int(hh) + 1] == "false":
                     dayarr[int(hh)] = "false"
@@ -682,8 +658,8 @@ def timebefor(namberdate, workselectid,melicode):
             dayarr[38] = "false"
             dayarr[39] = "false"
             dayarr[40] = "false"
-        if selectprocedure[3] == "6":
-            for hh in range(15):
+        if sel == "6":
+            for hh in range(35):
                 hh += 1
                 if dayarr[int(hh) + 1] == "false":
                     dayarr[int(hh)] = "false"
@@ -700,10 +676,12 @@ def timebefor(namberdate, workselectid,melicode):
             dayarr[38] = "false"
             dayarr[39] = "false"
             dayarr[40] = "false"
+# ------------------------------------------------------------------------------------------
 
-        #
+
         timesel = [0]
         timesel.clear()
+
         for i in range(41):
             if dayarr[i] == "false":
                 timesel.append(i-1)
@@ -717,10 +695,13 @@ def timebeforreserv(numberday,melicod):
     reservarray.clear()
     for reserv in reservs:
         if (int(reserv.personreserv) == int(melicod)) and (reserv.datemiladireserv == t.strftime('%a %d %b %y')):
-            reservarray.append(reserv.numbertime)
+            reservarray.append(int(reserv.numbertime)-1)
+            # if int(reserv.timereserv)
+            a = int(reserv.numbertime)-1
             for i in range(int(reserv.timereserv)):
-                a = int(reserv.timereserv) + 1
+                print('ppppppp',i)
                 reservarray.append(a)
+                a += 1
 
     return reservarray
 
@@ -2475,17 +2456,17 @@ def new_timeleav_view(request):
 
             if timeselect and day:
                 reserved_times = listleav(day, timeselect, nationalcode)
-                # rar = timebeforreserv(day,nationalcode)
+                rar = timebeforreserv(day,nationalcode)
 
             elif selected_date:
                 reserved_times = listleav(selected_date, None, nationalcode)
-                # rar = timebeforreserv(selected_date,nationalcode)
+                rar = timebeforreserv(selected_date,nationalcode)
             elif day:
                 reserved_times = listleav(day, None, nationalcode)
-                # rar = timebeforreserv(day,nationalcode)
+                rar = timebeforreserv(day,nationalcode)
 
-            # reserved_times = [1 , 2 ,3]
-            rar = [0]
+            # reserved_times = [5,6,7]
+            # rar = [1,2,3]
             return JsonResponse({'reserved_times': reserved_times,
                                  'rar': rar
                                  })
