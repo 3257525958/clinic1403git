@@ -445,13 +445,16 @@ def convert(t):
 # from .utils import convert, timebefor
 
 def new_timereserv_view(request):
+    print(22)
     # دریافت داده انتخاب شده از session (مثلاً شماره خدمت و سایر اطلاعات)
     s = request.session.get('selected_service_id')
     procedureselect = request.session.get('selected_option_id')
     melicod = request.session.get('national_code')
 
     if request.method == 'POST':
+        print(33)
         try:
+            print(44)
             # دریافت داده‌های ارسالی به صورت JSON
             data = json.loads(request.body.decode('utf-8'))
             selected_date = data.get('selected_date')
@@ -462,8 +465,16 @@ def new_timereserv_view(request):
                 workselectid = "None"
 
             # دریافت زمان‌های رزرو شده با استفاده از تابع timebefor
+            print(workselectid)
+            print(selected_date)
+            print(melicod)
+            ws = workmodel.objects.all()
+            melicod = 0
+            for w in ws:
+                if int(w.id) == int(workselectid):
+                    melicod = int(w.melicodpersonel)
             reserved_times = timebefor(selected_date, workselectid, melicod)
-
+            print(reserved_times)
             return JsonResponse({'reserved_times': reserved_times})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
@@ -706,6 +717,7 @@ def timebeforreserv(numberday,melicod):
     return reservarray
 
 def reservdef(request):
+    print(11)
 # ---------اگر فردی که وارد شده است login  کرده باشد اینجا برایش در reservmodeltest  یک object ساخته میشود-----------
     request.session['member'] = None
     member = request.POST.get('member')
@@ -2954,6 +2966,6 @@ def reserv_profile(request):
     # TODO: پیاده‌سازی صفحه پروفایل رزرو
     pass
 
-def reserv_profile(request):
-    # TODO: پیاده‌سازی صفحه پروفایل رزرو
-    pass
+# def reserv_profile(request):
+#     # TODO: پیاده‌سازی صفحه پروفایل رزرو
+#     pass
