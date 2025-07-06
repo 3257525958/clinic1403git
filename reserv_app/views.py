@@ -570,6 +570,7 @@ def timebefor(namberdate, workselectid,melicode):
 
 
 # -------------------------اینجا رزرو های قبلی رو چک میکنه---------
+
         res = reservemodel.objects.all()
         for r in res:
             if int(r.personreserv) == int(melicode):
