@@ -463,12 +463,17 @@ def new_timereserv_view(request):
                 workselectid = "None"
 
             # دریافت زمان‌های رزرو شده با استفاده از تابع timebefor
+            print(workselectid)
+            print(selected_date)
+            print(melicod)
             ws = workmodel.objects.all()
             melicod = 0
             for w in ws:
                 if int(w.id) == int(workselectid):
                     melicod = int(w.melicodpersonel)
+            print(melicod)
             reserved_times = timebefor(selected_date, workselectid, melicod)
+            print(reserved_times)
             return JsonResponse({'reserved_times': reserved_times})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
