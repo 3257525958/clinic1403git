@@ -473,6 +473,7 @@ def new_timereserv_view(request):
                     melicod = int(w.melicodpersonel)
             print(melicod)
             reserved_times = timebefor(selected_date, workselectid, melicod)
+            print(555)
             print(reserved_times)
             return JsonResponse({'reserved_times': reserved_times})
         except Exception as e:
@@ -503,6 +504,7 @@ def new_timereserv_view(request):
         return render(request, 'new_timereserv.html', context)
 
 def timebefor(namberdate, workselectid,melicode):
+    print(66)
     works = workmodel.objects.all()
     c = 0
     personelmelicode = '0'
