@@ -519,18 +519,18 @@ def timebefor(namberdate, workselectid,melicode):
             dayarr.append('true')
 
         # _____برسی مرخصی ها و حضور اپراتوری که انتخاب شده_________
-        # ss = [1]
-        # ss.clear()
-        # ls = leavemodel.objects.all()
-        # for l in ls:
-        #     if str(l.personelmelicod) == str(melicode):
-        #         if int(l.date) == int(stry(t) + strbadd(t) + strd(t)):
-        #             s = l.leave.split(",")
-        #             for i in s:
-        #                 b = int(i)+1
-        #                 ss.append(int(b))
-        # for i in ss :
-        #     dayarr[i] = 'false'
+        ss = [1]
+        ss.clear()
+        ls = leavemodel.objects.all()
+        for l in ls:
+            if str(l.personelmelicod) == str(melicode):
+                if str(l.date) == str(stry(t) + strbadd(t) + strd(t)):
+                    s = l.leave.split(",")
+                    for i in s:
+                        b = int(i)+1
+                        ss.append(int(b))
+        for i in ss :
+            dayarr[i] = 'false'
 #         # ---------وقتی یه نفر یه کاری رو انتخاب میکنه تا قبل از پرداخت براش رزرو میشه تا کس دیگه ای تو این فاصله نتونه رزروش کنه--------
         # for reservmovaghat in reservmovaghats:
         #     if int(reservmovaghat.personreserv) == int(melicode):
