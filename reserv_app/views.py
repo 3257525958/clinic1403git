@@ -500,10 +500,10 @@ def new_timereserv_view(request):
         return render(request, 'new_timereserv.html', context)
 
 def timebefor(namberdate, workselectid,melicode):
-    # works = workmodel.objects.all()
-    # c = 0
-    # personelmelicode = '0'
-    # berand = ''
+    works = workmodel.objects.all()
+    c = 0
+    personelmelicode = '0'
+    berand = ''
     if workselectid != "None":
         reservmovaghats = reservemodeltest.objects.all()
         # ___________در این قسمت تعداد روزهایی که قرار هستش به مراجعه کننده نشون بدیم مشخص میشه____
