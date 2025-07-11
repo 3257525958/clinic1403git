@@ -468,7 +468,7 @@ def new_timereserv_view(request):
             ws = workmodel.objects.all()
             melicod = 0
             for w in ws:
-                if int(w.id) == int(workselectid):
+                if int(w.id) == workselectid:
                     melicod = int(w.melicodpersonel)
             reserved_times = timebefor(selected_date, workselectid, melicod)
             return JsonResponse({'reserved_times': reserved_times})
