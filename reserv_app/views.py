@@ -519,7 +519,6 @@ def timebefor(namberdate, workselectid,melicode):
             dayarr.append('true')
 
         # _____برسی مرخصی ها و حضور اپراتوری که انتخاب شده_________
-
         ss = [1]
         ss.clear()
         ls = leavemodel.objects.all()
