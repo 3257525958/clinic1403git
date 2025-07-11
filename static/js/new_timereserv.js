@@ -89,9 +89,9 @@ function sendDateToBackend(dayIndex) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken')
+      'X-CSRFToken': getCookie('csrftoken') // فرض بر تعریف تابع getCookie
     },
-    credentials: 'same-origin',  // اطمینان از ارسال کوکی‌ها (session) به سرور
+    credentials: 'same-origin',
     body: JSON.stringify({ selected_date: dayIndex })
   })
   .then(response => {
@@ -104,17 +104,15 @@ function sendDateToBackend(dayIndex) {
     if (data.reserved_times) {
       window.reservedTimes = data.reserved_times;
       console.log('Updated Reserved Times:', window.reservedTimes);
-      // به‌روزرسانی مجدد تایم‌ها با تاریخ انتخاب‌شده
       if (selectedDate) {
-        generateTimeSlots(selectedDate);
+        generateTimeSlots(selectedDate); // فرض بر تعریف selectedDate و تابع generateTimeSlots
       }
     } else {
       console.error('No reserved_times returned from server');
     }
   })
-  .catch(error => console.error('Error in sending date:', error));
+  .catch(error => console.error('Error in sending date:', error)); // اصلاح شد: پرانتز اضافه حذف شد
 }
-
 // ارسال شماره تایم به همراه شماره روز به سرور با متد POST
 function sendTimeToBackend(dayIndex, timeNumber) {
   fetch('/reserv/timeselct/', {

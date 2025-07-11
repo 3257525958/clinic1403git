@@ -409,7 +409,8 @@ def timeselct(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
     return JsonResponse({'error': 'Invalid request method'}, status=405)
-@csrf_exempt  # در محیط تولیدی پیشنهاد می‌شود مدیریت CSRF به روش امن‌تر انجام شود.
+@csrf_exempt
+# در محیط تولیدی پیشنهاد می‌شود مدیریت CSRF به روش امن‌تر انجام شود.
 def save_selection(request):
     if request.method == 'POST':
         try:
@@ -444,6 +445,7 @@ def convert(t):
 # از مثال‌های زیر استفاده کنید:
 # from .utils import convert, timebefor
 
+@csrf_exempt
 def new_timereserv_view(request):
     print(22)
     # دریافت داده انتخاب شده از session (مثلاً شماره خدمت و سایر اطلاعات)
