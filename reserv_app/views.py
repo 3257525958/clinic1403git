@@ -170,6 +170,8 @@ def summary_view(request: HttpRequest) -> HttpResponse:
     # مثال: خواندن داده‌های ذخیره‌شده در سشن
     s = request.session.get('selected_service_id')
     procedureselect = request.session.get('selected_option_id')
+    print(333333333333333333333333333333)
+    print(procedureselect)
     melicod = request.session.get('national_code')
     selected_day = request.session.get('selected_day')
     selected_time = request.session.get('selected_time')
@@ -313,7 +315,7 @@ def summary_view(request: HttpRequest) -> HttpResponse:
     banks = bankmodel.objects.all()
     context = {'l':'l'}
     for work in works:
-        if int(work.id) == int(procedureselect) :
+        if str(work.id) == str(procedureselect) :
             context = {
             'work' : work.work,
             'detalework' : work.detalework,
@@ -325,7 +327,6 @@ def summary_view(request: HttpRequest) -> HttpResponse:
             }
     j = ''
     d = ''
-    p = ''
     t = ''
     c = ''
     f = ''
@@ -447,7 +448,6 @@ def convert(t):
 
 @csrf_exempt
 def new_timereserv_view(request):
-    print(22)
     # دریافت داده انتخاب شده از session (مثلاً شماره خدمت و سایر اطلاعات)
     s = request.session.get('selected_service_id')
     procedureselect = request.session.get('selected_option_id')
@@ -714,7 +714,6 @@ def timebeforreserv(numberday,melicod):
     return reservarray
 
 def reservdef(request):
-    print(11)
 # ---------اگر فردی که وارد شده است login  کرده باشد اینجا برایش در reservmodeltest  یک object ساخته میشود-----------
     request.session['member'] = None
     member = request.POST.get('member')
