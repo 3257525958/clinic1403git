@@ -460,7 +460,7 @@ def new_timereserv_view(request):
             selected_date = data.get('selected_date')
             selected_time = data.get('datetime')
             try:
-                workselectid = int(procedureselect)
+                workselectid = procedureselect
             except Exception as e:
                 workselectid = "None"
 
@@ -468,10 +468,9 @@ def new_timereserv_view(request):
             ws = workmodel.objects.all()
             melicod = 0
             for w in ws:
-                if int(w.id) == workselectid:
+                if int(w.id) == int(workselectid):
                     melicod = int(w.melicodpersonel)
-            # reserved_times = timebefor(selected_date, workselectid, melicod)
-            reserved_times = [1,2,3]
+            reserved_times = timebefor(selected_date, workselectid, melicod)
             return JsonResponse({'reserved_times': reserved_times})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
@@ -501,11 +500,10 @@ def new_timereserv_view(request):
         return render(request, 'new_timereserv.html', context)
 
 def timebefor(namberdate, workselectid,melicode):
-    print(66)
-    works = workmodel.objects.all()
-    c = 0
-    personelmelicode = '0'
-    berand = ''
+    # works = workmodel.objects.all()
+    # c = 0
+    # personelmelicode = '0'
+    # berand = ''
     if workselectid != "None":
         reservmovaghats = reservemodeltest.objects.all()
         # ___________در این قسمت تعداد روزهایی که قرار هستش به مراجعه کننده نشون بدیم مشخص میشه____
@@ -521,84 +519,84 @@ def timebefor(namberdate, workselectid,melicode):
             dayarr.append('true')
 
         # _____برسی مرخصی ها و حضور اپراتوری که انتخاب شده_________
-        ss = [1]
-        ss.clear()
-        ls = leavemodel.objects.all()
-        for l in ls:
-            if int(l.personelmelicod) == int(melicode):
-                if int(l.date) == int(stry(t) + strbadd(t) + strd(t)):
-                    s = l.leave.split(",")
-                    for i in s:
-                        b = int(i)+1
-                        ss.append(int(b))
-        for i in ss :
-            dayarr[i] = 'false'
-        # ---------وقتی یه نفر یه کاری رو انتخاب میکنه تا قبل از پرداخت براش رزرو میشه تا کس دیگه ای تو این فاصله نتونه رزروش کنه--------
-        # for reservmovaghat in reservmovaghats:
-        #     if int(reservmovaghat.personreserv) == int(melicode):
-        #         if reservmovaghat.dateshamsireserv == stradb(t):
-        #             if reservmovaghat.timereserv == '1':
-        #                 dayarr[int(reservmovaghat.numbertime)] = "false"
-        #             if reservmovaghat.timereserv == '2':
-        #                 dayarr[int(reservmovaghat.numbertime)] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-        #             if reservmovaghat.timereserv == '3':
-        #                 dayarr[int(reservmovaghat.numbertime)] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
-        #             if reservmovaghat.timereserv == '4':
-        #                 dayarr[int(reservmovaghat.numbertime)] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 3] = "false"
-        #             if reservmovaghat.timereserv == '5':
-        #                 dayarr[int(reservmovaghat.numbertime)] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 3] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 4] = "false"
-        #             if reservmovaghat.timereserv == '6':
-        #                 dayarr[int(reservmovaghat.numbertime)] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 3] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 4] = "false"
-        #                 dayarr[int(reservmovaghat.numbertime) + 5] = "false"
-
-
-# -------------------------اینجا رزرو های قبلی رو چک میکنه---------
-
-        res = reservemodel.objects.all()
-        for r in res:
-            if int(r.personreserv) == int(melicode):
-                if r.dateshamsireserv == stradb(t):
-                    if r.timereserv == '1':
-                        dayarr[int(r.numbertime)] = "false"
-                    if r.timereserv == '2':
-                        dayarr[int(r.numbertime)] = "false"
-                        dayarr[int(r.numbertime) + 1] = "false"
-                    if r.timereserv == '3':
-                        dayarr[int(r.numbertime)] = "false"
-                        dayarr[int(r.numbertime) + 1] = "false"
-                        dayarr[int(r.numbertime) + 2] = "false"
-                    if r.timereserv == '4':
-                        dayarr[int(r.numbertime)] = "false"
-                        dayarr[int(r.numbertime) + 1] = "false"
-                        dayarr[int(r.numbertime) + 2] = "false"
-                        dayarr[int(r.numbertime) + 3] = "false"
-                    if r.timereserv == '5':
-                        dayarr[int(r.numbertime)] = "false"
-                        dayarr[int(r.numbertime) + 1] = "false"
-                        dayarr[int(r.numbertime) + 2] = "false"
-                        dayarr[int(r.numbertime) + 3] = "false"
-                        dayarr[int(r.numbertime) + 4] = "false"
-                    if r.timereserv == '6':
-                        dayarr[int(r.numbertime)] = "false"
-                        dayarr[int(r.numbertime) + 1] = "false"
-                        dayarr[int(r.numbertime) + 2] = "false"
-                        dayarr[int(r.numbertime) + 3] = "false"
-                        dayarr[int(r.numbertime) + 4] = "false"
-                        dayarr[int(r.numbertime) + 5] = "false"
+#         ss = [1]
+#         ss.clear()
+#         ls = leavemodel.objects.all()
+#         for l in ls:
+#             if int(l.personelmelicod) == int(melicode):
+#                 if int(l.date) == int(stry(t) + strbadd(t) + strd(t)):
+#                     s = l.leave.split(",")
+#                     for i in s:
+#                         b = int(i)+1
+#                         ss.append(int(b))
+#         for i in ss :
+#             dayarr[i] = 'false'
+#         # ---------وقتی یه نفر یه کاری رو انتخاب میکنه تا قبل از پرداخت براش رزرو میشه تا کس دیگه ای تو این فاصله نتونه رزروش کنه--------
+#         # for reservmovaghat in reservmovaghats:
+#         #     if int(reservmovaghat.personreserv) == int(melicode):
+#         #         if reservmovaghat.dateshamsireserv == stradb(t):
+#         #             if reservmovaghat.timereserv == '1':
+#         #                 dayarr[int(reservmovaghat.numbertime)] = "false"
+#         #             if reservmovaghat.timereserv == '2':
+#         #                 dayarr[int(reservmovaghat.numbertime)] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+#         #             if reservmovaghat.timereserv == '3':
+#         #                 dayarr[int(reservmovaghat.numbertime)] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+#         #             if reservmovaghat.timereserv == '4':
+#         #                 dayarr[int(reservmovaghat.numbertime)] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+#         #             if reservmovaghat.timereserv == '5':
+#         #                 dayarr[int(reservmovaghat.numbertime)] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 4] = "false"
+#         #             if reservmovaghat.timereserv == '6':
+#         #                 dayarr[int(reservmovaghat.numbertime)] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 1] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 2] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 3] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 4] = "false"
+#         #                 dayarr[int(reservmovaghat.numbertime) + 5] = "false"
+#
+#
+# # -------------------------اینجا رزرو های قبلی رو چک میکنه---------
+#
+#         res = reservemodel.objects.all()
+#         for r in res:
+#             if int(r.personreserv) == int(melicode):
+#                 if r.dateshamsireserv == stradb(t):
+#                     if r.timereserv == '1':
+#                         dayarr[int(r.numbertime)] = "false"
+#                     if r.timereserv == '2':
+#                         dayarr[int(r.numbertime)] = "false"
+#                         dayarr[int(r.numbertime) + 1] = "false"
+#                     if r.timereserv == '3':
+#                         dayarr[int(r.numbertime)] = "false"
+#                         dayarr[int(r.numbertime) + 1] = "false"
+#                         dayarr[int(r.numbertime) + 2] = "false"
+#                     if r.timereserv == '4':
+#                         dayarr[int(r.numbertime)] = "false"
+#                         dayarr[int(r.numbertime) + 1] = "false"
+#                         dayarr[int(r.numbertime) + 2] = "false"
+#                         dayarr[int(r.numbertime) + 3] = "false"
+#                     if r.timereserv == '5':
+#                         dayarr[int(r.numbertime)] = "false"
+#                         dayarr[int(r.numbertime) + 1] = "false"
+#                         dayarr[int(r.numbertime) + 2] = "false"
+#                         dayarr[int(r.numbertime) + 3] = "false"
+#                         dayarr[int(r.numbertime) + 4] = "false"
+#                     if r.timereserv == '6':
+#                         dayarr[int(r.numbertime)] = "false"
+#                         dayarr[int(r.numbertime) + 1] = "false"
+#                         dayarr[int(r.numbertime) + 2] = "false"
+#                         dayarr[int(r.numbertime) + 3] = "false"
+#                         dayarr[int(r.numbertime) + 4] = "false"
+#                         dayarr[int(r.numbertime) + 5] = "false"
 # ----------------------------------------------------------------------------------------------------------------------------------
 
 
