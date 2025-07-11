@@ -467,6 +467,7 @@ def new_timereserv_view(request):
             # دریافت زمان‌های رزرو شده با استفاده از تابع timebefor
             ws = workmodel.objects.all()
             melicod = 0
+
             # for w in ws:
             #     if int(w.id) == workselectid:
             #         melicod = int(w.melicodpersonel)
