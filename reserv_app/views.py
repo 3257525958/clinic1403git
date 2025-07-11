@@ -523,7 +523,7 @@ def timebefor(namberdate, workselectid,melicode):
         ss.clear()
         ls = leavemodel.objects.all()
         for l in ls:
-            if int(l.personelmelicod) == int(melicode):
+            if str(l.personelmelicod) == str(melicode):
                 if int(l.date) == int(stry(t) + strbadd(t) + strd(t)):
                     s = l.leave.split(",")
                     for i in s:
