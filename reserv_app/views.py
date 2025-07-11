@@ -324,7 +324,7 @@ def summary_view(request: HttpRequest) -> HttpResponse:
             'hoursreserv' : s,
             'banks':banks,
 
-            }
+            }.
     j = ''
     d = ''
     t = ''
