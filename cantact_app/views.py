@@ -429,7 +429,7 @@ def addcantactdef(request):
 
 
     melicod_etebar[0] = 'f'
-    melicod = request.POST.get("melicod")
+    melicod = convert_farsi_to_latin(request.POST.get("melicod"))
 
     if (melicod != '') and ( melicod != None) :
         melicod_etebar[0] = 'true'
@@ -443,7 +443,7 @@ def addcantactdef(request):
     if melicod_r[0] == None :
         melicod_r[0] = ''
 
-    phonnumber = request.POST.get("phonnumber")
+    phonnumber = convert_farsi_to_latin(request.POST.get("phonnumber"))
     if (phonnumber != '') and ( phonnumber != None) :
         phonnumber_r[0] = phonnumber
     if phonnumber_r[0] == None :
@@ -616,10 +616,25 @@ login_etebar = ['f']
 
 
 
+def convert_farsi_to_latin(input_str):
+    """
+    اعداد فارسی موجود در رشته ورودی را به معادل لاتین تبدیل می‌کند.
+
+    پارامترها:
+        input_str (str): رشته حاوی اعداد فارسی
+
+    بازگشت:
+        str: رشته با اعداد لاتین جایگزین شده
+    """
+    farsi_digits = '۰۱۲۳۴۵۶۷۸۹'
+    latin_digits = '0123456789'
+
+    translation_table = str.maketrans(farsi_digits, latin_digits)
+    return input_str.translate(translation_table)
 
 def logindef(request):
-    username = request.POST.get("username")
-    password = request.POST.get("password")
+    username = convert_farsi_to_latin(request.POST.get("username"))
+    password = convert_farsi_to_latin(request.POST.get("password"))
     button_back = request.POST.get("button_back")
     button_send = request.POST.get("button_send")
     login_etebar[0] = 'f'
@@ -671,12 +686,12 @@ melicod_ignor = ['']
 
 def ignordef(request):
     ignor_etebar[0] = 'false'
-    melicode = request.POST.get('melicode')
+    melicode = convert_farsi_to_latin(request.POST.get('melicode'))
     button_send = request.POST.get('button_send')
     buttoncode_send = request.POST.get('buttoncode_send')
     inputcode_regester = request.POST.get('inputcode_regester')
     changhbutton = request.POST.get("changhbutton")
-    newpass = request.POST.get("newpass")
+    newpass = convert_farsi_to_latin(request.POST.get("newpass"))
     buttoncode_repeat = request.POST.get("buttoncode_repeat")
     if (melicode != '') and (melicode != None) :
         melicod_ignor[0] = melicode
@@ -759,7 +774,7 @@ def chengpaswoord(request):
 def addphone(request):
     name = request.POST.get("name")
     lastname = request.POST.get("lastname")
-    phonnamber = request.POST.get("phon")
+    phonnamber = convert_farsi_to_latin(request.POST.get("phon"))
     phons = phonnambermodel.objects.all()
     button_send= request.POST.get("button_send")
     r = 0
@@ -788,7 +803,7 @@ def saveaccantdef(request):
     etebar = ''
     firstname = request.POST.get("firstname")
     lastname = request.POST.get("lastname")
-    phonnumber = request.POST.get("phonnumber")
+    phonnumber = convert_farsi_to_latin(request.POST.get("phonnumber"))
     button_send =request.POST.get("button_send")
     if (phonnumber != None ) and (phonnumber != '') and (phonnumber != "None") :
         users = accuntmodel.objects.all()
@@ -832,14 +847,14 @@ def edit_profile(request):
     if userr == 'my':
         member_melicod = request.user.username
     else:
-        member_melicod = request.POST.get('member')
+        member_melicod = convert_farsi_to_latin(request.POST.get('member'))
     if (member_melicod != None) and (member_melicod != '') and (member_melicod != 'None'):
         request.session['member_id'] = member_melicod
     member = request.session['member_id']
     firstname = request.POST.get("firstname")
     lastname = request.POST.get("lastname")
-    melicode = request.POST.get("melicode")
-    phonnumber = request.POST.get("phonnumber")
+    melicode = convert_farsi_to_latin(request.POST.get("melicode"))
+    phonnumber = convert_farsi_to_latin(request.POST.get("phonnumber"))
     birthdate = request.POST.get("birthdate")
     year = ''
     mounth = ''
