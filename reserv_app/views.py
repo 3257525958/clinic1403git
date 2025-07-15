@@ -2559,10 +2559,27 @@ def dashborddef(request):
     return render(request, 'secretary_dashboard.html')
 
 
+def convert_farsi_to_latin(input_str):
+    """
+    اعداد فارسی موجود در رشته ورودی را به معادل لاتین تبدیل می‌کند.
+
+    پارامترها:
+        input_str (str): رشته حاوی اعداد فارسی
+
+    بازگشت:
+        str: رشته با اعداد لاتین جایگزین شده
+    """
+    farsi_digits = '۰۱۲۳۴۵۶۷۸۹'
+    latin_digits = '0123456789'
+
+    translation_table = str.maketrans(farsi_digits, latin_digits)
+    return input_str.translate(translation_table)
+
+
 @csrf_exempt
 def search_members(request):
     query = request.GET.get('q', '').strip()
-
+    print(convert_farsi_to_latin(query))
     if len(query) < 2:
         return JsonResponse({'members': []})
 
