@@ -237,7 +237,6 @@ def dateset(datejalalifarsi):
     return (year,mounth,day)
 
 def format_phone_number(input_str):
-    print(input_str)
     persian_numbers = {
         '0': '۰',
         '1': '۱',

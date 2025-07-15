@@ -170,8 +170,6 @@ def summary_view(request: HttpRequest) -> HttpResponse:
     # مثال: خواندن داده‌های ذخیره‌شده در سشن
     s = request.session.get('selected_service_id')
     procedureselect = request.session.get('selected_option_id')
-    print(333333333333333333333333333333)
-    print(procedureselect)
     melicod = request.session.get('national_code')
     selected_day = request.session.get('selected_day')
     selected_time = request.session.get('selected_time')
@@ -324,7 +322,7 @@ def summary_view(request: HttpRequest) -> HttpResponse:
             'hoursreserv' : s,
             'banks':banks,
 
-            }.
+            }
     j = ''
     d = ''
     t = ''
@@ -1508,7 +1506,7 @@ def reserverdef(request):
         users = accuntmodel.objects.all()
         for user in users:
             if int(user.melicode) == int(operatormelicod):
-                personreserv = user.firstname + ' ' + user.lastname
+                personreserv = operatormelicod
         ws = workmodel.objects.all()
         jobreserv = ''
         detalereserv = ''
@@ -2386,7 +2384,7 @@ def reservdasti(request):
         jj = ''
         for w in ws:
             if str(w.id) == str(detalework):
-                personreserv = w.person
+                personreserv = w.melicodpersonel
                 castreserv = w.cast
                 d = w.detalework
                 vahed = w.vahed
@@ -2961,7 +2959,3 @@ def save_reserv_profiles(request):
 def reserv_profile(request):
     # TODO: پیاده‌سازی صفحه پروفایل رزرو
     pass
-
-# def reserv_profile(request):
-#     # TODO: پیاده‌سازی صفحه پروفایل رزرو
-#     pass

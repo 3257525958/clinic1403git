@@ -174,8 +174,6 @@ def callbackzibal(request):
                                 m = 'neterror'
 
                     # requests.request('GET',"https://drmahdiasadpour.ir")
-                    print('1')
-                    print(oneobj.mellicode)
                     users = accuntmodel.objects.all()
                     for user in users:
                         if user.melicode == oneobj.mellicode :
@@ -192,14 +190,12 @@ def callbackzibal(request):
                                                                         }
                     )
         else:
-            print('2')
             a = reservemodeltest.objects.filter(mellicode=request.user.username)
             a.delete()
 
             return redirect(ENDURL)
 
     else:
-        print('3')
         a = reservemodeltest.objects.filter(mellicode=request.user.username)
         a.delete()
 

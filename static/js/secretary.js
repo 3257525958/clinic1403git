@@ -60,8 +60,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // تابع تبدیل اعداد فارسی و عربی به لاتین
+    function convertDigitsToLatin(input) {
+        const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+        const latinDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+        let output = input;
+
+        // جایگزینی اعداد فارسی
+        persianDigits.forEach((digit, index) => {
+            const regex = new RegExp(digit, 'g');
+            output = output.replace(regex, latinDigits[index]);
+        });
+
+        // جایگزینی اعداد عربی
+        arabicDigits.forEach((digit, index) => {
+            const regex = new RegExp(digit, 'g');
+            output = output.replace(regex, latinDigits[index]);
+        });
+
+        return output;
+    }
+
     function handleSearchInput(event) {
-        const query = event.target.value.trim();
+        // تبدیل اعداد فارسی و عربی به لاتین
+        let query = convertDigitsToLatin(event.target.value.trim());
         state.lastQuery = query;
 
         // پاک کردن تایمر قبلی
@@ -192,6 +216,3 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.searchResults.style.display = 'block';
     }
 });
-
-
-
