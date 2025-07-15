@@ -2578,8 +2578,7 @@ def convert_farsi_to_latin(input_str):
 
 @csrf_exempt
 def search_members(request):
-    query = request.GET.get('q', '').strip()
-    print(convert_farsi_to_latin(query))
+    query =convert_farsi_to_latin(request.GET.get('q', '').strip())
     if len(query) < 2:
         return JsonResponse({'members': []})
 
