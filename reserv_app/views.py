@@ -520,13 +520,18 @@ def timebefor(namberdate, workselectid,melicode):
         ss = [1]
         ss.clear()
         ls = leavemodel.objects.all()
+        print('bif11111111111111111111111')
         for l in ls:
+            print(11111111222222222222222222222222222222)
+            print(l.personelmelicod)
             if str(l.personelmelicod) == str(melicode):
+                print(111111111333333333333333333)
                 if str(l.date) == str(stry(t) + strbadd(t) + strd(t)):
                     s = l.leave.split(",")
                     for i in s:
                         b = int(i)+1
                         ss.append(int(b))
+        print(11111114444444444444444)
         for i in ss :
             dayarr[i] = 'false'
 #         # ---------وقتی یه نفر یه کاری رو انتخاب میکنه تا قبل از پرداخت براش رزرو میشه تا کس دیگه ای تو این فاصله نتونه رزروش کنه--------
@@ -565,6 +570,7 @@ def timebefor(namberdate, workselectid,melicode):
 # # -------------------------اینجا رزرو های قبلی رو چک میکنه---------
 
         res = reservemodel.objects.all()
+        print(111111111111155555555555555555)
         for r in res:
             if str(r.personreserv) == str(melicode):
                 if r.dateshamsireserv == stradb(t):
@@ -604,6 +610,8 @@ def timebefor(namberdate, workselectid,melicode):
         ws = workmodel.objects.all()
 
         sel = ''
+
+        print(111111111166666666666666666666)
         for f in ws:
             if int(workselectid) == int(f.id):
                 if f.time == "زمان کمی میبرد":
@@ -687,10 +695,11 @@ def timebefor(namberdate, workselectid,melicode):
 
         timesel = [0]
         timesel.clear()
-
+        print(1111111111111777777777777777)
         for i in range(41):
             if dayarr[i] == "false":
                 timesel.append(i-1)
+        print(timesel)
         return timesel
     return []
 def timebeforreserv(numberday,melicod):
@@ -701,12 +710,16 @@ def timebeforreserv(numberday,melicod):
     reservarray = []
     reservarray.clear()
     for reserv in reservs:
+        print(reserv.personreserv)
         if str(reserv.personreserv) == str(melicod):
+            print(22222222222222)
             if reserv.datemiladireserv == t.strftime('%a %d %b %y'):
+                print(3333333333333)
                 reservarray.append(int(reserv.numbertime)-1)
                 # if int(reserv.timereserv)
                 a = int(reserv.numbertime)-1
                 for i in range(int(reserv.timereserv)):
+                    print('ppppppp',i)
                     reservarray.append(a)
                     a += 1
 
