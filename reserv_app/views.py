@@ -2447,12 +2447,12 @@ def new_timeleav_view(request):
                 return JsonResponse({'error': 'کد ملی الزامی است'}, status=400)
 
             if timeselect:
-                timeselect = int(timeselect)
+                # timeselect = int(timeselect)
                 if timeselect < 1 or timeselect > 40:
                     return JsonResponse({'error': 'زمان انتخاب شده نامعتبر است'}, status=400)
 
             if day:
-                day = int(day)
+                # day = int(day)
                 if day < 1 or day > 30:
                     return JsonResponse({'error': 'روز انتخاب شده نامعتبر است'}, status=400)
 
