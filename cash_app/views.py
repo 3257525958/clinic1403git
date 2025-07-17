@@ -158,7 +158,7 @@ def callbackzibal(request):
                     users = accuntmodel.objects.all()
                     for user in users:
                         if int(user.melicode) == int (oneobj.mellicode) :
-                            smstext = user.firstname+' '+ user.lastname + ' ' + 'عزیز' + '\n' + 'رزرو شما قطعی شد' + '\n' +'کد رهگیری پرداخت شما' + ' ' + rahgiricode +'\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+                            smstext = user.firstname+' '+ user.lastname + ' ' + 'عزیز' + '\n' + 'رزرو شما انجام شد' + '\n' +'کد رهگیری پرداخت شما' + ' ' + rahgiricode +'\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
                             try:
                                 api = KavenegarAPI(
                                     '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')

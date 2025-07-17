@@ -2886,13 +2886,14 @@ def save_reserv_profiles(request):
                 works = workmodel.objects.all()
                 j = ''
                 d = ''
-                p = ''
+                f = ''
                 t = ''
                 c = ''
-                f = ''
-                ll = ''
+                ferst_name = ''
+                last_name = ''
                 p = ''
                 v = ''
+                ph = ''
 
                 for work in works:
                     if work.id == int(procedureselect) :
@@ -2924,9 +2925,9 @@ def save_reserv_profiles(request):
 
                 users = accuntmodel.objects.all()
                 for user in users:
-                    if int(user.melicode) == int(request.session['national_code']):
-                        f = user.firstname
-                        ll = user.lastname
+                    if int(user.melicode) == int(melicod):
+                        ferst_name = user.firstname
+                        last_name = user.lastname
                         ph = user.phonnumber
                 #
                 #
@@ -2938,8 +2939,8 @@ def save_reserv_profiles(request):
                 personreserv = p,
                 timereserv = t,
                 castreserv = c,
-                numbertime = request.session['selected_time'],
-                hourreserv = request.session['hourreserv'],
+                numbertime = request.session.get('selected_time'),
+                hourreserv = request.session.get('hourreserv'),
                 dateshamsireserv = stradb(select_day_date),
                 datemiladireserv = select_day_date.strftime('%a %d %b %y'),
                 yearshamsi = stry(select_day_date),
@@ -2952,6 +2953,27 @@ def save_reserv_profiles(request):
                 idwork = str(procedureselect),
                 bankpeyment = request.session.get('bank_id'),
                 )
+
+                smstext = ferst_name + ' ' + last_name + ' ' + 'عزیز' + '\n' + 'خدمت ' +''+ j+' '+d+''+' برای تاریخ'+' ' + stradb(select_day_date) + ' ' + 'ساعت' +' '+ request.session.get('hourreserv') + ' رزرو گردید'+ '\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+
+                try:
+                    api = KavenegarAPI(
+                        '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                    params = {
+                        'sender': '9982003178',  # optional
+                        'receptor': ph,  # multiple mobile number, split by comma
+                        'message': smstext,
+                    }
+                    response = api.sms_send(params)
+                except APIException as e:
+                    m = 'tellerror'
+                    # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+                    return render(request, 'new_home.html', context={'melicod_etebar': m})
+                except HTTPException as e:
+                    m = 'neterror'
+                    # messages.error(request,'در سیستم ارسال پیامک مشکلی پیش آمده لطفا شماره خود را به درستی وارد کنید و دوباره امتحان کنید در صورتی که مشکل برطرف نشد در اینستاگرام پیام دهید ')
+                    # return render(request, 'add_cantact.html')
+                    return render(request, 'new_home.html', context={'melicod_etebar': m}, )
 
                 request.session['deposit_amount'] = 0
                 request.session['bank_id'] = 'بیعانه پرداخت نشده است'

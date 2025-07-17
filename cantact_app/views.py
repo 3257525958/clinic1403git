@@ -611,26 +611,25 @@ def addcantactdef(request):
 login_etebar = ['f']
 
 
-
-
-
-
-
 def convert_farsi_to_latin(input_str):
-    """
-    اعداد فارسی موجود در رشته ورودی را به معادل لاتین تبدیل می‌کند.
+    if (input_str != None) and (input_str != None) and (input_str != ''):
+        """
+        اعداد فارسی موجود در رشته ورودی را به معادل لاتین تبدیل می‌کند.
 
-    پارامترها:
-        input_str (str): رشته حاوی اعداد فارسی
+        پارامترها:
+            input_str (str): رشته حاوی اعداد فارسی
 
-    بازگشت:
-        str: رشته با اعداد لاتین جایگزین شده
-    """
-    farsi_digits = '۰۱۲۳۴۵۶۷۸۹'
-    latin_digits = '0123456789'
+        بازگشت:
+            str: رشته با اعداد لاتین جایگزین شده
+        """
+        farsi_digits = '۰۱۲۳۴۵۶۷۸۹'
+        latin_digits = '0123456789'
 
-    translation_table = str.maketrans(farsi_digits, latin_digits)
-    return input_str.translate(translation_table)
+        translation_table = str.maketrans(farsi_digits, latin_digits)
+        return input_str.translate(translation_table)
+    else:
+        pass
+
 
 def logindef(request):
     username = convert_farsi_to_latin(request.POST.get("username"))
