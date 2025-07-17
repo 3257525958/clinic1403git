@@ -2852,9 +2852,11 @@ def save_reserv_profiles(request):
             if action == 'deposit':
                 amount = data.get('amount')
                 bank_id = data.get('bank_id')
+                tomanword = data.get('tomanword')
                 # ذخیره مبلغ در session برای استفاده بعدی
                 request.session['deposit_amount'] = amount
                 request.session['bank_id'] = bank_id
+                request.session['tomanword'] = tomanword
 
 
                 # TODO: ذخیره‌سازی در مدل‌های شما
@@ -2867,6 +2869,8 @@ def save_reserv_profiles(request):
             elif action == 'finalize':
                 # دریافت مبلغ بیعانه از session
                 deposit_amount = request.session.get('deposit_amount')
+                if (deposit_amount == '') or (deposit_amount == None) or (deposit_amount == 'None'):
+                    deposit_amount = 0
                 procedureselect = request.session.get('selected_option_id')
                 melicod = request.session.get('national_code')
                 amount = request.session.get('amount')
@@ -2945,7 +2949,7 @@ def save_reserv_profiles(request):
                 datemiladireserv = select_day_date.strftime('%a %d %b %y'),
                 yearshamsi = stry(select_day_date),
                 # cardnumber = models.CharField(max_length=20, default='0')
-                pyment = request.session.get('deposit_amount'),
+                pyment = deposit_amount,
                 # trakingcod = models.CharField(max_length=20, default='0')
                 # bank =
                 # checking = models.CharField(max_length=20, default='false')
@@ -2954,7 +2958,7 @@ def save_reserv_profiles(request):
                 bankpeyment = request.session.get('bank_id'),
                 )
 
-                smstext = ferst_name + ' ' + last_name + ' ' + 'عزیز' + '\n' + 'خدمت ' +''+ j+' '+d+''+' برای تاریخ'+' ' + stradb(select_day_date) + ' ' + 'ساعت' +' '+ request.session.get('hourreserv') + ' رزرو گردید'+ '\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+                smstext = ferst_name + ' ' + last_name + ' ' + 'عزیز' + '\n' + 'خدمت ' +''+ j+' '+d+''+' برای تاریخ'+' ' + stradb(select_day_date) + ' ' + 'ساعت' +' '+ request.session.get('hourreserv') + ' رزرو گردید'+ '\n' +'مبلغ بیعانه پرداخت شده:'+request.session.get('tomanword')+'\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
 
                 try:
                     api = KavenegarAPI(

@@ -1,93 +1,3 @@
-// // static/js/new_reserv_end.js
-//
-// document.addEventListener('DOMContentLoaded', function() {
-//   const depositModal     = document.getElementById('deposit-modal');
-//   const openModalBtn     = document.getElementById('open-deposit-modal');
-//   const closeModal       = document.querySelector('.close');
-//   const depositAmount    = document.getElementById('deposit-amount');
-//   const tomanAmount      = document.getElementById('toman-amount');
-//   const wordsAmount      = document.getElementById('words-amount');
-//   const submitDeposit    = document.getElementById('submit-deposit');
-//   const submitReservation= document.getElementById('submit-reservation');
-//   const debug            = console.log;
-//   window.debug = debug;
-//
-//   openModalBtn.addEventListener('click', () => {
-//     debug('دکمه بازکردن مودال کلیک شد');
-//     depositModal.style.display = 'block';
-//   });
-//   closeModal.addEventListener('click', () => {
-//     debug('بستن مودال');
-//     depositModal.style.display = 'none';
-//   });
-//   window.addEventListener('click', e => {
-//     if (e.target === depositModal) depositModal.style.display = 'none';
-//   });
-//
-//   depositAmount.addEventListener('input', function() {
-//     const amount = parseInt(this.value) || 0;
-//     const toman  = Math.floor(amount / 10);
-//     tomanAmount.textContent = toman.toLocaleString('fa-IR') + ' تومان';
-//     wordsAmount.textContent = convertToWords(toman) + ' تومان';
-//     debug(`مبلغ وارد شده: ${amount} ریال = ${toman} تومان`);
-//   });
-//
-//   submitDeposit.addEventListener('click', function(e) {
-//     e.preventDefault();
-//     debug('ثبت پرداخت بیعانه کلیک شد');
-//     const amount = parseInt(depositAmount.value);
-//     const bankId = document.getElementById('bank-select').value;
-//     if (!amount || amount < 100000) {
-//       const msg = 'لطفاً مبلغ بیعانه را وارد کنید (حداقل 100,000 ریال)';
-//       alert(msg); debug(msg); return;
-//     }
-//     fetch(window.APP_CONFIG.SAVE_RESERV_PROFILES_URL, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'X-CSRFToken': getCookie('csrftoken')
-//       },
-//       body: JSON.stringify({ deposit_amount: amount, bank_id: bankId })
-//     })
-//     .then(r => {
-//       debug(`وضعیت پاسخ: ${r.status}`);
-//       if (r.status === 405) throw new Error('متد غیرمجاز');
-//       return r.json();
-//     })
-//     .then(data => {
-//       debug('پاسخ سرور:', data);
-//       if (data.status === 'success') {
-//         alert('پرداخت بیعانه با موفقیت ثبت شد!');
-//         depositModal.style.display = 'none';
-//         if (data.redirect_url) window.location.href = data.redirect_url;
-//       } else {
-//         alert(`خطا: ${data.message}`);
-//       }
-//     })
-//     .catch(err => {
-//       alert(`خطا در ارتباط با سرور: ${err.message}`);
-//       debug(err);
-//     });
-//   });
-//
-//   submitReservation.addEventListener('click', () => {
-//     debug('ثبت نهایی رزرو کلیک شد');
-//     window.location.href = window.APP_CONFIG.RESERV_PROFILE_URL;
-//   });
-//
-//   function convertToWords(n) { /* … تابع تبدیل به حروف … */ }
-//   function getCookie(name) { /* … تابع دریافت کوکی … */ }
-//
-//   if (window.location.search.includes('debug=1')) {
-//     // optional on-page debug console…
-//   }
-// });
-// function pri(){
-//   console.log('helllllllllllllllllllllooooooooooooooooooooo');
-// }
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
     // مدیریت مودال پرداخت بیعانه
     const modal = document.getElementById('deposit-modal');
@@ -184,11 +94,11 @@ amountInput.addEventListener('input', function() {
     submitDepositBtn.addEventListener('click', function() {
         const amount = amountInput.value;
         const bankId = document.getElementById('bank-select').value;
-
-        if (!amount || amount < 100000) {
-            alert('لطفاً مبلغ بیعانه را وارد کنید (حداقل 100,000 ریال)');
-            return;
-        }
+        const tomanword = wordsDisplay.textContent;
+        // if (!amount || amount < 100000) {
+        //     alert('لطفاً مبلغ بیعانه را وارد کنید (حداقل 100,000 ریال)');
+        //     return;
+        // }
 
         fetch(window.APP_CONFIG.SAVE_RESERV_PROFILES_URL, {
             method: 'POST',
@@ -199,7 +109,8 @@ amountInput.addEventListener('input', function() {
             body: JSON.stringify({
                 action: 'deposit',
                 amount: amount,
-                bank_id: bankId
+                bank_id: bankId,
+                tomanword : tomanword,
             })
         })
         .then(response => response.json())
