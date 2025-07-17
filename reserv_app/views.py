@@ -694,20 +694,21 @@ def timebefor(namberdate, workselectid,melicode):
         return timesel
     return []
 def timebeforreserv(numberday,melicod):
+    print(numberday,melicod)
     t = dt.now()
     t += timedelta(days=1 + int(numberday))
     reservs = reservemodel.objects.all()
     reservarray = []
     reservarray.clear()
     for reserv in reservs:
-        if (int(reserv.personreserv) == int(melicod)) and (reserv.datemiladireserv == t.strftime('%a %d %b %y')):
-            reservarray.append(int(reserv.numbertime)-1)
-            # if int(reserv.timereserv)
-            a = int(reserv.numbertime)-1
-            for i in range(int(reserv.timereserv)):
-                print('ppppppp',i)
-                reservarray.append(a)
-                a += 1
+        if str(reserv.personreserv) == str(melicod):
+            if reserv.datemiladireserv == t.strftime('%a %d %b %y'):
+                reservarray.append(int(reserv.numbertime)-1)
+                # if int(reserv.timereserv)
+                a = int(reserv.numbertime)-1
+                for i in range(int(reserv.timereserv)):
+                    reservarray.append(a)
+                    a += 1
 
     return reservarray
 
@@ -2473,6 +2474,9 @@ def new_timeleav_view(request):
 
             # reserved_times = [5,6,7]
             # rar = [1,2,3]
+            print(11111111111111)
+            print(reserved_times)
+            print(rar)
             return JsonResponse({'reserved_times': reserved_times,
                                  'rar': rar
                                  })
