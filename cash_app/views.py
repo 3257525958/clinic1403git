@@ -27,14 +27,14 @@ ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
 ZIB_API_TOKEN = 'https://gateway.zibal.ir/v1/verify'
 
+# MERCHANT_ZIBAL = 'zibal'
 # CALLBACK_ZIBAL_URL = 'http://127.0.0.1:8000/zib/verifyzibal/'
-MERCHANT_ZIBAL = 'zibal'
 # ENDURL = "http://127.0.0.1:8000"
 
 
 ENDURL = "https://drmahdiasadpour.ir"
 CALLBACK_ZIBAL_URL = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
-# MERCHANT_ZIBAL = '64c2047fcbbc270017f4c6b2'
+MERCHANT_ZIBAL = '64c2047fcbbc270017f4c6b2'
 
 def orderzibal(request):
     if request.user.is_authenticated:
@@ -158,7 +158,7 @@ def callbackzibal(request):
                     users = accuntmodel.objects.all()
                     for user in users:
                         if int(user.melicode) == int (oneobj.mellicode) :
-                            smstext = user.firstname+' '+ user.lastname + ' ' + 'عزیز' + '\n' + 'رزرو شما انجام شد' + '\n' +'کد رهگیری پرداخت شما' + ' ' + rahgiricode +'\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+                            smstext = user.firstname+' '+ user.lastname + ' ' + 'عزیز' + '\n' + 'خدمت' +' '+oneobj.jobreserv+oneobj.detalereserv+'برای تاریخ'+' '+oneobj.dateshamsireserv+'ساعت'+oneobj.hourreserv+'رزرو گردید.'+ '\n' +'کد رهگیری پرداخت بیعانه شما' + ' ' + rahgiricode +'\n'+'مبلغ بیعانه:'+' '+str(int(oneobj.castreserv) // 5)+' '+'ریال'+'\n' + 'با تشکر' + 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
                             try:
                                 api = KavenegarAPI(
                                     '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
