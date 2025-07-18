@@ -397,7 +397,7 @@ def tim(x):
                 for user in users:
                     if (user.mountb == strb(t)) and (user.dayb == strd(t)):
                         name = user.firstname + ' ' + user.lastname
-                        smstext = 'سلام' + ' ' + name + ' ' + 'عزیز' + '\n' + "زادروز تولدتان مبارک"+'\n'+'مفتخریم تا با هدیه ای هر چند کوچک در این مناسبت فرخنده در کنار شما باشیم'+'\n'+'برای دریافت هدیه عدد 3 را به همین سامانه ارسال فرمایید'+'\n'+'مطب دکتر اسدپور'+'\n'+'لغو 11'
+                        smstext = 'سلام' + ' ' + name + ' ' + 'عزیز' + '\n' + "زادروز تولدتان مبارک"+'\n'+'مفتخریم تا با هدیه ای هر چند کوچک در این مناسبت فرخنده در کنار شما باشیم'+'\n'+'برای دریافت هدیه عدد 4 را به همین سامانه ارسال فرمایید'+'\n'+'مطب دکتر اسدپور'+'\n'+'لغو 11'
                         try:
                             api = KavenegarAPI(
                                 '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
@@ -425,7 +425,7 @@ def tim(x):
         def yadavari_vaghtfarda():
             try:
                 t = datetime.datetime.now()
-                t += timedelta(days=2)
+                t += timedelta(days=1)
                 rs = reservemodel.objects.all()
                 for r in rs:
                     if t.strftime('%a %d %b %y') == r.datemiladireserv :
@@ -433,7 +433,7 @@ def tim(x):
                         for user in users:
                             if int(user.melicode) == int(r.melicod) :
                                 name = user.firstname + ' '+ user.lastname
-                                smstext = 'سلام'+' '+name+' '+'عزیز'+'\n'+'شما فردا'+' '+r.dateshamsireserv+' '+'ساعت'+' '+r.hourreserv+' '+'برای'+' '+r.jobreserv+' '+r.detalereserv+' '+'وقت رزرو شده دارید'+' '+' برای تایید عدد 1 و برای لغو وقتتان عدد 2 را به همین سامانه پیامک نمایید همچنین برای تغییر وقت یا موارد دیگر میتوانید در همین سامانه پیام دهید'+'\n'+'مطب دکتر اسدپور'+'\n'+'\n'+'\n'+'لغو ارسال پیامک 11'
+                                smstext = 'سلام'+' '+name+' '+'عزیز'+'\n'+'شما فردا'+' '+r.dateshamsireserv+' '+'ساعت'+' '+r.hourreserv+' '+'برای'+' '+r.jobreserv+' '+r.detalereserv+' '+'وقت رزرو شده دارید'+' '+' برای تایید عدد 1 و برای لغو وقتتان عدد 2 را به همین سامانه پیامک نمایید'+'\n'+'مطب دکتر اسدپور'+'\n'+'\n'+'\n'+'لغو ارسال پیامک 11'
                                 try:
                                     api = KavenegarAPI(
                                         '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
@@ -451,7 +451,7 @@ def tim(x):
             except:
                 print("not net yadavari")
         # Schedule the message to be sent at midnight
-        schedule.every(1).day.at("11:30").do(yadavari_vaghtfarda)
+        schedule.every(1).day.at("8:30").do(yadavari_vaghtfarda)
         # schedule.every(60).seconds.do(yadavari_vaghtfarda)
         # schedule.every(20).seconds.do(yadavari_vaghtfarda)
         while True:
@@ -517,7 +517,6 @@ def tim(x):
                                                         m = 'tellerror'
                                                     except HTTPException as e:
                                                         m = 'neterror'
-
                         if aaa[0] == "2" :
                             users = accuntmodel.objects.all()
                             for user in users:
@@ -550,7 +549,7 @@ def tim(x):
                                     for r in rs:
                                         if (r.datemiladireserv == t.strftime('%a %d %b %y')) and (r.melicod == user.melicode):
                                             re =reservemodel.objects.filter(datemiladireserv=t.strftime('%a %d %b %y'),melicod=user.melicode)
-                                            re.update(vaziyatereserv='کنسل')
+                                            re.update(vaziyatereserv='رزرو مجدد')
                                             name = user.firstname + ' ' + user.lastname
 
                                             smstext = 'جهت رزرو مجدد'+ name + '\n' +user.phonnumber + '\n'+ r.jobreserv+' '+r.detalereserv+'\n'+r.dateshamsireserv+'\n'+r.hourreserv
@@ -568,6 +567,27 @@ def tim(x):
                                                 m = 'tellerror'
                                             except HTTPException as e:
                                                 m = 'neterror'
+                        if aaa[0] == "4" :
+                            users = accuntmodel.objects.all()
+                            t = datetime.datetime.now()
+                            for user in users:
+                                if (user.mountb == strb(t)) and (user.dayb == strd(t)):
+                                    name = user.firstname + ' ' + user.lastname
+                                    smstext = 'جهت کادو تولد'+ name + '\n' +'تاریخ تولد:'+' '+ user.dayb+' '+user.mountb
+                                    phon = '09389504842'
+                                    try:
+                                        api = KavenegarAPI(
+                                            '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                                        params = {
+                                            'sender': '9982003178',  # optional
+                                            'receptor': phon,  # multiple mobile number, split by comma
+                                            'message': smstext,
+                                        }
+                                        response = api.sms_send(params)
+                                    except APIException as e:
+                                        m = 'tellerror'
+                                    except HTTPException as e:
+                                        m = 'neterror'
                         if (aaa[0] != "2") and (aaa[0] != "1") :
                             users = accuntmodel.objects.all()
                             for user in users:
@@ -595,9 +615,10 @@ def tim(x):
 
 
 # t1 = Thread(target=tim,args="1")
+t1 = Thread(target=tim,args="1")
 t2 = Thread(target=tim,args="2")
 t3 = Thread(target=tim,args="3")
-# t1.start()
+t1.start()
 t2.start()
 t3.start()
 
