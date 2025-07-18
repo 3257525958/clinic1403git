@@ -3,7 +3,7 @@ from django.db import models
 
 class reservemodel(models.Model):
     melicod =models.CharField(max_length=150,default='0')
-    vaziyatereserv = models.CharField(max_length=100, default="رزرو")
+    vaziyatereserv = models.CharField(max_length=100, default="هماهنگی روز قبل انجام نشده است")
     jobreserv = models.CharField(max_length=150,default='0')
     detalereserv = models.CharField(max_length=150,default='0')
     personreserv = models.CharField(max_length=150,default='0')

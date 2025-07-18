@@ -149,7 +149,7 @@ def callbackzibal(request):
                                                         bank= "zibal",
                                                         vahed=oneobj.vahed,
                                                         idwork=oneobj.idwork,
-                                                        vaziyatereserv='قطعی',
+                                                        vaziyatereserv="هماهنگی روز قبل انجام نشده است",
                                                         bankpeyment="-1",
                     )
                     a = reservemodeltest.objects.filter(rahgiricod=rahgiricode)

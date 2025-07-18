@@ -1633,6 +1633,7 @@ def reserverdef(request):
 
         reservemodel.objects.create(
             melicod=melicode,
+            vaziyatereserv="هماهنگی روز قبل انجام نشده است",
             jobreserv = jobreserv,
             detalereserv = detalereserv,
             personreserv =personreserv,
