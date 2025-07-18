@@ -254,31 +254,35 @@
 
     <!-- سایر آیتم‌ها با شرط فعال بودن -->
     <a href="{% if profilestatus %}reserv/reserv/{% else %}#{% endif %}" 
-       class="quick_item {% if not profilestatus %}disabled{% endif %}">
+       class="quick_item {% if not profilestatus or user_position == 'دسترسی معمولی' %}disabled{% endif %}">
       <i class="fas fa-calendar-check quick-icon"></i>
       <span>رزرو آنلاین</span>
     </a>
 
     <a href="{% if profilestatus %}آدرس_مورد_نظر{% else %}#{% endif %}" 
-       class="quick_item {% if not profilestatus %}disabled{% endif %}">
+{#       class="quick_item {% if not profilestatus %}disabled{% endif %}">#}
+       class="quick_item {% if not profilestatus or user_position == 'دسترسی معمولی' %}disabled{% endif %}">
       <i class="fas fa-photo-video quick-icon"></i>
       <span>نمونه کارها</span>
     </a>
 
     <a href="{% if profilestatus %}آدرس_مورد_نظر{% else %}#{% endif %}" 
-       class="quick_item {% if not profilestatus %}disabled{% endif %}">
+{#       class="quick_item {% if not profilestatus %}disabled{% endif %}">#}
+       class="quick_item {% if not profilestatus or user_position == 'دسترسی معمولی' %}disabled{% endif %}">
       <i class="fas fa-video quick-icon"></i>
       <span>فیلم آموزشی</span>
     </a>
 
     <a href="{% if profilestatus %}آدرس_مورد_نظر{% else %}#{% endif %}" 
-       class="quick_item {% if not profilestatus %}disabled{% endif %}">
+{#       class="quick_item {% if not profilestatus %}disabled{% endif %}">#}
+       class="quick_item {% if not profilestatus or user_position == 'دسترسی معمولی' %}disabled{% endif %}">
       <i class="fas fa-file-invoice-dollar quick-icon"></i>
       <span>صورت حساب</span>
     </a>
 
     <a href="{% if profilestatus %}reserv/dashboard/{% else %}#{% endif %}" 
-       class="quick_item {% if not profilestatus %}disabled{% endif %}">
+{#       class="quick_item {% if not profilestatus %}disabled{% endif %}">#}
+       class="quick_item {% if not profilestatus or user_position == 'دسترسی معمولی' %}disabled{% endif %}">
       <i class="fas fa-tachometer-alt quick-icon"></i>
       <span>داشبورد من</span>
     </a> 

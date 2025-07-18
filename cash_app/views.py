@@ -27,14 +27,14 @@ ZIB_API_VERIFY = "https://gateway.zibal.ir/verify"
 ZIB_API_STARTPAY = "https://gateway.zibal.ir/start/"
 ZIB_API_TOKEN = 'https://gateway.zibal.ir/v1/verify'
 
-# MERCHANT_ZIBAL = 'zibal'
-# CALLBACK_ZIBAL_URL = 'http://127.0.0.1:8000/zib/verifyzibal/'
-# ENDURL = "http://127.0.0.1:8000"
+MERCHANT_ZIBAL = 'zibal'
+CALLBACK_ZIBAL_URL = 'http://127.0.0.1:8000/zib/verifyzibal/'
+ENDURL = "http://127.0.0.1:8000"
 
 
-ENDURL = "https://drmahdiasadpour.ir"
-CALLBACK_ZIBAL_URL = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
-MERCHANT_ZIBAL = '64c2047fcbbc270017f4c6b2'
+# ENDURL = "https://drmahdiasadpour.ir"
+# CALLBACK_ZIBAL_URL = 'https://drmahdiasadpour.ir/zib/verifyzibal/'
+# MERCHANT_ZIBAL = '64c2047fcbbc270017f4c6b2'
 
 def orderzibal(request):
     if request.user.is_authenticated:

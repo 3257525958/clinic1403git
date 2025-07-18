@@ -37,19 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-//     if ( login_etebar.innerHTML == 'true' ){
-//         Swal.fire({
-//           position: 'top-end',
-//           icon: 'success',
-//           title: 'با موفقیت وارد شدید',
-//           showConfirmButton: false,
-//           timer: 2500
-//                  });
-//         window.location = "/";
-//         // window.open('http://drmahdiasadpour.ir','_self');
-// }
-
-
     if ( login_etebar.innerHTML == 'false_in_paswoord' ){
         Swal.fire({
             icon: 'هشدار',

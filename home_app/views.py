@@ -115,12 +115,14 @@ def home(request):
                             return redirect('http://127.0.0.1:8000')
     img = ''
     login_user = 'false'
+    user_position = ''
     if request.user.is_authenticated:
         login_user = 'true'
         us = accuntmodel.objects.all()
         for u in us:
             if u.melicode == request.user.username:
                 profilestatus[0] = f"{u.firstname} {u.lastname}  "
+                user_position = u.level
                 if u.profile_picture and hasattr(u.profile_picture, 'url'):
                     img = u.profile_picture.url
                 else:
@@ -155,6 +157,7 @@ def home(request):
     return render(request,'new_home.html',context={
                                                                 'loglevel':loglevel[0],
                                                                 'profilestatus': profilestatus[0],
+                                                                'user_position':user_position,
                                                                 'img':img,
                                                                 'login_user':login_user,
                                                                 })
