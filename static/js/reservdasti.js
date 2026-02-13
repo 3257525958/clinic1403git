@@ -78,7 +78,7 @@ var personelbutton = document.getElementById("personelbutton");
               showConfirmButton: false,
               timer: 2000
                      });
-        setTimeout('redirectt()',900);
+        // setTimeout('redirectt()',900);
         }
         function clickteak(){
         document.getElementById("buttomteakclick").click();
