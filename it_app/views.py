@@ -476,6 +476,36 @@ def tim(x):
                     t = datetime.datetime.now()
                     t += timedelta(days=1)
                     for aaa in a :
+                        if aaa[0] == "10" :
+                            smstext ='عزیز' + '\n' + 'چطوری مايده'+ '\n' +'با تشکر'+ 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+                            try:
+                                api = KavenegarAPI(
+                                    '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                                params = {
+                                    'sender': '9982003178',  # optional
+                                    'receptor': aaa[1],  # multiple mobile number, split by comma
+                                    'message': smstext,
+                                }
+                                response = api.sms_send(params)
+                            except APIException as e:
+                                m = 'tellerror'
+                            except HTTPException as e:
+                                m = 'neterror'
+                        if aaa[0] == "20" :
+                            smstext ='عزیز' + '\n' + 'چطوری نعیمه'+ '\n' +'با تشکر'+ 'مطب دکتر اسدپور' + '\n' + '\n' + '\n' + 'لغو ارسال پیامک 11'
+                            try:
+                                api = KavenegarAPI(
+                                    '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D')
+                                params = {
+                                    'sender': '9982003178',  # optional
+                                    'receptor': aaa[1],  # multiple mobile number, split by comma
+                                    'message': smstext,
+                                }
+                                response = api.sms_send(params)
+                            except APIException as e:
+                                m = 'tellerror'
+                            except HTTPException as e:
+                                m = 'neterror'
                         if aaa[0] == "1" :
                             users = accuntmodel.objects.all()
                             for user in users:
@@ -608,19 +638,19 @@ def tim(x):
                                     )
             except:
                 print("not net")
-        schedule.every(20).seconds.do(savemesaage)
+        schedule.every(2).seconds.do(savemesaage)
         while True:
             schedule.run_pending()
             time.sleep(1)
 
 
 # t1 = Thread(target=tim,args="1")
-t1 = Thread(target=tim,args="1")
-t2 = Thread(target=tim,args="2")
-t3 = Thread(target=tim,args="3")
-t1.start()
-t2.start()
-t3.start()
+# t1 = Thread(target=tim,args="1")
+# t2 = Thread(target=tim,args="2")
+# t3 = Thread(target=tim,args="3")
+# t1.start()
+# t2.start()
+# t3.start()
 
 
 
