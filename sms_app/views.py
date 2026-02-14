@@ -176,57 +176,73 @@ def chat_view(request, contact_id):
 
 def chat_list_view(request):
     """
-    نمایش لیست مخاطبانی که حداقل یک پیام (ارسالی یا دریافتی) با آنها داشته‌ایم.
-    همراه با آخرین پیام و زمان آن.
+    نمایش لیست تمام شماره‌هایی که با آنها پیام رد و بدل شده است.
+    حتی اگر شماره در جدول مخاطبان نباشد، با شماره نمایش داده می‌شود.
+    ترتیب بر اساس آخرین پیام (جدیدترین در بالا).
     """
-    # دریافت همه contact_idهایی که در پیام‌ها حضور دارند
-    contact_ids_with_message = set(
-        SentMessage.objects.values_list('contact_id', flat=True)
-    ) | set(
-        ReceivedMessage.objects.values_list('contact_id', flat=True)
-    )
-    # فقط contactهایی که id آن‌ها در مجموعه بالاست
-    contacts = accuntmodel.objects.filter(id__in=contact_ids_with_message).order_by('firstname')
+    # دریافت تمام شماره‌های منحصر به فرد از جداول ارسالی و دریافتی
+    sent_numbers = set(SentMessage.objects.filter(contact__isnull=False).values_list('contact__phonnumber', flat=True))
+    received_numbers = set(ReceivedMessage.objects.values_list('sender_number', flat=True))
+    all_numbers = sent_numbers | received_numbers
+    all_numbers = [num for num in all_numbers if num]  # حذف None
+
     chat_list = []
 
-    for contact in contacts:
-        last_sent = SentMessage.objects.filter(contact=contact).order_by('-sent_at').first()
-        last_received = ReceivedMessage.objects.filter(contact=contact).order_by('-received_at').first()
+    for number in all_numbers:
+        # پیدا کردن مخاطب (اگر وجود داشته باشد)
+        try:
+            contact = accuntmodel.objects.get(phonnumber=number)
+            display_name = f"{contact.firstname} {contact.lastname}".strip() or number
+        except accuntmodel.DoesNotExist:
+            contact = None
+            display_name = number  # نمایش شماره
+
+        # آخرین پیام ارسالی به این شماره
+        last_sent = SentMessage.objects.filter(contact__phonnumber=number).order_by('-sent_at').first()
+        # آخرین پیام دریافتی از این شماره
+        last_received = ReceivedMessage.objects.filter(sender_number=number).order_by('-received_at').first()
 
         last_message = None
         last_time = None
+        direction = None
+
         if last_sent and last_received:
             if last_sent.sent_at > last_received.received_at:
                 last_message = last_sent
                 last_time = last_sent.sent_at
+                direction = 'outgoing'
             else:
                 last_message = last_received
                 last_time = last_received.received_at
+                direction = 'incoming'
         elif last_sent:
             last_message = last_sent
             last_time = last_sent.sent_at
+            direction = 'outgoing'
         elif last_received:
             last_message = last_received
             last_time = last_received.received_at
+            direction = 'incoming'
 
         chat_list.append({
+            'number': number,
+            'display_name': display_name,
             'contact': contact,
             'last_message': last_message.message_text if last_message else 'هنوز پیامی وجود ندارد',
             'last_time': last_time,
-            'last_direction': 'outgoing' if isinstance(last_message, SentMessage) else 'incoming' if last_message else None,
+            'last_direction': direction,
         })
 
     # ایجاد یک زمان بسیار قدیمی و region-aware برای مقایسه
     very_old = timezone.make_aware(datetime.datetime(1900, 1, 1), timezone.get_current_timezone())
 
-    # مرتب‌سازی بر اساس آخرین زمان (جدیدترین در بالا)
+    # مرتب‌سازی نزولی بر اساس آخرین زمان
     chat_list.sort(key=lambda x: x['last_time'] if x['last_time'] else very_old, reverse=True)
 
     context = {
         'chat_list': chat_list,
     }
     return render(request, 'sms_app/chats.html', context)
-
 
 import requests
 from django.utils import timezone
@@ -322,3 +338,77 @@ def get_not_received_contacts(request):
     received_contacts = set(SentMessage.objects.filter(template=template, status='success').values_list('contact_id', flat=True))
     not_received = list(all_contacts - received_contacts)
     return JsonResponse({'contact_ids': not_received})
+
+def chat_by_number(request):
+    """
+    صفحه چت با یک شماره تلفن (مخاطب ناشناس)
+    """
+    number = request.GET.get('number')
+    if not number:
+        return redirect('sms_app:chat_list')
+
+    try:
+        contact = accuntmodel.objects.get(phonnumber=number)
+        return redirect('sms_app:chat', contact_id=contact.id)
+    except accuntmodel.DoesNotExist:
+        # شماره ناشناس: یک شیء موقت برای نمایش
+        class TempContact:
+            def __init__(self, number):
+                self.phonnumber = number
+                self.firstname = 'ناشناس'
+                self.lastname = ''
+                self.id = None
+        contact = TempContact(number)
+
+        # دریافت پیام‌ها
+        sent_messages = SentMessage.objects.filter(contact__phonnumber=number).values('message_text', 'sent_at')
+        received_messages = ReceivedMessage.objects.filter(sender_number=number).values('message_text', 'received_at')
+
+        messages_list = []
+        for msg in sent_messages:
+            messages_list.append({
+                'text': msg['message_text'],
+                'time': msg['sent_at'],
+                'direction': 'outgoing'
+            })
+        for msg in received_messages:
+            messages_list.append({
+                'text': msg['message_text'],
+                'time': msg['received_at'],
+                'direction': 'incoming'
+            })
+        messages_list.sort(key=lambda x: x['time'])
+
+        if request.method == 'POST':
+            reply_text = request.POST.get('reply_text')
+            if reply_text:
+                from kavenegar import KavenegarAPI, APIException, HTTPException
+                from django.conf import settings
+                try:
+                    api = KavenegarAPI(settings.KAVENEGAR_API_KEY)
+                    params = {
+                        'sender': settings.KAVENEGAR_SENDER,
+                        'receptor': number,
+                        'message': reply_text,
+                    }
+                    response = api.sms_send(params)
+                    # ذخیره به عنوان پیام ارسالی (بدون مخاطب)
+                    SentMessage.objects.create(
+                        template=None,
+                        contact=None,  # چون مخاطب وجود ندارد
+                        message_text=reply_text,
+                        status='success',
+                        api_response=json.dumps(response)
+                    )
+                    # برای نمایش در صفحه، می‌توانیم پیام را به لیست اضافه کنیم (اما ریدایرکت می‌کنیم)
+                except (APIException, HTTPException) as e:
+                    # لاگ خطا
+                    pass
+            return redirect(f"{request.path}?number={number}")
+
+        context = {
+            'contact': contact,
+            'messages': messages_list,
+            'is_unknown': True,
+        }
+        return render(request, 'sms_app/chat.html', context)

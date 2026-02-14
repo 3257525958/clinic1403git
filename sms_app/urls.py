@@ -11,4 +11,5 @@ urlpatterns = [
     path('fetch-incoming/', views.fetch_incoming_sms, name='fetch_incoming'),
     path('ajax/new-messages/<int:contact_id>/', views.ajax_get_new_messages, name='ajax_new_messages'),
     path('api/not-received/', views.get_not_received_contacts, name='not_received'),
+path('chat/by-number/', views.chat_by_number, name='chat_by_number'),
 ]

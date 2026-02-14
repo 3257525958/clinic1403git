@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -121,7 +120,13 @@
   <div class="chat-header">
     <a href="{% url 'sms_app:chat_list' %}"><i class="fas fa-arrow-right"></i></a>
     <div class="chat-header-info">
-      <h3>{{ contact.firstname }} {{ contact.lastname }}</h3>
+      <h3>
+        {% if is_unknown %}
+          ناشناس - {{ contact.phonnumber }}
+        {% else %}
+          {{ contact.firstname }} {{ contact.lastname }}
+        {% endif %}
+      </h3>
       <p>{{ contact.phonnumber }}</p>
     </div>
   </div>
@@ -140,7 +145,7 @@
     {% endfor %}
   </div>
 
-  <form method="post" class="reply-form">
+  <form method="post" {% if is_unknown %}action="{% url 'sms_app:chat_by_number' %}?number={{ contact.phonnumber }}"{% else %}action="."{% endif %} class="reply-form">
     {% csrf_token %}
     <textarea name="reply_text" placeholder="متن پاسخ..." required></textarea>
     <button type="submit"><i class="fas fa-paper-plane"></i></button>
@@ -150,7 +155,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   function loadMessages() {
-    fetch('{% url "sms_app:ajax_new_messages" contact.id %}')
+    let url = '{% url "sms_app:ajax_new_messages" 0 %}'.replace('0', '{{ contact.id|default:0 }}');
+    // اگر ناشناس است، contact.id وجود ندارد. اما می‌توانیم از طریق شماره پیام‌ها را دریافت کنیم.
+    // در این حالت، یک endpoint مخصوص برای دریافت پیام‌های ناشناس نیاز داریم. برای سادگی، فعلاً از رفرش دستی استفاده کنید.
+    // یا می‌توانیم یک AJAX به آدرس دیگری بزنیم. اما این بخش را بعداً تکمیل می‌کنیم.
+    fetch(url)
       .then(response => response.json())
       .then(data => {
         const messagesBox = document.getElementById('messagesBox');
@@ -178,9 +187,12 @@
       .catch(err => console.error(err));
   }
 
-  // بارگذاری اولیه و سپس هر 3 ثانیه
-  loadMessages();
-  setInterval(loadMessages, 3000);
+  // بارگذاری اولیه و سپس هر 3 ثانیه (فقط برای مخاطبان واقعی)
+  // برای ناشناس، این بخش غیرفعال است تا خطا ندهد.
+  {% if not is_unknown %}
+    loadMessages();
+    setInterval(loadMessages, 3000);
+  {% endif %}
 </script>
 </body>
 </html>
