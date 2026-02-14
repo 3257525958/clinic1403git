@@ -1,0 +1,247 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ارسال پیامک گروهی - کلینیک زیبایی دکتر اسدپور</title>
+  <!-- استایل‌های اصلی و فونت آیکن -->
+  <link rel="stylesheet" href="{% static 'css/new_addcontact.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* تنظیمات اضافی برای صفحه ارسال پیامک */
+    .contacts-list {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 15px 0;
+      background: #f9f9f9;
+    }
+    .contacts-list label {
+      display: block;
+      margin: 8px 0;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .contacts-list input[type="checkbox"] {
+      margin-left: 10px;
+      transform: scale(1.2);
+      accent-color: #6a11cb; /* همان رنگ بنفش دکمه */
+    }
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    .action-btn {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .action-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+    .action-btn i {
+      font-size: 16px;
+    }
+    .template-select {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      padding: 8px 16px;
+      font-size: 14px;
+      outline: none;
+    }
+    .message-name-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      font-size: 14px;
+    }
+    .textarea-field {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      font-size: 14px;
+      resize: vertical;
+      min-height: 120px;
+      font-family: inherit;
+      margin-top: 10px;
+    }
+    .cancel-link {
+      display: inline-block;
+      background: #ccc;
+      color: #333;
+      text-decoration: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: 0.3s;
+      margin-right: 10px;
+    }
+    .cancel-link:hover {
+      background: #bbb;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-wrapper">
+  <div class="image-section">
+    <img src="{% static 'img/login.jpg' %}" alt="تصویر پس زمینه">
+  </div>
+
+  <div class="signup-container">
+    <div class="header-section">
+      <img src="{% static 'img/logo.jpg' %}" alt="لوگوی کلینیک" class="logo">
+      <h2 class="title">ارسال پیامک گروهی</h2>
+    </div>
+
+    <!-- نمایش پیام‌ها (با SweetAlert2) -->
+    {% if messages %}
+      {% for message in messages %}
+        <script>
+          Swal.fire({
+            icon: '{{ message.tags }}' === 'error' ? 'error' : 'success',
+            title: '{{ message }}',
+            showConfirmButton: true,
+            timer: 3000
+          });
+        </script>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST" class="signup-form">
+      {% csrf_token %}
+
+      <!-- نوار ابزار: انتخاب همه، قالب، انتخاب دریافت‌نکردگان -->
+      <div class="action-buttons">
+        <button type="button" class="action-btn" onclick="selectAll(true)"><i class="fas fa-check-double"></i> انتخاب همه</button>
+        <button type="button" class="action-btn" onclick="selectAll(false)"><i class="fas fa-times"></i> عدم انتخاب همه</button>
+        
+        <select id="templateSelect" class="template-select" onchange="loadTemplate()">
+          <option value="">📋 انتخاب قالب...</option>
+          {% for tpl in templates %}
+            <option value="{{ tpl.id }}" data-text="{{ tpl.text|escape }}">{{ tpl.name }}</option>
+          {% endfor %}
+        </select>
+
+        <div style="display: flex; gap: 5px; flex-wrap: wrap; width: 100%; margin-top: 10px;">
+          <input type="text" id="notReceivedMessageName" class="message-name-input" placeholder="نام پیام برای بررسی دریافت">
+          <button type="button" class="action-btn" onclick="selectNotReceived()"><i class="fas fa-filter"></i> انتخاب دریافت‌نکردگان</button>
+        </div>
+      </div>
+
+      <!-- لیست مخاطبان با چک‌باکس -->
+      <div class="contacts-list">
+        {% for choice in contact_choices %}
+          <label>
+            <input type="checkbox" name="contacts" value="{{ choice.0 }}">
+            {{ choice.1 }}
+          </label>
+        {% empty %}
+          <p style="text-align: center; color: #999;">هیچ مخاطبی یافت نشد.</p>
+        {% endfor %}
+      </div>
+
+      <!-- نام پیام (اختیاری) -->
+      <div class="input-field">
+        <i class="fas fa-tag icon"></i>
+        <input type="text" id="message_name" name="message_name" placeholder="نام پیام (برای ذخیره‌سازی)" value="{{ request.POST.message_name }}">
+      </div>
+
+      <!-- متن پیام -->
+      <div style="margin: 15px 0;">
+        <textarea id="message_text" name="message_text" class="textarea-field" placeholder="متن پیام را وارد کنید..." required>{{ request.POST.message_text }}</textarea>
+      </div>
+
+      <!-- دکمه‌های ارسال و انصراف -->
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <button type="submit" class="submit-btn" name="button_send" value="send">
+          <i class="fas fa-paper-plane"></i>
+          ارسال
+        </button>
+        <a href="{% url 'sms_app:send_sms' %}" class="cancel-link">انصراف</a>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<!-- کتابخانه‌های مورد نیاز -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  // توابع کمکی
+  function selectAll(checked) {
+    document.querySelectorAll('input[name="contacts"]').forEach(cb => cb.checked = checked);
+  }
+
+  function loadTemplate() {
+    var select = document.getElementById('templateSelect');
+    var textarea = document.getElementById('message_text');
+    var selectedOption = select.options[select.selectedIndex];
+    if (selectedOption && selectedOption.value) {
+      textarea.value = selectedOption.getAttribute('data-text');
+    }
+  }
+
+  function selectNotReceived() {
+    var messageName = document.getElementById('notReceivedMessageName').value.trim();
+    if (!messageName) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'لطفاً نام پیام را وارد کنید.',
+        showConfirmButton: true
+      });
+      return;
+    }
+    // فراخوانی AJAX به endpoint مربوطه
+    fetch(`/sms/api/not-received/?message_name=${encodeURIComponent(messageName)}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.contact_ids) {
+          document.querySelectorAll('input[name="contacts"]').forEach(cb => {
+            cb.checked = data.contact_ids.includes(parseInt(cb.value));
+          });
+          Swal.fire({
+            icon: 'success',
+            title: `${data.contact_ids.length} مخاطب انتخاب شدند.`,
+            showConfirmButton: false,
+            timer: 1500
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: data.error || 'خطا در دریافت اطلاعات',
+            showConfirmButton: true
+          });
+        }
+      })
+      .catch(err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'خطا در ارتباط با سرور',
+          text: err.toString()
+        });
+      });
+  }
+</script>
+</body>
+</html>
