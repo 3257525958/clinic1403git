@@ -176,9 +176,17 @@ def chat_view(request, contact_id):
 
 def chat_list_view(request):
     """
-    نمایش لیست همه مخاطبان با آخرین پیام (ارسالی یا دریافتی) و زمان آن
+    نمایش لیست مخاطبانی که حداقل یک پیام (ارسالی یا دریافتی) با آنها داشته‌ایم.
+    همراه با آخرین پیام و زمان آن.
     """
-    contacts = accuntmodel.objects.all().order_by('firstname')
+    # دریافت همه contact_idهایی که در پیام‌ها حضور دارند
+    contact_ids_with_message = set(
+        SentMessage.objects.values_list('contact_id', flat=True)
+    ) | set(
+        ReceivedMessage.objects.values_list('contact_id', flat=True)
+    )
+    # فقط contactهایی که id آن‌ها در مجموعه بالاست
+    contacts = accuntmodel.objects.filter(id__in=contact_ids_with_message).order_by('firstname')
     chat_list = []
 
     for contact in contacts:
@@ -218,7 +226,6 @@ def chat_list_view(request):
         'chat_list': chat_list,
     }
     return render(request, 'sms_app/chats.html', context)
-
 
 def fetch_incoming_sms(request):
     """
