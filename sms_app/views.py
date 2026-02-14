@@ -227,36 +227,41 @@ def chat_list_view(request):
     }
     return render(request, 'sms_app/chats.html', context)
 
+
+import requests
+from django.utils import timezone
+from django.http import JsonResponse
+from .models import ReceivedMessage
+from cantact_app.models import accuntmodel
+
+
 def fetch_incoming_sms(request):
-    """
-    دریافت پیامک‌های جدید از کاوه‌نگار و ذخیره در پایگاه داده
-    این ویو می‌تواند توسط Cron یا مدیریت دستی فراخوانی شود.
-    """
     try:
-        url = f"https://api.kavenegar.com/v1/{KAVENEGAR_API_KEY}/sms/receive.json"
+        # دقیقا مثل کد شما: درخواست POST با پارامترها در URL
+        url = "https://api.kavenegar.com/v1/527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D/sms/receive.json"
         params = {
-            'linenumber': KAVENEGAR_SENDER,
+            'linenumber': '9982003178',
             'isread': 0
         }
-        response = requests.get(url, params=params)
-        response.raise_for_status()
-        data = response.json()
+        # ارسال درخواست POST (همانطور که شما انجام داده‌اید)
+        res = requests.post(url, params=params)
+        r = res.json()
 
-        if data['result'] is not None and 'entries' in data['result']:
-            for entry in data['result']['entries']:
-                message = entry['message']
-                sender = entry['sender']
+        # اگر ساختار پاسخ حاوی entries باشد
+        if 'entries' in r:
+            for entry in r['entries']:
+                message = str(entry['message'])
+                sender = str(entry['sender'])
                 date = entry['date']
                 message_id = entry.get('messageid', None)
 
-                if message_id and ReceivedMessage.objects.filter(external_id=message_id).exists():
-                    continue
-
+                # پیدا کردن مخاطب بر اساس شماره
                 try:
                     contact = accuntmodel.objects.get(phonnumber=sender)
                 except accuntmodel.DoesNotExist:
                     contact = None
 
+                # ذخیره در ReceivedMessage
                 ReceivedMessage.objects.create(
                     contact=contact,
                     message_text=message,
@@ -265,10 +270,11 @@ def fetch_incoming_sms(request):
                     is_read=False,
                     external_id=message_id
                 )
-        return JsonResponse({'status': 'ok', 'detail': 'پیام‌های جدید دریافت شدند.'})
+            return JsonResponse({'status': 'ok', 'detail': 'پیام‌های جدید دریافت شدند.'})
+        else:
+            return JsonResponse({'status': 'error', 'detail': 'ساختار پاسخ نامعتبر است'})
     except Exception as e:
         return JsonResponse({'status': 'error', 'detail': str(e)})
-
 
 @csrf_exempt
 def ajax_get_new_messages(request, contact_id):
