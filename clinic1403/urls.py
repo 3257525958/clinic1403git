@@ -33,6 +33,7 @@ urlpatterns = [
     path('accountanc/', include('accountancy_app.urls')),
     path('sana/',include('accountancy_app.urls')),
     path('stor/', include('store_app.urls')),
+    path('sms/', include('sms_app.urls'))
     # path('image/', include('image_processing.urls')),
 ]
 
