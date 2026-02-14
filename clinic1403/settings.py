@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'file_app.apps.FileAppConfig',
     # 'image_processing.apps.ImageProcessingConfig'
     'django.contrib.humanize',
+    'sms_app',
 
 ]
 JALALI_DATE_DEFAULTS = {
@@ -119,22 +120,22 @@ WSGI_APPLICATION = 'clinic1403.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-
+#
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-
+#
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'd1403-6qbg_db',
+        'NAME': 'dataeox_db',
         'USER': 'root',
-        'PASSWORD': 'krOenXvXrTN8WwUpr57q',
-        'HOST': 'd1403-6-sjp-service',
+        'PASSWORD': 'tCeYFIebG35usnEGa3ir',
+        'HOST': 'data-kqj-service',
 
     }
 }
