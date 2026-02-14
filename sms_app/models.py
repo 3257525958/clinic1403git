@@ -39,6 +39,7 @@ class SentMessage(models.Model):
         ordering = ['-sent_at']
 
 
+
 class ReceivedMessage(models.Model):
     """ثبت پیامک‌های دریافتی"""
     contact = models.ForeignKey( accuntmodel, on_delete=models.CASCADE, verbose_name="مخاطب")

@@ -3,6 +3,7 @@ from . import views
 
 app_name = 'sms_app'
 
+
 urlpatterns = [
     path('send/', views.send_sms_view, name='send_sms'),
     path('chat/<int:contact_id>/', views.chat_view, name='chat'),
