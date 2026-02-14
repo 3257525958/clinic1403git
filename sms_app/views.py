@@ -13,6 +13,7 @@ from cantact_app.models import accuntmodel
 
 from .models import MessageTemplate, SentMessage, ReceivedMessage
 
+
 # ======================
 # تنظیمات کاوه‌نگار
 KAVENEGAR_API_KEY = '527064632B7931304866497A5376334B6B506734634E65422F627346514F59596C767475564D32656E61553D'
