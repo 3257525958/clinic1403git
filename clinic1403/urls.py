@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from . import settings
 
 
+
 admin.autodiscover()
 
 urlpatterns = [
